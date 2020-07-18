@@ -1,0 +1,10 @@
+-some kind of studio setup syystem
+	-collect gear to create configurations to help you in fights? 
+	-changes playstyle somehow
+		-different combat minigame for each piece of gear with mouse while left hand does beat drumming
+		-problems involved with having it sync up to track playing 
+		-vague equipment like limiter or maybe madeup names?
+			-Moog vox calibrator 
+				-keep a thing from overheating
+			-Roland harmonic disseminator
+				-sequence patterns or something

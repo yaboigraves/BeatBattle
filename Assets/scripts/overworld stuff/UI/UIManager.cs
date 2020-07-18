@@ -1,0 +1,115 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class UIManager : MonoBehaviour
+{
+    //trackinfo stuff 
+    public Text trackTitleText, trackArtistText, playerHealthText;
+    public TextRender dialogueRenderer;
+    public static UIManager current;
+    public GameObject dialoguePanel;
+    Text dialogueText;
+    public Player player;
+    Canvas canvas;
+    public CanvasGroup faderCanvas;
+    public float fadeTime;
+    //ui elements
+    public Text coinsText;
+    private void Awake()
+    {
+        if (current == null)
+        {
+            current = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+    void Start()
+    {
+        dialogueText = dialoguePanel.transform.GetChild(0).GetComponent<Text>();
+        coinsText.text = "Coins : 0";
+        faderCanvas.alpha = 0;
+    }
+
+    // Update is called once per frame
+    public void toggleCanvas()
+    {
+        canvas.enabled = !canvas.enabled;
+    }
+
+    Sentence[] npcText;
+    int currentNpcText;
+    //this is more like NPCStartTalk
+    public void NPCStartTalk(Sentence[] npcTextArg)
+    {
+        npcText = npcTextArg;
+        dialoguePanel.GetComponent<Image>().enabled = true;
+        dialogueRenderer.renderText(npcText[currentNpcText]);
+    }
+
+    public void NPCNextTalk()
+    {
+        currentNpcText++;
+        if (currentNpcText < npcText.Length)
+        {
+            dialogueRenderer.renderText(npcText[currentNpcText]);
+        }
+        else
+        {
+            leaveDialogue();
+        }
+    }
+
+    public void leaveDialogue()
+    {
+        //dialogueText.text = "";
+        currentNpcText = 0;
+        player.inDialogue = false;
+
+        //delete all text in the box
+        dialogueRenderer.clearText();
+
+        //dialoguePanel.SetActive(false);
+        dialoguePanel.GetComponent<Image>().enabled = false;
+
+    }
+
+    public void updateCurrentTrack(Track newTrack)
+    {
+        trackArtistText.text = newTrack.artist;
+        trackTitleText.text = newTrack.name;
+    }
+
+    public void updatePlayerHealthText(int newHealth)
+    {
+        playerHealthText.text = newHealth.ToString() + "/" + player.maxHealth;
+    }
+
+    IEnumerator screenWipeRoutine()
+    {
+        faderCanvas.alpha = 1;
+        yield return new WaitForSeconds(fadeTime);
+        faderCanvas.alpha = 0;
+    }
+
+    public void screenWipe()
+    {
+        StartCoroutine(screenWipeRoutine());
+    }
+
+    public void updateCoinsText(int numCoins)
+    {
+        coinsText.text = "coins : " + numCoins.ToString();
+    }
+
+    public void handleDialogChoices(int choice)
+    {
+        print("dialog option chosen " + choice.ToString());
+    }
+
+}

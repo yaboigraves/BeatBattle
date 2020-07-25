@@ -28,12 +28,12 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _SpecularFalloff: 0.05
-    - _SpecularSize: 0.04
-    - _StepAmount: 3
-    - _StepWidth: 0.34
+    - _SpecularFalloff: 0
+    - _SpecularSize: 0
+    - _StepAmount: 12
+    - _StepWidth: 0.1
     m_Colors:
-    - _Color: {r: 0.38431373, g: 0.4627451, b: 0.047058824, a: 1}
-    - _Emission: {r: 0.084905684, g: 0.084905684, b: 0.084905684, a: 1}
-    - _ShadowTint: {r: 0.32156864, g: 0.22352941, b: 0.023529412, a: 1}
+    - _Color: {r: 0.27647737, g: 0.46720153, b: 0.5377358, a: 1}
+    - _Emission: {r: 0.0007467831, g: 0.0006778493, b: 0, a: 1}
+    - _ShadowTint: {r: 0.37447608, g: 0, b: 0.5660378, a: 1}
     - _Specular: {r: 0.8039216, g: 0.7019608, b: 0.047058824, a: 1}

@@ -32,7 +32,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         dialogueText = dialoguePanel.transform.GetChild(0).GetComponent<Text>();
-        coinsText.text = "Coins : 0";
+        coinsText.text = "Skrilla : 0";
         faderCanvas.alpha = 0;
     }
 
@@ -54,15 +54,24 @@ public class UIManager : MonoBehaviour
 
     public void NPCNextTalk()
     {
-        currentNpcText++;
-        if (currentNpcText < npcText.Length)
+        //if the letters have all been rendered out
+        if (dialogueRenderer.sentenceRendered)
         {
-            dialogueRenderer.renderText(npcText[currentNpcText]);
+            currentNpcText++;
+            if (currentNpcText < npcText.Length)
+            {
+                dialogueRenderer.renderText(npcText[currentNpcText]);
+            }
+            else
+            {
+                leaveDialogue();
+            }
         }
         else
         {
-            leaveDialogue();
+            dialogueRenderer.renderRestOfLetters(npcText[currentNpcText], dialogueRenderer.letterIndex);
         }
+
     }
 
     public void leaveDialogue()
@@ -104,12 +113,21 @@ public class UIManager : MonoBehaviour
 
     public void updateCoinsText(int numCoins)
     {
-        coinsText.text = "coins : " + numCoins.ToString();
+        coinsText.text = "Skrilla: " + numCoins.ToString();
     }
 
     public void handleDialogChoices(int choice)
     {
         print("dialog option chosen " + choice.ToString());
-    }
 
+        currentNpcText++;
+        if (currentNpcText < npcText.Length)
+        {
+            dialogueRenderer.renderText(npcText[currentNpcText]);
+        }
+        else
+        {
+            leaveDialogue();
+        }
+    }
 }

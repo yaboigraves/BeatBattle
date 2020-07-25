@@ -26,43 +26,47 @@ public class EnemyMove : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
-        if (chasingPlayer && !SceneManage.current.inBattle)
+        //TODO: hacky short fix
+        if (!SceneManage.current.inBattle)
         {
-
-            transform.position = Vector3.MoveTowards(transform.position, playerPos.position, speed * Time.deltaTime);
-
-            //check where player is so we know when to rotate sprite 
-
-            if (transform.position.x > playerPos.position.x)
+            if (chasingPlayer && !SceneManage.current.inBattle)
             {
-                //to the right of player 
-                if (transform.rotation.y == 0)
+
+                transform.position = Vector3.MoveTowards(transform.position, playerPos.position, speed * Time.deltaTime);
+
+                //check where player is so we know when to rotate sprite 
+
+                if (transform.position.x > playerPos.position.x)
                 {
-                    StartCoroutine(LerpToRotation(180, 0.1f, 0.1f));
+                    //to the right of player 
+                    if (transform.rotation.y == 0)
+                    {
+                        StartCoroutine(LerpToRotation(180, 0.1f, 0.1f));
+                    }
+                }
+                else
+                {
+                    if (transform.rotation.y - 180 <= 0.001f)
+                    {
+                        StartCoroutine(LerpToRotation(0, 0.1f, 0.1f));
+                    }
                 }
             }
-            else
+
+            //if we're not chasing the player then we just patrol to the next patrol point
+            else if (!idle)
             {
-                if (transform.rotation.y - 180 <= 0.001f)
+                animator.SetBool("isMoving", true);
+                transform.position = Vector3.MoveTowards(transform.position, patrolRoute[currentPatrol].position, speed * Time.deltaTime);
+                //if we get within a certain tolerance value of the position
+                if (Mathf.Abs(Vector3.Distance(transform.position, patrolRoute[currentPatrol].position)) < patrolTolerance)
                 {
-                    StartCoroutine(LerpToRotation(0, 0.1f, 0.1f));
+                    //stand still for a sec, then this coroutine calls the goToNextWaypoint function
+                    StartCoroutine(standIdly());
                 }
             }
         }
 
-        //if we're not chasing the player then we just patrol to the next patrol point
-        else if (!idle)
-        {
-            animator.SetBool("isMoving", true);
-            transform.position = Vector3.MoveTowards(transform.position, patrolRoute[currentPatrol].position, speed * Time.deltaTime);
-            //if we get within a certain tolerance value of the position
-            if (Mathf.Abs(Vector3.Distance(transform.position, patrolRoute[currentPatrol].position)) < patrolTolerance)
-            {
-                //stand still for a sec, then this coroutine calls the goToNextWaypoint function
-                StartCoroutine(standIdly());
-            }
-        }
     }
 
     private void goToNextWaypoint()

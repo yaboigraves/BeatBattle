@@ -14,7 +14,7 @@ public class BattleManager : MonoBehaviour
 
     public bool playerTurn;
 
-    public GameObject enemy;
+    public BattleEnemy enemy;
 
 
     //battle ui obkjects 
@@ -36,11 +36,11 @@ public class BattleManager : MonoBehaviour
     void Start()
     {
         //spawn the enemy in and turn off their move function 
-        GameObject enemySpawned = Instantiate(SceneManage.current.enemyInBattle, enemy.transform.position, Quaternion.identity);
-        enemySpawned.GetComponent<EnemyMove>().enabled = false;
+        //GameObject enemySpawned = Instantiate(SceneManage.current.enemyInBattle, enemy.transform.position, Quaternion.identity);
+        //enemySpawned.GetComponent<EnemyMove>().enabled = false;
+        enemy.setEnemy(SceneManage.current.enemyInBattle);
 
         string trackname = TrackManager.current.currAudio.clip.name;
-
         //rather than doing this here, we just call a function that loops through a tracks kick and snares and do it here
         //ReadFile.current.readTextFile(@Application.dataPath + "/beatTracks/" + trackname + ".txt");
         SetupIndicators(TrackManager.current.currTrack);
@@ -80,6 +80,7 @@ public class BattleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //TODO: defer this to the inputhandler
         if (Input.GetKeyDown(KeyCode.Space) && !battleStarted)
         {
             battleStarted = true;
@@ -87,14 +88,11 @@ public class BattleManager : MonoBehaviour
         }
 
         //check for enemy death
-
-
     }
 
     void StartBattle()
     {
         TrackManager.current.UnPauseTrack();
-
         playerTurn = true;
     }
 

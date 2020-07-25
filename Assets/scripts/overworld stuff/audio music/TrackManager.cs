@@ -59,6 +59,7 @@ public class TrackManager : MonoBehaviour
 
         if (currAudio.clip != null && currAudio.time >= currAudio.clip.length)
         {
+            print("moving to next track");
             currentTrack = (currentTrack + 1) % backgroundAudioTracks.Length;
             UpdateCurrentTrack(backgroundAudioTracks[currentTrack]);
         }

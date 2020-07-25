@@ -17,55 +17,87 @@ public class Player : MonoBehaviour
     float verticalIn;
     public bool inDialogue;
 
-    [Range(1, 10)]
+    [Range(1, 100)]
     public float jumpVelocity;
     public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2f;
+    public float gravityScale = 1;
+
+    public float globalGravity = -1.81f;
+
+    Vector3 deltaPos;
+
+    public Transform spriteHolder;
+
 
     // Start is called before the first frame update
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         GameManager.current.setManagerReferences(this);
         //testing this to see how it works, may remove later 
         DontDestroyOnLoad(this.gameObject);
+        rb.useGravity = false;
+
+        //look for a playerspawner tag and go there
+        Transform playerSpawnPoint = GameObject.FindGameObjectWithTag("playerSpawn").transform;
     }
 
-    // Update is called once per frame
 
-    //input stuff 
-    void Update()
+    public void inputMoveCommand(Vector3 deltaPos)
     {
-        //TODO: boi
-        if (!inDialogue && !inBattle)
-        {
-            horizontalIn = Input.GetAxisRaw("Horizontal");
-            verticalIn = Input.GetAxisRaw("Vertical");
-
-            Vector3 deltaPos = new Vector3(horizontalIn, 0, verticalIn) * speed * Time.deltaTime;
-
-            rb.MovePosition(transform.position + deltaPos);
-
-            if (Input.GetKeyDown(KeyCode.D))
-            {
-                flip(0);
-            }
-            else if (Input.GetKeyDown(KeyCode.A))
-            {
-                flip(180);
-            }
-        }
-        GetInput();
+        this.deltaPos = deltaPos;
     }
+
+    public void Move(Vector3 deltaPos)
+    {
+        deltaPos *= (speed * Time.deltaTime);
+        rb.MovePosition(transform.position + deltaPos);
+        //transform.position = Vector3.MoveTowards(transform.position, transform.position + deltaPos, 0.1f);
+
+    }
+
+    public void enterDialogue()
+    {
+        inDialogue = true;
+        deltaPos = Vector3.zero;
+    }
+
+    public void enterBattle()
+    {
+        inBattle = true;
+        deltaPos = Vector3.zero;
+    }
+
 
     private void FixedUpdate()
     {
-        Vector3 deltaPos = new Vector3(horizontalIn, 0, verticalIn) * speed * Time.deltaTime;
-        // transform.position = Vector3.MoveTowards(transform.position, transform.position + deltaPos, 0.2f);
-        // transform.Translate(deltaPos);
+
+        Move(deltaPos);
+
+        //better jump code
+        if (rb.velocity.y < 0)
+        {
+            //rb.velocity += new Vector3(rb.velocity.x, Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime, rb.velocity.z);
+            gravityScale = fallMultiplier;
+        }
+        else if (rb.velocity.y > 0 && !Input.GetButton("Jump"))
+        {
+            //rb.velocity += new Vector3(rb.velocity.x, Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime, rb.velocity.z);
+            gravityScale = lowJumpMultiplier;
+        }
+        else
+        {
+            gravityScale = 1;
+        }
+
+        //custom gravity
+        Vector3 gravity = globalGravity * gravityScale * Vector3.up;
+        rb.AddForce(gravity, ForceMode.Acceleration);
     }
 
-    void clearObjectsInRange()
+    public void clearObjectsInRange()
     {
         for (int i = 0; i < interactRange.objectsInRange.Count; i++)
         {
@@ -77,60 +109,13 @@ public class Player : MonoBehaviour
     }
 
     //controls stuff 
-    void GetInput()
+
+    public void jump()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            //clear the list of any missing game objects or fucked up references
-            clearObjectsInRange();
-
-            //check if we're already interacting with something 
-
-            if (inDialogue)
-            {
-                //go to the next dialogue 
-                if (UIManager.current == null)
-                {
-                    print("no ui manager");
-                }
-                UIManager.current.NPCNextTalk();
-            }
-
-
-            else if (interactRange.objectsInRange.Count > 0)
-            {
-                interactRange.objectsInRange[0].GetComponent<IInteractable>().Interact();
-
-                if (interactRange.objectsInRange.Count > 0 && interactRange.objectsInRange[0].GetComponent<NPC>() != null)
-                {
-                    inDialogue = true;
-                }
-            }
-        }
-
-
-        //process the jump
-        if (Input.GetButtonDown("Jump") && playerRoot.onGround)
-        {
-            rb.velocity = new Vector3(rb.velocity.x, jumpVelocity, rb.velocity.z);
-        }
-
-        //better jump code
-
-        if (rb.velocity.y < 0)
-        {
-
-            rb.velocity += new Vector3(rb.velocity.x, Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime, rb.velocity.z);
-        }
-        else if (rb.velocity.y > 0 && !Input.GetButton("Jump"))
-        {
-
-            rb.velocity += new Vector3(rb.velocity.x, Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime, rb.velocity.z);
-        }
+        rb.AddForce(new Vector3(rb.velocity.x, jumpVelocity, rb.velocity.z), ForceMode.Impulse);
     }
 
-
-    void flip(float rotation)
+    public void flip(float rotation)
     {
         StartCoroutine(LerpToRotation(rotation, 0.1f, 0.1f));
     }
@@ -155,5 +140,4 @@ public class Player : MonoBehaviour
         }
         transform.rotation = Quaternion.Euler(0f, endRotation, 0f);
     }
-
 }

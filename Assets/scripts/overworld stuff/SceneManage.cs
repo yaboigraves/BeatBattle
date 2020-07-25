@@ -34,6 +34,8 @@ public class SceneManage : MonoBehaviour
 
     public void TransitionToBattle(GameObject enemy, Track battleTrack)
     {
+        inBattle = true;
+        enemyInBattle = enemy;
 
         if (mainCamera == null)
         {
@@ -44,10 +46,9 @@ public class SceneManage : MonoBehaviour
         UIManager.current.screenWipe();
         cameraReturnPosition = mainCamera.transform.position;
         mainCamera.gameObject.SetActive(false);
-        print(battleTrack);
 
-        inBattle = true;
-        enemyInBattle = enemy;
+
+
 
         //pause the overworld(audio)
         playerHealth = player.health;
@@ -61,7 +62,7 @@ public class SceneManage : MonoBehaviour
         TrackManager.current.UpdateCurrentTrack(battleTrack);
         TrackManager.current.inBattle = true;
 
-        player.inBattle = true;
+        player.enterBattle();
         //turn off the main camera so it doesnt warp to follow the player into the battle
     }
 
@@ -97,5 +98,6 @@ public class SceneManage : MonoBehaviour
     public void spawnPlayer()
     {
         player.interactRange.objectsInRange.Clear();
+        player.transform.position = GameObject.FindGameObjectWithTag("playerSpawn").transform.position;
     }
 }

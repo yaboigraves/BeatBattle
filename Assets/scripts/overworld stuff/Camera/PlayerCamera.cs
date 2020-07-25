@@ -12,6 +12,7 @@ public class PlayerCamera : MonoBehaviour
     {
         myCamera = GetComponent<CinemachineVirtualCamera>();
 
+        //TODO: game manager tells the camera manager this
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
 
         CameraManager.current.transferCamera(myCamera);

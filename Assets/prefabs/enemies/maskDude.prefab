@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 4756209533782033212}
   m_Layer: 0
   m_Name: AggroRange
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -296,11 +296,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79dcb58c42977a24e95a3f9c381bc66c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
-  maxHealth: 5
+  health: 20
+  maxHealth: 20
   battleTracks:
   - {fileID: 0}
   - {fileID: 0}
+  enemyName: 
 --- !u!114 &4756209535108890660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -315,8 +316,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPos: {fileID: 0}
   chasingPlayer: 0
+  idle: 0
   speed: 2
-  patrolRoute: []
+  patrolRoute:
+  - {fileID: 0}
+  - {fileID: 0}
   patrolTolerance: 0.3
 --- !u!65 &4756209535108890715
 BoxCollider:

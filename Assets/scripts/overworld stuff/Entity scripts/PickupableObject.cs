@@ -7,7 +7,7 @@ public class PickupableObject : MonoBehaviour, IPickupable
     public LeanTweenType easeType;
     void Start()
     {
-        LeanTween.moveY(gameObject, 1f, 1f).setLoopPingPong().setEase(easeType);
+        LeanTween.moveY(gameObject, transform.position.y + 1, 1f).setLoopPingPong().setEase(easeType);
     }
 
 

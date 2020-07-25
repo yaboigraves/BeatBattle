@@ -20,8 +20,13 @@ public class Enemy : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             //TODO: remember to re enable this if the player flees fighting
-            col.enabled = false;
-            SceneManage.current.TransitionToBattle(this.gameObject, battleTracks[Random.Range(0, battleTracks.Length)]);
+            //make sure we're not already in a battle
+            if (!SceneManage.current.inBattle)
+            {
+                col.enabled = false;
+                SceneManage.current.TransitionToBattle(this.gameObject, battleTracks[Random.Range(0, battleTracks.Length)]);
+
+            }
 
         }
     }

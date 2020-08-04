@@ -91,7 +91,7 @@ public class UIManager : MonoBehaviour
     public void updateCurrentTrack(Track newTrack)
     {
         trackArtistText.text = newTrack.artist;
-        trackTitleText.text = newTrack.name;
+        trackTitleText.text = newTrack.trackName;
     }
 
     public void updatePlayerHealthText(int newHealth)

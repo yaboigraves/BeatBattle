@@ -48,6 +48,8 @@ public class BattleManager : MonoBehaviour
         changeTurn();
     }
 
+
+    //TODO: this needs to just take in a string for the trackname, it then needs to look into the folder with all the json objects 
     void SetupIndicators(Track track)
     {
         //creates 5 loops

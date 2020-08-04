@@ -8,11 +8,14 @@ using UnityEngine;
 
 public class TrackManager : MonoBehaviour
 {
+    public string[] backgroundAudioTrackJsons;
     public static TrackManager current;
 
     public Track[] backgroundAudioTracks;
     public Track[] battleAudioTracks;
     public AudioSource currAudio;
+
+    public Track currTrack;
 
     public string currentTrackName, currentTrackArtist;
     public float currentBpm;
@@ -29,7 +32,7 @@ public class TrackManager : MonoBehaviour
     public int battleBarsPerTurn = 2;
     int battleTurn;
 
-    public Track currTrack;
+   
 
     // Start is called before the first frame update
 
@@ -49,8 +52,13 @@ public class TrackManager : MonoBehaviour
     void Start()
     {
         currAudio = GetComponent<AudioSource>();
-        print(backgroundAudioTracks[currentTrack].audioSource);
-        UpdateCurrentTrack(backgroundAudioTracks[currentTrack]);
+        //print(backgroundAudioTracks[currentTrack].audioSource);
+        Track testTrack = TrackJsonParser.parseJSON(backgroundAudioTrackJsons[0]);
+        currTrack = testTrack;
+
+        //print(currTrack);
+        //UpdateCurrentTrack(backgroundAudioTracks[currentTrack]);
+        UpdateCurrentTrack(currTrack);
     }
 
     // Update is called once per frame
@@ -59,6 +67,7 @@ public class TrackManager : MonoBehaviour
 
         if (currAudio.clip != null && currAudio.time >= currAudio.clip.length)
         {
+  
             print("moving to next track");
             currentTrack = (currentTrack + 1) % backgroundAudioTracks.Length;
             UpdateCurrentTrack(backgroundAudioTracks[currentTrack]);
@@ -95,10 +104,29 @@ public class TrackManager : MonoBehaviour
 
     public void UpdateCurrentTrack(Track newTrack)
     {
-        //StopCoroutine(beatTick());
-        print(newTrack.audioSource.clip);
-        currAudio.clip = newTrack.audioSource.clip;
-        currentTrackName = newTrack.name;
+
+        print(newTrack.trackName);
+        //TODO: filestructure will need to be organized based on level
+
+        string path;
+
+        if(newTrack.isBattleTrack){
+            path = @Application.dataPath + "/audio/battleTracks/" + newTrack.trackName + ".wav";
+        }
+        else{
+            path = @Application.dataPath + "/audio/backgroundTracks/" + newTrack.trackName + ".wav";
+        }
+
+        //print(path);
+    
+        AudioClip audioClip = WavUtility.ToAudioClip (path);
+        //print(audioClip.length);
+      
+        currAudio.clip = audioClip;
+    
+        //print(newTrack.audioSource.clip);
+        //currAudio.clip = newTrack.audioSource.clip;
+        currentTrackName = newTrack.trackName;
         currentTrackArtist = newTrack.artist;
         currentBpm = newTrack.bpm;
         currAudio.Play();
@@ -112,6 +140,7 @@ public class TrackManager : MonoBehaviour
         currTrack = newTrack;
     }
 
+    //TODO: fix this shit
     public void playRandomBackgroundTrack()
     {
         currentTrack = Random.Range(0, backgroundAudioTracks.Length);

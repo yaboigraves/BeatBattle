@@ -48,8 +48,6 @@ public class SceneManage : MonoBehaviour
         mainCamera.gameObject.SetActive(false);
 
 
-
-
         //pause the overworld(audio)
         playerHealth = player.health;
         playerMaxHealth = player.maxHealth;

@@ -59,6 +59,7 @@ public class SceneManage : MonoBehaviour
 
         TrackManager.current.UpdateCurrentTrack(battleTrack);
         TrackManager.current.inBattle = true;
+        TrackManager.current.StopCurrentTrack();
 
         player.enterBattle();
         //turn off the main camera so it doesnt warp to follow the player into the battle

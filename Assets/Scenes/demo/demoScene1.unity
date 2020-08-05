@@ -381,34 +381,9 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4756209535108890660, guid: 3ec9d7641eab0c8489c258cb712e318e,
         type: 3}
-      propertyPath: patrolRoute.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4756209535108890660, guid: 3ec9d7641eab0c8489c258cb712e318e,
-        type: 3}
-      propertyPath: patrolRoute.Array.data[2]
-      value: 
-      objectReference: {fileID: 978432240}
-    - target: {fileID: 4756209535108890660, guid: 3ec9d7641eab0c8489c258cb712e318e,
-        type: 3}
       propertyPath: patrolRoute.Array.data[0]
       value: 
       objectReference: {fileID: 978432240}
-    - target: {fileID: 4756209535108890661, guid: 3ec9d7641eab0c8489c258cb712e318e,
-        type: 3}
-      propertyPath: battleTrackJsons.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4756209535108890661, guid: 3ec9d7641eab0c8489c258cb712e318e,
-        type: 3}
-      propertyPath: battleTracks.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4756209535108890661, guid: 3ec9d7641eab0c8489c258cb712e318e,
-        type: 3}
-      propertyPath: battleTrackJsons.Array.data[0]
-      value: cunty.json
-      objectReference: {fileID: 0}
     - target: {fileID: 4756209535108890713, guid: 3ec9d7641eab0c8489c258cb712e318e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -471,6 +446,54 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ec9d7641eab0c8489c258cb712e318e, type: 3}
+--- !u!1 &479415333
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 479415335}
+  - component: {fileID: 479415334}
+  m_Layer: 10
+  m_Name: post processing
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &479415334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479415333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 11400000, guid: 7b1c204f66ffd2d45a229a302756353b, type: 2}
+  isGlobal: 1
+  blendDistance: 0
+  weight: 1
+  priority: 0
+--- !u!4 &479415335
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479415333}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 42.74142, y: 1.217652, z: 7.7542214}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &585775992
 GameObject:
   m_ObjectHideFlags: 0
@@ -1600,8 +1623,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8495102063570293043, guid: 35794f01adbfc7141b06bdcef0916d25,
         type: 3}
+      propertyPath: backgroundAudioTrackJsons.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8495102063570293043, guid: 35794f01adbfc7141b06bdcef0916d25,
+        type: 3}
       propertyPath: backgroundAudioTrackJsons.Array.data[0]
       value: madlibTrack.json
+      objectReference: {fileID: 0}
+    - target: {fileID: 8495102063570293043, guid: 35794f01adbfc7141b06bdcef0916d25,
+        type: 3}
+      propertyPath: backgroundAudioTrackJsons.Array.data[1]
+      value: dreamChild.json
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1997807962, guid: 35794f01adbfc7141b06bdcef0916d25, type: 3}

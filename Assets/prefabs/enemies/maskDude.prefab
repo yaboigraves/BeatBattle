@@ -206,6 +206,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -262,9 +263,10 @@ MonoBehaviour:
   - {fileID: 4756209535197180854}
   - {fileID: 4756209533454435994}
   m_Bounds:
-    m_Center: {x: -0.37521005, y: 3.959462, z: 0}
-    m_Extent: {x: 3.4227896, y: 5.587501, z: 0}
+    m_Center: {x: -0.21739602, y: -0.18693519, z: 0}
+    m_Extent: {x: 2.160953, y: 3.438693, z: 0}
   m_UseBatching: 1
+  m_AlwaysUpdate: 1
 --- !u!95 &4756209535108890714
 Animator:
   serializedVersion: 3
@@ -298,10 +300,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 20
   maxHealth: 20
-  battleTracks:
-  - {fileID: 0}
-  - {fileID: 0}
+  battleTracks: []
   enemyName: 
+  battleTrackJsons:
+  - cunty.json
 --- !u!114 &4756209535108890660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -319,7 +321,6 @@ MonoBehaviour:
   idle: 0
   speed: 2
   patrolRoute:
-  - {fileID: 0}
   - {fileID: 0}
   patrolTolerance: 0.3
 --- !u!65 &4756209535108890715

@@ -9,6 +9,5 @@ public class Door : MonoBehaviour, IInteractable
     public void Interact()
     {
         SceneManage.current.loadInterior(goesToScene);
-
     }
 }

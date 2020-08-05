@@ -10,38 +10,26 @@ public class TrackManager : MonoBehaviour
 {
     public string[] backgroundAudioTrackJsons;
     public static TrackManager current;
-
     public Track[] backgroundAudioTracks;
     public Track[] battleAudioTracks;
     public AudioSource currAudio;
-
     public Track currTrack;
-
-    public string currentTrackName, currentTrackArtist;
     public float currentBpm;
-
     public int currentTrack = 0;
-
     public bool paused;
-
     public float bpmTimer, beatDeltaTime;
     public int beat;
-
     public bool inBattle;
-
     public int battleBarsPerTurn = 2;
     int battleTurn;
-
-   
-
-    // Start is called before the first frame update
+    Coroutine songRoutine;
 
     void Awake()
     {
         if (current == null)
         {
             current = this;
-            //DontDestroyOnLoad(this.gameObject);
+            currAudio = GetComponent<AudioSource>();
         }
         else
         {
@@ -51,30 +39,29 @@ public class TrackManager : MonoBehaviour
 
     void Start()
     {
-        currAudio = GetComponent<AudioSource>();
-        //print(backgroundAudioTracks[currentTrack].audioSource);
+        InitTracks();
+
         Track testTrack = TrackJsonParser.parseJSON(backgroundAudioTrackJsons[0]);
         currTrack = testTrack;
 
-        //print(currTrack);
-        //UpdateCurrentTrack(backgroundAudioTracks[currentTrack]);
-        UpdateCurrentTrack(currTrack);
+        UpdateCurrentTrack(backgroundAudioTracks[currentTrack]);
     }
 
-    // Update is called once per frame
+
+    void InitTracks()
+    {
+        backgroundAudioTracks = new Track[backgroundAudioTrackJsons.Length];
+        for (int i = 0; i < backgroundAudioTrackJsons.Length; i++)
+        {
+            backgroundAudioTracks[i] = TrackJsonParser.parseJSON(backgroundAudioTrackJsons[i]);
+        }
+    }
+
+
     void Update()
     {
-
-        if (currAudio.clip != null && currAudio.time >= currAudio.clip.length)
-        {
-  
-            print("moving to next track");
-            currentTrack = (currentTrack + 1) % backgroundAudioTracks.Length;
-            UpdateCurrentTrack(backgroundAudioTracks[currentTrack]);
-        }
-
-
         //TODO: fix this ugly god forsaken mess
+        //probably redoable with coroutine
         if (!paused)
         {
             bpmTimer += Time.deltaTime;
@@ -102,48 +89,50 @@ public class TrackManager : MonoBehaviour
         }
     }
 
+    public IEnumerator playSong()
+    {
+        currAudio.Play();
+        yield return new WaitForSeconds(currAudio.clip.length);
+
+        //for now it just picks a random track afterwords
+        playRandomBackgroundTrack();
+    }
+
     public void UpdateCurrentTrack(Track newTrack)
     {
-
-        print(newTrack.trackName);
-        //TODO: filestructure will need to be organized based on level
-
         string path;
 
-        if(newTrack.isBattleTrack){
-            path = @Application.dataPath + "/audio/battleTracks/" + newTrack.trackName + ".wav";
+        if (newTrack.isBattleTrack)
+        {
+            path = "audio/battleTracks/";
         }
-        else{
-            path = @Application.dataPath + "/audio/backgroundTracks/" + newTrack.trackName + ".wav";
+        else
+        {
+            path = "audio/backgroundTracks/";
         }
 
-        //print(path);
-    
-        AudioClip audioClip = WavUtility.ToAudioClip (path);
-        //print(audioClip.length);
-      
+        AudioClip audioClip = (AudioClip)Resources.Load(path + newTrack.trackName);
+
         currAudio.clip = audioClip;
-    
-        //print(newTrack.audioSource.clip);
-        //currAudio.clip = newTrack.audioSource.clip;
-        currentTrackName = newTrack.trackName;
-        currentTrackArtist = newTrack.artist;
+        currTrack = newTrack;
+
         currentBpm = newTrack.bpm;
-        currAudio.Play();
-        //tell the ui manager to update
+
+        songRoutine = StartCoroutine(playSong());
+
         UIManager.current.updateCurrentTrack(newTrack);
 
         beatDeltaTime = (1 / currentBpm) * 60;
         bpmTimer = 0;
         beat = 0;
-        //StartCoroutine(beatTick());
-        currTrack = newTrack;
     }
 
-    //TODO: fix this shit
+    //so the problem is there's literally nothing in the background audio tracks
+    //going to need to setup this array based on all the shit in the jsons array
     public void playRandomBackgroundTrack()
     {
         currentTrack = Random.Range(0, backgroundAudioTracks.Length);
+
         UpdateCurrentTrack(backgroundAudioTracks[currentTrack]);
     }
 
@@ -157,6 +146,11 @@ public class TrackManager : MonoBehaviour
     {
         currAudio.UnPause();
         paused = false;
+    }
+
+    public void StopCurrentTrack()
+    {
+        StopCoroutine(songRoutine);
     }
 }
 

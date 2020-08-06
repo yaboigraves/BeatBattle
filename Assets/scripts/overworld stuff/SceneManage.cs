@@ -79,6 +79,8 @@ public class SceneManage : MonoBehaviour
         Destroy(enemyInBattle.gameObject);
 
         TrackManager.current.inBattle = false;
+        print("leaving battle");
+        TrackManager.current.playRandomBackgroundTrack();
     }
 
     public void loadInterior(string sceneName)

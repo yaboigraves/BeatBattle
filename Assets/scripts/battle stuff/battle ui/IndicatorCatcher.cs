@@ -10,13 +10,13 @@ public class IndicatorCatcher : MonoBehaviour
         {
             if (!BattleManager.current.playerTurn)
             {
-                print("player takes damage");
+                //print("player takes damage");
                 BattleManager.current.playerTakeDamage(1);
                 Destroy(other.gameObject);
             }
             else
             {
-                print("player loses swing");
+                //print("player loses swing");
                 Destroy(other.gameObject);
             }
         }

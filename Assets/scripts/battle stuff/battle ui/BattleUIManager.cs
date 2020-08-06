@@ -38,8 +38,8 @@ public class BattleUIManager : MonoBehaviour
 
     public void updatePlayerHealth(int newHealth)
     {
-        print("max pl he");
-        print(maxPlayerHealth);
+        //print("max pl he");
+        //print(maxPlayerHealth);
         playerHealthText.text = newHealth.ToString() + "/" + maxPlayerHealth.ToString();
     }
 

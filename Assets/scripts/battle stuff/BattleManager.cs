@@ -48,7 +48,6 @@ public class BattleManager : MonoBehaviour
         changeTurn();
     }
 
-
     //TODO: this needs to just take in a string for the trackname, it then needs to look into the folder with all the json objects 
     void SetupIndicators(Track track)
     {
@@ -94,8 +93,14 @@ public class BattleManager : MonoBehaviour
 
     void StartBattle()
     {
-        TrackManager.current.UnPauseTrack();
+        //TrackManager.current.UnPauseTrack();
+        //TrackManager.current.StartBattle();
+        //for now this just plays the song but this is going to get moved to a battletrack manager
+
         playerTurn = true;
+        BattleTrackManager.current.StartBattle();
+
+
     }
 
     public void processPadHit(bool hit)
@@ -109,7 +114,7 @@ public class BattleManager : MonoBehaviour
             }
             else
             {
-                print("u missed lol");
+                //print("u missed lol");
             }
 
         }
@@ -118,7 +123,7 @@ public class BattleManager : MonoBehaviour
             if (hit)
             {
                 //u dont take damage
-                print("block");
+                //print("block");
             }
             else
             {
@@ -135,6 +140,7 @@ public class BattleManager : MonoBehaviour
         {
             SceneManage.current.LeaveBattle();
             TrackManager.current.playRandomBackgroundTrack();
+            playerHealth = playerMaxHealth;
         }
         BattleUIManager.current.updatePlayerHealth(playerHealth);
     }

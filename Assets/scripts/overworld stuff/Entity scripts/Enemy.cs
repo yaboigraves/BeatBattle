@@ -18,7 +18,8 @@ public class Enemy : MonoBehaviour
         //TODO: load all the battletracks from the jsons
         //create a static class for this 
         battleTracks = new Track[battleTrackJsons.Length];
-        for(int i = 0; i < battleTrackJsons.Length; i++){
+        for (int i = 0; i < battleTrackJsons.Length; i++)
+        {
             battleTracks[i] = TrackJsonParser.parseJSON(battleTrackJsons[i]);
         }
     }

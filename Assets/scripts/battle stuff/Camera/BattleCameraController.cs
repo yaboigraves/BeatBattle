@@ -57,14 +57,14 @@ public class BattleCameraController : MonoBehaviour
         if (playerCam.activeSelf == true)
         {
 
-            print("looking at enemy now");
+            //print("looking at enemy now");
             playerCam.SetActive(false);
             enemyCam.SetActive(true);
         }
 
         else
         {
-            print("looking at player now");
+            //print("looking at player now");
             enemyCam.SetActive(true);
             playerCam.SetActive(false);
         }

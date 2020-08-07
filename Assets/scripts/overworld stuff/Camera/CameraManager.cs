@@ -26,6 +26,4 @@ public class CameraManager : MonoBehaviour
         currentCamera = camera;
         setCameraFollow(GameManager.current.playerObj.transform);
     }
-
-
 }

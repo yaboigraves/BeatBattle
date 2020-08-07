@@ -488,6 +488,25 @@ Transform:
   m_Father: {fileID: 1862036536}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &242544036 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 300009355, guid: 35794f01adbfc7141b06bdcef0916d25,
+    type: 3}
+  m_PrefabInstance: {fileID: 1537695856}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &242544037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 242544036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c39a4d767aa51c49be6d4079900a68c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentCamera: {fileID: 0}
 --- !u!1001 &460493737
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1666,7 +1685,7 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 10
+  m_Priority: 5
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
@@ -1710,19 +1729,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 881023038, guid: 35794f01adbfc7141b06bdcef0916d25, type: 3}
       propertyPath: field of view
-      value: 40
+      value: 47
       objectReference: {fileID: 0}
     - target: {fileID: 881023039, guid: 35794f01adbfc7141b06bdcef0916d25, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 20.6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 881023039, guid: 35794f01adbfc7141b06bdcef0916d25, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 881023039, guid: 35794f01adbfc7141b06bdcef0916d25, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -15.45
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1417794323, guid: 35794f01adbfc7141b06bdcef0916d25, type: 3}
       propertyPath: m_RootOrder

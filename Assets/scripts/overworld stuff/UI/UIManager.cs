@@ -59,36 +59,27 @@ public class UIManager : MonoBehaviour
         dialoguePanel.GetComponent<Image>().enabled = true;
         dialogueRenderer.renderText(npcText[currentNpcText]);
 
-        checkCameraUpdate();
-    }
+        DialogCameraController.current.InitDialogCamera(currentDialogue);
 
-    void checkCameraUpdate()
-    {
-        if (currentDialogue.sentenceCameras.ContainsKey(currentNpcText))
-        {
-            if (activeDialogCamera != null)
-            {
-                activeDialogCamera.Priority = 0;
-            }
-
-            activeDialogCamera = currentDialogue.sentenceCameras[currentNpcText];
-            activeDialogCamera.Priority = 11;
-
-        }
+        //DialogCameraController.current.checkCameraUpdate(currentDialogue, currentNpcText);
     }
 
     public void NPCNextTalk()
     {
-        checkCameraUpdate();
+
         //check the dialogue and see if this is an index that has a cinemachine
 
-
         //if the letters have all been rendered out
+        //MOVE TO THE NEXT BIT OF DIALOG
+
+
         if (dialogueRenderer.sentenceRendered)
         {
+
             currentNpcText++;
             if (currentNpcText < npcText.Length)
             {
+                DialogCameraController.current.checkCameraUpdate(currentDialogue, currentNpcText);
                 dialogueRenderer.renderText(npcText[currentNpcText]);
             }
             else
@@ -96,21 +87,20 @@ public class UIManager : MonoBehaviour
                 leaveDialogue();
             }
         }
+
+        //render the rest of the dialog
         else
         {
+            DialogCameraController.current.checkCameraUpdate(currentDialogue, currentNpcText);
             dialogueRenderer.renderRestOfLetters(npcText[currentNpcText], dialogueRenderer.letterIndex);
         }
+
     }
 
     public void leaveDialogue()
     {
+        DialogCameraController.current.StopDialogCamera();
 
-        if (activeDialogCamera)
-        {
-            activeDialogCamera.Priority = 0;
-            activeDialogCamera = null;
-        }
-        //dialogueText.text = "";
         currentNpcText = 0;
         player.inDialogue = false;
 
@@ -119,7 +109,6 @@ public class UIManager : MonoBehaviour
 
         //dialoguePanel.SetActive(false);
         dialoguePanel.GetComponent<Image>().enabled = false;
-
 
     }
 

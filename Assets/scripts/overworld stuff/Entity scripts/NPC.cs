@@ -9,7 +9,7 @@ public class NPC : MonoBehaviour, IInteractable
     public void Interact()
     {
         //TODO: reimplement with setence object array
-        UIManager.current.NPCStartTalk(dialogue.sentences);
+        UIManager.current.NPCStartTalk(dialogue.sentences, dialogue);
     }
 
     private void Start()

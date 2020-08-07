@@ -17,7 +17,7 @@ public class InputHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
         horizontalIn = Input.GetAxisRaw("Horizontal");
         verticalIn = Input.GetAxisRaw("Vertical");
 
@@ -41,8 +41,6 @@ public class InputHandler : MonoBehaviour
                 }
                 UIManager.current.NPCNextTalk();
             }
-
-
             else if (player.interactRange.objectsInRange.Count > 0)
             {
                 player.interactRange.objectsInRange[0].GetComponent<IInteractable>().Interact();

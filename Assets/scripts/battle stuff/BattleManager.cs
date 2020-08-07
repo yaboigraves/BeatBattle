@@ -27,9 +27,21 @@ public class BattleManager : MonoBehaviour
     {
         current = this;
         // TrackManager.current.currAudio.Pause();
-        TrackManager.current.PauseTrack();
-        //find info for battle to start from the scene manager 
-        setPlayerEnemyHealth(SceneManage.current.playerHealth, SceneManage.current.playerMaxHealth, SceneManage.current.enemyHealth, SceneManage.current.enemyMaxHealth);
+
+        //this is for debugging, if theres no track manager that means launc shit in test mode
+        if (TrackManager.current == null)
+        {
+            //TODO: load some kind of presets so testing the battles is easier
+        }
+        else
+        {
+            TrackManager.current.PauseTrack();
+            //find info for battle to start from the scene manager 
+            setPlayerEnemyHealth(SceneManage.current.playerHealth, SceneManage.current.playerMaxHealth, SceneManage.current.enemyHealth, SceneManage.current.enemyMaxHealth);
+
+        }
+
+
 
     }
     // Start is called before the first frame update

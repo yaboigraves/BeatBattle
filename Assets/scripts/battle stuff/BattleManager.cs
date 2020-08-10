@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BattleManager : MonoBehaviour
 {
@@ -22,6 +23,9 @@ public class BattleManager : MonoBehaviour
     public Transform indicators;
     public GameObject kickIndicator;
 
+
+
+    public GameObject testEnemy;
 
     void Awake()
     {
@@ -47,15 +51,27 @@ public class BattleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //spawn the enemy in and turn off their move function 
-        //GameObject enemySpawned = Instantiate(SceneManage.current.enemyInBattle, enemy.transform.position, Quaternion.identity);
-        //enemySpawned.GetComponent<EnemyMove>().enabled = false;
-        enemy.setEnemy(SceneManage.current.enemyInBattle);
 
-        string trackname = TrackManager.current.currAudio.clip.name;
-        //rather than doing this here, we just call a function that loops through a tracks kick and snares and do it here
-        //ReadFile.current.readTextFile(@Application.dataPath + "/beatTracks/" + trackname + ".txt");
-        SetupIndicators(TrackManager.current.currTrack);
+
+        //check if we're in testmode (which means theirs no scene manager present)
+
+        if (SceneManage.current == null)
+        {
+            //use the testing enemy and the backup track that was loaded in the battle track manager
+            enemy.setEnemy(testEnemy);
+            SetupIndicators(BattleTrackManager.current.currentTrack);
+
+            setPlayerEnemyHealth(10, 10, testEnemy.GetComponent<Enemy>().health, testEnemy.GetComponent<Enemy>().maxHealth);
+
+        }
+
+        else
+        {
+            //spawn the enemy in and turn off their move function 
+            enemy.setEnemy(SceneManage.current.enemyInBattle);
+
+            SetupIndicators(TrackManager.current.currTrack);
+        }
 
         changeTurn();
     }
@@ -150,9 +166,20 @@ public class BattleManager : MonoBehaviour
 
         if (playerHealth <= 0)
         {
-            SceneManage.current.LeaveBattle();
-            TrackManager.current.playRandomBackgroundTrack();
-            playerHealth = playerMaxHealth;
+
+            //check if we're in test mode if we are just reload the scene
+
+            if (SceneManage.current == null)
+            {
+                SceneManager.LoadScene("BattleScene", LoadSceneMode.Single);
+            }
+            else
+            {
+                SceneManage.current.LeaveBattle();
+                TrackManager.current.playRandomBackgroundTrack();
+                playerHealth = playerMaxHealth;
+            }
+
         }
         BattleUIManager.current.updatePlayerHealth(playerHealth);
     }
@@ -163,12 +190,18 @@ public class BattleManager : MonoBehaviour
 
         if (enemyHealth <= 0)
         {
-            //unload the battle scene (do this after a fade or something next time)
-            SceneManage.current.LeaveBattle();
-            //theres gonna be a lot more steps here, going to need to stop the battle song, start another one, and destroy the enemy
-            TrackManager.current.playRandomBackgroundTrack();
+            if (SceneManage.current == null)
+            {
+                SceneManager.LoadScene("BattleScene", LoadSceneMode.Single);
+            }
+            else
+            {
+                //unload the battle scene (do this after a fade or something next time)
+                SceneManage.current.LeaveBattle();
+                //theres gonna be a lot more steps here, going to need to stop the battle song, start another one, and destroy the enemy
+                TrackManager.current.playRandomBackgroundTrack();
+            }
         }
-
         BattleUIManager.current.updateEnemyHealth(enemyHealth);
     }
 

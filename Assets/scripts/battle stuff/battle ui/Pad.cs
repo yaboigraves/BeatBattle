@@ -21,7 +21,7 @@ public class Pad : MonoBehaviour
 
         if (Input.GetKeyDown(binding) || MidiJack.MidiMaster.GetKeyDown(midiKeyNum))
         {
-            print("yeet");
+            //print("yeet");
             if (indicator != null)
             {
                 //print("hit");

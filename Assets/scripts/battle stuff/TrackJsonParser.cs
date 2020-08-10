@@ -20,12 +20,13 @@ public static class TrackJsonParser
     //snarebeats : array
 
 
-    public static Track parseJSON(string trackname){
+    public static Track parseJSON(string trackname)
+    {
         string path = @Application.dataPath + "/audio/trackJsons/" + trackname;
         StreamReader reader = new StreamReader(path);
         string trackJson = reader.ReadToEnd();
         reader.Close();
-        
+
         TrackJson trackJ = JsonUtility.FromJson<TrackJson>(trackJson);
 
         //could maybe make a constructor for this but do that later once it works
@@ -34,7 +35,8 @@ public static class TrackJsonParser
         track.trackName = trackJ.trackname;
         track.isBattleTrack = trackJ.isBattleTrack;
 
-        if(track.isBattleTrack){
+        if (track.isBattleTrack)
+        {
             track.bpm = trackJ.bpm;
             track.numBars = trackJ.numbars;
             track.kickBeats = trackJ.kickbeats.ToList();

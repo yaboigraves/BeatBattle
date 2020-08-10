@@ -31,7 +31,6 @@ public class EnemyMove : MonoBehaviour
         {
             if (chasingPlayer && !SceneManage.current.inBattle)
             {
-
                 transform.position = Vector3.MoveTowards(transform.position, playerPos.position, speed * Time.deltaTime);
 
                 //check where player is so we know when to rotate sprite 

@@ -10,4 +10,5 @@ public class Sentence
     // [TextArea(3, 10)]
     public string text;
     public string[] responses;
+
 }

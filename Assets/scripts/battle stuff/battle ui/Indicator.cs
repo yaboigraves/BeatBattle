@@ -11,12 +11,13 @@ public class Indicator : MonoBehaviour
 
     void Awake()
     {
-        bpm = TrackManager.current.currentBpm;
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        bpm = BattleTrackManager.current.currentBpm;
         moveSpeed = bpm / 60;
     }
 

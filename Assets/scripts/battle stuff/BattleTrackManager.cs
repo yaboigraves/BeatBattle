@@ -14,20 +14,36 @@ public class BattleTrackManager : MonoBehaviour
     public bool paused;
     public int battleBarsPerTurn = 2;
     int battleTurn;
+    public string testingJsons;
 
+    public float currentBpm;
     private void Awake()
     {
         current = this;
-        //look and grab the current track
-        currentTrack = TrackManager.current.currTrack;
-        //load the track
         audioSource = GetComponent<AudioSource>();
-        AudioClip audioClip = (AudioClip)Resources.Load("audio/battleTracks/" + currentTrack.trackName);
+
+        //if theres no track manager
+        AudioClip audioClip;
+        if (TrackManager.current == null)
+        {
+            //if theres no manager then we source the track from a set of possible presets 
+            Track testTrack = TrackJsonParser.parseJSON(testingJsons);
+            currentTrack = testTrack;
+            audioClip = (AudioClip)Resources.Load("audio/battleTracks/" + currentTrack.trackName);
+
+        }
+        else
+        {
+            //look and grab the current track
+            currentTrack = TrackManager.current.currTrack;
+            //load the track
+            audioClip = (AudioClip)Resources.Load("audio/battleTracks/" + currentTrack.trackName);
+
+        }
+
+        currentBpm = currentTrack.bpm;
         audioSource.clip = audioClip;
-
-        //loadup all the bpm variables n shit
-        beatDeltaTime = (1 / currentTrack.bpm) * 60;
-
+        beatDeltaTime = (1 / currentBpm) * 60;
     }
 
     private void Start()

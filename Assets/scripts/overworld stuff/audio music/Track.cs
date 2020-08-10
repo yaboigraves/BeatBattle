@@ -11,10 +11,8 @@ public class Track
 {
     public string artist, trackName;
     public float bpm;
-
     //need to take in the number of bars the loops take up
     public int numBars;
-
     public List<float> kickBeats = new List<float>();
     public List<float> snareBeats = new List<float>();
 

@@ -12,6 +12,7 @@ NPC: You keepin it real man?
 title: testNPC.Exit
 tags:
 --- 
+<<changeCamera test>>
 NPC: You stay safe out their homie
 ===
 

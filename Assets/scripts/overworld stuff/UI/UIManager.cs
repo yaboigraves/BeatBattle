@@ -21,10 +21,6 @@ public class UIManager : MonoBehaviour
     public float fadeTime;
     //ui elements
     public Text coinsText;
-
-    CinemachineVirtualCamera activeDialogCamera;
-
-
     //Yarn Variables 
     public Text dialogTextContainer;
 
@@ -54,34 +50,19 @@ public class UIManager : MonoBehaviour
         canvas.enabled = !canvas.enabled;
     }
 
-    Sentence[] npcText;
-    int currentNpcText;
-    //this is more like NPCStartTalk
-
-
-    Dialogue currentDialogue;
-    public void NPCStartTalk(Sentence[] npcTextArg, Dialogue dialogue)
-    {
-        currentDialogue = dialogue;
-        npcText = npcTextArg;
-        dialoguePanel.GetComponent<Image>().enabled = true;
-        dialogueRenderer.renderText(npcText[currentNpcText]);
-
-        DialogCameraController.current.InitDialogCamera(currentDialogue);
-
-        //DialogCameraController.current.checkCameraUpdate(currentDialogue, currentNpcText);
-    }
-
     public void NPCNextTalk()
     {
         FindObjectOfType<DialogueUI>().MarkLineComplete();
-
     }
 
     public void leaveDialogue()
     {
         dialogTextContainer.text = "";
         player.leaveDialogue();
+
+        //turns off the priority of the main camera
+        DialogCameraController.current.resetCamera();
+
         //set the playercamera back top main priority
         CameraManager.current.currentCamera.Priority = 15;
     }
@@ -114,14 +95,10 @@ public class UIManager : MonoBehaviour
         coinsText.text = "Skrilla: " + numCoins.ToString();
     }
 
-
-
-
     public void ping()
     {
         print("ping");
     }
-
 
     [YarnCommand("commandPing")]
     public void commandPing()

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Yarn.Unity;
 
 public class InputHandler : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class InputHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Remove all player control when we're in dialogue
+
 
         horizontalIn = Input.GetAxisRaw("Horizontal");
         verticalIn = Input.GetAxisRaw("Vertical");

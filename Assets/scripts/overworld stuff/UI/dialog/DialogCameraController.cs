@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
-
+using Yarn.Unity;
 public class DialogCameraController : MonoBehaviour
 {
     public static DialogCameraController current;
@@ -10,9 +10,17 @@ public class DialogCameraController : MonoBehaviour
     public CinemachineVirtualCamera currentCamera;
     //camera is by default the playercamera
 
+    public DialogueRunner dialogueRunner;
+
     private void Awake()
     {
         current = this;
+        dialogueRunner.AddCommandHandler("testPing", testPing);
+
+    }
+    public void testPing(string[] parameters)
+    {
+        print("test ping from camera");
     }
 
     public void InitDialogCamera(Dialogue currentDialogue)
@@ -37,26 +45,29 @@ public class DialogCameraController : MonoBehaviour
 
     public void StopDialogCamera()
     {
-        currentCamera.Priority = 9;
-        currentCamera = null;
-        CameraManager.current.currentCamera.Priority = 15;
+        //TODO: Reimpliment with yarn
+        //currentCamera.Priority = 9;
+        //currentCamera = null;
+        //CameraManager.current.currentCamera.Priority = 15;
     }
 
     //takes in a sentence index and checks if theirs a camera switchup there
     public void checkCameraUpdate(Dialogue currentDialogue, int sentenceIndex)
     {
-        //if this index needs a switchup
-        if (currentDialogue.sentenceCameras.ContainsKey(sentenceIndex))
-        {
-            //turn down the priority of the previous camera if it exists
-            if (currentCamera != null)
-            {
-                currentCamera.Priority = 9;
-            }
 
-            //turn up the priority of the new camera
-            currentCamera = currentDialogue.sentenceCameras[sentenceIndex];
-            currentCamera.Priority = 15;
-        }
+        //TODO: reimplement using yarn
+        //if this index needs a switchup
+        // if (currentDialogue.sentenceCameras.ContainsKey(sentenceIndex))
+        // {
+        //     //turn down the priority of the previous camera if it exists
+        //     if (currentCamera != null)
+        //     {
+        //         currentCamera.Priority = 9;
+        //     }
+
+        //     //turn up the priority of the new camera
+        //     currentCamera = currentDialogue.sentenceCameras[sentenceIndex];
+        //     currentCamera.Priority = 15;
+        // }
     }
 }

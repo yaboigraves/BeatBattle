@@ -6,13 +6,13 @@ using Cinemachine;
 
 public class NPC : MonoBehaviour, IInteractable
 {
+    //this npc class is moreso like the talk-to-able npc there need to also be one for npcs with passing dialogue
 
     //the npc also needs to load all the custom cameras for its dialogue if it has any
     //these are then loaded into a dictionary 
     //this dictionary of camera's is then
 
     Dictionary<string, CinemachineVirtualCamera> cameraPositions;
-
 
     public Dialogue dialogue;
     public string talkToNode = "";

@@ -14,8 +14,24 @@ public class DialogCameraController : MonoBehaviour
     private void Awake()
     {
         current = this;
-        dialogueRunner.AddCommandHandler("testPing", testPing);
-        dialogueRunner.AddCommandHandler("changeCamera", changeCamera);
+
+
+    }
+
+    private void Start()
+    {
+        if (dialogueRunner)
+        {
+            dialogueRunner.AddCommandHandler("testPing", testPing);
+            dialogueRunner.AddCommandHandler("changeCamera", changeCamera);
+        }
+        else
+        {
+
+            dialogueRunner = GameObject.FindObjectOfType<DialogueRunner>();
+            dialogueRunner.AddCommandHandler("testPing", testPing);
+            dialogueRunner.AddCommandHandler("changeCamera", changeCamera);
+        }
 
     }
     public void testPing(string[] parameters)
@@ -59,49 +75,16 @@ public class DialogCameraController : MonoBehaviour
 
     }
 
-    public void InitDialogCamera(Dialogue currentDialogue)
+    //call this shit when you're leaving dialog
+    public void resetCamera()
     {
-
-        if (currentDialogue.sentenceCameras.ContainsKey(0))
+        if (currentCamera != null)
         {
-            checkCameraUpdate(currentDialogue, 0);
+            currentCamera.Priority = 0;
         }
-
-        else
-        {
-            //set the current camera to the player camera 
-            currentCamera = CameraManager.current.currentCamera;
-            currentCamera.Priority = 15;
-        }
-        //check if the camera needs to move otherwise set the currentCamera to the player camera 
-
     }
 
-    public void StopDialogCamera()
-    {
-        //TODO: Reimpliment with yarn
-        //currentCamera.Priority = 9;
-        //currentCamera = null;
-        //CameraManager.current.currentCamera.Priority = 15;
-    }
 
-    //takes in a sentence index and checks if theirs a camera switchup there
-    public void checkCameraUpdate(Dialogue currentDialogue, int sentenceIndex)
-    {
 
-        //TODO: reimplement using yarn
-        //if this index needs a switchup
-        // if (currentDialogue.sentenceCameras.ContainsKey(sentenceIndex))
-        // {
-        //     //turn down the priority of the previous camera if it exists
-        //     if (currentCamera != null)
-        //     {
-        //         currentCamera.Priority = 9;
-        //     }
 
-        //     //turn up the priority of the new camera
-        //     currentCamera = currentDialogue.sentenceCameras[sentenceIndex];
-        //     currentCamera.Priority = 15;
-        // }
-    }
 }

@@ -25,7 +25,6 @@ public class UIManager : MonoBehaviour
     CinemachineVirtualCamera activeDialogCamera;
 
 
-
     //Yarn Variables 
     public Text dialogTextContainer;
 
@@ -75,50 +74,16 @@ public class UIManager : MonoBehaviour
 
     public void NPCNextTalk()
     {
-        //print("trying to mark it");
         FindObjectOfType<DialogueUI>().MarkLineComplete();
-        // if (dialogueRenderer.sentenceRendered)
-        // {
-        //     currentNpcText++;
-        //     if (currentNpcText < npcText.Length)
-        //     {
-        //         //DialogCameraController.current.checkCameraUpdate(currentDialogue, currentNpcText);
-        //         //dialogueRenderer.renderText(npcText[currentNpcText]);
-        //     }
-        //     else
-        //     {
-        //         //leaveDialogue();
-        //     }
-        // }
-        //render the rest of the dialog
-        // else
-        // {
-        //TODO: Reimpliment using yarn
-        //DialogCameraController.current.checkCameraUpdate(currentDialogue, currentNpcText);
-        //dialogueRenderer.renderRestOfLetters(npcText[currentNpcText], dialogueRenderer.letterIndex);
-        // }
+
     }
 
     public void leaveDialogue()
     {
-        //DialogCameraController.current.StopDialogCamera();
-
-        //currentNpcText = 0;
-        //player.inDialogue = false;
-
-        //delete all text in the box
-        //dialogueRenderer.clearText();
-
-        //dialoguePanel.SetActive(false);
-        //dialoguePanel.GetComponent<Image>().enabled = false;
-
-        //need to clear the dialog container as well
         dialogTextContainer.text = "";
-
         player.leaveDialogue();
-
-
-
+        //set the playercamera back top main priority
+        CameraManager.current.currentCamera.Priority = 15;
     }
 
     public void updateCurrentTrack(Track newTrack)
@@ -149,20 +114,7 @@ public class UIManager : MonoBehaviour
         coinsText.text = "Skrilla: " + numCoins.ToString();
     }
 
-    public void handleDialogChoices(int choice)
-    {
-        print("dialog option chosen " + choice.ToString());
 
-        currentNpcText++;
-        if (currentNpcText < npcText.Length)
-        {
-            dialogueRenderer.renderText(npcText[currentNpcText]);
-        }
-        else
-        {
-            leaveDialogue();
-        }
-    }
 
 
     public void ping()

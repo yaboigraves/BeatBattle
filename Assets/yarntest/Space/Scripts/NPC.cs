@@ -35,13 +35,10 @@ namespace Yarn.Unity.Example
     {
 
 
-
         public string characterName = "";
         public string talkToNode = "";
-
         [Header("Optional")]
         public YarnProgram scriptToLoad;
-
         void Start()
         {
             if (scriptToLoad != null)

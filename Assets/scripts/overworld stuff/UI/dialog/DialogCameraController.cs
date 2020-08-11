@@ -9,13 +9,13 @@ public class DialogCameraController : MonoBehaviour
     //this script is used by the ui manager to handle refocusing the camera in dialog
     public CinemachineVirtualCamera currentCamera;
     //camera is by default the playercamera
-
     public DialogueRunner dialogueRunner;
-
+    Dictionary<string, CinemachineVirtualCamera> cameraPositions;
     private void Awake()
     {
         current = this;
         dialogueRunner.AddCommandHandler("testPing", testPing);
+        dialogueRunner.AddCommandHandler("changeCamera", changeCamera);
 
     }
     public void testPing(string[] parameters)
@@ -23,11 +23,45 @@ public class DialogCameraController : MonoBehaviour
         print("test ping from camera");
     }
 
+    public void setCameraObjects(Dictionary<string, CinemachineVirtualCamera> newCameraPositions)
+    {
+        cameraPositions = newCameraPositions;
+    }
+
+    public void changeCamera(string[] paramaters)
+    {
+        print("changing camera to camera :" + paramaters[0]);
+        //first argument is the camera to switch to
+
+        //check if their are any custom positions 
+        if (cameraPositions != null && cameraPositions.ContainsKey(paramaters[0]))
+        {
+            if (currentCamera == null)
+            {
+                //lower the priortiy 
+                CameraManager.current.currentCamera.Priority = 0;
+
+                currentCamera = cameraPositions[paramaters[0]];
+                currentCamera.Priority = 15;
+            }
+            else
+            {
+                //set the currentcameras priority to 0 
+                currentCamera.Priority = 0;
+                currentCamera = cameraPositions[paramaters[0]];
+                currentCamera.Priority = 15;
+            }
+        }
+        else
+        {
+            print("no camera positions set or that camera doesnt exist");
+        }
+
+    }
+
     public void InitDialogCamera(Dialogue currentDialogue)
     {
 
-
-        //if there is a camera change for the first index change it
         if (currentDialogue.sentenceCameras.ContainsKey(0))
         {
             checkCameraUpdate(currentDialogue, 0);

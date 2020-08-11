@@ -55,13 +55,17 @@ public class Player : MonoBehaviour
         deltaPos *= (speed * Time.deltaTime);
         rb.MovePosition(transform.position + deltaPos);
         //transform.position = Vector3.MoveTowards(transform.position, transform.position + deltaPos, 0.1f);
-
     }
 
     public void enterDialogue()
     {
         inDialogue = true;
         deltaPos = Vector3.zero;
+    }
+
+    public void leaveDialogue()
+    {
+        inDialogue = false;
     }
 
     public void enterBattle()

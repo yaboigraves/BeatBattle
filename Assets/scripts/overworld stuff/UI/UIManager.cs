@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Cinemachine;
+using Yarn.Unity;
+
+
 
 public class UIManager : MonoBehaviour
 {
@@ -21,6 +24,11 @@ public class UIManager : MonoBehaviour
 
     CinemachineVirtualCamera activeDialogCamera;
 
+
+
+    //Yarn Variables 
+    public Text dialogTextContainer;
+
     private void Awake()
     {
         if (current == null)
@@ -38,6 +46,7 @@ public class UIManager : MonoBehaviour
         dialogueText = dialoguePanel.transform.GetChild(0).GetComponent<Text>();
         coinsText.text = "Skrilla : 0";
         faderCanvas.alpha = 0;
+
     }
 
     // Update is called once per frame
@@ -66,49 +75,49 @@ public class UIManager : MonoBehaviour
 
     public void NPCNextTalk()
     {
-
-        //check the dialogue and see if this is an index that has a cinemachine
-
-        //if the letters have all been rendered out
-        //MOVE TO THE NEXT BIT OF DIALOG
-
-
-        if (dialogueRenderer.sentenceRendered)
-        {
-
-            currentNpcText++;
-            if (currentNpcText < npcText.Length)
-            {
-                DialogCameraController.current.checkCameraUpdate(currentDialogue, currentNpcText);
-                dialogueRenderer.renderText(npcText[currentNpcText]);
-            }
-            else
-            {
-                leaveDialogue();
-            }
-        }
-
+        //print("trying to mark it");
+        FindObjectOfType<DialogueUI>().MarkLineComplete();
+        // if (dialogueRenderer.sentenceRendered)
+        // {
+        //     currentNpcText++;
+        //     if (currentNpcText < npcText.Length)
+        //     {
+        //         //DialogCameraController.current.checkCameraUpdate(currentDialogue, currentNpcText);
+        //         //dialogueRenderer.renderText(npcText[currentNpcText]);
+        //     }
+        //     else
+        //     {
+        //         //leaveDialogue();
+        //     }
+        // }
         //render the rest of the dialog
-        else
-        {
-            DialogCameraController.current.checkCameraUpdate(currentDialogue, currentNpcText);
-            dialogueRenderer.renderRestOfLetters(npcText[currentNpcText], dialogueRenderer.letterIndex);
-        }
-
+        // else
+        // {
+        //TODO: Reimpliment using yarn
+        //DialogCameraController.current.checkCameraUpdate(currentDialogue, currentNpcText);
+        //dialogueRenderer.renderRestOfLetters(npcText[currentNpcText], dialogueRenderer.letterIndex);
+        // }
     }
 
     public void leaveDialogue()
     {
-        DialogCameraController.current.StopDialogCamera();
+        //DialogCameraController.current.StopDialogCamera();
 
-        currentNpcText = 0;
-        player.inDialogue = false;
+        //currentNpcText = 0;
+        //player.inDialogue = false;
 
         //delete all text in the box
-        dialogueRenderer.clearText();
+        //dialogueRenderer.clearText();
 
         //dialoguePanel.SetActive(false);
-        dialoguePanel.GetComponent<Image>().enabled = false;
+        //dialoguePanel.GetComponent<Image>().enabled = false;
+
+        //need to clear the dialog container as well
+        dialogTextContainer.text = "";
+
+        player.leaveDialogue();
+
+
 
     }
 
@@ -153,5 +162,18 @@ public class UIManager : MonoBehaviour
         {
             leaveDialogue();
         }
+    }
+
+
+    public void ping()
+    {
+        print("ping");
+    }
+
+
+    [YarnCommand("commandPing")]
+    public void commandPing()
+    {
+        print("command ping");
     }
 }

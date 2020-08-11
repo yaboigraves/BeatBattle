@@ -1,6 +1,21 @@
 ﻿title: testNPC
 tags:
 ---
+<<testPing test>>
 NPC: Ayo what up my duder.
+NPC: You keepin it real man?
+[[Yeah man|testNPC.Exit]]
+[[As real as I can|testNPC.OtherExit]]
+===
 
+title: testNPC.Exit
+tags:
+--- 
+NPC: You stay safe out their homie
+===
+
+title: testNPC.OtherExit
+tags:
+--- 
+NPC: Aight word man see you around.
 ===

@@ -89,7 +89,7 @@ namespace Yarn.Unity.Example
          */
         public void CheckForNearbyNPC()
         {
-            var allParticipants = new List<NPC>(FindObjectsOfType<NPC>());
+            var allParticipants = new List<NPC>(FindObjectsOfType<NPC>());  
             var target = allParticipants.Find(delegate (NPC p)
             {
                 return string.IsNullOrEmpty(p.talkToNode) == false && // has a conversation node?

@@ -22,13 +22,15 @@ public class BattleTrackManager : MonoBehaviour
         current = this;
         audioSource = GetComponent<AudioSource>();
 
+
+        //TODO: rewrite this to use a scriptable object
         //if theres no track manager
         AudioClip audioClip;
         if (TrackManager.current == null)
         {
             //if theres no manager then we source the track from a set of possible presets 
-            Track testTrack = TrackJsonParser.parseJSON(testingJsons);
-            currentTrack = testTrack;
+            //Track testTrack = 
+            //currentTrack = testTrack;
             audioClip = (AudioClip)Resources.Load("audio/battleTracks/" + currentTrack.trackName);
 
         }

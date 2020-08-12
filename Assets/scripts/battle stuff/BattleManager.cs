@@ -84,11 +84,11 @@ public class BattleManager : MonoBehaviour
         {
             //get the current audio tracks shit
 
-            for (int i = 0; i < track.kickBeats.Count; i++)
+            for (int i = 0; i < track.kickBeats.indicatorPositions.Length; i++)
             {
                 //TODO: fix this distribution, probably needs to be like trackbars * x + beats[i]
 
-                Vector3 kickPos = new Vector3(-1, (x * track.numBars * 4) + 100 + (track.kickBeats[i]), 0);
+                Vector3 kickPos = new Vector3(-1, (x * track.numBars * 4) + 100 + (track.kickBeats.indicatorPositions[i]), 0);
                 //each unit is 1 bar 
                 //therefore we need to start the next batck of indicators at wherever the loop ends
                 //probablyh easiest for now just to bake the length of the loop into the track object 
@@ -97,9 +97,9 @@ public class BattleManager : MonoBehaviour
 
             }
 
-            for (int i = 0; i < track.snareBeats.Count; i++)
+            for (int i = 0; i < track.snareBeats.indicatorPositions.Length; i++)
             {
-                Vector3 kickPos = new Vector3(1, (x * track.numBars * 4) + 100 + (track.snareBeats[i]), 0);
+                Vector3 kickPos = new Vector3(1, (x * track.numBars * 4) + 100 + (track.snareBeats.indicatorPositions[i]), 0);
                 Instantiate(kickIndicator, kickPos, Quaternion.identity, indicators);
             }
         }

@@ -9,15 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77ff19496143a564eb5231d7995d344f, type: 3}
-  m_Name: TestScriptableObjectTrack
+  m_Script: {fileID: 11500000, guid: 7d29d3d57d0edae4c9066abd17179e95, type: 3}
+  m_Name: omari
   m_EditorClassIdentifier: 
-  trackClip: {fileID: 8300000, guid: 8ad376a7d083a284aa995098144f8399, type: 3}
-  artist: 
-  trackName: 
+  trackClip: {fileID: 8300000, guid: 70e898c48fe42074f8a85bba07e19659, type: 3}
+  artist: Omari Jazz
+  trackName: DreamChild
   bpm: 0
   numBars: 0
   isBattleTrack: 0
-  kickBeats:
-  - 0
+  kickBeats: []
   snareBeats: []

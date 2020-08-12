@@ -8,16 +8,11 @@ using UnityEngine;
 
 public class TrackManager : MonoBehaviour
 {
-
     public static TrackManager current;
-    public string[] backgroundAudioTrackJsons;
     public Track[] backgroundAudioTracks;
+
+    //TODO: implement this as maybe part of the player inventory
     public Track[] battleAudioTracks;
-    public AudioClip[] backgroundAudioClips;
-
-    //TODO: maybe try a dictionary of Track objects to AudioClips for better organization 
-
-    Dictionary<Track, AudioClip> trackClipDictionary;
 
     public AudioSource currAudio;
     public Track currTrack;
@@ -28,6 +23,7 @@ public class TrackManager : MonoBehaviour
     public int beat;
     public bool inBattle;
     Coroutine songRoutine;
+
 
     void Awake()
     {
@@ -44,47 +40,13 @@ public class TrackManager : MonoBehaviour
 
     void Start()
     {
-        InitTracks();
-
-        Track testTrack = TrackJsonParser.parseJSON(backgroundAudioTrackJsons[0]);
-        currTrack = testTrack;
 
         UpdateCurrentTrack(backgroundAudioTracks[currentTrack]);
     }
 
-
-    void InitTracks()
-    {
-        backgroundAudioTracks = new Track[backgroundAudioTrackJsons.Length];
-        backgroundAudioClips = new AudioClip[backgroundAudioTracks.Length];
-
-        trackClipDictionary = new Dictionary<Track, AudioClip>();
-
-
-        //reads all the track jsons for the current level (does every single one right now)
-
-        for (int i = 0; i < backgroundAudioTrackJsons.Length; i++)
-        {
-            backgroundAudioTracks[i] = TrackJsonParser.parseJSON(backgroundAudioTrackJsons[i]);
-        }
-
-        //loads all the background audio clips (the actual audio) into an array from the resources folder
-        for (int i = 0; i < backgroundAudioClips.Length; i++)
-        {
-            backgroundAudioClips[i] = (AudioClip)Resources.Load("audio/backgroundTracks/" + backgroundAudioTracks[i].trackName);
-            //add to the dictionary 
-            trackClipDictionary.Add(backgroundAudioTracks[i], backgroundAudioClips[i]);
-
-        }
-    }
-
-
     public IEnumerator playSong()
     {
         currAudio.Play();
-
-        //print("PLAYING SONG AND WAITING FOR " + currAudio.clip.length);
-
 
         yield return new WaitForSeconds(currAudio.clip.length);
 
@@ -94,18 +56,7 @@ public class TrackManager : MonoBehaviour
 
     public void UpdateCurrentTrack(Track newTrack)
     {
-
-        if (newTrack.isBattleTrack)
-        {
-            AudioClip audioClip = (AudioClip)Resources.Load("audio/battleTracks/" + newTrack.trackName);
-            currAudio.clip = audioClip;
-
-        }
-        else
-        {
-            currAudio.clip = trackClipDictionary[newTrack];
-            songRoutine = StartCoroutine(playSong());
-        }
+        currAudio.clip = newTrack.trackClip;
 
         currTrack = newTrack;
 
@@ -116,6 +67,8 @@ public class TrackManager : MonoBehaviour
         beatDeltaTime = (1 / currentBpm) * 60;
         bpmTimer = 0;
         beat = 0;
+
+        songRoutine = StartCoroutine(playSong());
     }
 
     //so the problem is there's literally nothing in the background audio tracks

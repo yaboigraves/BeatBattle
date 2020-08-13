@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Enemy : MonoBehaviour
 {
@@ -20,6 +21,14 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         col = GetComponent<Collider>();
+
+        foreach (Track track in battleTracks)
+        {
+            //print(Array.ConvertAll(track.kickBeats.indicatorData.Split(','), float.Parse));
+            track.kickBeats.indicatorPositions = Array.ConvertAll(track.kickBeats.indicatorData.Split(' '), float.Parse);
+            track.snareBeats.indicatorPositions = Array.ConvertAll(track.snareBeats.indicatorData.Split(' '), float.Parse);
+
+        }
     }
 
     private void OnCollisionEnter(Collision other)
@@ -31,7 +40,7 @@ public class Enemy : MonoBehaviour
             if (!SceneManage.current.inBattle)
             {
                 col.enabled = false;
-                SceneManage.current.TransitionToBattle(this.gameObject, battleTracks[Random.Range(0, battleTracks.Length)]);
+                SceneManage.current.TransitionToBattle(this.gameObject, battleTracks[UnityEngine.Random.Range(0, battleTracks.Length)]);
             }
         }
     }

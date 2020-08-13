@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class BattleTrackManager : MonoBehaviour
 {
@@ -14,9 +15,12 @@ public class BattleTrackManager : MonoBehaviour
     public bool paused;
     public int battleBarsPerTurn = 2;
     int battleTurn;
-    public string testingJsons;
-
     public float currentBpm;
+
+    public Track testTrack;
+
+
+
     private void Awake()
     {
         current = this;
@@ -28,10 +32,13 @@ public class BattleTrackManager : MonoBehaviour
         AudioClip audioClip;
         if (TrackManager.current == null)
         {
-            //if theres no manager then we source the track from a set of possible presets 
-            //Track testTrack = 
-            //currentTrack = testTrack;
-            audioClip = (AudioClip)Resources.Load("audio/battleTracks/" + currentTrack.trackName);
+            //initialize the indicator positions 
+
+            testTrack.kickBeats.indicatorPositions = Array.ConvertAll(testTrack.kickBeats.indicatorData.Split(' '), float.Parse);
+            testTrack.snareBeats.indicatorPositions = Array.ConvertAll(testTrack.snareBeats.indicatorData.Split(' '), float.Parse);
+
+            currentTrack = testTrack;
+            audioClip = testTrack.trackClip;
 
         }
         else
@@ -39,7 +46,7 @@ public class BattleTrackManager : MonoBehaviour
             //look and grab the current track
             currentTrack = TrackManager.current.currTrack;
             //load the track
-            audioClip = (AudioClip)Resources.Load("audio/battleTracks/" + currentTrack.trackName);
+            audioClip = currentTrack.trackClip;
 
         }
 

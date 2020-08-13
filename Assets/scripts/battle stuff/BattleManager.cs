@@ -5,26 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class BattleManager : MonoBehaviour
 {
-
     public static BattleManager current;
     public bool battleStarted;
-
     //maybe move these somewhere but honestly doesnt need to be in the player 
-
     public int playerHealth, enemyHealth, playerMaxHealth, enemyMaxHealth;
-
     public bool playerTurn;
-
     public BattleEnemy enemy;
-
-
     //battle ui obkjects 
-
     public Transform indicators;
     public GameObject kickIndicator;
-
-
-
     public GameObject testEnemy;
 
     void Awake()
@@ -36,35 +25,28 @@ public class BattleManager : MonoBehaviour
         if (TrackManager.current == null)
         {
             //TODO: load some kind of presets so testing the battles is easier
+
         }
         else
         {
             TrackManager.current.PauseTrack();
             //find info for battle to start from the scene manager 
             setPlayerEnemyHealth(SceneManage.current.playerHealth, SceneManage.current.playerMaxHealth, SceneManage.current.enemyHealth, SceneManage.current.enemyMaxHealth);
-
         }
-
-
-
     }
+
     // Start is called before the first frame update
     void Start()
     {
-
-
         //check if we're in testmode (which means theirs no scene manager present)
-
-        if (SceneManage.current == null)
+        if (TrackManager.current == null)
         {
             //use the testing enemy and the backup track that was loaded in the battle track manager
             enemy.setEnemy(testEnemy);
-            SetupIndicators(BattleTrackManager.current.currentTrack);
+            SetupIndicators(BattleTrackManager.current.testTrack);
 
             setPlayerEnemyHealth(10, 10, testEnemy.GetComponent<Enemy>().health, testEnemy.GetComponent<Enemy>().maxHealth);
-
         }
-
         else
         {
             //spawn the enemy in and turn off their move function 
@@ -72,7 +54,6 @@ public class BattleManager : MonoBehaviour
 
             SetupIndicators(TrackManager.current.currTrack);
         }
-
         changeTurn();
     }
 
@@ -127,8 +108,6 @@ public class BattleManager : MonoBehaviour
 
         playerTurn = true;
         BattleTrackManager.current.StartBattle();
-
-
     }
 
     public void processPadHit(bool hit)

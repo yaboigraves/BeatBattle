@@ -300,10 +300,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 20
   maxHealth: 20
-  battleTracks: []
   enemyName: 
-  battleTrackJsons:
-  - cunty.json
+  battleTracks:
+  - {fileID: 11400000, guid: 6db31f387b047a9448ebacd4829dce26, type: 2}
 --- !u!114 &4756209535108890660
 MonoBehaviour:
   m_ObjectHideFlags: 0

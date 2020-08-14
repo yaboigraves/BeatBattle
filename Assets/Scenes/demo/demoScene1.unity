@@ -397,17 +397,6 @@ PrefabInstance:
       propertyPath: patrolRoute.Array.data[0]
       value: 
       objectReference: {fileID: 2116628802}
-    - target: {fileID: 4756209535108890661, guid: 3ec9d7641eab0c8489c258cb712e318e,
-        type: 3}
-      propertyPath: battleTracks.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4756209535108890661, guid: 3ec9d7641eab0c8489c258cb712e318e,
-        type: 3}
-      propertyPath: battleTracks.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 6db31f387b047a9448ebacd4829dce26,
-        type: 2}
     - target: {fileID: 4756209535108890713, guid: 3ec9d7641eab0c8489c258cb712e318e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -467,11 +456,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: maskDude
-      objectReference: {fileID: 0}
-    - target: {fileID: 4756209535108890718, guid: 3ec9d7641eab0c8489c258cb712e318e,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ec9d7641eab0c8489c258cb712e318e, type: 3}

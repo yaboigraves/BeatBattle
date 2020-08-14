@@ -56,6 +56,11 @@ public class TrackManager : MonoBehaviour
 
     public void UpdateCurrentTrack(Track newTrack)
     {
+        if (currAudio.isPlaying)
+        {
+            StopCurrentTrack();
+        }
+
         currAudio.clip = newTrack.trackClip;
 
         currTrack = newTrack;

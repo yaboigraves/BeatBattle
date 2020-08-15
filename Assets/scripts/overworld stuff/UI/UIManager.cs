@@ -4,25 +4,35 @@ using UnityEngine;
 using UnityEngine.UI;
 using Cinemachine;
 using Yarn.Unity;
+using TMPro;
+
 
 
 
 public class UIManager : MonoBehaviour
 {
-    //trackinfo stuff 
-    public Text trackTitleText, trackArtistText, playerHealthText;
-    public TextRender dialogueRenderer;
+    //TODO: make ui state an object and then i can do away with the like 6 or 7 variables at a time
+
+    //components for fading in and out
+    public GameObject trackInfoUI, playerInfoUI;
+
+    //trackinfo stuff could maybe be a dictionary or something
+    public TextMeshProUGUI trackTitleText, trackArtistText, playerHealthText, coinText;
+    //public TextRender dialogueRenderer;
     public static UIManager current;
-    public GameObject dialoguePanel;
+    //public GameObject dialoguePanel;
     Text dialogueText;
     public Player player;
     Canvas canvas;
     public CanvasGroup faderCanvas;
     public float fadeTime;
     //ui elements
-    public Text coinsText;
+    //public Text coinsText;
     //Yarn Variables 
-    public Text dialogTextContainer;
+    public TextMeshProUGUI dialogTextContainer;
+
+
+
 
     private void Awake()
     {
@@ -38,10 +48,9 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        dialogueText = dialoguePanel.transform.GetChild(0).GetComponent<Text>();
-        coinsText.text = "Skrilla : 0";
+        //dialogueText = dialoguePanel.transform.GetChild(0).GetComponent<Text>();
+        coinText.text = "Skrilla : 0";
         faderCanvas.alpha = 0;
-
     }
 
     // Update is called once per frame
@@ -71,6 +80,26 @@ public class UIManager : MonoBehaviour
     {
         trackArtistText.text = newTrack.artist;
         trackTitleText.text = newTrack.trackName;
+
+        //enable the trackinfo for a sec
+        if (!trackInfoUI.activeSelf)
+        {
+            StartCoroutine(showTrackInfoUI(trackInfoUI, -300));
+        }
+
+    }
+
+
+
+    IEnumerator showTrackInfoUI(GameObject uiElement, float distance)
+    {
+        //TODO: make this tween from the right side of the screen or something
+        uiElement.SetActive(true);
+        LeanTween.moveX(uiElement, uiElement.transform.position.x + distance, 1);
+        yield return new WaitForSeconds(6);
+        LeanTween.moveX(uiElement, uiElement.transform.position.x - distance, 1);
+        yield return new WaitForSeconds(1);
+        uiElement.SetActive(false);
     }
 
     public void updatePlayerHealthText(int newHealth)
@@ -90,19 +119,19 @@ public class UIManager : MonoBehaviour
         StartCoroutine(screenWipeRoutine());
     }
 
+
+
     public void updateCoinsText(int numCoins)
     {
-        coinsText.text = "Skrilla: " + numCoins.ToString();
-    }
+        if (playerInfoUI.activeSelf)
+        {
+            StartCoroutine(showTrackInfoUI(playerInfoUI, 225));
+        }
+        else
+        {
+            //TODO: add a little bit more time to the coroutine somehow
+        }
 
-    public void ping()
-    {
-        print("ping");
-    }
-
-    [YarnCommand("commandPing")]
-    public void commandPing()
-    {
-        print("command ping");
+        coinText.text = "Skrilla: " + numCoins.ToString();
     }
 }

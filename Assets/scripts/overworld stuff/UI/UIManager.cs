@@ -50,6 +50,7 @@ public class UIManager : MonoBehaviour
     {
         //dialogueText = dialoguePanel.transform.GetChild(0).GetComponent<Text>();
         coinText.text = "Skrilla : 0";
+        playerHealthText.text = "5 / 5";
         faderCanvas.alpha = 0;
     }
 
@@ -123,9 +124,9 @@ public class UIManager : MonoBehaviour
 
     public void updateCoinsText(int numCoins)
     {
-        if (playerInfoUI.activeSelf)
+        if (!playerInfoUI.activeSelf)
         {
-            StartCoroutine(showTrackInfoUI(playerInfoUI, 225));
+            StartCoroutine(showTrackInfoUI(playerInfoUI, 250));
         }
         else
         {

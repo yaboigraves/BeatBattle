@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System;
 
 public class Enemy : MonoBehaviour
@@ -17,9 +18,20 @@ public class Enemy : MonoBehaviour
 
 
 
+
     // Start is called before the first frame update
     void Start()
     {
+
+        //add ourself to the scene managers dictionary of enemies so we can be activated/deactivated on scene loads
+        //SceneManage.current.enemySceneDictionary.Add(this, SceneManager.GetActiveScene().name);
+
+        if (SceneManage.current != null && SceneManager.GetActiveScene().name != "BattleScene")
+        {
+            SceneManage.current.enemies.Add(this);
+        }
+
+
         col = GetComponent<Collider>();
 
         foreach (Track track in battleTracks)
@@ -39,9 +51,13 @@ public class Enemy : MonoBehaviour
             //make sure we're not already in a battle
             if (!SceneManage.current.inBattle)
             {
-                col.enabled = false;
                 SceneManage.current.TransitionToBattle(this.gameObject, battleTracks[UnityEngine.Random.Range(0, battleTracks.Length)]);
             }
         }
+    }
+
+    private void OnDestroy()
+    {
+        SceneManage.current.enemies.Remove(this);
     }
 }

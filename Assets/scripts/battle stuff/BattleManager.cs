@@ -49,6 +49,7 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
+
             //spawn the enemy in and turn off their move function 
             enemy.setEnemy(SceneManage.current.enemyInBattle);
 
@@ -154,7 +155,7 @@ public class BattleManager : MonoBehaviour
             }
             else
             {
-                SceneManage.current.LeaveBattle();
+                SceneManage.current.LeaveBattle(false);
                 TrackManager.current.playRandomBackgroundTrack();
                 playerHealth = playerMaxHealth;
             }
@@ -176,7 +177,7 @@ public class BattleManager : MonoBehaviour
             else
             {
                 //unload the battle scene (do this after a fade or something next time)
-                SceneManage.current.LeaveBattle();
+                SceneManage.current.LeaveBattle(true);
                 //theres gonna be a lot more steps here, going to need to stop the battle song, start another one, and destroy the enemy
                 TrackManager.current.playRandomBackgroundTrack();
             }

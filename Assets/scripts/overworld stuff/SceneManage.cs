@@ -6,6 +6,11 @@ using Cinemachine;
 
 public class SceneManage : MonoBehaviour
 {
+
+    //public Dictionary<Enemy, string> enemySceneDictionary;
+    public List<Enemy> enemies;
+
+
     //stored for moving the player around
     public static SceneManage current;
     public Player player;
@@ -21,6 +26,8 @@ public class SceneManage : MonoBehaviour
     void Awake()
     {
         current = this;
+        enemies = new List<Enemy>();
+
     }
 
     void Start()
@@ -32,10 +39,25 @@ public class SceneManage : MonoBehaviour
     //variables used for scene transition
     public int playerHealth, playerMaxHealth, enemyHealth, enemyMaxHealth;
 
+    //enable/disable enemy movement while the battle scene is active
+    void toggleEnemiesOn(bool on)
+    {
+        foreach (Enemy enemy in enemies)
+        {
+            if (enemy.gameObject != enemyInBattle)
+            {
+                enemy.gameObject.SetActive(on);
+            }
+
+        }
+    }
+
     public void TransitionToBattle(GameObject enemy, Track battleTrack)
     {
         inBattle = true;
         enemyInBattle = enemy;
+        //TODO: LEFT OFF HERE, this causes the enemy in the battle to spawn deactivated, need to fix this
+        toggleEnemiesOn(false);
 
         if (mainCamera == null)
         {
@@ -65,21 +87,33 @@ public class SceneManage : MonoBehaviour
         //turn off the main camera so it doesnt warp to follow the player into the battle
     }
 
-    public void LeaveBattle()
+    //TODO: this could probably take a battleResult object that tells us if the player won or not 
+    public void LeaveBattle(bool playerWon)
     {
         UIManager.current.screenWipe();
         Destroy(BattleCameraController.current.gameObject);
         inBattle = false;
         SceneManager.UnloadSceneAsync("BattleScene");
+
+        toggleEnemiesOn(true);
         player.inBattle = false;
 
         mainCamera.gameObject.SetActive(true);
         mainCamera.transform.position = cameraReturnPosition;
-        //todo: trigger death animation
-        Destroy(enemyInBattle.gameObject);
+
+        if (playerWon)
+        {
+            //todo: trigger death animation
+            Destroy(enemyInBattle.gameObject);
+        }
+        else
+        {
+            //TODO: consider what happens when player loses a battle
+            //if the player loses then boot them back to their spawn position but leave this off for now
+        }
 
         TrackManager.current.inBattle = false;
-        print("leaving battle");
+
         TrackManager.current.playRandomBackgroundTrack();
     }
 

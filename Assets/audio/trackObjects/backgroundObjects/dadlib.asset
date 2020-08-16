@@ -14,9 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trackClip: {fileID: 8300000, guid: 7c2f5792c657c6947b99878400b1f382, type: 3}
   artist: dadlib
-  trackName: madlib track 1
+  trackName: madlib track
   bpm: 0
   numBars: 0
   isBattleTrack: 0
-  kickBeats: []
-  snareBeats: []
+  kickBeats:
+    indicatorData: 
+    indicatorPositions: []
+  snareBeats:
+    indicatorData: 
+    indicatorPositions: []

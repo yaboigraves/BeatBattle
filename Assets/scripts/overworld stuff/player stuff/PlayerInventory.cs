@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
+    //TODO: setup equipabble tracks, this will probably require some thinking out
     public int coins;
 
     public void getCoin()

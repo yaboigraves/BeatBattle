@@ -5,8 +5,9 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
+    public ParticleSystem footDust;
     public PlayerRootCollider playerRoot;
-    Rigidbody rb;
+    public Rigidbody rb;
 
     public int maxHealth, health;
     public float speed;
@@ -22,12 +23,11 @@ public class Player : MonoBehaviour
     public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2f;
     public float gravityScale = 1;
-
     public float globalGravity = -1.81f;
-
     Vector3 deltaPos;
-
     public Transform spriteHolder;
+
+    public BattleRangeChecker battleRangeChecker;
 
 
     // Start is called before the first frame update
@@ -42,6 +42,8 @@ public class Player : MonoBehaviour
 
         //look for a playerspawner tag and go there
         Transform playerSpawnPoint = GameObject.FindGameObjectWithTag("playerSpawn").transform;
+
+        battleRangeChecker = GetComponentInChildren<BattleRangeChecker>();
     }
 
 
@@ -113,15 +115,16 @@ public class Player : MonoBehaviour
     }
 
     //controls stuff 
-
     public void jump()
     {
         rb.AddForce(new Vector3(rb.velocity.x, jumpVelocity, rb.velocity.z), ForceMode.Impulse);
+        CreateDust();
     }
 
     public void flip(float rotation)
     {
         StartCoroutine(LerpToRotation(rotation, 0.1f, 0.1f));
+        CreateDust();
     }
 
     IEnumerator LerpToRotation(float endRotation, float time, float delay)
@@ -143,5 +146,10 @@ public class Player : MonoBehaviour
             yield return null;
         }
         transform.rotation = Quaternion.Euler(0f, endRotation, 0f);
+    }
+
+    void CreateDust()
+    {
+        footDust.Play();
     }
 }

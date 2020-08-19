@@ -10,13 +10,10 @@ public class SceneManage : MonoBehaviour
     //public Dictionary<Enemy, string> enemySceneDictionary;
     public List<Enemy> enemies;
 
-
     //stored for moving the player around
     public static SceneManage current;
     public Player player;
-
     public GameObject enemyInBattle;
-
     public bool inBattle;
 
     //pos for camera to return to after battle
@@ -46,9 +43,10 @@ public class SceneManage : MonoBehaviour
         {
             if (enemy.gameObject != enemyInBattle)
             {
-                enemy.gameObject.SetActive(on);
+                //rather than setting them all the way inactive just disable their movement
+                //enemy.gameObject.SetActive(on);
+                enemy.GetComponent<EnemyMove>().enabled = on;
             }
-
         }
     }
 
@@ -56,7 +54,7 @@ public class SceneManage : MonoBehaviour
     {
         inBattle = true;
         enemyInBattle = enemy;
-        //TODO: LEFT OFF HERE, this causes the enemy in the battle to spawn deactivated, need to fix this
+
         toggleEnemiesOn(false);
 
         if (mainCamera == null)
@@ -90,6 +88,10 @@ public class SceneManage : MonoBehaviour
     //TODO: this could probably take a battleResult object that tells us if the player won or not 
     public void LeaveBattle(bool playerWon)
     {
+
+        //first tell the battleui manager to run its thing 
+
+
         UIManager.current.screenWipe();
         Destroy(BattleCameraController.current.gameObject);
         inBattle = false;
@@ -105,6 +107,13 @@ public class SceneManage : MonoBehaviour
         {
             //todo: trigger death animation
             Destroy(enemyInBattle.gameObject);
+            foreach (GameObject en in player.battleRangeChecker.enemiesInRange)
+            {
+                Destroy(en);
+
+            }
+
+
         }
         else
         {
@@ -112,8 +121,9 @@ public class SceneManage : MonoBehaviour
             //if the player loses then boot them back to their spawn position but leave this off for now
         }
 
+        //emppty out the players enemies in range variable 
+        player.battleRangeChecker.enemiesInRange.Clear();
         TrackManager.current.inBattle = false;
-
         TrackManager.current.playRandomBackgroundTrack();
     }
 

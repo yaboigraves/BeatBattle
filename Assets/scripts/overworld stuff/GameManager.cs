@@ -8,8 +8,9 @@ public class GameManager : MonoBehaviour
     //the managers should not be tied to a particular scene, and if they are tie them to this one object
     //game manager will spawn all the other managers
     public GameObject playerObj;
+
     public static GameManager current;
-    Player player;
+    public Player player;
 
     InputHandler input;
 

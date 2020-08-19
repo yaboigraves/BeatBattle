@@ -2,26 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class BattleUIManager : MonoBehaviour
 {
     public static BattleUIManager current;
-
-    public Text playerHealthText, enemyHealthText;
-
     public int maxPlayerHealth, maxEnemyHealth;
 
+    public TextMeshProUGUI metronomeText, playerHealthText, enemyHealthText;
+
+    [Header("UI Sounds")]
+
+    AudioSource audioSource;
+    public AudioClip[] metronomeCounts;
+
+    public GameObject BattleEndUI;
 
     private void Awake()
     {
         current = this;
-
+        audioSource = GetComponent<AudioSource>();
     }
-    // Start is called before the first frame update
-    void Start()
+
+    private void Start()
     {
-        // maxPlayerHealth = BattleManager.current.playerMaxHealth;
-        // maxEnemyHealth = BattleManager.current.enemyMaxHealth;
+        BattleEndUI.SetActive(false);
     }
 
     public void setMaxHealths(int mPHealth, int mEHealth)
@@ -30,16 +35,8 @@ public class BattleUIManager : MonoBehaviour
         maxEnemyHealth = mEHealth;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void updatePlayerHealth(int newHealth)
     {
-        //print("max pl he");
-        //print(maxPlayerHealth);
         playerHealthText.text = newHealth.ToString() + "/" + maxPlayerHealth.ToString();
     }
 
@@ -48,7 +45,31 @@ public class BattleUIManager : MonoBehaviour
         enemyHealthText.text = newHealth.ToString() + "/" + maxEnemyHealth.ToString();
     }
 
+    public void UpdateMetronome(int currentBeat, bool playAudio)
+    {
+        metronomeText.text = (currentBeat + 1).ToString();
+
+        if (playAudio)
+        {
+            audioSource.clip = metronomeCounts[currentBeat];
+            audioSource.Play();
+        }
+    }
+
+
+    public void EndBattleSequence(bool playerWon)
+    {
+        //so we also n
+        StartCoroutine(endBattleRoutine(playerWon));
+        BattleEndUI.SetActive(true);
+    }
 
 
 
+    IEnumerator endBattleRoutine(bool playerWon)
+    {
+        print("beep boop end");
+        yield return new WaitForSeconds(3);
+        BattleManager.current.EndStopBattle(playerWon);
+    }
 }

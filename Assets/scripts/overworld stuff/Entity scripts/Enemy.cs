@@ -7,17 +7,9 @@ using System;
 public class Enemy : MonoBehaviour
 {
     public int health, maxHealth;
-    //public Track[] battleTracks;
     Collider col;
     public string enemyName;
-
-    //public string[] battleTrackJsons;
-
     public Track[] battleTracks;
-
-
-
-
 
     // Start is called before the first frame update
     void Start()
@@ -47,8 +39,6 @@ public class Enemy : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            //TODO: remember to re enable this if the player flees fighting
-            //make sure we're not already in a battle
             if (!SceneManage.current.inBattle)
             {
                 SceneManage.current.TransitionToBattle(this.gameObject, battleTracks[UnityEngine.Random.Range(0, battleTracks.Length)]);
@@ -58,6 +48,11 @@ public class Enemy : MonoBehaviour
 
     private void OnDestroy()
     {
-        SceneManage.current.enemies.Remove(this);
+        //check if this is a testing mode
+        if (SceneManage.current != null)
+        {
+            SceneManage.current.enemies.Remove(this);
+        }
+
     }
 }

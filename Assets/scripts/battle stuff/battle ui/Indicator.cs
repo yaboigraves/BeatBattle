@@ -34,11 +34,5 @@ public class Indicator : MonoBehaviour
 
     }
 
-    // private void OnTriggerEnter2D(Collider2D other)
-    // {
-    //     if (other.gameObject.tag == "pad")
-    //     {
-    //         Destroy(this.gameObject);
-    //     }
-    // }
+
 }

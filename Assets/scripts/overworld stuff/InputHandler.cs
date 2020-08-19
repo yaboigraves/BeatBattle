@@ -6,10 +6,12 @@ using Yarn.Unity;
 public class InputHandler : MonoBehaviour
 {
     public float horizontalIn, verticalIn;
+    public GameObject playerPrefab;
     public Player player;
     void Start()
     {
-        player = GameManager.current.playerObj.GetComponent<Player>();
+
+        player = GameManager.current.playerObj.GetComponentInChildren<Player>();
         if (player == null)
         {
             print("ERROR : INPUT HANDLER PLAYER REFERENCE BROKEN");

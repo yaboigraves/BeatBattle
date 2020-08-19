@@ -5,6 +5,24 @@ using UnityEngine.SceneManagement;
 
 public class BattleManager : MonoBehaviour
 {
+
+
+    //REVAMP NOTES
+    /*
+        once user hits play, the beats start rolling and a 1 2 3 4 countdown is done in the bpm of the current track
+        1.the indicators should be offset by one bar
+        2.1 2 3 4 countdown needs to be implemented and synced to bpm (probably a recursive coroutine)
+        
+        after the battle is over there needs to be a short delay where the enemies defeated and then 
+        show how much kush we got and how much xp we got
+
+        
+        
+
+    */
+
+
+
     public static BattleManager current;
     public bool battleStarted;
     //maybe move these somewhere but honestly doesnt need to be in the player 
@@ -19,7 +37,6 @@ public class BattleManager : MonoBehaviour
     void Awake()
     {
         current = this;
-        // TrackManager.current.currAudio.Pause();
 
         //this is for debugging, if theres no track manager that means launc shit in test mode
         if (TrackManager.current == null)
@@ -42,35 +59,32 @@ public class BattleManager : MonoBehaviour
         if (TrackManager.current == null)
         {
             //use the testing enemy and the backup track that was loaded in the battle track manager
-            enemy.setEnemy(testEnemy);
+            enemy.setEnemies(testEnemy, null);
             SetupIndicators(BattleTrackManager.current.testTrack);
 
             setPlayerEnemyHealth(10, 10, testEnemy.GetComponent<Enemy>().health, testEnemy.GetComponent<Enemy>().maxHealth);
         }
         else
         {
-
             //spawn the enemy in and turn off their move function 
-            enemy.setEnemy(SceneManage.current.enemyInBattle);
+            enemy.setEnemies(SceneManage.current.enemyInBattle, GameManager.current.player.battleRangeChecker.enemiesInRange);
 
             SetupIndicators(TrackManager.current.currTrack);
         }
         changeTurn();
     }
 
-    //TODO: this needs to just take in a string for the trackname, it then needs to look into the folder with all the json objects 
+    //TODO: spawn everything 1 bar on top of 
     void SetupIndicators(Track track)
     {
         //creates 5 loops
         for (int x = 0; x < 5; x++)
         {
-            //get the current audio tracks shit
 
             for (int i = 0; i < track.kickBeats.indicatorPositions.Length; i++)
             {
-                //TODO: fix this distribution, probably needs to be like trackbars * x + beats[i]
 
-                Vector3 kickPos = new Vector3(-1, (x * track.numBars * 4) + 100 + (track.kickBeats.indicatorPositions[i]), 0);
+                Vector3 kickPos = new Vector3(-1, 4 + (x * track.numBars * 4) + 100 + (track.kickBeats.indicatorPositions[i]), 0);
                 //each unit is 1 bar 
                 //therefore we need to start the next batck of indicators at wherever the loop ends
                 //probablyh easiest for now just to bake the length of the loop into the track object 
@@ -81,7 +95,7 @@ public class BattleManager : MonoBehaviour
 
             for (int i = 0; i < track.snareBeats.indicatorPositions.Length; i++)
             {
-                Vector3 kickPos = new Vector3(1, (x * track.numBars * 4) + 100 + (track.snareBeats.indicatorPositions[i]), 0);
+                Vector3 kickPos = new Vector3(1, 4 + (x * track.numBars * 4) + 100 + (track.snareBeats.indicatorPositions[i]), 0);
                 Instantiate(kickIndicator, kickPos, Quaternion.identity, indicators);
             }
         }
@@ -94,22 +108,20 @@ public class BattleManager : MonoBehaviour
         //TODO: defer this to the inputhandler
         if (Input.GetKeyDown(KeyCode.Space) && !battleStarted)
         {
+            //wait till after the countdown to set this
             battleStarted = true;
             StartBattle();
         }
-
-        //check for enemy death
     }
 
     void StartBattle()
     {
-        //TrackManager.current.UnPauseTrack();
-        //TrackManager.current.StartBattle();
-        //for now this just plays the song but this is going to get moved to a battletrack manager
-
         playerTurn = true;
-        BattleTrackManager.current.StartBattle();
+        //1 2 3 4 
+        BattleTrackManager.current.StartCountIn();
     }
+
+
 
     public void processPadHit(bool hit)
     {
@@ -142,7 +154,9 @@ public class BattleManager : MonoBehaviour
 
     public void playerTakeDamage(int damage)
     {
-        playerHealth -= damage;
+
+
+        //playerHealth -= damage;
 
         if (playerHealth <= 0)
         {
@@ -155,7 +169,9 @@ public class BattleManager : MonoBehaviour
             }
             else
             {
-                SceneManage.current.LeaveBattle(false);
+                //TODO: end battle sequence
+
+                BattleUIManager.current.EndBattleSequence(false);
                 TrackManager.current.playRandomBackgroundTrack();
                 playerHealth = playerMaxHealth;
             }
@@ -176,15 +192,28 @@ public class BattleManager : MonoBehaviour
             }
             else
             {
-                //unload the battle scene (do this after a fade or something next time)
-                SceneManage.current.LeaveBattle(true);
-                //theres gonna be a lot more steps here, going to need to stop the battle song, start another one, and destroy the enemy
-                TrackManager.current.playRandomBackgroundTrack();
+                StartStopBattle(true);
             }
         }
         BattleUIManager.current.updateEnemyHealth(enemyHealth);
     }
 
+    public void StartStopBattle(bool playerWon)
+    {
+        //tell the ui manager to display the win text
+        BattleUIManager.current.EndBattleSequence(true);
+
+        //turn off the scrolling
+        battleStarted = false;
+
+        //tell the track to turn off for now
+        BattleTrackManager.current.StopBattle();
+    }
+
+    public void EndStopBattle(bool playerWon)
+    {
+        SceneManage.current.LeaveBattle(playerWon);
+    }
 
     public void setPlayerEnemyHealth(int playerHealthArg, int playerMaxHealthArg, int enemyHealthArg, int enemyMaxHealthArg)
     {
@@ -209,9 +238,6 @@ public class BattleManager : MonoBehaviour
         {
             IndicatorManager.current.changeIndicatorColors(new Color(0, 0, 255, 1));
         }
-
         BattleCameraController.current.trackSwitcher();
     }
-
-
 }

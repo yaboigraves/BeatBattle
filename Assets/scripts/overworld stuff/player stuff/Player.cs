@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-
     public ParticleSystem footDust;
     public PlayerRootCollider playerRoot;
     public Rigidbody rb;
@@ -13,7 +12,6 @@ public class Player : MonoBehaviour
     public float speed;
     public InteractRange interactRange;
     public bool inBattle;
-
     float horizontalIn;
     float verticalIn;
     public bool inDialogue;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//TODO: this can go too
 public class LetterMotion : MonoBehaviour
 {
     public float rotateTime = 1.5f;

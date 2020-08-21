@@ -12,10 +12,8 @@ using TMPro;
 public class UIManager : MonoBehaviour
 {
     //TODO: make ui state an object and then i can do away with the like 6 or 7 variables at a time
-
     //components for fading in and out
     public GameObject trackInfoUI, playerInfoUI;
-
     //trackinfo stuff could maybe be a dictionary or something
     public TextMeshProUGUI trackTitleText, trackArtistText, playerHealthText, coinText;
     //public TextRender dialogueRenderer;
@@ -30,9 +28,9 @@ public class UIManager : MonoBehaviour
     //public Text coinsText;
     //Yarn Variables 
     public TextMeshProUGUI dialogTextContainer;
+    public DialogueRunner dialogueRunner;
 
-
-
+    public TextEffectManager textEffectManager;
 
     private void Awake()
     {
@@ -52,6 +50,44 @@ public class UIManager : MonoBehaviour
         coinText.text = "Skrilla : 0";
         playerHealthText.text = "5 / 5";
         faderCanvas.alpha = 0;
+
+        dialogueRunner.AddCommandHandler("applyMarkup", applyMarkup);
+    }
+
+
+    public void applyMarkup(string[] parameters)
+    {
+
+        print("applying markup");
+        //take in an array of strings of effects to apply and the indexes in the string to apply them
+        //ex: wiggle-4,6
+
+        //TODO: write parser for text effects
+        //need to parse these into the effects to call and the 
+
+        List<string> effects = new List<string>();
+
+        foreach (string effectString in parameters)
+        {
+            int seperatingSymbolPosition = effectString.IndexOf('-');
+            int commaPos = effectString.IndexOf(',');
+
+            string effectName = effectString.Substring(0, seperatingSymbolPosition);
+            string num1 = effectString.Substring(seperatingSymbolPosition + 1, commaPos - 1 - seperatingSymbolPosition);
+            string num2 = effectString.Substring(commaPos + 1, effectString.Length - 1 - commaPos);
+
+            // print("effect name " + effectName);
+            // print("num 1 " + num1);
+            // print("num 2 " + num2);
+
+            int startMarkupPos = int.Parse(num1);
+            int stopMarkupPos = int.Parse(num2);
+
+            //for now we just tell the text effect manager the starting and ending position of the wiggle
+
+            textEffectManager.wiggleStart = startMarkupPos;
+            textEffectManager.wiggleEnd = stopMarkupPos;
+        }
     }
 
     // Update is called once per frame
@@ -135,4 +171,10 @@ public class UIManager : MonoBehaviour
 
         coinText.text = "Skrilla: " + numCoins.ToString();
     }
+
+
+
+
+
+
 }

@@ -3,7 +3,8 @@ tags:
 ---
 <<changeCamera npccam>>
 NPC: Ayo what up my duder.
-NPC: You keepin it real man?
+<<applyMarkup wiggly-8,14>>
+NPC: You VIBIN dog?
 [[Yeah man|testNPC.Exit]]
 [[As real as I can|testNPC.OtherExit]]
 ===

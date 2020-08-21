@@ -13,26 +13,16 @@ public class NPC : MonoBehaviour, IInteractable
     //this dictionary of camera's is then
 
     Dictionary<string, CinemachineVirtualCamera> cameraPositions;
-
-    public Dialogue dialogue;
     public string talkToNode = "";
     public YarnProgram scriptToLoad;
     public void Interact()
     {
-        //TODO: reimplement with setence object array
-        //UIManager.current.NPCStartTalk(dialogue.sentences, dialogue);
-
         DialogCameraController.current.setCameraObjects(cameraPositions);
-
         FindObjectOfType<DialogueRunner>().StartDialogue(talkToNode);
     }
 
     private void Start()
     {
-        //lol
-        dialogue.initDialogue();
-
-
         if (scriptToLoad != null)
         {
             DialogueRunner dialogueRunner = FindObjectOfType<Yarn.Unity.DialogueRunner>();
@@ -40,7 +30,7 @@ public class NPC : MonoBehaviour, IInteractable
         }
 
         cameraPositions = new Dictionary<string, CinemachineVirtualCamera>();
-        //go through all the camera positions and add them to the dictionary
+
         Transform cameraObjs = transform.GetChild(0);
         for (int i = 0; i < cameraObjs.childCount; i++)
         {

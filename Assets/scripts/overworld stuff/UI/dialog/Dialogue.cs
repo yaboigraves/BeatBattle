@@ -4,6 +4,7 @@ using UnityEngine;
 using Cinemachine;
 using System.Xml;
 
+//TODO: this can get deleted i think
 [System.Serializable]
 public class Dialogue
 {

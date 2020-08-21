@@ -855,13 +855,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &897917732 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 581012004876048384, guid: 35794f01adbfc7141b06bdcef0916d25,
+    type: 3}
+  m_PrefabInstance: {fileID: 1537695856}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bec29c0a230741bdac901dba8da47ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &960181904
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17102
+  m_Name: pb_Mesh17078
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1025,7 +1037,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17194
+  m_Name: pb_Mesh17148
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1523,7 +1535,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 72724811, guid: 35794f01adbfc7141b06bdcef0916d25, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 144
+      value: -444
       objectReference: {fileID: 0}
     - target: {fileID: 300009357, guid: 35794f01adbfc7141b06bdcef0916d25, type: 3}
       propertyPath: currentCamera
@@ -1588,14 +1600,42 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 718816525, guid: 35794f01adbfc7141b06bdcef0916d25, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 548
+      value: -165
       objectReference: {fileID: 0}
     - target: {fileID: 718816525, guid: 35794f01adbfc7141b06bdcef0916d25, type: 3}
       propertyPath: m_SizeDelta.x
       value: 1500
       objectReference: {fileID: 0}
+    - target: {fileID: 718816525, guid: 35794f01adbfc7141b06bdcef0916d25, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 718816525, guid: 35794f01adbfc7141b06bdcef0916d25, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 718816525, guid: 35794f01adbfc7141b06bdcef0916d25, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 718816526, guid: 35794f01adbfc7141b06bdcef0916d25, type: 3}
       propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 965372258, guid: 35794f01adbfc7141b06bdcef0916d25, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 965372258, guid: 35794f01adbfc7141b06bdcef0916d25, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 965372258, guid: 35794f01adbfc7141b06bdcef0916d25, type: 3}
+      propertyPath: m_Pivot.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1066696293, guid: 35794f01adbfc7141b06bdcef0916d25, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1085708525, guid: 35794f01adbfc7141b06bdcef0916d25, type: 3}
@@ -1699,6 +1739,16 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 8495102062338693172, guid: 35794f01adbfc7141b06bdcef0916d25,
+        type: 3}
+      propertyPath: dialogueRunner
+      value: 
+      objectReference: {fileID: 897917732}
+    - target: {fileID: 8495102062338693172, guid: 35794f01adbfc7141b06bdcef0916d25,
+        type: 3}
+      propertyPath: textEffectManager
+      value: 
+      objectReference: {fileID: 2127161144}
     - target: {fileID: 8495102063251143893, guid: 35794f01adbfc7141b06bdcef0916d25,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1767,7 +1817,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17050
+  m_Name: pb_Mesh17046
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1941,7 +1991,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17160
+  m_Name: pb_Mesh17124
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2229,6 +2279,18 @@ Transform:
   m_Father: {fileID: 1862036536}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1784706131 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1759621844, guid: 35794f01adbfc7141b06bdcef0916d25,
+    type: 3}
+  m_PrefabInstance: {fileID: 1537695856}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1862036535
 GameObject:
   m_ObjectHideFlags: 0
@@ -2271,7 +2333,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17082
+  m_Name: pb_Mesh17066
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2544,6 +2606,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2127161141 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8495102062338693174, guid: 35794f01adbfc7141b06bdcef0916d25,
+    type: 3}
+  m_PrefabInstance: {fileID: 1537695856}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2127161144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2127161141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7dc9686170a6fa4c9fd49757184cb35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textComponent: {fileID: 1784706131}
+  wiggleStart: 0
+  wiggleEnd: 0
 --- !u!1 &2146846359
 GameObject:
   m_ObjectHideFlags: 0

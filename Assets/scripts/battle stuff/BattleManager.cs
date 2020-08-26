@@ -6,33 +6,38 @@ using UnityEngine.SceneManagement;
 public class BattleManager : MonoBehaviour
 {
 
-
-    //REVAMP NOTES
-    /*
-        once user hits play, the beats start rolling and a 1 2 3 4 countdown is done in the bpm of the current track
-        1.the indicators should be offset by one bar
-        2.1 2 3 4 countdown needs to be implemented and synced to bpm (probably a recursive coroutine)
-        
-        after the battle is over there needs to be a short delay where the enemies defeated and then 
-        show how much kush we got and how much xp we got
-
-        
-        
-
-    */
-
-
-
     public static BattleManager current;
     public bool battleStarted;
     //maybe move these somewhere but honestly doesnt need to be in the player 
     public int playerHealth, enemyHealth, playerMaxHealth, enemyMaxHealth;
-    public bool playerTurn;
+    public Track[] playerTracks;
+    public bool playerTurn = true;
     public BattleEnemy enemy;
     //battle ui obkjects 
     public Transform indicators;
     public GameObject kickIndicator;
     public GameObject testEnemy;
+
+    bool firstTurn = true;
+
+    //this variable keeps track of whether or not the player or the enemy did the first attack
+
+
+    public bool playerGoesFirst = true;
+
+    //REVAMP NOTES
+    /*
+       1. figure out who's turn it is 
+       2. setup the track audio via the battle track manager 
+       3. setup the currentTrack variables 
+       4. setup the indicators starting from 5 away from the current beat
+       5. play 
+       6. on a turn swap repoeat from step 2 
+
+    */
+
+
+
 
     void Awake()
     {
@@ -60,27 +65,28 @@ public class BattleManager : MonoBehaviour
         {
             //use the testing enemy and the backup track that was loaded in the battle track manager
             enemy.setEnemies(testEnemy, null);
-            SetupIndicators(BattleTrackManager.current.testTrack);
-
+            //SetupIndicators(BattleTrackManager.current.testPlayerTracks[0]);
             setPlayerEnemyHealth(10, 10, testEnemy.GetComponent<Enemy>().health, testEnemy.GetComponent<Enemy>().maxHealth);
         }
         else
         {
             //spawn the enemy in and turn off their move function 
             enemy.setEnemies(SceneManage.current.enemyInBattle, GameManager.current.player.battleRangeChecker.enemiesInRange);
-
-            SetupIndicators(TrackManager.current.currTrack);
+            //SetupIndicators(TrackManager.current.currTrack);
         }
+
+
         changeTurn();
+        firstTurn = false;
+
     }
 
     //TODO: spawn everything 1 bar on top of 
     void SetupIndicators(Track track)
     {
         //creates 5 loops
-        for (int x = 0; x < 5; x++)
+        for (int x = 0; x < 1; x++)
         {
-
             for (int i = 0; i < track.kickBeats.indicatorPositions.Length; i++)
             {
 
@@ -101,6 +107,32 @@ public class BattleManager : MonoBehaviour
         }
 
     }
+
+    public void setupTurnIndicators(Track newTrack)
+    {
+        Track track = newTrack;
+        //for now this will just use the testing track
+        //BattleTrackManager.current.totalBeats tells us what the current beat is, so when we want to setup the next turns indicaotrs
+        //we look at the currentbeat + 4 for where we should start initialization
+
+        for (int i = 0; i < track.kickBeats.indicatorPositions.Length; i++)
+        {
+
+            Vector3 kickPos = new Vector3(-1, 4 + 100 + (track.kickBeats.indicatorPositions[i]), 0);
+            //each unit is 1 bar 
+            //therefore we need to start the next batck of indicators at wherever the loop ends
+            //probablyh easiest for now just to bake the length of the loop into the track object 
+            Instantiate(kickIndicator, kickPos, Quaternion.identity, indicators);
+
+        }
+
+        for (int i = 0; i < track.snareBeats.indicatorPositions.Length; i++)
+        {
+            Vector3 kickPos = new Vector3(1, 4 + 100 + (track.snareBeats.indicatorPositions[i]), 0);
+            Instantiate(kickIndicator, kickPos, Quaternion.identity, indicators);
+        }
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -154,9 +186,6 @@ public class BattleManager : MonoBehaviour
 
     public void playerTakeDamage(int damage)
     {
-
-
-        //playerHealth -= damage;
 
         if (playerHealth <= 0)
         {
@@ -227,17 +256,28 @@ public class BattleManager : MonoBehaviour
         BattleUIManager.current.updateEnemyHealth(enemyHealth);
     }
 
+
+    //TODO: This is a little too unwieldy right now rewrite this at some point
+
+
     public void changeTurn()
     {
-        playerTurn = !playerTurn;
+        //first we check who's turn it is
         if (playerTurn)
         {
+            //so we need to find which track the player has selected
+            //for now we just use the 0th position 
+            BattleTrackManager.current.switchBattleTrack(BattleTrackManager.current.testPlayerTracks[0], firstTurn);
             IndicatorManager.current.changeIndicatorColors(new Color(255, 0, 0, 1));
+
         }
         else
         {
+            BattleTrackManager.current.switchBattleTrack(BattleTrackManager.current.testEnemyTracks[0], firstTurn);
             IndicatorManager.current.changeIndicatorColors(new Color(0, 0, 255, 1));
         }
+
+        playerTurn = !playerTurn;
         BattleCameraController.current.trackSwitcher();
     }
 }

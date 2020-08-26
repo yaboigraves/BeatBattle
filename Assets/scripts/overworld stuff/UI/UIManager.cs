@@ -6,9 +6,6 @@ using Cinemachine;
 using Yarn.Unity;
 using TMPro;
 
-
-
-
 public class UIManager : MonoBehaviour
 {
     //TODO: make ui state an object and then i can do away with the like 6 or 7 variables at a time
@@ -32,6 +29,9 @@ public class UIManager : MonoBehaviour
 
     public TextEffectManager textEffectManager;
 
+    //this variable tracks what letter we're currently on in the dialogue (used for text effects)
+    public int currentLetter;
+
     private void Awake()
     {
         if (current == null)
@@ -52,42 +52,57 @@ public class UIManager : MonoBehaviour
         faderCanvas.alpha = 0;
 
         dialogueRunner.AddCommandHandler("applyMarkup", applyMarkup);
+        dialogueRunner.AddCommandHandler("clearMarkup", clearMarkup);
     }
 
+    public void increaseLetterCount()
+    {
+        currentLetter++;
+    }
+
+    public void resetLetterCount()
+    {
+        currentLetter = 0;
+    }
+
+    public void clearMarkup(string[] parameters)
+    {
+        resetLetterCount();
+        textEffectManager.ClearEffects();
+    }
 
     public void applyMarkup(string[] parameters)
     {
 
         print("applying markup");
-        //take in an array of strings of effects to apply and the indexes in the string to apply them
-        //ex: wiggle-4,6
 
-        //TODO: write parser for text effects
-        //need to parse these into the effects to call and the 
-
-        List<string> effects = new List<string>();
+        List<(string, (int, int))> effects = new List<(string, (int, int))>();
 
         foreach (string effectString in parameters)
         {
+            //these return -1 if they dont find anything
             int seperatingSymbolPosition = effectString.IndexOf('-');
             int commaPos = effectString.IndexOf(',');
 
-            string effectName = effectString.Substring(0, seperatingSymbolPosition);
-            string num1 = effectString.Substring(seperatingSymbolPosition + 1, commaPos - 1 - seperatingSymbolPosition);
-            string num2 = effectString.Substring(commaPos + 1, effectString.Length - 1 - commaPos);
+            if (seperatingSymbolPosition != -1 && commaPos != -1)
+            {
+                string effectName = effectString.Substring(0, seperatingSymbolPosition);
+                string num1 = effectString.Substring(seperatingSymbolPosition + 1, commaPos - 1 - seperatingSymbolPosition);
+                string num2 = effectString.Substring(commaPos + 1, effectString.Length - 1 - commaPos);
 
-            // print("effect name " + effectName);
-            // print("num 1 " + num1);
-            // print("num 2 " + num2);
+                int startMarkupPos = int.Parse(num1);
+                int stopMarkupPos = int.Parse(num2);
 
-            int startMarkupPos = int.Parse(num1);
-            int stopMarkupPos = int.Parse(num2);
+                //for now we just tell the text effect manager the starting and ending position of the wiggle
 
-            //for now we just tell the text effect manager the starting and ending position of the wiggle
-
-            textEffectManager.wiggleStart = startMarkupPos;
-            textEffectManager.wiggleEnd = stopMarkupPos;
+                effects.Add((effectName, (startMarkupPos, stopMarkupPos)));
+            }
+            else
+            {
+                Debug.LogError("effects markup rendered wrong");
+            }
         }
+        textEffectManager.UpdateTextEffects(effects);
     }
 
     // Update is called once per frame
@@ -126,8 +141,6 @@ public class UIManager : MonoBehaviour
 
     }
 
-
-
     IEnumerator showTrackInfoUI(GameObject uiElement, float distance)
     {
         //TODO: make this tween from the right side of the screen or something
@@ -156,8 +169,6 @@ public class UIManager : MonoBehaviour
         StartCoroutine(screenWipeRoutine());
     }
 
-
-
     public void updateCoinsText(int numCoins)
     {
         if (!playerInfoUI.activeSelf)
@@ -171,10 +182,5 @@ public class UIManager : MonoBehaviour
 
         coinText.text = "Skrilla: " + numCoins.ToString();
     }
-
-
-
-
-
 
 }

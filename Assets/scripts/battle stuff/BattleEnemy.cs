@@ -11,6 +11,7 @@ public class BattleEnemy : MonoBehaviour
 
     public SpriteRenderer spriteRenderer;
     public Animator animator;
+    public Track[] enemyBattleTracks;
 
     private void Awake()
     {

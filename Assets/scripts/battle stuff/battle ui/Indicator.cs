@@ -29,6 +29,7 @@ public class Indicator : MonoBehaviour
         //if bpm is 96 then one beat passes every 96/60
         if (activated)
         {
+            bpm = BattleTrackManager.current.currentBpm;
             transform.Translate(0, Time.deltaTime * -moveSpeed, 0);
         }
 

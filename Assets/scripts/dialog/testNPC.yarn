@@ -3,21 +3,26 @@ tags:
 ---
 <<changeCamera npccam>>
 NPC: Ayo what up my duder.
-<<applyMarkup wiggly-8,14>>
-NPC: You VIBIN dog?
+
+<<applyMarkup wiggle-8,14 wiggle-30,41>>
+NPC: You VIBIN dog? You really vibiiiiin?
+
 [[Yeah man|testNPC.Exit]]
 [[As real as I can|testNPC.OtherExit]]
+
 ===
 
 title: testNPC.Exit
 tags:
 --- 
 <<changeCamera test>>
+<<clearMarkup>>
 NPC: You stay safe out their homie
 ===
 
 title: testNPC.OtherExit
 tags:
 --- 
+<<clearMarkup>>
 NPC: Aight word man see you around.
 ===

@@ -11,11 +11,6 @@ public class IndicatorManager : MonoBehaviour
     {
         current = this;
     }
-    // Start is called before the first frame update
-
-    //inefficient just for testing 
-
-    //during players turn red
 
     public void changeIndicatorColors(Color color)
     {

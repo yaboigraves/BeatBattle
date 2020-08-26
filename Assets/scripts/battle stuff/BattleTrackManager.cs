@@ -12,15 +12,21 @@ public class BattleTrackManager : MonoBehaviour
     public float bpmTimer, beatDeltaTime;
     public int beat;
     public bool paused;
-    public int battleBarsPerTurn = 2;
-    int battleTurn;
+    public int battleBarsPerTurn = 4;
+    public int battleTurn;
     public float currentBpm;
-    public Track testTrack;
+
+    public Track[] testPlayerTracks;
+    public Track[] testEnemyTracks;
 
     //if this is enabled play a sound when the metronome ticks
     public bool metronomeAudio;
 
-    int totalBeats;
+    public int totalBeats;
+
+    public int currentBar;
+
+
 
 
     private void Awake()
@@ -32,11 +38,11 @@ public class BattleTrackManager : MonoBehaviour
         {
             //initialize the indicator positions 
 
-            testTrack.kickBeats.indicatorPositions = Array.ConvertAll(testTrack.kickBeats.indicatorData.Split(' '), float.Parse);
-            testTrack.snareBeats.indicatorPositions = Array.ConvertAll(testTrack.snareBeats.indicatorData.Split(' '), float.Parse);
+            testPlayerTracks[0].kickBeats.indicatorPositions = Array.ConvertAll(testPlayerTracks[0].kickBeats.indicatorData.Split(' '), float.Parse);
+            testPlayerTracks[0].snareBeats.indicatorPositions = Array.ConvertAll(testPlayerTracks[0].snareBeats.indicatorData.Split(' '), float.Parse);
 
-            currentTrack = testTrack;
-            audioClip = testTrack.trackClip;
+            currentTrack = testPlayerTracks[0];
+            audioClip = testPlayerTracks[0].trackClip;
 
         }
         else
@@ -56,13 +62,14 @@ public class BattleTrackManager : MonoBehaviour
     private void Start()
     {
         paused = true;
+        // testTrack2.kickBeats.initData();
+        // testTrack2.snareBeats.initData();
     }
 
     public void StartBattle()
     {
+        beat = 0;
         paused = false;
-        //start counting down then do everything
-        //StartCoroutine(battleCountIn());
 
         audioSource.Play();
         BattleManager.current.battleStarted = true;
@@ -78,6 +85,9 @@ public class BattleTrackManager : MonoBehaviour
     public void StartCountIn()
     {
         StartCoroutine(battleCountIn());
+
+        //StartBattle();
+
     }
 
     IEnumerator battleCountIn()
@@ -94,27 +104,48 @@ public class BattleTrackManager : MonoBehaviour
         beat++;
         BattleUIManager.current.UpdateMetronome(beat, true);
         yield return new WaitForSeconds(beatDeltaTime);
-
-
         StartBattle();
-
-
     }
 
+    public int nextTurnStart;
+    public void switchBattleTrack(Track newTrack, bool doWait)
+    {
+        print(doWait);
+        //couple things need to happen here
+        //1. we turn off the current track audio
+        audioSource.Stop();
+        //2.we load in the new track as the current track
+        currentTrack = newTrack;
+        //3.replace the audiosource's clip
+        audioSource.clip = currentTrack.trackClip;
+        //4.we need to modify the speed of the indicators (they all look at this variable for their speed)
+        currentBpm = newTrack.bpm;
+        //5.we need to setup the new indicators 
+        BattleManager.current.setupTurnIndicators(newTrack);
+        //6.play the new track AFTER 4 BARS OF WAITING if a wait is requested
+
+        nextTurnStart = totalBeats + 5;
+
+        if (!doWait)
+        {
+            StartCoroutine(barWait());
+        }
+    }
+
+    IEnumerator barWait()
+    {
+        yield return new WaitUntil(() => totalBeats == nextTurnStart);
+        print("bar waiting playing");
+        audioSource.Play();
+    }
 
     IEnumerator beatTick()
     {
-
         //if we're paused dont do any waiting
         while (paused)
         {
             yield return null;
         }
-
-        //if we're not paused wait for 1 beat
-        //we can calculate this using the bpm and just dividing it by 60
-
-
 
         //update the beat
         beat++;
@@ -123,9 +154,9 @@ public class BattleTrackManager : MonoBehaviour
         {
             beat = 0;
             battleTurn++;
+
             if (battleTurn >= battleBarsPerTurn)
             {
-                // print("changiung turn");
                 BattleManager.current.changeTurn();
                 battleTurn = 0;
             }
@@ -133,13 +164,10 @@ public class BattleTrackManager : MonoBehaviour
 
         BattleUIManager.current.UpdateMetronome(beat, false);
 
-        //call ourself again
-
         totalBeats++;
+        currentBar = (int)Mathf.Floor(totalBeats / 4.0f);
 
         yield return new WaitForSeconds(beatDeltaTime);
         StartCoroutine(beatTick());
     }
-
-
 }

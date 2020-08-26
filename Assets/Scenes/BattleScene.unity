@@ -350,7 +350,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 262207967}
-  m_LocalRotation: {x: 0.09377653, y: 0.32594296, z: -0.032511104, w: 0.940165}
+  m_LocalRotation: {x: 0.09452074, y: 0.30356827, z: -0.03027934, w: 0.9476262}
   m_LocalPosition: {x: -19.29, y: 100.31, z: -15.868}
   m_LocalScale: {x: 1.0000001, y: 1, z: 1}
   m_Children: []
@@ -1691,7 +1691,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 708335400}
-  m_LocalRotation: {x: 0.09377653, y: 0.32594296, z: -0.032511104, w: 0.940165}
+  m_LocalRotation: {x: 0.09452074, y: 0.30356827, z: -0.03027934, w: 0.9476262}
   m_LocalPosition: {x: -19.29, y: 100.31, z: -15.868}
   m_LocalScale: {x: 1.0000001, y: 1, z: 1}
   m_Children:
@@ -2409,12 +2409,14 @@ MonoBehaviour:
   enemyHealth: 0
   playerMaxHealth: 0
   enemyMaxHealth: 0
+  playerTracks: []
   playerTurn: 0
   enemy: {fileID: 484811456055130513}
   indicators: {fileID: 1748981234}
   kickIndicator: {fileID: 2797802640930905, guid: 2fdd905a916edd84a99d71189820ad30,
     type: 3}
   testEnemy: {fileID: 985445407}
+  playerGoesFirst: 1
 --- !u!4 &1113073679
 Transform:
   m_ObjectHideFlags: 0
@@ -2831,7 +2833,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1379790092}
-  m_LocalRotation: {x: 0.11982434, y: 0.4337876, z: -0.058330182, w: 0.891105}
+  m_LocalRotation: {x: 0.11853462, y: 0.45296088, z: -0.060908355, w: 0.8815136}
   m_LocalPosition: {x: -19.29, y: 100.31, z: -15.868}
   m_LocalScale: {x: 0.9999999, y: 1, z: 1}
   m_Children:
@@ -3373,10 +3375,17 @@ MonoBehaviour:
   beatDeltaTime: 0
   beat: 0
   paused: 0
-  battleBarsPerTurn: 2
+  battleBarsPerTurn: 4
+  battleTurn: 0
   currentBpm: 0
-  testTrack: {fileID: 11400000, guid: 6db31f387b047a9448ebacd4829dce26, type: 2}
+  testPlayerTracks:
+  - {fileID: 11400000, guid: 643fd89a0c3b6c8478d71ff0cf78d31a, type: 2}
+  testEnemyTracks:
+  - {fileID: 11400000, guid: 6db31f387b047a9448ebacd4829dce26, type: 2}
   metronomeAudio: 0
+  totalBeats: 0
+  currentBar: 0
+  nextTurnStart: 0
 --- !u!82 &1831675819
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3874,6 +3883,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 0}
   animator: {fileID: 0}
+  enemyBattleTracks: []
 --- !u!95 &484811456055130514
 Animator:
   serializedVersion: 3

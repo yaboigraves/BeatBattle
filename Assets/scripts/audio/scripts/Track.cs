@@ -23,14 +23,22 @@ public class Track : ScriptableObject
 [Serializable]
 public class IndicatorData
 {
+    [TextArea]
     public string indicatorData;
     public float[] indicatorPositions;
     public IndicatorData()
     {
         if (indicatorData != null)
         {
-            indicatorPositions = Array.ConvertAll(indicatorData.Split(','), float.Parse);
+            indicatorPositions = Array.ConvertAll(indicatorData.Split(' '), float.Parse);
+        }
+    }
 
+    public void initData()
+    {
+        if (indicatorData != null)
+        {
+            indicatorPositions = Array.ConvertAll(indicatorData.Split(' '), float.Parse);
         }
     }
 }

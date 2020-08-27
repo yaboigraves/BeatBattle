@@ -26,7 +26,7 @@ public class BattleTrackManager : MonoBehaviour
 
     public int currentBar;
 
-
+    public Track playerSelectedTrack;
 
 
     private void Awake()
@@ -41,8 +41,13 @@ public class BattleTrackManager : MonoBehaviour
             testPlayerTracks[0].kickBeats.indicatorPositions = Array.ConvertAll(testPlayerTracks[0].kickBeats.indicatorData.Split(' '), float.Parse);
             testPlayerTracks[0].snareBeats.indicatorPositions = Array.ConvertAll(testPlayerTracks[0].snareBeats.indicatorData.Split(' '), float.Parse);
 
-            currentTrack = testPlayerTracks[0];
+
+            playerSelectedTrack = testPlayerTracks[0];
+            currentTrack = playerSelectedTrack;
             audioClip = testPlayerTracks[0].trackClip;
+
+            //TODO: remove this for 
+
 
         }
         else
@@ -51,6 +56,9 @@ public class BattleTrackManager : MonoBehaviour
             currentTrack = TrackManager.current.currTrack;
             //load the track
             audioClip = currentTrack.trackClip;
+
+            //TODO: depending on if the player or the enemy goes first we grab different tracks
+            //
         }
 
         currentBpm = currentTrack.bpm;
@@ -62,13 +70,13 @@ public class BattleTrackManager : MonoBehaviour
     private void Start()
     {
         paused = true;
-        // testTrack2.kickBeats.initData();
-        // testTrack2.snareBeats.initData();
+
+
+
     }
 
     public void StartBattle()
     {
-        beat = 0;
         paused = false;
 
         audioSource.Play();
@@ -85,9 +93,6 @@ public class BattleTrackManager : MonoBehaviour
     public void StartCountIn()
     {
         StartCoroutine(battleCountIn());
-
-        //StartBattle();
-
     }
 
     IEnumerator battleCountIn()
@@ -169,5 +174,10 @@ public class BattleTrackManager : MonoBehaviour
 
         yield return new WaitForSeconds(beatDeltaTime);
         StartCoroutine(beatTick());
+    }
+
+    public void setPlayerSelectedTrack(Track newTrack)
+    {
+        playerSelectedTrack = newTrack;
     }
 }

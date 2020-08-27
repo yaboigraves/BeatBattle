@@ -262,12 +262,13 @@ public class BattleManager : MonoBehaviour
 
     public void changeTurn()
     {
+        print("changing turn");
         //first we check who's turn it is
         if (playerTurn)
         {
             //so we need to find which track the player has selected
             //for now we just use the 0th position 
-            BattleTrackManager.current.switchBattleTrack(BattleTrackManager.current.testPlayerTracks[0], firstTurn);
+            BattleTrackManager.current.switchBattleTrack(BattleTrackManager.current.playerSelectedTrack, firstTurn);
             IndicatorManager.current.changeIndicatorColors(new Color(255, 0, 0, 1));
 
         }

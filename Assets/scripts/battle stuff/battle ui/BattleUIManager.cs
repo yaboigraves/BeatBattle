@@ -9,7 +9,7 @@ public class BattleUIManager : MonoBehaviour
     public static BattleUIManager current;
     public int maxPlayerHealth, maxEnemyHealth;
 
-    public TextMeshProUGUI metronomeText, playerHealthText, enemyHealthText;
+    public TextMeshProUGUI metronomeText, playerHealthText, enemyHealthText, buttonText1, buttonText2;
 
     [Header("UI Sounds")]
 
@@ -17,6 +17,8 @@ public class BattleUIManager : MonoBehaviour
     public AudioClip[] metronomeCounts;
 
     public GameObject BattleEndUI;
+
+
 
     private void Awake()
     {
@@ -27,7 +29,35 @@ public class BattleUIManager : MonoBehaviour
     private void Start()
     {
         BattleEndUI.SetActive(false);
+
+        //setup the buttons for the players track options
+        InitTrackButtons();
+
+
     }
+
+    public void InitTrackButtons()
+    {
+        buttonText1.text = BattleTrackManager.current.testPlayerTracks[0].trackName;
+        buttonText2.text = BattleTrackManager.current.testPlayerTracks[1].trackName;
+
+        //also give them their tracks (this is awful)
+        buttonText1.transform.parent.gameObject.GetComponent<TrackSelectButton>().track = BattleTrackManager.current.testPlayerTracks[0];
+        buttonText2.transform.parent.gameObject.GetComponent<TrackSelectButton>().track = BattleTrackManager.current.testPlayerTracks[1];
+    }
+
+
+    //so the player needs to be able to select a battle track to use for the next loop, this then needs to be sent to 
+    //the track manager and the battle manager so it can get setup for the next track
+    //the trackname may not be the best argument to figure out what track was selected
+    public void SetPlayerTrack(Track newTrack)
+    {
+        //find the track based on its trackname in the 
+        BattleTrackManager.current.setPlayerSelectedTrack(newTrack);
+    }
+
+
+
 
     public void setMaxHealths(int mPHealth, int mEHealth)
     {

@@ -710,14 +710,15 @@ MonoBehaviour:
   metronomeText: {fileID: 983844054}
   playerHealthText: {fileID: 1282982711}
   enemyHealthText: {fileID: 358865351}
-  buttonText1: {fileID: 1138923257}
-  buttonText2: {fileID: 918000382}
   metronomeCounts:
   - {fileID: 8300000, guid: e4142f03390ec8b4098bbfdf16b92c47, type: 3}
   - {fileID: 8300000, guid: 8defcf2767e4a494eba1a18770471794, type: 3}
   - {fileID: 8300000, guid: e3503844ecd817c4684acc63d8ad9e79, type: 3}
   - {fileID: 8300000, guid: 09d2905a3e32f7148a9af01d5dfd942d, type: 3}
   BattleEndUI: {fileID: 358222320}
+  trackSelectButtons:
+  - {fileID: 1767978047}
+  - {fileID: 422669781}
 --- !u!82 &375319272
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2751,13 +2752,12 @@ MonoBehaviour:
   playerMaxHealth: 0
   enemyMaxHealth: 0
   playerTracks: []
-  playerTurn: 0
+  playerTurn: 1
   enemy: {fileID: 484811456055130513}
   indicators: {fileID: 1748981234}
   kickIndicator: {fileID: 2797802640930905, guid: 2fdd905a916edd84a99d71189820ad30,
     type: 3}
   testEnemy: {fileID: 985445407}
-  playerGoesFirst: 1
 --- !u!4 &1113073679
 Transform:
   m_ObjectHideFlags: 0

@@ -36,19 +36,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        //  moved this to awake bc a bunch of stuffs start needs the player instantiated
-
-        // if (player == null)
-        // {
-        //     //IMPORTANT: this needs to be done because the player object referenced in the inputhandler needs
-        //     //to actually be the INSTANCE of the prefab object NOT the prefab itself
-        //     //all this does is replace the referenced prefab with this particular INSTANCE of the prefab
-        //     playerObj = Instantiate(playerObj);
-        // }
-        // input = GetComponent<InputHandler>();
-    }
 
     public void setManagerReferences(Player player)
     {

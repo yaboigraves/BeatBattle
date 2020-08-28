@@ -26,6 +26,9 @@ public class PlayerInventory : MonoBehaviour
     public Item testItem;
     public int coins;
 
+    public Track[] equippedTracks;
+
+
     private void Start()
     {
         testItem.Use();

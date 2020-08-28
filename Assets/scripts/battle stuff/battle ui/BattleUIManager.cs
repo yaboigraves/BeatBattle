@@ -9,7 +9,7 @@ public class BattleUIManager : MonoBehaviour
     public static BattleUIManager current;
     public int maxPlayerHealth, maxEnemyHealth;
 
-    public TextMeshProUGUI metronomeText, playerHealthText, enemyHealthText, buttonText1, buttonText2;
+    public TextMeshProUGUI metronomeText, playerHealthText, enemyHealthText;
 
     [Header("UI Sounds")]
 
@@ -17,6 +17,8 @@ public class BattleUIManager : MonoBehaviour
     public AudioClip[] metronomeCounts;
 
     public GameObject BattleEndUI;
+
+    public GameObject[] trackSelectButtons;
 
 
 
@@ -38,12 +40,62 @@ public class BattleUIManager : MonoBehaviour
 
     public void InitTrackButtons()
     {
-        buttonText1.text = BattleTrackManager.current.testPlayerTracks[0].trackName;
-        buttonText2.text = BattleTrackManager.current.testPlayerTracks[1].trackName;
 
-        //also give them their tracks (this is awful)
-        buttonText1.transform.parent.gameObject.GetComponent<TrackSelectButton>().track = BattleTrackManager.current.testPlayerTracks[0];
-        buttonText2.transform.parent.gameObject.GetComponent<TrackSelectButton>().track = BattleTrackManager.current.testPlayerTracks[1];
+        //first set all the buttons to inactive 
+
+        foreach (GameObject button in trackSelectButtons)
+        {
+            button.SetActive(false);
+        }
+
+
+
+        //non test mode
+        if (TrackManager.current != null)
+        {
+            for (int i = 0; i < BattleManager.current.playerTracks.Length; i++)
+            {
+
+                Track currTrack = BattleManager.current.playerTracks[i];
+
+                //turn on the button
+                trackSelectButtons[i].SetActive(true);
+                //set the text of the button
+                trackSelectButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = currTrack.trackName;
+                //set the track that this actually enables
+                trackSelectButtons[i].GetComponent<TrackSelectButton>().track = currTrack;
+            }
+
+        }
+        //test mode
+        else
+        {
+            for (int i = 0; i < BattleTrackManager.current.testPlayerTracks.Length; i++)
+            {
+                Track currTrack = BattleTrackManager.current.testPlayerTracks[i];
+
+                trackSelectButtons[i].SetActive(true);
+                //set the text of the button
+                trackSelectButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = currTrack.trackName;
+                //set the track that this actually enables
+                trackSelectButtons[i].GetComponent<TrackSelectButton>().track = currTrack;
+            }
+
+
+            // foreach (Track t in BattleTrackManager.current.testPlayerTracks)
+            // {
+            //     trackSelectButtons[i].SetActive(true);
+            //     trackSelectButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = Battletrac
+            // }
+
+            // buttonText1.text = BattleTrackManager.current.testPlayerTracks[0].trackName;
+            // buttonText2.text = BattleTrackManager.current.testPlayerTracks[1].trackName;
+
+            // //also give them their tracks (this is awful)
+            // buttonText1.transform.parent.gameObject.GetComponent<TrackSelectButton>().track = BattleTrackManager.current.testPlayerTracks[0];
+            // buttonText2.transform.parent.gameObject.GetComponent<TrackSelectButton>().track = BattleTrackManager.current.testPlayerTracks[1];
+        }
+
     }
 
 
@@ -55,8 +107,6 @@ public class BattleUIManager : MonoBehaviour
         //find the track based on its trackname in the 
         BattleTrackManager.current.setPlayerSelectedTrack(newTrack);
     }
-
-
 
 
     public void setMaxHealths(int mPHealth, int mEHealth)

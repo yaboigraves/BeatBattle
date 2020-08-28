@@ -22,9 +22,6 @@ public class BattleManager : MonoBehaviour
 
     //this variable keeps track of whether or not the player or the enemy did the first attack
 
-
-    public bool playerGoesFirst = true;
-
     //REVAMP NOTES
     /*
        1. figure out who's turn it is 
@@ -35,14 +32,9 @@ public class BattleManager : MonoBehaviour
        6. on a turn swap repoeat from step 2 
 
     */
-
-
-
-
     void Awake()
     {
         current = this;
-
         //this is for debugging, if theres no track manager that means launc shit in test mode
         if (TrackManager.current == null)
         {
@@ -54,6 +46,7 @@ public class BattleManager : MonoBehaviour
             TrackManager.current.PauseTrack();
             //find info for battle to start from the scene manager 
             setPlayerEnemyHealth(SceneManage.current.playerHealth, SceneManage.current.playerMaxHealth, SceneManage.current.enemyHealth, SceneManage.current.enemyMaxHealth);
+            playerTracks = GameManager.current.player.GetComponent<PlayerInventory>().equippedTracks;
         }
     }
 
@@ -73,12 +66,11 @@ public class BattleManager : MonoBehaviour
             //spawn the enemy in and turn off their move function 
             enemy.setEnemies(SceneManage.current.enemyInBattle, GameManager.current.player.battleRangeChecker.enemiesInRange);
             //SetupIndicators(TrackManager.current.currTrack);
+            //grab the equipped tracks of the player
+
         }
-
-
         changeTurn();
         firstTurn = false;
-
     }
 
     //TODO: spawn everything 1 bar on top of 
@@ -89,7 +81,6 @@ public class BattleManager : MonoBehaviour
         {
             for (int i = 0; i < track.kickBeats.indicatorPositions.Length; i++)
             {
-
                 Vector3 kickPos = new Vector3(-1, 4 + (x * track.numBars * 4) + 100 + (track.kickBeats.indicatorPositions[i]), 0);
                 //each unit is 1 bar 
                 //therefore we need to start the next batck of indicators at wherever the loop ends
@@ -133,7 +124,6 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-
     // Update is called once per frame
     void Update()
     {
@@ -152,8 +142,6 @@ public class BattleManager : MonoBehaviour
         //1 2 3 4 
         BattleTrackManager.current.StartCountIn();
     }
-
-
 
     public void processPadHit(bool hit)
     {
@@ -258,14 +246,13 @@ public class BattleManager : MonoBehaviour
 
 
     //TODO: This is a little too unwieldy right now rewrite this at some point
-
-
     public void changeTurn()
     {
-        print("changing turn");
+
         //first we check who's turn it is
         if (playerTurn)
         {
+            print("players turn");
             //so we need to find which track the player has selected
             //for now we just use the 0th position 
             BattleTrackManager.current.switchBattleTrack(BattleTrackManager.current.playerSelectedTrack, firstTurn);
@@ -274,6 +261,7 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
+            print("enemies turn");
             BattleTrackManager.current.switchBattleTrack(BattleTrackManager.current.testEnemyTracks[0], firstTurn);
             IndicatorManager.current.changeIndicatorColors(new Color(0, 0, 255, 1));
         }

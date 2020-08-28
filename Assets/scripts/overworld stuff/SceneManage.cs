@@ -6,16 +6,13 @@ using Cinemachine;
 
 public class SceneManage : MonoBehaviour
 {
-
     //public Dictionary<Enemy, string> enemySceneDictionary;
     public List<Enemy> enemies;
-
     //stored for moving the player around
     public static SceneManage current;
     public Player player;
     public GameObject enemyInBattle;
     public bool inBattle;
-
     //pos for camera to return to after battle
     Vector3 cameraReturnPosition;
     public GameObject mainCamera;
@@ -24,7 +21,6 @@ public class SceneManage : MonoBehaviour
     {
         current = this;
         enemies = new List<Enemy>();
-
     }
 
     void Start()
@@ -88,10 +84,7 @@ public class SceneManage : MonoBehaviour
     //TODO: this could probably take a battleResult object that tells us if the player won or not 
     public void LeaveBattle(bool playerWon)
     {
-
         //first tell the battleui manager to run its thing 
-
-
         UIManager.current.screenWipe();
         Destroy(BattleCameraController.current.gameObject);
         inBattle = false;
@@ -112,8 +105,6 @@ public class SceneManage : MonoBehaviour
                 Destroy(en);
 
             }
-
-
         }
         else
         {

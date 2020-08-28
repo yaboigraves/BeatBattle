@@ -16,6 +16,7 @@ public class BattleTrackManager : MonoBehaviour
     public int battleTurn;
     public float currentBpm;
 
+    public Track[] playerTracks;
     public Track[] testPlayerTracks;
     public Track[] testEnemyTracks;
 
@@ -41,25 +42,28 @@ public class BattleTrackManager : MonoBehaviour
             testPlayerTracks[0].kickBeats.indicatorPositions = Array.ConvertAll(testPlayerTracks[0].kickBeats.indicatorData.Split(' '), float.Parse);
             testPlayerTracks[0].snareBeats.indicatorPositions = Array.ConvertAll(testPlayerTracks[0].snareBeats.indicatorData.Split(' '), float.Parse);
 
-
+            //default the selected track to just the first track
             playerSelectedTrack = testPlayerTracks[0];
             currentTrack = playerSelectedTrack;
             audioClip = testPlayerTracks[0].trackClip;
-
-            //TODO: remove this for 
 
 
         }
         else
         {
-            //look and grab the current track
-            currentTrack = TrackManager.current.currTrack;
-            //load the track
+            playerTracks = GameManager.current.player.GetComponent<PlayerInventory>().equippedTracks;
+
+            currentTrack = playerTracks[0];
+
+            playerSelectedTrack = playerTracks[0];
+
             audioClip = currentTrack.trackClip;
 
             //TODO: depending on if the player or the enemy goes first we grab different tracks
             //
         }
+
+        print("audiosource" + audioSource.name);
 
         currentBpm = currentTrack.bpm;
         audioSource.clip = audioClip;
@@ -115,13 +119,16 @@ public class BattleTrackManager : MonoBehaviour
     public int nextTurnStart;
     public void switchBattleTrack(Track newTrack, bool doWait)
     {
-        print(doWait);
         //couple things need to happen here
         //1. we turn off the current track audio
         audioSource.Stop();
         //2.we load in the new track as the current track
+
+
         currentTrack = newTrack;
         //3.replace the audiosource's clip
+
+
         audioSource.clip = currentTrack.trackClip;
         //4.we need to modify the speed of the indicators (they all look at this variable for their speed)
         currentBpm = newTrack.bpm;

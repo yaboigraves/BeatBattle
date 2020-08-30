@@ -32,6 +32,12 @@ public class UIManager : MonoBehaviour
     //this variable tracks what letter we're currently on in the dialogue (used for text effects)
     public int currentLetter;
 
+
+    public GameObject inventoryMenus;
+
+
+
+
     private void Awake()
     {
         if (current == null)
@@ -182,5 +188,32 @@ public class UIManager : MonoBehaviour
 
         coinText.text = "Skrilla: " + numCoins.ToString();
     }
+
+    public void ToggleInventoryMenu()
+    {
+        inventoryMenus.SetActive(!inventoryMenus.activeSelf);
+    }
+
+    //TODO: scrolling menu basics for the inventory so we can asctually use items and equip tracks 
+    public GameObject inventoryItemContainer;
+    public GameObject inventoryItemUIPrefab;
+    public void UpdateItemInventory(Item newItem)
+    {
+        //so we need a container to append to that scrolls down
+        GameObject newItemUI = Instantiate(inventoryItemUIPrefab, inventoryItemContainer.transform);
+        newItemUI.GetComponentInChildren<TextMeshProUGUI>().text = newItem.name;
+        newItemUI.GetComponent<InventoryItem>().item = newItem;
+
+
+    }
+
+    public GameObject inventoryTrackContainer;
+    public GameObject inventoryTrackUIPrefab;
+    public void UpdateTrackInventory(Track newTrack)
+    {
+        GameObject newTrackUI = Instantiate(inventoryTrackUIPrefab, inventoryTrackContainer.transform);
+        newTrackUI.GetComponentInChildren<TextMeshProUGUI>().text = newTrack.trackName;
+    }
+
 
 }

@@ -22,16 +22,31 @@ public class PlayerInventory : MonoBehaviour
     //at any point the player can cycle through their tracks and select a loop to play on their next turn
     //perhaps certain loops will have certain elements that make them stronger in situations?
 
-
     public Item testItem;
     public int coins;
-
     public Track[] equippedTracks;
+    public List<Item> items = new List<Item>();
 
 
     private void Start()
     {
-        testItem.Use();
+        items.Add(testItem);
+        items.Add(testItem);
+        items.Add(testItem);
+        items.Add(testItem);
+        items.Add(testItem);
+        //testItem.Use();
+        //UIManager.current.UpdateItemInventory(testItem);
+        foreach (Track t in equippedTracks)
+        {
+            UIManager.current.UpdateTrackInventory(t);
+        }
+
+        foreach (Item i in items)
+        {
+            UIManager.current.UpdateItemInventory(i);
+        }
+
     }
 
 
@@ -40,4 +55,6 @@ public class PlayerInventory : MonoBehaviour
         coins++;
         UIManager.current.updateCoinsText(coins);
     }
+
+
 }

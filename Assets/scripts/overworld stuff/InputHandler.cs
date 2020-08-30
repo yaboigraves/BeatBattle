@@ -8,6 +8,12 @@ public class InputHandler : MonoBehaviour
     public float horizontalIn, verticalIn;
     public GameObject playerPrefab;
     public Player player;
+
+
+    //player variables for movement restrictions 
+
+
+
     void Start()
     {
 
@@ -25,6 +31,8 @@ public class InputHandler : MonoBehaviour
 
         horizontalIn = Input.GetAxisRaw("Horizontal");
         verticalIn = Input.GetAxisRaw("Vertical");
+
+
 
         //if we're just running around the overworld
 
@@ -83,6 +91,14 @@ public class InputHandler : MonoBehaviour
         {
             // rb.velocity = new Vector3(rb.velocity.x, jumpVelocity, rb.velocity.z);
             player.jump();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            //activate the inventory menu
+            UIManager.current.ToggleInventoryMenu();
+            Time.timeScale = Mathf.Abs(Time.timeScale - 1);
+
         }
     }
 }

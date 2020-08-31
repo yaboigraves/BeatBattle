@@ -20,8 +20,6 @@ public class BattleUIManager : MonoBehaviour
 
     public GameObject[] trackSelectButtons;
 
-
-
     private void Awake()
     {
         current = this;
@@ -34,38 +32,33 @@ public class BattleUIManager : MonoBehaviour
 
         //setup the buttons for the players track options
         InitTrackButtons();
-
-
     }
 
     public void InitTrackButtons()
     {
-
         //first set all the buttons to inactive 
-
         foreach (GameObject button in trackSelectButtons)
         {
             button.SetActive(false);
         }
 
-
-
         //non test mode
         if (TrackManager.current != null)
         {
+            //loop through all the player tracks and setup the buttons based on how many options there are
             for (int i = 0; i < BattleManager.current.playerTracks.Length; i++)
             {
-
                 Track currTrack = BattleManager.current.playerTracks[i];
-
-                //turn on the button
-                trackSelectButtons[i].SetActive(true);
-                //set the text of the button
-                trackSelectButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = currTrack.trackName;
-                //set the track that this actually enables
-                trackSelectButtons[i].GetComponent<TrackSelectButton>().track = currTrack;
+                if (currTrack != null)
+                {
+                    //turn on the button
+                    trackSelectButtons[i].SetActive(true);
+                    //set the text of the button
+                    trackSelectButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = currTrack.trackName;
+                    //set the track that this actually enables
+                    trackSelectButtons[i].GetComponent<TrackSelectButton>().track = currTrack;
+                }
             }
-
         }
         //test mode
         else

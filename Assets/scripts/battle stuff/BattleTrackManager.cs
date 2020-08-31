@@ -51,7 +51,7 @@ public class BattleTrackManager : MonoBehaviour
         }
         else
         {
-            playerTracks = GameManager.current.player.GetComponent<PlayerInventory>().playerTracks;
+            playerTracks = GameManager.current.player.GetComponent<PlayerInventory>().battleEquippedTracks;
 
             currentTrack = playerTracks[0];
 
@@ -74,9 +74,6 @@ public class BattleTrackManager : MonoBehaviour
     private void Start()
     {
         paused = true;
-
-
-
     }
 
     public void StartBattle()
@@ -124,10 +121,8 @@ public class BattleTrackManager : MonoBehaviour
         audioSource.Stop();
         //2.we load in the new track as the current track
 
-
         currentTrack = newTrack;
         //3.replace the audiosource's clip
-
 
         audioSource.clip = currentTrack.trackClip;
         //4.we need to modify the speed of the indicators (they all look at this variable for their speed)
@@ -151,6 +146,8 @@ public class BattleTrackManager : MonoBehaviour
         audioSource.Play();
     }
 
+
+    //so we need a centralized place for the time passage to be managed from
     IEnumerator beatTick()
     {
         //if we're paused dont do any waiting

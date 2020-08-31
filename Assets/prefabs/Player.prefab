@@ -5930,9 +5930,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   testItem: {fileID: 11400000, guid: 2485eea25b2c2cc4383b66af16962636, type: 2}
   coins: 0
-  equippedTracks:
+  playerTracks:
   - {fileID: 11400000, guid: 6db31f387b047a9448ebacd4829dce26, type: 2}
   - {fileID: 11400000, guid: 643fd89a0c3b6c8478d71ff0cf78d31a, type: 2}
+  battleEquippedTracks:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  items: []
 --- !u!114 &3195855955633630875
 MonoBehaviour:
   m_ObjectHideFlags: 0

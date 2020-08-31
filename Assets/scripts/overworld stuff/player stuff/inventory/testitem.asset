@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd30dc849e783c4498df18bd5865d541, type: 3}
   m_Name: testitem
   m_EditorClassIdentifier: 
+  itemName: Test item
   effectFunction: test
+  itemDescription: This is a fuckin test item lol

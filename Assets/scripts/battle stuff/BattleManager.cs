@@ -46,7 +46,7 @@ public class BattleManager : MonoBehaviour
             TrackManager.current.PauseTrack();
             //find info for battle to start from the scene manager 
             setPlayerEnemyHealth(SceneManage.current.playerHealth, SceneManage.current.playerMaxHealth, SceneManage.current.enemyHealth, SceneManage.current.enemyMaxHealth);
-            playerTracks = GameManager.current.player.GetComponent<PlayerInventory>().equippedTracks;
+            playerTracks = GameManager.current.player.GetComponent<PlayerInventory>().playerTracks;
         }
     }
 

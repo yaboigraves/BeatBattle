@@ -7,9 +7,11 @@ public class InventoryItem : MonoBehaviour
     public Item item;
     public void SelectItem()
     {
-        //for now this just uses the item but what it should do is set the item to go to the preview area where we can use it
-        //and see its description
-        UseItem();
+        //so this needs to update the name,sprite,and description of the item viewer panel
+        //UseItem();
+        UIManager.current.SelectItem(item);
+
+        //enable the use button
     }
 
     public void UseItem()
@@ -17,8 +19,12 @@ public class InventoryItem : MonoBehaviour
         item.Use();
         //now we tell the playerinventory to delete its shit
         GameManager.current.player.GetComponent<PlayerInventory>().items.Remove(item);
-        Destroy(this.gameObject);
+        // Destroy(this.gameObject);
+
+        //need to destroy the item in the ItemListContent 
+        UIManager.current.DeleteInventoryItem(item);
+
+        //reset the inventory item
+        UIManager.current.ResetInventoryItem();
     }
-
-
 }

@@ -6,11 +6,10 @@ using UnityEngine.Events;
 [CreateAssetMenu(fileName = "Item", menuName = "BeatBattle/Item", order = 0)]
 public class Item : ScriptableObject
 {
-
-
+    public string itemName;
     public string effectFunction;
-
-
+    [TextArea]
+    public string itemDescription;
     public virtual void Use()
     {
         typeof(ItemEffects).GetMethod(effectFunction).Invoke(null, null);

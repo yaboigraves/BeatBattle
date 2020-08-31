@@ -51,7 +51,7 @@ public class BattleTrackManager : MonoBehaviour
         }
         else
         {
-            playerTracks = GameManager.current.player.GetComponent<PlayerInventory>().equippedTracks;
+            playerTracks = GameManager.current.player.GetComponent<PlayerInventory>().playerTracks;
 
             currentTrack = playerTracks[0];
 

@@ -24,7 +24,9 @@ public class PlayerInventory : MonoBehaviour
 
     public Item testItem;
     public int coins;
-    public Track[] equippedTracks;
+    public Track[] playerTracks;
+
+    public Track[] battleEquippedTracks;
     public List<Item> items = new List<Item>();
 
 
@@ -37,7 +39,7 @@ public class PlayerInventory : MonoBehaviour
         items.Add(testItem);
         //testItem.Use();
         //UIManager.current.UpdateItemInventory(testItem);
-        foreach (Track t in equippedTracks)
+        foreach (Track t in playerTracks)
         {
             UIManager.current.UpdateTrackInventory(t);
         }
@@ -54,6 +56,45 @@ public class PlayerInventory : MonoBehaviour
     {
         coins++;
         UIManager.current.updateCoinsText(coins);
+    }
+
+    public void EquipTrack(Track t, bool equip)
+    {
+        //find the first empty slot 
+        if (equip)
+        {
+            //check if its already equipped 
+            for (int i = 0; i < battleEquippedTracks.Length; i++)
+            {
+                if (battleEquippedTracks[i] == t)
+                {
+                    return;
+                }
+            }
+
+            for (int i = 0; i < battleEquippedTracks.Length; i++)
+            {
+                if (battleEquippedTracks[i] == null)
+                {
+                    battleEquippedTracks[i] = t;
+                    return;
+                }
+            }
+        }
+        else
+        {
+            //check if its already equipped 
+            for (int i = 0; i < battleEquippedTracks.Length; i++)
+            {
+                if (battleEquippedTracks[i] == t)
+                {
+                    battleEquippedTracks[i] = null;
+                    return;
+                }
+            }
+
+        }
+
     }
 
 

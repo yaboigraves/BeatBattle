@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
 {
     //TODO: make ui state an object and then i can do away with the like 6 or 7 variables at a time
     //components for fading in and out
+    [Header("Overworld UI ELements")]
     public GameObject trackInfoUI, playerInfoUI;
     //trackinfo stuff could maybe be a dictionary or something
     public TextMeshProUGUI trackTitleText, trackArtistText, playerHealthText, coinText;
@@ -19,11 +20,14 @@ public class UIManager : MonoBehaviour
     Text dialogueText;
     public Player player;
     Canvas canvas;
+
+    [Header("UI Fade effects")]
     public CanvasGroup faderCanvas;
     public float fadeTime;
     //ui elements
     //public Text coinsText;
     //Yarn Variables 
+    [Header("Dialog Stuff")]
     public TextMeshProUGUI dialogTextContainer;
     public DialogueRunner dialogueRunner;
 
@@ -32,11 +36,7 @@ public class UIManager : MonoBehaviour
     //this variable tracks what letter we're currently on in the dialogue (used for text effects)
     public int currentLetter;
 
-
     public GameObject inventoryMenus;
-
-
-
 
     private void Awake()
     {
@@ -195,6 +195,7 @@ public class UIManager : MonoBehaviour
     }
 
     //TODO: scrolling menu basics for the inventory so we can asctually use items and equip tracks 
+    [Header("Item Inventory Containers")]
     public GameObject inventoryItemContainer;
     public GameObject inventoryItemUIPrefab;
     public void UpdateItemInventory(Item newItem)
@@ -203,17 +204,68 @@ public class UIManager : MonoBehaviour
         GameObject newItemUI = Instantiate(inventoryItemUIPrefab, inventoryItemContainer.transform);
         newItemUI.GetComponentInChildren<TextMeshProUGUI>().text = newItem.name;
         newItemUI.GetComponent<InventoryItem>().item = newItem;
-
-
     }
 
+    [Header("Track Inventory Container")]
     public GameObject inventoryTrackContainer;
     public GameObject inventoryTrackUIPrefab;
     public void UpdateTrackInventory(Track newTrack)
     {
         GameObject newTrackUI = Instantiate(inventoryTrackUIPrefab, inventoryTrackContainer.transform);
         newTrackUI.GetComponentInChildren<TextMeshProUGUI>().text = newTrack.trackName;
+        newTrackUI.GetComponent<InventoryTrack>().track = newTrack;
     }
 
+    [Header("Item Inventory Stuff")]
+    public TextMeshProUGUI itemName, itemDescription;
+    public InventoryItem useButton;
+    public void SelectItem(Item selectedItem)
+    {
+        itemName.text = selectedItem.itemName;
+        itemDescription.text = selectedItem.itemDescription;
+        useButton.item = selectedItem;
+        useButton.gameObject.SetActive(true);
+    }
 
+    public void ResetInventoryItem()
+    {
+        itemName.text = "";
+        itemDescription.text = "";
+        useButton.item = null;
+        //turn off the usebutton
+        useButton.gameObject.SetActive(false);
+    }
+
+    public void DeleteInventoryItem(Item deleteThisItem)
+    {
+        //loop through the itemlist content till we find the corresponding item (may be a more efficient way to do this)
+        //definitly probably is a better way but fuck it for now
+        for (int i = 0; i < inventoryItemContainer.transform.childCount; i++)
+        {
+            if (inventoryItemContainer.transform.GetChild(i).GetComponent<InventoryItem>().item = deleteThisItem)
+            {
+                //we found the item we're looking for remove that bitch
+                Destroy(inventoryItemContainer.transform.GetChild(i).gameObject);
+                return;
+            }
+        }
+        Debug.LogError("Tried to delete item but item not found");
+    }
+
+    [Header("Track Inventory Stuff")]
+    public TextMeshProUGUI trackName, trackArtist, trackDescription;
+    public void SelectTrack(Track track)
+    {
+        trackName.text = track.trackName;
+        trackArtist.text = track.artist;
+        trackDescription.text = "this is a placeholder track description";
+
+    }
+
+    public void ResetTrack()
+    {
+        trackName.text = "";
+        trackArtist.text = "";
+        trackDescription.text = "";
+    }
 }

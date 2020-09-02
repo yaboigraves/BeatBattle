@@ -387,7 +387,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 262207967}
-  m_LocalRotation: {x: 0.09452074, y: 0.30356827, z: -0.03027934, w: 0.9476262}
+  m_LocalRotation: {x: 0.09258543, y: 0.3585388, z: -0.035762366, w: 0.92822355}
   m_LocalPosition: {x: -19.29, y: 100.31, z: -15.868}
   m_LocalScale: {x: 1.0000001, y: 1, z: 1}
   m_Children: []
@@ -1878,7 +1878,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 708335400}
-  m_LocalRotation: {x: 0.09452074, y: 0.30356827, z: -0.03027934, w: 0.9476262}
+  m_LocalRotation: {x: 0.09258543, y: 0.3585388, z: -0.035762366, w: 0.92822355}
   m_LocalPosition: {x: -19.29, y: 100.31, z: -15.868}
   m_LocalScale: {x: 1.0000001, y: 1, z: 1}
   m_Children:
@@ -2752,7 +2752,7 @@ MonoBehaviour:
   playerMaxHealth: 0
   enemyMaxHealth: 0
   playerTracks: []
-  playerTurn: 1
+  playerTurn: 0
   enemy: {fileID: 484811456055130513}
   indicators: {fileID: 1748981234}
   kickIndicator: {fileID: 2797802640930905, guid: 2fdd905a916edd84a99d71189820ad30,
@@ -4020,6 +4020,7 @@ MonoBehaviour:
   battleBarsPerTurn: 5
   battleTurn: 0
   currentBpm: 0
+  playerTracks: []
   testPlayerTracks:
   - {fileID: 11400000, guid: 643fd89a0c3b6c8478d71ff0cf78d31a, type: 2}
   - {fileID: 11400000, guid: 6db31f387b047a9448ebacd4829dce26, type: 2}

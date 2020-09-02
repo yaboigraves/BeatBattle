@@ -25,10 +25,10 @@ public class PlayerInventory : MonoBehaviour
     public Item testItem;
     public int coins;
     public Track[] playerTracks;
-
     public Track[] battleEquippedTracks;
     public List<Item> items = new List<Item>();
-
+    public Gear[] playerGear;
+    public int powerUse, maxPower;
 
     private void Start()
     {
@@ -49,8 +49,12 @@ public class PlayerInventory : MonoBehaviour
             UIManager.current.UpdateItemInventory(i);
         }
 
-    }
+        for (int i = 0; i < 40; i++)
+        {
+            UIManager.current.UpdateGearInventory(playerGear[0]);
+        }
 
+    }
 
     public void getCoin()
     {
@@ -92,10 +96,6 @@ public class PlayerInventory : MonoBehaviour
                     return;
                 }
             }
-
         }
-
     }
-
-
 }

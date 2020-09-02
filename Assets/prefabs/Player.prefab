@@ -5939,6 +5939,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   items: []
+  playerGear:
+  - {fileID: 11400000, guid: fcf9db3b5babf204c9463e703868124b, type: 2}
+  powerUse: 0
+  maxPower: 0
 --- !u!114 &3195855955633630875
 MonoBehaviour:
   m_ObjectHideFlags: 0

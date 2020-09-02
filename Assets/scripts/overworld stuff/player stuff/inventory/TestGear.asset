@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52a736c165e07274dad65087323706f3, type: 3}
+  m_Name: TestGear
+  m_EditorClassIdentifier: 
+  gearName: Test Gear
+  gearFunction: sp404
+  gearDescription: This is a test piece of gear
+  mesh: {fileID: 4493585093827132993, guid: 830625f0b06f33f4094142f8760f0e1c, type: 3}

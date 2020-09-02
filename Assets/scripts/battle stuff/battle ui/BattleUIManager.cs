@@ -8,16 +8,12 @@ public class BattleUIManager : MonoBehaviour
 {
     public static BattleUIManager current;
     public int maxPlayerHealth, maxEnemyHealth;
-
     public TextMeshProUGUI metronomeText, playerHealthText, enemyHealthText;
 
     [Header("UI Sounds")]
-
     AudioSource audioSource;
     public AudioClip[] metronomeCounts;
-
     public GameObject BattleEndUI;
-
     public GameObject[] trackSelectButtons;
 
     private void Awake()
@@ -73,24 +69,9 @@ public class BattleUIManager : MonoBehaviour
                 //set the track that this actually enables
                 trackSelectButtons[i].GetComponent<TrackSelectButton>().track = currTrack;
             }
-
-
-            // foreach (Track t in BattleTrackManager.current.testPlayerTracks)
-            // {
-            //     trackSelectButtons[i].SetActive(true);
-            //     trackSelectButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = Battletrac
-            // }
-
-            // buttonText1.text = BattleTrackManager.current.testPlayerTracks[0].trackName;
-            // buttonText2.text = BattleTrackManager.current.testPlayerTracks[1].trackName;
-
-            // //also give them their tracks (this is awful)
-            // buttonText1.transform.parent.gameObject.GetComponent<TrackSelectButton>().track = BattleTrackManager.current.testPlayerTracks[0];
-            // buttonText2.transform.parent.gameObject.GetComponent<TrackSelectButton>().track = BattleTrackManager.current.testPlayerTracks[1];
         }
 
     }
-
 
     //so the player needs to be able to select a battle track to use for the next loop, this then needs to be sent to 
     //the track manager and the battle manager so it can get setup for the next track
@@ -100,7 +81,6 @@ public class BattleUIManager : MonoBehaviour
         //find the track based on its trackname in the 
         BattleTrackManager.current.setPlayerSelectedTrack(newTrack);
     }
-
 
     public void setMaxHealths(int mPHealth, int mEHealth)
     {
@@ -121,7 +101,6 @@ public class BattleUIManager : MonoBehaviour
     public void UpdateMetronome(int currentBeat, bool playAudio)
     {
         metronomeText.text = (currentBeat + 1).ToString();
-
         if (playAudio)
         {
             audioSource.clip = metronomeCounts[currentBeat];
@@ -129,15 +108,11 @@ public class BattleUIManager : MonoBehaviour
         }
     }
 
-
     public void EndBattleSequence(bool playerWon)
     {
-        //so we also n
         StartCoroutine(endBattleRoutine(playerWon));
         BattleEndUI.SetActive(true);
     }
-
-
 
     IEnumerator endBattleRoutine(bool playerWon)
     {
@@ -145,4 +120,6 @@ public class BattleUIManager : MonoBehaviour
         yield return new WaitForSeconds(3);
         BattleManager.current.EndStopBattle(playerWon);
     }
+
+    //
 }

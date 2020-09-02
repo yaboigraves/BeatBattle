@@ -11,7 +11,7 @@ public class BattleManager : MonoBehaviour
     //maybe move these somewhere but honestly doesnt need to be in the player 
     public int playerHealth, enemyHealth, playerMaxHealth, enemyMaxHealth;
     public Track[] playerTracks;
-    public bool playerTurn = true;
+    public bool playerTurn;
     public BattleEnemy enemy;
     //battle ui obkjects 
     public Transform indicators;
@@ -248,7 +248,7 @@ public class BattleManager : MonoBehaviour
     //TODO: This is a little too unwieldy right now rewrite this at some point
     public void changeTurn()
     {
-
+        playerTurn = !playerTurn;
         //first we check who's turn it is
         if (playerTurn)
         {
@@ -266,7 +266,7 @@ public class BattleManager : MonoBehaviour
             IndicatorManager.current.changeIndicatorColors(new Color(0, 0, 255, 1));
         }
 
-        playerTurn = !playerTurn;
+
         BattleCameraController.current.trackSwitcher();
     }
 }

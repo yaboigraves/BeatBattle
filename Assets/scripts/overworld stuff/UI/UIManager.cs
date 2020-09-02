@@ -268,4 +268,33 @@ public class UIManager : MonoBehaviour
         trackArtist.text = "";
         trackDescription.text = "";
     }
+
+    [Header("Gear Stuff")]
+
+    public GameObject inventoryGearContainer;
+    public GameObject inventoryGearUIPrefab;
+
+    public TextMeshProUGUI gearNameText, gearDescriptionText;
+
+    public void SelectGear(Gear gear)
+    {
+        gearNameText.text = gear.gearName;
+        gearDescriptionText.text = gear.gearDescription;
+    }
+
+    public void UpdateGearInventory(Gear newGear)
+    {
+        GameObject newGearUI = Instantiate(inventoryGearUIPrefab, inventoryGearContainer.transform);
+        newGearUI.GetComponent<InventoryGear>().gear = newGear;
+    }
+
+    public void UpdatePowerUse(int newPowerUse)
+    {
+
+    }
+
+    public void UpdatePowerUse(int newPowerUse, int maxPowerUse)
+    {
+
+    }
 }

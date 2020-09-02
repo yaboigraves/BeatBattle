@@ -11,6 +11,7 @@ public class InventoryItem : MonoBehaviour
         //UseItem();
         UIManager.current.SelectItem(item);
 
+
         //enable the use button
     }
 

@@ -45,6 +45,7 @@ public class EnemyMove : MonoBehaviour
                 }
                 else
                 {
+                    //to the left of the player
                     if (transform.rotation.y - 180 <= 0.001f)
                     {
                         StartCoroutine(LerpToRotation(0, 0.1f, 0.1f));

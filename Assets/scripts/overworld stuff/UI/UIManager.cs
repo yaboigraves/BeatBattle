@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -59,6 +59,9 @@ public class UIManager : MonoBehaviour
 
         dialogueRunner.AddCommandHandler("applyMarkup", applyMarkup);
         dialogueRunner.AddCommandHandler("clearMarkup", clearMarkup);
+
+        //init the power usage 
+        UpdatePowerUse(GameManager.current.player.GetComponent<PlayerInventory>().powerUse, GameManager.current.player.GetComponent<PlayerInventory>().maxPower);
     }
 
     public void increaseLetterCount()
@@ -274,7 +277,7 @@ public class UIManager : MonoBehaviour
     public GameObject inventoryGearContainer;
     public GameObject inventoryGearUIPrefab;
 
-    public TextMeshProUGUI gearNameText, gearDescriptionText;
+    public TextMeshProUGUI gearNameText, gearDescriptionText, currentPowerText, maxPowerText;
 
     public void SelectGear(Gear gear)
     {
@@ -290,11 +293,31 @@ public class UIManager : MonoBehaviour
 
     public void UpdatePowerUse(int newPowerUse)
     {
-
+        currentPowerText.text = newPowerUse.ToString();
+        TurnTogglesInteractable();
     }
 
     public void UpdatePowerUse(int newPowerUse, int maxPowerUse)
     {
-
+        currentPowerText.text = newPowerUse.ToString();
+        maxPowerText.text = "/" + maxPowerUse.ToString();
+        TurnTogglesInteractable();
     }
+
+
+    //so every time i update the power cost, got to iterate through all the gear and if their cost is larger
+    //than can possibly fit given the max power they need to be made uninteractable
+
+    public void TurnTogglesInteractable()
+    {
+
+        int currentPower = GameManager.current.player.GetComponent<PlayerInventory>().powerUse;
+        int maxPower = GameManager.current.player.GetComponent<PlayerInventory>().maxPower;
+        for (int i = 0; i < inventoryGearContainer.transform.childCount; i++)
+        {
+            inventoryGearContainer.transform.GetChild(i).GetComponent<InventoryGear>().CheckIfToggleInteractable(currentPower, maxPower);
+        }
+    }
+
+
 }

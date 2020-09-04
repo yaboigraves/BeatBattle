@@ -16,3 +16,4 @@ MonoBehaviour:
   gearFunction: sp404
   gearDescription: This is a test piece of gear
   mesh: {fileID: 4493585093827132993, guid: 830625f0b06f33f4094142f8760f0e1c, type: 3}
+  powerCost: 5

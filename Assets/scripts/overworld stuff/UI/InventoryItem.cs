@@ -10,8 +10,6 @@ public class InventoryItem : MonoBehaviour
         //so this needs to update the name,sprite,and description of the item viewer panel
         //UseItem();
         UIManager.current.SelectItem(item);
-
-
         //enable the use button
     }
 

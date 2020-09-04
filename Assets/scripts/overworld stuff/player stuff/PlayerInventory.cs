@@ -28,7 +28,7 @@ public class PlayerInventory : MonoBehaviour
     public Track[] battleEquippedTracks;
     public List<Item> items = new List<Item>();
     public Gear[] playerGear;
-    public int powerUse, maxPower;
+    public int powerUse, maxPower = 10;
 
     private void Start()
     {

@@ -27,7 +27,7 @@ public class InventoryGear : MonoBehaviour
         }
         else
         {
-            print("unequip gear");
+            UnequipGear();
         }
     }
 
@@ -48,6 +48,8 @@ public class InventoryGear : MonoBehaviour
 
             //so then once the gear is equipped we need to add its function to the pipeline of gear effects
             //TODO: implement pipeline of functions to call
+
+            playerInventory.EquipGearEffect(gear.gearFunction);
         }
     }
 
@@ -55,6 +57,10 @@ public class InventoryGear : MonoBehaviour
     {
         playerInventory.powerUse -= gear.powerCost;
         UIManager.current.UpdatePowerUse(playerInventory.powerUse);
+
+        //remove the gears effect from the list 
+
+        playerInventory.UnequipGearEffect(gear.gearFunction);
     }
 
     //this is used to see if our toggle should stay interactable given the current power usage

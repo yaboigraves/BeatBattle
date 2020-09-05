@@ -14,15 +14,21 @@ public static class GearEffects
 
     public delegate void GearEffect(BattleManager.BattleState state);
 
+    public static Dictionary<string, GearEffect> gearEffectDictionary = new Dictionary<string, GearEffect>()
+    {
+        {"sp404",sp404}
+    };
+
+
 
 
     public static void sp404(BattleManager.BattleState state)
     {
         //so this will make it so that every 4th beat you get in a row does 4x damage
-
+        Debug.Log("sp404 effect");
         if (state.beatStreak != 0 && state.beatStreak % 4 == 0)
         {
-            Debug.Log("sp404 effect");
+
             //apply a buff of 4x damage for one hit to the player
             BattleManager.current.sp404Buff = true;
         }

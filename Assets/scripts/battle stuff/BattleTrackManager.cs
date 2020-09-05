@@ -57,6 +57,8 @@ public class BattleTrackManager : MonoBehaviour
 
             playerSelectedTrack = playerTracks[0];
 
+
+
             audioClip = currentTrack.trackClip;
 
             //TODO: depending on if the player or the enemy goes first we grab different tracks

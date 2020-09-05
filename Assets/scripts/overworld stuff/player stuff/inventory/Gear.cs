@@ -14,9 +14,10 @@ public class Gear : ScriptableObject
     public Mesh mesh;
     public int powerCost;
 
-    public virtual void ApplyEffect()
-    {
-        typeof(ItemEffects).GetMethod(gearFunction).Invoke(null, null);
-    }
+    // public virtual void ApplyEffect()
+    // {
+    //     typeof(GearEffects).GetMethod(gearFunction);
+    //     typeof(GearEffects).GetMethod(gearFunction).Invoke(null, null);
+    // }
 
 }

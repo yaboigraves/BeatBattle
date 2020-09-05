@@ -16,6 +16,10 @@ public class BattleUIManager : MonoBehaviour
     public GameObject BattleEndUI;
     public GameObject[] trackSelectButtons;
 
+    public Slider enemyHealthSlider;
+
+    public Slider playerHealthSlider;
+
     private void Awake()
     {
         current = this;
@@ -28,6 +32,17 @@ public class BattleUIManager : MonoBehaviour
 
         //setup the buttons for the players track options
         InitTrackButtons();
+
+    }
+
+    public void InitHealthSliders()
+    {
+        enemyHealthSlider.maxValue = maxEnemyHealth;
+        enemyHealthSlider.value = maxEnemyHealth;
+
+        playerHealthSlider.maxValue = maxPlayerHealth;
+        playerHealthSlider.value = BattleManager.current.playerHealth;
+
     }
 
     public void InitTrackButtons()
@@ -86,16 +101,19 @@ public class BattleUIManager : MonoBehaviour
     {
         maxPlayerHealth = mPHealth;
         maxEnemyHealth = mEHealth;
+        InitHealthSliders();
     }
 
     public void updatePlayerHealth(int newHealth)
     {
         playerHealthText.text = newHealth.ToString() + "/" + maxPlayerHealth.ToString();
+        playerHealthSlider.value = newHealth;
     }
 
     public void updateEnemyHealth(int newHealth)
     {
         enemyHealthText.text = newHealth.ToString() + "/" + maxEnemyHealth.ToString();
+        enemyHealthSlider.value = newHealth;
     }
 
     public void UpdateMetronome(int currentBeat, bool playAudio)
@@ -126,6 +144,10 @@ public class BattleUIManager : MonoBehaviour
     {
         vibeText.text = vibe.ToString();
     }
+
+
+
+
 
 
 }

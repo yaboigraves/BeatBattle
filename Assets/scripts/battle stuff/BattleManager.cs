@@ -243,6 +243,8 @@ public class BattleManager : MonoBehaviour
 
         enemyHealth -= damage;
 
+
+
         if (enemyHealth <= 0)
         {
             if (SceneManage.current == null)

@@ -71,6 +71,7 @@ public class BattleManager : MonoBehaviour
 
             //turn on the testing gear effects
             equippedGearEffects.Add(GearEffects.sp404);
+
         }
         else
         {
@@ -319,7 +320,6 @@ public class BattleManager : MonoBehaviour
         //-player health
         //-enemey health
 
-
         //so every time this is called we assemble all the neccessary info into a struct and send it off to the gear effects
 
         BattleState currentState;
@@ -330,4 +330,6 @@ public class BattleManager : MonoBehaviour
             gearEffect(currentState);
         }
     }
+
+
 }

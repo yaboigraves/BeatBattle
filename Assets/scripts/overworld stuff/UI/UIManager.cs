@@ -83,7 +83,6 @@ public class UIManager : MonoBehaviour
     public void applyMarkup(string[] parameters)
     {
 
-        print("applying markup");
 
         List<(string, (int, int))> effects = new List<(string, (int, int))>();
 
@@ -262,7 +261,6 @@ public class UIManager : MonoBehaviour
         trackName.text = track.trackName;
         trackArtist.text = track.artist;
         trackDescription.text = "this is a placeholder track description";
-
     }
 
     public void ResetTrack()
@@ -276,7 +274,6 @@ public class UIManager : MonoBehaviour
 
     public GameObject inventoryGearContainer;
     public GameObject inventoryGearUIPrefab;
-
     public TextMeshProUGUI gearNameText, gearDescriptionText, currentPowerText, maxPowerText;
 
     public void SelectGear(Gear gear)
@@ -310,7 +307,6 @@ public class UIManager : MonoBehaviour
 
     public void TurnTogglesInteractable()
     {
-
         int currentPower = GameManager.current.player.inventory.powerUse;
         int maxPower = GameManager.current.player.inventory.maxPower;
         for (int i = 0; i < inventoryGearContainer.transform.childCount; i++)
@@ -318,6 +314,4 @@ public class UIManager : MonoBehaviour
             inventoryGearContainer.transform.GetChild(i).GetComponent<InventoryGear>().CheckIfToggleInteractable(currentPower, maxPower);
         }
     }
-
-
 }

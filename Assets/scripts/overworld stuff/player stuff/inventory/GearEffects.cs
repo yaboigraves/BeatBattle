@@ -11,8 +11,20 @@ using UnityEngine.Events;
 
 public static class GearEffects
 {
+
+    public delegate void GearEffect();
+
+
+
     public static void sp404()
     {
-        Debug.Log("sp404 effect test print");
+        //so this will make it so that every 3rd beat you get in a row does 4x damage
     }
+
+
+
+
+
+
+
 }

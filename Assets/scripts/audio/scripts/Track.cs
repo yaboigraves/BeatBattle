@@ -15,6 +15,9 @@ public class Track : ScriptableObject
     public IndicatorData kickBeats;
     public IndicatorData snareBeats;
 
+
+    public TrackStats trackStats;
+
     //public List<float> kickBeats = new List<float>();
     //public List<float> snareBeats = new List<float>();
 
@@ -42,3 +45,15 @@ public class IndicatorData
         }
     }
 }
+
+
+//this is a struct to contain stat info about the track
+[Serializable]
+public struct TrackStats
+{
+    //heat or chill
+    public string trackVibe;
+
+    public int vibePerHit;
+}
+

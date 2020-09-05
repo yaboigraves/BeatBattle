@@ -121,5 +121,11 @@ public class BattleUIManager : MonoBehaviour
         BattleManager.current.EndStopBattle(playerWon);
     }
 
-    //
+    public TextMeshProUGUI vibeText;
+    public void UpdateVibe(int vibe)
+    {
+        vibeText.text = vibe.ToString();
+    }
+
+
 }

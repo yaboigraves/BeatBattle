@@ -158,6 +158,10 @@ public class BattleTrackManager : MonoBehaviour
             yield return null;
         }
 
+        //check where the vibes at and deal damage if needed to the player
+
+        BattleManager.current.VibeUpdate();
+
         //update the beat
         beat++;
 

@@ -41,7 +41,8 @@ public class TrackManager : MonoBehaviour
     void Start()
     {
 
-        UpdateCurrentTrack(backgroundAudioTracks[currentTrack]);
+        //UpdateCurrentTrack(backgroundAudioTracks[currentTrack]);
+        playRandomBackgroundTrack();
     }
 
     public IEnumerator playSong()

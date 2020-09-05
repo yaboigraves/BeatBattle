@@ -30,8 +30,20 @@ public class PlayerInventory : MonoBehaviour
     public Gear[] playerGear;
     public int powerUse, maxPower = 10;
 
+
+
+    //delegate list of gear effects
+
+    public List<GearEffects.GearEffect> gearEffects = new List<GearEffects.GearEffect>();
+
+
+
     private void Start()
     {
+        //testing gear effects
+        gearEffects.Add(GearEffects.sp404);
+
+
         items.Add(testItem);
         items.Add(testItem);
         items.Add(testItem);

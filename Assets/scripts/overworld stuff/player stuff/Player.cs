@@ -27,6 +27,8 @@ public class Player : MonoBehaviour
 
     public BattleRangeChecker battleRangeChecker;
 
+    public PlayerInventory inventory;
+
 
     // Start is called before the first frame update
 
@@ -42,6 +44,8 @@ public class Player : MonoBehaviour
         Transform playerSpawnPoint = GameObject.FindGameObjectWithTag("playerSpawn").transform;
 
         battleRangeChecker = GetComponentInChildren<BattleRangeChecker>();
+
+        inventory = GetComponent<PlayerInventory>();
     }
 
 

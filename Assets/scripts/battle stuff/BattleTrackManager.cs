@@ -159,6 +159,9 @@ public class BattleTrackManager : MonoBehaviour
         //update the beat
         beat++;
 
+        //tell the battle manager to update the beat info (for now it updates every beat)
+        BattleManager.current.UpdateGearPipeline();
+
         if (beat > 3)
         {
             beat = 0;
@@ -168,6 +171,8 @@ public class BattleTrackManager : MonoBehaviour
             {
                 BattleManager.current.changeTurn();
                 battleTurn = 0;
+
+
             }
         }
 

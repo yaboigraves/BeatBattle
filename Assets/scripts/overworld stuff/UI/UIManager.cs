@@ -61,7 +61,7 @@ public class UIManager : MonoBehaviour
         dialogueRunner.AddCommandHandler("clearMarkup", clearMarkup);
 
         //init the power usage 
-        UpdatePowerUse(GameManager.current.player.GetComponent<PlayerInventory>().powerUse, GameManager.current.player.GetComponent<PlayerInventory>().maxPower);
+        UpdatePowerUse(GameManager.current.player.inventory.powerUse, GameManager.current.player.inventory.maxPower);
     }
 
     public void increaseLetterCount()
@@ -311,8 +311,8 @@ public class UIManager : MonoBehaviour
     public void TurnTogglesInteractable()
     {
 
-        int currentPower = GameManager.current.player.GetComponent<PlayerInventory>().powerUse;
-        int maxPower = GameManager.current.player.GetComponent<PlayerInventory>().maxPower;
+        int currentPower = GameManager.current.player.inventory.powerUse;
+        int maxPower = GameManager.current.player.inventory.maxPower;
         for (int i = 0; i < inventoryGearContainer.transform.childCount; i++)
         {
             inventoryGearContainer.transform.GetChild(i).GetComponent<InventoryGear>().CheckIfToggleInteractable(currentPower, maxPower);

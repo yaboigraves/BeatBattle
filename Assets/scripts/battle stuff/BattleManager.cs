@@ -32,6 +32,13 @@ public class BattleManager : MonoBehaviour
        6. on a turn swap repoeat from step 2 
 
     */
+
+
+
+    //list of delegates for the gear effects
+    List<GearEffects.GearEffect> equippedGearEffects = new List<GearEffects.GearEffect>();
+
+
     void Awake()
     {
         current = this;
@@ -46,7 +53,7 @@ public class BattleManager : MonoBehaviour
             TrackManager.current.PauseTrack();
             //find info for battle to start from the scene manager 
             setPlayerEnemyHealth(SceneManage.current.playerHealth, SceneManage.current.playerMaxHealth, SceneManage.current.enemyHealth, SceneManage.current.enemyMaxHealth);
-            playerTracks = GameManager.current.player.GetComponent<PlayerInventory>().battleEquippedTracks;
+            playerTracks = GameManager.current.player.inventory.battleEquippedTracks;
         }
     }
 
@@ -60,6 +67,10 @@ public class BattleManager : MonoBehaviour
             enemy.setEnemies(testEnemy, null);
             //SetupIndicators(BattleTrackManager.current.testPlayerTracks[0]);
             setPlayerEnemyHealth(10, 10, testEnemy.GetComponent<Enemy>().health, testEnemy.GetComponent<Enemy>().maxHealth);
+
+
+            //turn on the testing gear effects
+            equippedGearEffects.Add(GearEffects.sp404);
         }
         else
         {
@@ -67,6 +78,9 @@ public class BattleManager : MonoBehaviour
             enemy.setEnemies(SceneManage.current.enemyInBattle, GameManager.current.player.battleRangeChecker.enemiesInRange);
             //SetupIndicators(TrackManager.current.currTrack);
             //grab the equipped tracks of the player
+
+            //grab the equipped gear from the player inventory
+            equippedGearEffects = GameManager.current.player.inventory.gearEffects;
 
         }
         changeTurn();
@@ -134,6 +148,8 @@ public class BattleManager : MonoBehaviour
             battleStarted = true;
             StartBattle();
         }
+
+
     }
 
     void StartBattle()
@@ -268,5 +284,23 @@ public class BattleManager : MonoBehaviour
 
 
         BattleCameraController.current.trackSwitcher();
+    }
+
+
+
+
+    public void UpdateGearPipeline()
+    {
+        //so we need a list of delegates to run through, this list of delegates will be updated by equipping gear
+        //each piece of gear needs to be passed stats about the current game state
+        //for now we're passing 
+        //-current streak of beats
+        //-player health
+        //-enemey health
+
+        foreach (GearEffects.GearEffect gearEffect in equippedGearEffects)
+        {
+            gearEffect();
+        }
     }
 }

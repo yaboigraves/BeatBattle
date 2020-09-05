@@ -167,9 +167,11 @@ public class BattleManager : MonoBehaviour
             if (hit)
             {
                 enemyTakeDamage(1);
+                currentStreak++;
             }
             else
             {
+                currentStreak = 0;
                 //print("u missed lol");
             }
 
@@ -178,11 +180,13 @@ public class BattleManager : MonoBehaviour
         {
             if (hit)
             {
+                currentStreak = 1;
                 //u dont take damage
                 //print("block");
             }
             else
             {
+                currentStreak = 0;
                 playerTakeDamage(1);
             }
         }
@@ -213,8 +217,18 @@ public class BattleManager : MonoBehaviour
         BattleUIManager.current.updatePlayerHealth(playerHealth);
     }
 
+    //for now to check if we're buffed by the sp404 effect this is done manually, this needs to be abstracted
+    public bool sp404Buff;
+
     public void enemyTakeDamage(int damage)
     {
+
+        if (sp404Buff)
+        {
+            sp404Buff = false;
+            damage *= 4;
+        }
+
         enemyHealth -= damage;
 
         if (enemyHealth <= 0)
@@ -288,6 +302,13 @@ public class BattleManager : MonoBehaviour
 
 
 
+    public int currentStreak;
+
+    public struct BattleState
+    {
+        public int beatStreak;
+
+    }
 
     public void UpdateGearPipeline()
     {
@@ -298,9 +319,15 @@ public class BattleManager : MonoBehaviour
         //-player health
         //-enemey health
 
+
+        //so every time this is called we assemble all the neccessary info into a struct and send it off to the gear effects
+
+        BattleState currentState;
+        currentState.beatStreak = currentStreak;
+
         foreach (GearEffects.GearEffect gearEffect in equippedGearEffects)
         {
-            gearEffect();
+            gearEffect(currentState);
         }
     }
 }

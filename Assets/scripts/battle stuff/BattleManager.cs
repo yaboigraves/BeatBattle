@@ -22,6 +22,11 @@ public class BattleManager : MonoBehaviour
 
     //this variable keeps track of whether or not the player or the enemy did the first attack
 
+
+    //vibe bar stuff 
+    public int vibe = 0;
+    int maxVibe = 50, minVibe = -50;
+
     //REVAMP NOTES
     /*
        1. figure out who's turn it is 
@@ -169,6 +174,7 @@ public class BattleManager : MonoBehaviour
             {
                 enemyTakeDamage(1);
                 currentStreak++;
+                vibe += BattleTrackManager.current.currentTrack.trackStats.vibePerHit;
             }
             else
             {
@@ -181,6 +187,8 @@ public class BattleManager : MonoBehaviour
         {
             if (hit)
             {
+                vibe += BattleTrackManager.current.currentTrack.trackStats.vibePerHit;
+
                 currentStreak = 1;
                 //u dont take damage
                 //print("block");
@@ -191,10 +199,13 @@ public class BattleManager : MonoBehaviour
                 playerTakeDamage(1);
             }
         }
+
+        BattleUIManager.current.UpdateVibe(vibe);
     }
 
     public void playerTakeDamage(int damage)
     {
+        //playerHealth -= damage;
 
         if (playerHealth <= 0)
         {
@@ -219,8 +230,8 @@ public class BattleManager : MonoBehaviour
     }
 
     //for now to check if we're buffed by the sp404 effect this is done manually, this needs to be abstracted
-    public bool sp404Buff;
 
+    public bool sp404Buff;
     public void enemyTakeDamage(int damage)
     {
 
@@ -328,6 +339,21 @@ public class BattleManager : MonoBehaviour
         foreach (GearEffects.GearEffect gearEffect in equippedGearEffects)
         {
             gearEffect(currentState);
+        }
+    }
+
+
+    //this is called every beat, if we're above 25 or under -25 vibe we take 1 damage every beat
+    public void VibeUpdate()
+    {
+        if (vibe > 25)
+        {
+            playerTakeDamage(1);
+        }
+
+        else if (vibe < -25)
+        {
+            playerTakeDamage(1);
         }
     }
 

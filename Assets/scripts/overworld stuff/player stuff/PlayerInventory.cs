@@ -29,24 +29,13 @@ public class PlayerInventory : MonoBehaviour
     public List<Item> items = new List<Item>();
     public Gear[] playerGear;
     public int powerUse, maxPower = 10;
-
-
-
     //delegate list of gear effects
-
     public List<GearEffects.GearEffect> gearEffects = new List<GearEffects.GearEffect>();
-
-
 
     private void Start()
     {
+        items.Add(testItem);
 
-
-        items.Add(testItem);
-        items.Add(testItem);
-        items.Add(testItem);
-        items.Add(testItem);
-        items.Add(testItem);
         //testItem.Use();
         //UIManager.current.UpdateItemInventory(testItem);
         foreach (Track t in playerTracks)
@@ -59,11 +48,10 @@ public class PlayerInventory : MonoBehaviour
             UIManager.current.UpdateItemInventory(i);
         }
 
-        for (int i = 0; i < 40; i++)
+        for (int i = 0; i < 3; i++)
         {
             UIManager.current.UpdateGearInventory(playerGear[0]);
         }
-
     }
 
     public void getCoin()

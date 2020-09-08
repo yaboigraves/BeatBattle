@@ -150,7 +150,7 @@ public class BattleManager : MonoBehaviour
 
         for (int i = 0; i <= 16; i++)
         {
-            GameObject _bar = Instantiate(bar, Vector3.up * (104 + i), Quaternion.identity, indicContainer.transform);
+            GameObject _bar = Instantiate(bar, Vector3.up * (104 + i), Quaternion.identity, indicContainer.transform.GetChild(1));
         }
 
 
@@ -161,15 +161,19 @@ public class BattleManager : MonoBehaviour
             //each unit is 1 bar 
             //therefore we need to start the next batck of indicators at wherever the loop ends
             //probablyh easiest for now just to bake the length of the loop into the track object 
-            Instantiate(indicator, kickPos, Quaternion.identity, indicContainer.transform);
+            Instantiate(indicator, kickPos, Quaternion.identity, indicContainer.transform.GetChild(0));
 
         }
 
         for (int i = 0; i < track.snareBeats.indicatorPositions.Length; i++)
         {
             Vector3 kickPos = new Vector3(1, 4 + 100 + (track.snareBeats.indicatorPositions[i]), 0);
-            Instantiate(indicator, kickPos, Quaternion.identity, indicContainer.transform);
+            Instantiate(indicator, kickPos, Quaternion.identity, indicContainer.transform.GetChild(0));
         }
+
+        //look at whos's turn it is and then change the color 
+
+
     }
 
     // Update is called once per frame
@@ -322,6 +326,9 @@ public class BattleManager : MonoBehaviour
     {
         playerTurn = !playerTurn;
         //first we check who's turn it is
+
+
+
         if (playerTurn)
         {
             print("players turn");
@@ -330,16 +337,19 @@ public class BattleManager : MonoBehaviour
             BattleTrackManager.current.switchBattleTrack(BattleTrackManager.current.playerSelectedTrack, firstTurn);
             IndicatorManager.current.changeIndicatorColors(new Color(255, 0, 0, 1));
 
+            //indicatorContainer.GetComponent<Indicator>().UpdateColor(new Color(255, 0, 0));
+
         }
         else
         {
             print("enemies turn");
             BattleTrackManager.current.switchBattleTrack(BattleTrackManager.current.testEnemyTracks[0], firstTurn);
             IndicatorManager.current.changeIndicatorColors(new Color(0, 0, 255, 1));
+            //indicatorContainer.GetComponent<Indicator>().UpdateColor(new Color(0, 255, 0));
         }
 
 
-        BattleCameraController.current.trackSwitcher();
+        BattleCameraController.current.trackSwitcher(playerTurn);
     }
 
 

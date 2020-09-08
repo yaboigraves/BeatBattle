@@ -144,10 +144,4 @@ public class BattleUIManager : MonoBehaviour
     {
         vibeText.text = vibe.ToString();
     }
-
-
-
-
-
-
 }

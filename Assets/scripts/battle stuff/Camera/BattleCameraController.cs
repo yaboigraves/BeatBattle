@@ -9,14 +9,19 @@ public class BattleCameraController : MonoBehaviour
     public static BattleCameraController current;
     public GameObject playerCam;
     public GameObject enemyCam;
-
     public CameraTrackSwitcher playerSwitch;
     public CameraTrackSwitcher enemySwitch;
 
 
-
-
     // Start is called before the first frame update
+
+
+    void Awake()
+    {
+        //StartCoroutine(trackSwitch());
+        current = this;
+    }
+
     void Start()
     {
         //SceneManage.current.mainCamera.SetActive(false);
@@ -25,48 +30,32 @@ public class BattleCameraController : MonoBehaviour
         playerCam.SetActive(true);
     }
 
-    void Awake()
+
+
+    public void trackSwitcher(bool lookAtPlayer)
     {
-        //StartCoroutine(trackSwitch());
-        current = this;
+        playerCam.SetActive(lookAtPlayer);
+        enemyCam.SetActive(!lookAtPlayer);
     }
 
-    // Update is called once per frame
-    IEnumerator trackSwitch()
+    public void CameraSwitchup()
     {
-        yield return new WaitForSeconds(Random.Range(6, 12));
-        if (playerCam.activeSelf == true)
+        //20% chance every beat for a switchup?
+        // if (Random.Range(0, 100) <= 75)
+        // {
+        //     //no switch
+        //     return;
+        // }
+
+        //figure out which camera is active 
+
+        if (enemyCam.activeSelf)
         {
-            playerCam.SetActive(false);
-            enemyCam.SetActive(true);
+            enemySwitch.NextCamTrack();
         }
-
-        else
+        else if (playerCam.activeSelf)
         {
-            enemyCam.SetActive(true);
-            playerCam.SetActive(false);
-        }
-
-        StartCoroutine(trackSwitch());
-    }
-
-    public void trackSwitcher()
-    {
-        //LEFT OFF HERE 
-        //TODO: FIGURE OUT WHY THE FUCK TRACK SWITCHING ISNT ACTUALLY SETTING CAMERA TO DIFFERENT SETTING
-        if (playerCam.activeSelf == true)
-        {
-
-            //print("looking at enemy now");
-            playerCam.SetActive(false);
-            enemyCam.SetActive(true);
-        }
-
-        else
-        {
-            //print("looking at player now");
-            enemyCam.SetActive(true);
-            playerCam.SetActive(false);
+            playerSwitch.NextCamTrack();
         }
     }
 }

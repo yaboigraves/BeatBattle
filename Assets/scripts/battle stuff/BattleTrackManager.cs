@@ -177,6 +177,7 @@ public class BattleTrackManager : MonoBehaviour
 
         if (beat > 3)
         {
+
             beat = 0;
             battleTurn++;
 
@@ -185,12 +186,17 @@ public class BattleTrackManager : MonoBehaviour
                 BattleManager.current.changeTurn();
                 battleTurn = 0;
             }
+            BattleCameraController.current.CameraSwitchup();
         }
 
         BattleUIManager.current.UpdateMetronome(beat, false);
 
         totalBeats++;
         currentBar = (int)Mathf.Floor(totalBeats / 4.0f);
+
+        //tell the camera to switchup maybe 
+
+
 
         yield return new WaitForSeconds(beatDeltaTime);
         StartCoroutine(beatTick());

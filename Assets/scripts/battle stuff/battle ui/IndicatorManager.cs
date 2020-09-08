@@ -26,8 +26,7 @@ public class IndicatorManager : MonoBehaviour
     {
         for (int i = 0; i < transform.childCount; i++)
         {
-            //TODO: reimpliment this
-            //transform.GetChild(i).GetComponent<SpriteRenderer>().color = color;
+            transform.GetChild(i).GetComponent<Indicator>().UpdateColor(color);
         }
     }
 

@@ -69,7 +69,14 @@ public class BattleTrackManager : MonoBehaviour
 
         currentBpm = currentTrack.bpm;
         audioSource.clip = audioClip;
-        beatDeltaTime = (1 / currentBpm) * 60;
+
+        //commented out to test timescale shit 
+        //beatDeltaTime = (1 / currentBpm) * 60;
+
+        //uniform speed for timescale change
+        beatDeltaTime = 1;
+
+
     }
 
 

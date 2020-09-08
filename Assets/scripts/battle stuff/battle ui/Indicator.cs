@@ -12,7 +12,13 @@ public class Indicator : MonoBehaviour
     void Start()
     {
         bpm = BattleTrackManager.current.currentBpm;
-        moveSpeed = bpm / 60;
+
+        //commented this to experiment with timescale rather than calculating movespeed 
+        //moveSpeed = bpm / 60;
+
+
+        //uniform move speed of 60bpm 
+        moveSpeed = 1;
     }
 
     // Update is called once per frame

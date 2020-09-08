@@ -6,6 +6,21 @@ using UnityEngine.SceneManagement;
 public class BattleManager : MonoBehaviour
 {
 
+
+
+    /*
+        timescale experiment
+        
+        so something that may be cool is having the movement of each indicator be uniform at 60bpm 
+        then, rather than needing to update the speed that indicators move, they just move uniformily and the 
+        timescale manages their speed
+
+        this has the added benefit of making it so that animations speed up (i think) if the timescale changes
+        
+        tracks dont speed up when the timescale is changed too
+
+    */
+
     public static BattleManager current;
     public bool battleStarted;
     //maybe move these somewhere but honestly doesnt need to be in the player 
@@ -72,6 +87,12 @@ public class BattleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+
+
+
+
+
         //check if we're in testmode (which means theirs no scene manager present)
         if (TrackManager.current == null)
         {
@@ -79,7 +100,6 @@ public class BattleManager : MonoBehaviour
             enemy.setEnemies(testEnemy, null);
 
             setPlayerEnemyHealth(10, 10, testEnemy.GetComponent<Enemy>().health, testEnemy.GetComponent<Enemy>().maxHealth);
-
 
             //turn on the testing gear effects
             equippedGearEffects.Add(GearEffects.sp404);
@@ -97,6 +117,10 @@ public class BattleManager : MonoBehaviour
         }
         changeTurn();
         firstTurn = false;
+
+
+
+
     }
 
     public void setupTurnIndicators(Track newTrack)
@@ -104,8 +128,8 @@ public class BattleManager : MonoBehaviour
 
 
 
-
         Track track = newTrack;
+
         //for now this will just use the testing track
         //BattleTrackManager.current.totalBeats tells us what the current beat is, so when we want to setup the next turns indicaotrs
         //we look at the currentbeat + 4 for where we should start initialization
@@ -115,6 +139,10 @@ public class BattleManager : MonoBehaviour
         //the container uses the actual indicator script, while the child objects just get moved by the parent
 
         //so the original position of the container should be 104 units up 
+
+        //TIMESCALE STUFF
+        //so the uniform timescale is 60bpm. therefore the timescale we want is whatever the bpm of the curre
+        Time.timeScale = newTrack.bpm / 60;
 
         GameObject indicContainer = Instantiate(indicatorContainer, Vector3.up * 104, Quaternion.identity, indicators);
 

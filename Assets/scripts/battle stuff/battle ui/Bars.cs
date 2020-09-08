@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Bars : MonoBehaviour
 {
+    //TODO: this probably doesnt need to exist lol
     public GameObject bar;
     // Start is called before the first frame update
     void Start()

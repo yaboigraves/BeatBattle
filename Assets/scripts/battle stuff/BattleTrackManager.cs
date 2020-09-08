@@ -177,8 +177,6 @@ public class BattleTrackManager : MonoBehaviour
             {
                 BattleManager.current.changeTurn();
                 battleTurn = 0;
-
-
             }
         }
 

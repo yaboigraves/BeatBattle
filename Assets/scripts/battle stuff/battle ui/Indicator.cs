@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Indicator : MonoBehaviour
 {
+    //so this manages a chunk of indicators not just one indicator now
     public float bpm;
     public float moveSpeed;
     bool activated;

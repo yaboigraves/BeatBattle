@@ -15,10 +15,17 @@ public class BattleManager : MonoBehaviour
     public BattleEnemy enemy;
     //battle ui obkjects 
     public Transform indicators;
-    public GameObject kickIndicator;
+
+
+    [Header("UI Stuff")]
+    public GameObject indicatorContainer;
+    public GameObject indicator;
     public GameObject testEnemy;
+    public GameObject bar;
 
     bool firstTurn = true;
+
+
 
     //this variable keeps track of whether or not the player or the enemy did the first attack
 
@@ -70,7 +77,7 @@ public class BattleManager : MonoBehaviour
         {
             //use the testing enemy and the backup track that was loaded in the battle track manager
             enemy.setEnemies(testEnemy, null);
-            //SetupIndicators(BattleTrackManager.current.testPlayerTracks[0]);
+
             setPlayerEnemyHealth(10, 10, testEnemy.GetComponent<Enemy>().health, testEnemy.GetComponent<Enemy>().maxHealth);
 
 
@@ -82,7 +89,6 @@ public class BattleManager : MonoBehaviour
         {
             //spawn the enemy in and turn off their move function 
             enemy.setEnemies(SceneManage.current.enemyInBattle, GameManager.current.player.battleRangeChecker.enemiesInRange);
-            //SetupIndicators(TrackManager.current.currTrack);
             //grab the equipped tracks of the player
 
             //grab the equipped gear from the player inventory
@@ -93,54 +99,48 @@ public class BattleManager : MonoBehaviour
         firstTurn = false;
     }
 
-    //TODO: spawn everything 1 bar on top of 
-    void SetupIndicators(Track track)
-    {
-        //creates 5 loops
-        for (int x = 0; x < 1; x++)
-        {
-            for (int i = 0; i < track.kickBeats.indicatorPositions.Length; i++)
-            {
-                Vector3 kickPos = new Vector3(-1, 4 + (x * track.numBars * 4) + 100 + (track.kickBeats.indicatorPositions[i]), 0);
-                //each unit is 1 bar 
-                //therefore we need to start the next batck of indicators at wherever the loop ends
-                //probablyh easiest for now just to bake the length of the loop into the track object 
-
-                Instantiate(kickIndicator, kickPos, Quaternion.identity, indicators);
-
-            }
-
-            for (int i = 0; i < track.snareBeats.indicatorPositions.Length; i++)
-            {
-                Vector3 kickPos = new Vector3(1, 4 + (x * track.numBars * 4) + 100 + (track.snareBeats.indicatorPositions[i]), 0);
-                Instantiate(kickIndicator, kickPos, Quaternion.identity, indicators);
-            }
-        }
-
-    }
-
     public void setupTurnIndicators(Track newTrack)
     {
+
+
+
+
         Track track = newTrack;
         //for now this will just use the testing track
         //BattleTrackManager.current.totalBeats tells us what the current beat is, so when we want to setup the next turns indicaotrs
         //we look at the currentbeat + 4 for where we should start initialization
 
+
+        //so before we instantiate all these mfers we need to create a container object for all these
+        //the container uses the actual indicator script, while the child objects just get moved by the parent
+
+        //so the original position of the container should be 104 units up 
+
+        GameObject indicContainer = Instantiate(indicatorContainer, Vector3.up * 104, Quaternion.identity, indicators);
+
+        //instantiate uhhh 4 bars of bars so 16 total
+
+        for (int i = 0; i <= 16; i++)
+        {
+            GameObject _bar = Instantiate(bar, Vector3.up * (104 + i), Quaternion.identity, indicContainer.transform);
+        }
+
+
+
         for (int i = 0; i < track.kickBeats.indicatorPositions.Length; i++)
         {
-
             Vector3 kickPos = new Vector3(-1, 4 + 100 + (track.kickBeats.indicatorPositions[i]), 0);
             //each unit is 1 bar 
             //therefore we need to start the next batck of indicators at wherever the loop ends
             //probablyh easiest for now just to bake the length of the loop into the track object 
-            Instantiate(kickIndicator, kickPos, Quaternion.identity, indicators);
+            Instantiate(indicator, kickPos, Quaternion.identity, indicContainer.transform);
 
         }
 
         for (int i = 0; i < track.snareBeats.indicatorPositions.Length; i++)
         {
             Vector3 kickPos = new Vector3(1, 4 + 100 + (track.snareBeats.indicatorPositions[i]), 0);
-            Instantiate(kickIndicator, kickPos, Quaternion.identity, indicators);
+            Instantiate(indicator, kickPos, Quaternion.identity, indicContainer.transform);
         }
     }
 

@@ -65,7 +65,7 @@ public class BattleUIManager : MonoBehaviour
                     //turn on the button
                     trackSelectButtons[i].SetActive(true);
                     //set the text of the button
-                    trackSelectButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = currTrack.trackName;
+                    trackSelectButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = currTrack.itemName;
                     //set the track that this actually enables
                     trackSelectButtons[i].GetComponent<TrackSelectButton>().track = currTrack;
                 }
@@ -80,7 +80,7 @@ public class BattleUIManager : MonoBehaviour
 
                 trackSelectButtons[i].SetActive(true);
                 //set the text of the button
-                trackSelectButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = currTrack.trackName;
+                trackSelectButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = currTrack.itemName;
                 //set the track that this actually enables
                 trackSelectButtons[i].GetComponent<TrackSelectButton>().track = currTrack;
             }

@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(fileName = "New Track", menuName = "Tracks/Track")]
 
-public class Track : ScriptableObject
+public class Track : GameItem
 {
     public AudioClip trackClip;
-    public string artist, trackName;
+    public string artist;
     public float bpm;
     //need to take in the number of bars the loops take up
     public int numBars;

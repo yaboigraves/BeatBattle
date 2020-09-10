@@ -139,7 +139,7 @@ public class UIManager : MonoBehaviour
     public void updateCurrentTrack(Track newTrack)
     {
         trackArtistText.text = newTrack.artist;
-        trackTitleText.text = newTrack.trackName;
+        trackTitleText.text = newTrack.itemName;
 
         //enable the trackinfo for a sec
         if (!trackInfoUI.activeSelf)
@@ -214,7 +214,7 @@ public class UIManager : MonoBehaviour
     public void UpdateTrackInventory(Track newTrack)
     {
         GameObject newTrackUI = Instantiate(inventoryTrackUIPrefab, inventoryTrackContainer.transform);
-        newTrackUI.GetComponentInChildren<TextMeshProUGUI>().text = newTrack.trackName;
+        newTrackUI.GetComponentInChildren<TextMeshProUGUI>().text = newTrack.itemName;
         newTrackUI.GetComponent<InventoryTrack>().track = newTrack;
     }
 
@@ -258,7 +258,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI trackName, trackArtist, trackDescription;
     public void SelectTrack(Track track)
     {
-        trackName.text = track.trackName;
+        trackName.text = track.itemName;
         trackArtist.text = track.artist;
         trackDescription.text = "this is a placeholder track description";
     }
@@ -278,7 +278,7 @@ public class UIManager : MonoBehaviour
 
     public void SelectGear(Gear gear)
     {
-        gearNameText.text = gear.gearName;
+        gearNameText.text = gear.itemName;
         gearDescriptionText.text = gear.gearDescription;
     }
 
@@ -314,4 +314,40 @@ public class UIManager : MonoBehaviour
             inventoryGearContainer.transform.GetChild(i).GetComponent<InventoryGear>().CheckIfToggleInteractable(currentPower, maxPower);
         }
     }
+
+    //INVENORY SHIT
+
+    [Header("Shop stuff")]
+    public GameObject ShopCanvas;
+    public GameObject ShopItemPrefab;
+
+    public GameObject ShopItemContainer;
+
+    public void OpenShop(GameItem[] shopInventory)
+    {
+        ShopCanvas.SetActive(true);
+
+        //loop through the shopInventory and append prefabs to the list 
+        foreach (GameItem item in shopInventory)
+        {
+            GameObject shopItem = Instantiate(ShopItemPrefab, ShopItemContainer.transform);
+            shopItem.GetComponent<InventoryShopItem>().item = item;
+        }
+    }
+
+    public void CloseShop()
+    {
+
+    }
+
+    public TextMeshProUGUI shopItemName, shopItemDescription, shopItemCost;
+
+    public void SelectShopItem(GameItem item)
+    {
+        shopItemName.text = item.itemName;
+        shopItemDescription.text = item.description;
+        shopItemCost.text = item.cost.ToString();
+
+    }
+
 }

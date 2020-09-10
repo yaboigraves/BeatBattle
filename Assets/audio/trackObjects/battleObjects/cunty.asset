@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d29d3d57d0edae4c9066abd17179e95, type: 3}
   m_Name: cunty
   m_EditorClassIdentifier: 
+  itemName: Cunty Blap
+  cost: 5
+  description: A certified chatzy classic.
   trackClip: {fileID: 8300000, guid: e364b8bd0ed5b1342b14009b49fe5183, type: 3}
   artist: cunty
-  trackName: cuntyblap
   bpm: 88
   numBars: 4
   isBattleTrack: 1

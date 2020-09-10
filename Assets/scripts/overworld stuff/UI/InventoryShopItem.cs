@@ -11,12 +11,11 @@ public class InventoryShopItem : MonoBehaviour
         //tell the uimanager to update the selected shop item
         //grab the items name, its description, thumbnail, and cost
         UIManager.current.SelectShopItem(item);
-
-
     }
 
     public void BuyItem()
     {
 
+        //remove the item from the inventory 
     }
 }

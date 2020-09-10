@@ -22,8 +22,7 @@ public class Shop : MonoBehaviour
     //when we load into a scene we need to find the dialogue runner 
     public DialogueRunner dialogueRunner;
 
-
-    public GameItem[] inventory;
+    public List<GameItem> inventory;
 
     private void Start()
     {
@@ -41,7 +40,7 @@ public class Shop : MonoBehaviour
             //actually open the shop
 
             //tell the uimanager to open a store with the given inventory
-            UIManager.current.OpenShop(inventory);
+            UIManager.current.OpenShop(this);
         }
     }
 }

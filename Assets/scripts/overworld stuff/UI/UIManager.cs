@@ -320,24 +320,28 @@ public class UIManager : MonoBehaviour
     [Header("Shop stuff")]
     public GameObject ShopCanvas;
     public GameObject ShopItemPrefab;
-
     public GameObject ShopItemContainer;
+    public Shop currentShop;
 
-    public void OpenShop(GameItem[] shopInventory)
+    GameItem selectedItem;
+
+    public void OpenShop(Shop shop)
     {
+        currentShop = shop;
         ShopCanvas.SetActive(true);
-
         //loop through the shopInventory and append prefabs to the list 
-        foreach (GameItem item in shopInventory)
+        foreach (GameItem item in shop.inventory)
         {
             GameObject shopItem = Instantiate(ShopItemPrefab, ShopItemContainer.transform);
             shopItem.GetComponent<InventoryShopItem>().item = item;
+
+            shopItem.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = item.name;
         }
     }
 
     public void CloseShop()
     {
-
+        ShopCanvas.SetActive(false);
     }
 
     public TextMeshProUGUI shopItemName, shopItemDescription, shopItemCost;
@@ -347,7 +351,23 @@ public class UIManager : MonoBehaviour
         shopItemName.text = item.itemName;
         shopItemDescription.text = item.description;
         shopItemCost.text = item.cost.ToString();
+        selectedItem = item;
+    }
 
+    public void BuyItem()
+    {
+        //TODO: this only works for items right now, fix that
+
+        //check if the players got enough money to buy the item (later)
+
+        //take the selected item and add it to the players inventory 
+        player.inventory.GetItem(selectedItem);
+
+        //remove it from the shop stock if it's unique
+        if (selectedItem.unique)
+        {
+            currentShop.inventory.Remove(selectedItem);
+        }
     }
 
 }

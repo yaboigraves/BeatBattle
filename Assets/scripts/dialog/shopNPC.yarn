@@ -1,0 +1,27 @@
+﻿title: shopNPC
+tags:
+---
+WeedMan: Care to browse my wares traveller? 
+[[Yes|shopNPC.OpenStore]]
+[[No|shopNPC.Exit]]
+
+
+
+===
+
+title: shopNPC.OpenStore
+tags: 
+---
+<<OpenShop WeedMan>>
+===
+
+
+title: shopNPC.Exit
+tags:
+---
+WeedMan: Farewell traveller.
+===
+
+
+
+

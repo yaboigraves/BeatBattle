@@ -5,9 +5,9 @@ using UnityEngine.Events;
 
 
 [CreateAssetMenu(fileName = "Item", menuName = "BeatBattle/Gear", order = 0)]
-public class Gear : ScriptableObject
+public class Gear : GameItem
 {
-    public string gearName;
+    // public string itemName;
     public string gearFunction;
     [TextArea]
     public string gearDescription;

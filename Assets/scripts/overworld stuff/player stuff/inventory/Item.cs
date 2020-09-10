@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [CreateAssetMenu(fileName = "Item", menuName = "BeatBattle/Item", order = 0)]
-public class Item : ScriptableObject
+public class Item : GameItem
 {
-    public string itemName;
+    //public string itemName;
     public string effectFunction;
     [TextArea]
     public string itemDescription;

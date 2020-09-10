@@ -108,4 +108,11 @@ public class PlayerInventory : MonoBehaviour
         print("Removing the " + effectName);
         gearEffects.Remove(GearEffects.gearEffectDictionary[effectName]);
     }
+
+    public void GetItem(GameItem item)
+    {
+        //later this needs to figure out what type the item is
+
+        items.Add((Item)item);
+    }
 }

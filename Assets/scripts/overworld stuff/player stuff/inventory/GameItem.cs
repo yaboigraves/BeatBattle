@@ -8,5 +8,6 @@ public class GameItem : ScriptableObject
     public int cost = 1;
     public string description = "This is the default item description. Cool.";
 
+    public bool unique;
 
 }

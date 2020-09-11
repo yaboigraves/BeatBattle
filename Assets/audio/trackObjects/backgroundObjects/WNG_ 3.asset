@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d29d3d57d0edae4c9066abd17179e95, type: 3}
   m_Name: WNG_ 3
   m_EditorClassIdentifier: 
+  itemName: WNG_3
+  cost: 1
+  description: This is the default item description. Cool.
+  unique: 0
   trackClip: {fileID: 8300000, guid: 31f3f82d4e6738b409be5deba25f0c56, type: 3}
   artist: Edacs
-  trackName: WNG_3
   bpm: 0
   numBars: 0
   isBattleTrack: 0
@@ -24,3 +27,6 @@ MonoBehaviour:
   snareBeats:
     indicatorData: 
     indicatorPositions: []
+  trackStats:
+    trackVibe: 
+    vibePerHit: 0

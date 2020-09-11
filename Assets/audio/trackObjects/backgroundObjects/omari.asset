@@ -12,11 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d29d3d57d0edae4c9066abd17179e95, type: 3}
   m_Name: omari
   m_EditorClassIdentifier: 
+  itemName: Dream Child
+  cost: 1
+  description: This is the default item description. Cool.
+  unique: 0
   trackClip: {fileID: 8300000, guid: 70e898c48fe42074f8a85bba07e19659, type: 3}
   artist: Omari Jazz
-  trackName: DreamChild
   bpm: 0
   numBars: 0
   isBattleTrack: 0
-  kickBeats: []
-  snareBeats: []
+  kickBeats:
+    indicatorData: 
+    indicatorPositions: []
+  snareBeats:
+    indicatorData: 
+    indicatorPositions: []
+  trackStats:
+    trackVibe: 
+    vibePerHit: 0

@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52a736c165e07274dad65087323706f3, type: 3}
   m_Name: TestGear
   m_EditorClassIdentifier: 
-  gearName: Test Gear
+  itemName: Item
+  cost: 1
+  description: This is the default item description. Cool.
+  unique: 1
   gearFunction: sp404
   gearDescription: This is a test piece of gear
   mesh: {fileID: 4493585093827132993, guid: 830625f0b06f33f4094142f8760f0e1c, type: 3}

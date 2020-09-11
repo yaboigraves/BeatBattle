@@ -337,14 +337,32 @@ public class UIManager : MonoBehaviour
 
         shopCanvas.SetActive(true);
         //loop through the shopInventory and append prefabs to the list 
-        foreach (GameItem item in shop.inventory)
+        UpdateShopInventory();
+    }
+
+    //this function just refreshes the shop inventory based on what's in the array/list of items
+
+    public void UpdateShopInventory()
+    {
+        //remove everything thats in there 
+
+        for (int i = 0; i < shopItemContainer.transform.childCount; i++)
+        {
+            Destroy(shopItemContainer.transform.GetChild(i).gameObject);
+        }
+
+        foreach (GameItem item in currentShop.inventory)
         {
             GameObject shopItem = Instantiate(shopItemPrefab, shopItemContainer.transform);
             shopItem.GetComponent<InventoryShopItem>().item = item;
 
             shopItem.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = item.name;
         }
+
+
     }
+
+
 
     public void CloseShop()
     {
@@ -390,7 +408,13 @@ public class UIManager : MonoBehaviour
             //remove it from the shop stock if it's unique
             if (selectedItem.unique)
             {
+                print("unique item");
                 currentShop.inventory.Remove(selectedItem);
+
+                //remove it from the ui
+                UpdateShopInventory();
+
+
             }
         }
         else

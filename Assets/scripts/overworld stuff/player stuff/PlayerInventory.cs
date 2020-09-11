@@ -24,10 +24,10 @@ public class PlayerInventory : MonoBehaviour
 
     public Item testItem;
     public int coins;
-    public Track[] playerTracks;
+    public List<Track> playerTracks;
     public Track[] battleEquippedTracks;
     public List<Item> items = new List<Item>();
-    public Gear[] playerGear;
+    public List<Gear> playerGear;
     public int powerUse, maxPower = 10;
     //delegate list of gear effects
     public List<GearEffects.GearEffect> gearEffects = new List<GearEffects.GearEffect>();
@@ -113,10 +113,22 @@ public class PlayerInventory : MonoBehaviour
     {
         //later this needs to figure out what type the item is
 
-        items.Add((Item)item);
+        if (item is Gear)
+        {
+            playerGear.Add((Gear)item);
+            UIManager.current.UpdateGearInventory((Gear)item);
+        }
+        else if (item is Track)
+        {
+            playerTracks.Add((Track)item);
+            UIManager.current.UpdateTrackInventory((Track)item);
+        }
+        else if (item is Item)
+        {
+            items.Add((Item)item);
 
-        //tell the ui that we got an item 
-
-        UIManager.current.UpdateItemInventory((Item)item);
+            //tell the ui that we got an item 
+            UIManager.current.UpdateItemInventory((Item)item);
+        }
     }
 }

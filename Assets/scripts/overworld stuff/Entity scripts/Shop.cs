@@ -37,6 +37,9 @@ public class Shop : MonoBehaviour
         print("opening shop");
         if (parameters[0] == shopName)
         {
+
+            //tell the player that they're in the shop now
+            GameManager.current.player.inShop = true;
             //actually open the shop
 
             //tell the uimanager to open a store with the given inventory

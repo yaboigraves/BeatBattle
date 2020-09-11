@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     public bool inBattle;
     float horizontalIn;
     float verticalIn;
-    public bool inDialogue;
+    public bool inDialogue, inShop;
 
     [Range(1, 100)]
     public float jumpVelocity;

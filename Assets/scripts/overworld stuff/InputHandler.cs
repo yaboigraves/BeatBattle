@@ -54,6 +54,11 @@ public class InputHandler : MonoBehaviour
                 }
                 UIManager.current.NPCNextTalk();
             }
+
+            else if (player.inShop)
+            {
+                //TODO: if the player pressed e in the shop probably just have them buy whatever thing they have selected
+            }
             else if (player.interactRange.objectsInRange.Count > 0)
             {
                 player.interactRange.objectsInRange[0].GetComponent<IInteractable>().Interact();
@@ -66,7 +71,7 @@ public class InputHandler : MonoBehaviour
             }
         }
 
-        if ((!player.inDialogue && !player.inBattle))
+        if ((!player.inDialogue && !player.inBattle) && !player.inShop)
         {
             //print("sending a move");
             Vector3 deltaPos = new Vector3(horizontalIn, 0, verticalIn);
@@ -95,9 +100,25 @@ public class InputHandler : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            //activate the inventory menu
-            UIManager.current.ToggleInventoryMenu();
-            Time.timeScale = Mathf.Abs(Time.timeScale - 1);
+            //check if we're in dialogue
+            if (player.inDialogue)
+            {
+
+            }
+            else if (player.inShop)
+            {
+                UIManager.current.CloseShop();
+            }
+            else
+            {
+                //activate the inventory menu
+                UIManager.current.ToggleInventoryMenu();
+                Time.timeScale = Mathf.Abs(Time.timeScale - 1);
+            }
+
+
+
+
 
         }
     }

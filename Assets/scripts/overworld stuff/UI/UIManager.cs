@@ -318,9 +318,9 @@ public class UIManager : MonoBehaviour
     //INVENORY SHIT
 
     [Header("Shop stuff")]
-    public GameObject ShopCanvas;
-    public GameObject ShopItemPrefab;
-    public GameObject ShopItemContainer;
+    public GameObject shopCanvas;
+    public GameObject shopItemPrefab;
+    public GameObject shopItemContainer;
     public Shop currentShop;
 
     GameItem selectedItem;
@@ -328,11 +328,11 @@ public class UIManager : MonoBehaviour
     public void OpenShop(Shop shop)
     {
         currentShop = shop;
-        ShopCanvas.SetActive(true);
+        shopCanvas.SetActive(true);
         //loop through the shopInventory and append prefabs to the list 
         foreach (GameItem item in shop.inventory)
         {
-            GameObject shopItem = Instantiate(ShopItemPrefab, ShopItemContainer.transform);
+            GameObject shopItem = Instantiate(shopItemPrefab, shopItemContainer.transform);
             shopItem.GetComponent<InventoryShopItem>().item = item;
 
             shopItem.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = item.name;
@@ -341,7 +341,17 @@ public class UIManager : MonoBehaviour
 
     public void CloseShop()
     {
-        ShopCanvas.SetActive(false);
+        shopCanvas.SetActive(false);
+
+        //clear the inventory of the current shop
+        for (int i = 0; i < shopItemContainer.transform.childCount; i++)
+        {
+            Destroy(shopItemContainer.transform.GetChild(i).gameObject);
+        }
+
+        GameManager.current.player.inShop = false;
+
+
     }
 
     public TextMeshProUGUI shopItemName, shopItemDescription, shopItemCost;

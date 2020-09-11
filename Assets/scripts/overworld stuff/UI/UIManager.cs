@@ -323,11 +323,18 @@ public class UIManager : MonoBehaviour
     public GameObject shopItemContainer;
     public Shop currentShop;
 
+    public TextMeshProUGUI playerCoinsText;
+
     GameItem selectedItem;
 
     public void OpenShop(Shop shop)
     {
         currentShop = shop;
+
+        //update the player coins 
+
+        UpdateShopCoins(GameManager.current.player.inventory.coins);
+
         shopCanvas.SetActive(true);
         //loop through the shopInventory and append prefabs to the list 
         foreach (GameItem item in shop.inventory)
@@ -370,14 +377,37 @@ public class UIManager : MonoBehaviour
 
         //check if the players got enough money to buy the item (later)
 
-        //take the selected item and add it to the players inventory 
-        player.inventory.GetItem(selectedItem);
-
-        //remove it from the shop stock if it's unique
-        if (selectedItem.unique)
+        if (selectedItem.cost <= GameManager.current.player.inventory.coins)
         {
-            currentShop.inventory.Remove(selectedItem);
+            GameManager.current.player.inventory.coins -= selectedItem.cost;
+
+            //update the ui
+
+            UpdateShopCoins(GameManager.current.player.inventory.coins);
+
+            player.inventory.GetItem(selectedItem);
+
+            //remove it from the shop stock if it's unique
+            if (selectedItem.unique)
+            {
+                currentShop.inventory.Remove(selectedItem);
+            }
         }
+        else
+        {
+            //TODO: play a noise or something if you cant afford it
+        }
+
+
+
     }
+
+    public void UpdateShopCoins(int newCoins)
+    {
+        playerCoinsText.text = "X - " + newCoins.ToString();
+    }
+
+
+
 
 }

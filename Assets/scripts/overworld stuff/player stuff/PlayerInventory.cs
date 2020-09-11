@@ -114,5 +114,9 @@ public class PlayerInventory : MonoBehaviour
         //later this needs to figure out what type the item is
 
         items.Add((Item)item);
+
+        //tell the ui that we got an item 
+
+        UIManager.current.UpdateItemInventory((Item)item);
     }
 }

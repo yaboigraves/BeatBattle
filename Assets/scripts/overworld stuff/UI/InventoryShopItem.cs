@@ -11,11 +11,26 @@ public class InventoryShopItem : MonoBehaviour
         //tell the uimanager to update the selected shop item
         //grab the items name, its description, thumbnail, and cost
         UIManager.current.SelectShopItem(item);
+
+        //test to figure out the type of the object
+
+        if (item is Item)
+        {
+            print("its an item");
+        }
+        if (item is Track)
+        {
+            print("its a track");
+        }
+        if (item is Gear)
+        {
+            print("its a gear");
+        }
     }
 
-    public void BuyItem()
-    {
+    // public void BuyItem()
+    // {
 
-        //remove the item from the inventory 
-    }
+    //     //remove the item from the inventory 
+    // }
 }

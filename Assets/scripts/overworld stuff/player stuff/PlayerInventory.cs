@@ -97,6 +97,13 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
+    public void EquipGear()
+    {
+        //TODO: this needs to be implemented here otherwise this will get confusing
+    }
+
+
+
     public void EquipGearEffect(string effectName)
     {
         print("applying effect " + effectName);
@@ -129,6 +136,32 @@ public class PlayerInventory : MonoBehaviour
 
             //tell the ui that we got an item 
             UIManager.current.UpdateItemInventory((Item)item);
+        }
+    }
+
+    //used by stuff like playerprefs to load gear by its name
+    public void LoadItemByName(string name)
+    {
+
+
+        foreach (Gear g in playerGear)
+        {
+            if (g.itemName == name)
+            {
+
+                return;
+            }
+        }
+
+        foreach (Track t in playerTracks)
+        {
+            if (t.itemName == name)
+            {
+                //equp the track
+                EquipTrack(t, true);
+                //also need to update the ui with the toggle
+                UIManager.current.LoadTrack(t);
+            }
         }
     }
 }

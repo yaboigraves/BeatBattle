@@ -33,6 +33,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
+
     public void setManagerReferences(Player player)
     {
         this.player = player;
@@ -40,4 +42,49 @@ public class GameManager : MonoBehaviour
         SceneManage.current.player = player;
         CameraManager.current.setCameraFollow(player.transform);
     }
+
+    private void Start()
+    {
+        StartCoroutine(LoadRoutine());
+    }
+
+
+
+
+    public IEnumerator LoadRoutine()
+    {
+        yield return new WaitForFixedUpdate();
+        //SaveDataTest();
+        SaveManager.current.LoadSettings();
+
+    }
+
+
+
+
+
+
+
+
+    //testing saving/loading stuff 
+    //PlayerPrefs.Set("key",value)
+    //stored like a json and then you can PlayerPrefs.Get() shit too
+
+    public void SaveDataTest()
+    {
+        //so for now lets save that the tracks the player equips'
+
+        PlayerPrefs.SetString("EquippedTrack0", "CuntyBlap");
+
+        for (int i = 0; i < 1; i++)
+        {
+            string trackName = PlayerPrefs.GetString("EquippedTrack" + i.ToString());
+            //then find that track by its name and equip them 
+            player.inventory.LoadItemByName(trackName);
+        }
+    }
+
+
+
+
 }

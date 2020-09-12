@@ -431,6 +431,45 @@ public class UIManager : MonoBehaviour
         playerCoinsText.text = "X - " + newCoins.ToString();
     }
 
+    //LOADING STUFF
+
+    public void LoadTrack(Track t)
+    {
+        //look through all the inventory track objects until we find one with this track
+
+
+
+
+        //TODO: this needs to be made more efficient, a ui manager variable or player inventory variable needs to be made 
+        //that packages all relevant objects, for now just doin this dumb shit
+
+
+
+        for (int i = 0; i < inventoryTrackContainer.transform.childCount; i++)
+        {
+            print(inventoryTrackContainer.transform.GetChild(i).name);
+            InventoryTrack inTrack = inventoryTrackContainer.transform.GetChild(i).GetComponent<InventoryTrack>();
+
+
+            if (inTrack != null && inTrack.track == t)
+            {
+                inTrack.ToggleToggle(true);
+            }
+        }
+
+    }
+
+
+
+
+
+    //SETTINGS MENU STUFF
+    public Slider volumeSlider;
+    public void UpdateVolumeSlider()
+    {
+        TrackManager.current.UpdateTrackVolume(volumeSlider.value);
+    }
+
 
 
 

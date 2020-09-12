@@ -50,6 +50,5 @@ public class Enemy : MonoBehaviour
         {
             SceneManage.current.enemies.Remove(this);
         }
-
     }
 }

@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.AI;
 public class EnemyMove : MonoBehaviour
 {
+
+    //TODO: rewriting this to use the navmesh agent
 
     //references the animator and triggers movement animations
     Animator animator;
@@ -16,11 +18,17 @@ public class EnemyMove : MonoBehaviour
     public float patrolTolerance = 0.3f;
     int currentPatrol = 0;
 
+    public NavMeshAgent agent;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
+        agent = GetComponent<NavMeshAgent>();
+        agent.SetDestination(patrolRoute[currentPatrol].position);
+
     }
 
     // Update is called once per frame
@@ -31,10 +39,11 @@ public class EnemyMove : MonoBehaviour
         {
             if (chasingPlayer && !SceneManage.current.inBattle)
             {
-                transform.position = Vector3.MoveTowards(transform.position, playerPos.position, speed * Time.deltaTime);
-
+                //transform.position = Vector3.MoveTowards(transform.position, playerPos.position, speed * Time.deltaTime);
+                agent.SetDestination(playerPos.position);
                 //check where player is so we know when to rotate sprite 
 
+                //TODO: refactor this to a seperate function (sprite flips should be basically a function we can call)
                 if (transform.position.x > playerPos.position.x)
                 {
                     //to the right of player 
@@ -43,6 +52,7 @@ public class EnemyMove : MonoBehaviour
                         StartCoroutine(LerpToRotation(180, 0.1f, 0.1f));
                     }
                 }
+
                 else
                 {
                     //to the left of the player
@@ -57,13 +67,22 @@ public class EnemyMove : MonoBehaviour
             else if (!idle)
             {
                 animator.SetBool("isMoving", true);
-                transform.position = Vector3.MoveTowards(transform.position, patrolRoute[currentPatrol].position, speed * Time.deltaTime);
+                //transform.position = Vector3.MoveTowards(transform.position, patrolRoute[currentPatrol].position, speed * Time.deltaTime);
                 //if we get within a certain tolerance value of the position
-                if (Mathf.Abs(Vector3.Distance(transform.position, patrolRoute[currentPatrol].position)) < patrolTolerance)
+                // if (Mathf.Abs(Vector3.Distance(transform.position, patrolRoute[currentPatrol].position)) < patrolTolerance)
+                // {
+                //     //stand still for a sec, then this coroutine calls the goToNextWaypoint function
+                //     StartCoroutine(standIdly());
+                // }
+
+                if (agent.remainingDistance < agent.stoppingDistance)
                 {
-                    //stand still for a sec, then this coroutine calls the goToNextWaypoint function
-                    StartCoroutine(standIdly());
+                    //we need to go to the next spot in the patrol route
+
+                    goToNextWaypoint();
                 }
+
+
             }
         }
 
@@ -72,6 +91,7 @@ public class EnemyMove : MonoBehaviour
     private void goToNextWaypoint()
     {
         currentPatrol = (currentPatrol + 1) % patrolRoute.Length;
+        agent.SetDestination(patrolRoute[currentPatrol].position);
 
         //check the x position of the next waypoint and see if we need to flip the sprite
         if (transform.position.x > patrolRoute[currentPatrol].position.x)
@@ -105,6 +125,8 @@ public class EnemyMove : MonoBehaviour
         //then start walking again to the next waypoint 
         goToNextWaypoint();
     }
+
+
 
     IEnumerator LerpToRotation(float endRotation, float time, float delay)
     {

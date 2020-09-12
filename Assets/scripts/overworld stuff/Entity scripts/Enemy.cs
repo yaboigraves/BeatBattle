@@ -14,7 +14,6 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         //add ourself to the scene managers dictionary of enemies so we can be activated/deactivated on scene loads
         //SceneManage.current.enemySceneDictionary.Add(this, SceneManager.GetActiveScene().name);
 
@@ -23,7 +22,6 @@ public class Enemy : MonoBehaviour
             SceneManage.current.enemies.Add(this);
         }
 
-
         col = GetComponent<Collider>();
 
         foreach (Track track in battleTracks)
@@ -31,7 +29,6 @@ public class Enemy : MonoBehaviour
             //print(Array.ConvertAll(track.kickBeats.indicatorData.Split(','), float.Parse));
             track.kickBeats.indicatorPositions = Array.ConvertAll(track.kickBeats.indicatorData.Split(' '), float.Parse);
             track.snareBeats.indicatorPositions = Array.ConvertAll(track.snareBeats.indicatorData.Split(' '), float.Parse);
-
         }
     }
 

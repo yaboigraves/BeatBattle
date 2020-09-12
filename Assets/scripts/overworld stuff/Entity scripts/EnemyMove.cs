@@ -4,23 +4,17 @@ using UnityEngine;
 using UnityEngine.AI;
 public class EnemyMove : MonoBehaviour
 {
-
     //TODO: rewriting this to use the navmesh agent
 
     //references the animator and triggers movement animations
     Animator animator;
-
     public Transform playerPos;
     public bool chasingPlayer, idle;
     public float speed;
-
     public Transform[] patrolRoute;
     public float patrolTolerance = 0.3f;
     int currentPatrol = 0;
-
     public NavMeshAgent agent;
-
-
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +22,6 @@ public class EnemyMove : MonoBehaviour
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         agent.SetDestination(patrolRoute[currentPatrol].position);
-
     }
 
     // Update is called once per frame
@@ -44,48 +37,23 @@ public class EnemyMove : MonoBehaviour
                 //check where player is so we know when to rotate sprite 
 
                 //TODO: refactor this to a seperate function (sprite flips should be basically a function we can call)
-                if (transform.position.x > playerPos.position.x)
-                {
-                    //to the right of player 
-                    if (transform.rotation.y == 0)
-                    {
-                        StartCoroutine(LerpToRotation(180, 0.1f, 0.1f));
-                    }
-                }
-
-                else
-                {
-                    //to the left of the player
-                    if (transform.rotation.y - 180 <= 0.001f)
-                    {
-                        StartCoroutine(LerpToRotation(0, 0.1f, 0.1f));
-                    }
-                }
+                CheckForRotation(playerPos.position);
             }
 
             //if we're not chasing the player then we just patrol to the next patrol point
             else if (!idle)
             {
                 animator.SetBool("isMoving", true);
-                //transform.position = Vector3.MoveTowards(transform.position, patrolRoute[currentPatrol].position, speed * Time.deltaTime);
-                //if we get within a certain tolerance value of the position
-                // if (Mathf.Abs(Vector3.Distance(transform.position, patrolRoute[currentPatrol].position)) < patrolTolerance)
-                // {
-                //     //stand still for a sec, then this coroutine calls the goToNextWaypoint function
-                //     StartCoroutine(standIdly());
-                // }
-
                 if (agent.remainingDistance < agent.stoppingDistance)
                 {
                     //we need to go to the next spot in the patrol route
 
-                    goToNextWaypoint();
+                    StartCoroutine(standIdly());
+
+                    // goToNextWaypoint();
                 }
-
-
             }
         }
-
     }
 
     private void goToNextWaypoint()
@@ -94,18 +62,29 @@ public class EnemyMove : MonoBehaviour
         agent.SetDestination(patrolRoute[currentPatrol].position);
 
         //check the x position of the next waypoint and see if we need to flip the sprite
-        if (transform.position.x > patrolRoute[currentPatrol].position.x)
-        {
-
-            StartCoroutine(LerpToRotation(180, 0.1f, 0.1f));
-        }
-        else
-        {
-
-            StartCoroutine(LerpToRotation(0, 0.1f, 0.1f));
-        }
+        CheckForRotation(patrolRoute[currentPatrol].position);
     }
 
+    public void CheckForRotation(Vector3 targetLookPos)
+    {
+        if (transform.position.x > targetLookPos.x)
+        {
+            //to the right of player 
+            if (transform.rotation.y == 0)
+            {
+                StartCoroutine(LerpToRotation(180, 0.1f, 0.1f));
+            }
+        }
+
+        else
+        {
+            //to the left of the player
+            if (transform.rotation.y - 180 <= 0.001f)
+            {
+                StartCoroutine(LerpToRotation(0, 0.1f, 0.1f));
+            }
+        }
+    }
 
     public void chasePlayer(bool chasing, Transform player)
     {
@@ -119,14 +98,11 @@ public class EnemyMove : MonoBehaviour
     {
         idle = true;
         animator.SetBool("isMoving", false);
-        yield return new WaitForSeconds(Random.Range(1f, 2f));
+        yield return new WaitForSeconds(Random.Range(1f, 3f));
         idle = false;
-
         //then start walking again to the next waypoint 
         goToNextWaypoint();
     }
-
-
 
     IEnumerator LerpToRotation(float endRotation, float time, float delay)
     {

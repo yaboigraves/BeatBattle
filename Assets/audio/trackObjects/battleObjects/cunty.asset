@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d29d3d57d0edae4c9066abd17179e95, type: 3}
   m_Name: cunty
   m_EditorClassIdentifier: 
-  itemName: Cunty Blap
+  itemName: CuntyBlap
   cost: 5
   description: A certified chatzy classic.
   unique: 1

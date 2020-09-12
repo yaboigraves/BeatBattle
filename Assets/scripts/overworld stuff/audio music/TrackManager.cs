@@ -103,6 +103,13 @@ public class TrackManager : MonoBehaviour
         PauseTrack();
         StopCoroutine(songRoutine);
     }
+
+    public void UpdateTrackVolume(float newVolume)
+    {
+        currAudio.volume = newVolume;
+
+        SaveManager.current.UpdateVolume(newVolume);
+    }
 }
 
 

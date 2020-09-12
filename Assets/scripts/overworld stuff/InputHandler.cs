@@ -26,6 +26,8 @@ public class InputHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
         // Remove all player control when we're in dialogue
 
 

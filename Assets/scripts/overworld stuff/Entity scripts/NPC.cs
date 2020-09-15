@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Yarn.Unity;
 using Cinemachine;
+using TMPro;
 
 public class NPC : MonoBehaviour, IInteractable
 {
@@ -15,6 +16,10 @@ public class NPC : MonoBehaviour, IInteractable
     Dictionary<string, CinemachineVirtualCamera> cameraPositions;
     public string talkToNode = "";
     public YarnProgram scriptToLoad;
+    public TextMeshProUGUI npcTextBox;
+
+    [TextArea]
+    public string greetingText, goodbyeText;
     public void Interact()
     {
         DialogCameraController.current.setCameraObjects(cameraPositions);
@@ -36,5 +41,40 @@ public class NPC : MonoBehaviour, IInteractable
         {
             cameraPositions.Add(cameraObjs.GetChild(i).name, cameraObjs.GetChild(i).GetComponent<CinemachineVirtualCamera>());
         }
+
+
+
+        npcTextBox.transform.parent.gameObject.SetActive(false);
+
+    }
+
+    //text stuff
+    public void NPCGreet()
+    {
+        StopCoroutine(npcTextTrigger());
+        if (greetingText != "")
+        {
+            npcTextBox.text = greetingText;
+            npcTextBox.transform.parent.gameObject.SetActive(true);
+            StartCoroutine(npcTextTrigger());
+        }
+
+    }
+
+    public void NPCGoodbye()
+    {
+        StopCoroutine(npcTextTrigger());
+        if (goodbyeText != "")
+        {
+            npcTextBox.text = goodbyeText;
+            npcTextBox.transform.parent.gameObject.SetActive(true);
+            StartCoroutine(npcTextTrigger());
+        }
+    }
+
+    IEnumerator npcTextTrigger()
+    {
+        yield return new WaitForSeconds(2);
+        npcTextBox.transform.parent.gameObject.SetActive(false);
     }
 }

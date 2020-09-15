@@ -540,7 +540,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 262207967}
-  m_LocalRotation: {x: 0.09107931, y: 0.20553423, z: -0.019215424, w: 0.97421306}
+  m_LocalRotation: {x: 0.09073594, y: 0.22223131, z: -0.020776432, w: 0.9705404}
   m_LocalPosition: {x: -19.29, y: 100.31, z: -25.03}
   m_LocalScale: {x: 1.0000001, y: 1, z: 1}
   m_Children: []
@@ -1192,6 +1192,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   indicator: {fileID: 0}
+  padID: midi2
   binding: 102
   midiKeyNum: 40
 --- !u!1 &422669781
@@ -2299,7 +2300,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 708335400}
-  m_LocalRotation: {x: 0.09107931, y: 0.20553423, z: -0.019215424, w: 0.97421306}
+  m_LocalRotation: {x: 0.09073594, y: 0.22223131, z: -0.020776432, w: 0.9705404}
   m_LocalPosition: {x: -19.29, y: 100.31, z: -25.03}
   m_LocalScale: {x: 1.0000001, y: 1, z: 1}
   m_Children:
@@ -3949,6 +3950,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   indicator: {fileID: 0}
+  padID: midi1
   binding: 100
   midiKeyNum: 38
 --- !u!4 &1373271539 stripped
@@ -4018,7 +4020,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1379790092}
-  m_LocalRotation: {x: -0.011349483, y: 0.68889034, z: 0.010788723, w: 0.7246964}
+  m_LocalRotation: {x: 0.101328984, y: 0.35408923, z: -0.038625658, w: 0.9289033}
   m_LocalPosition: {x: -19.29, y: 100.31, z: -25.03}
   m_LocalScale: {x: 0.9999999, y: 1, z: 1}
   m_Children:
@@ -4701,6 +4703,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   indicator: {fileID: 0}
+  padID: 
   binding: 0
   midiKeyNum: 35
 --- !u!1 &1685475374

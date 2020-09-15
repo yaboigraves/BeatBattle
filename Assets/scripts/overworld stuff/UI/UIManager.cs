@@ -144,6 +144,17 @@ public class UIManager : MonoBehaviour
         //enable the trackinfo for a sec
         if (!trackInfoUI.activeSelf)
         {
+            print("routine");
+            StartCoroutine(showTrackInfoUI(trackInfoUI, -300));
+        }
+
+    }
+
+
+    public void ShowTrackInfo()
+    {
+        if (!trackInfoUI.activeSelf)
+        {
             StartCoroutine(showTrackInfoUI(trackInfoUI, -300));
         }
 
@@ -151,13 +162,28 @@ public class UIManager : MonoBehaviour
 
     IEnumerator showTrackInfoUI(GameObject uiElement, float distance)
     {
-        //TODO: make this tween from the right side of the screen or something
-        uiElement.SetActive(true);
+        //so this needs to not actually move the element back until the toggle mouse enter for that element is off
+        //tie those together somehow
+
+        //turn the parent on
+        uiElement.gameObject.SetActive(true);
         LeanTween.moveX(uiElement, uiElement.transform.position.x + distance, 1);
-        yield return new WaitForSeconds(6);
+        //wait until the toggleonmouseenter for that component is false
+
+
+        yield return new WaitForSeconds(3);
+        while (uiElement.transform.parent.gameObject.GetComponent<ToggleOnMouseEnter>().openUIInfo)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+
+
+        yield return new WaitForSeconds(3);
+
+
         LeanTween.moveX(uiElement, uiElement.transform.position.x - distance, 1);
         yield return new WaitForSeconds(1);
-        uiElement.SetActive(false);
+        uiElement.gameObject.SetActive(false);
     }
 
     public void updatePlayerHealthText(int newHealth)
@@ -471,6 +497,16 @@ public class UIManager : MonoBehaviour
     }
 
 
+    public void UpdateMidiBind(string midiName)
+    {
+        SaveManager.current.RebindMidi(midiName);
 
+    }
+
+    public GameObject debugWindow;
+    public void ToggleDebugWindow()
+    {
+        debugWindow.SetActive(!debugWindow.activeSelf);
+    }
 
 }

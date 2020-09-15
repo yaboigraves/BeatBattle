@@ -81,7 +81,6 @@ public class TrackManager : MonoBehaviour
     //going to need to setup this array based on all the shit in the jsons array
     public void playRandomBackgroundTrack()
     {
-
         currentTrack = Random.Range(0, backgroundAudioTracks.Length);
         UpdateCurrentTrack(backgroundAudioTracks[currentTrack]);
     }

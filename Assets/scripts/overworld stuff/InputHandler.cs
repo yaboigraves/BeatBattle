@@ -10,6 +10,8 @@ public class InputHandler : MonoBehaviour
     public Player player;
 
 
+
+
     //player variables for movement restrictions 
 
 
@@ -26,6 +28,11 @@ public class InputHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
+
+
+
 
 
         // Remove all player control when we're in dialogue
@@ -119,9 +126,11 @@ public class InputHandler : MonoBehaviour
             }
 
 
+        }
 
-
-
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            UIManager.current.ToggleDebugWindow();
         }
     }
 }

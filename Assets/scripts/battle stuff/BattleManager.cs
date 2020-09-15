@@ -7,20 +7,6 @@ public class BattleManager : MonoBehaviour
 {
 
 
-
-    /*
-        timescale experiment
-        
-        so something that may be cool is having the movement of each indicator be uniform at 60bpm 
-        then, rather than needing to update the speed that indicators move, they just move uniformily and the 
-        timescale manages their speed
-
-        this has the added benefit of making it so that animations speed up (i think) if the timescale changes
-        
-        tracks dont speed up when the timescale is changed too
-
-    */
-
     public static BattleManager current;
     public bool battleStarted;
     //maybe move these somewhere but honestly doesnt need to be in the player 
@@ -39,12 +25,7 @@ public class BattleManager : MonoBehaviour
     public GameObject bar;
 
     bool firstTurn = true;
-
-
-
     //this variable keeps track of whether or not the player or the enemy did the first attack
-
-
     //vibe bar stuff 
     public int vibe = 0;
     int maxVibe = 50, minVibe = -50;
@@ -179,6 +160,8 @@ public class BattleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
         //TODO: defer this to the inputhandler
         if (Input.GetKeyDown(KeyCode.Space) && !battleStarted)
         {
@@ -196,6 +179,9 @@ public class BattleManager : MonoBehaviour
         //1 2 3 4 
         BattleTrackManager.current.StartCountIn();
     }
+
+
+    //this should be passed to a battleUImanager object
 
     public void processPadHit(bool hit)
     {

@@ -31,12 +31,7 @@ public class InputHandler : MonoBehaviour
 
 
 
-
-
-
-
         // Remove all player control when we're in dialogue
-
 
         horizontalIn = Input.GetAxisRaw("Horizontal");
         verticalIn = Input.GetAxisRaw("Vertical");
@@ -76,6 +71,7 @@ public class InputHandler : MonoBehaviour
                 {
 
                     player.enterDialogue();
+                    ResetInputAxis();
                 }
             }
         }
@@ -101,7 +97,7 @@ public class InputHandler : MonoBehaviour
 
 
         //process the jump
-        if (Input.GetButtonDown("Jump") && player.playerRoot.onGround)
+        if (Input.GetButtonDown("Jump") && player.playerRoot.onGround && !player.inDialogue && !player.inShop && !player.inBattle)
         {
             // rb.velocity = new Vector3(rb.velocity.x, jumpVelocity, rb.velocity.z);
             player.jump();
@@ -132,5 +128,35 @@ public class InputHandler : MonoBehaviour
         {
             UIManager.current.ToggleDebugWindow();
         }
+
+
+        //talk to the homie 
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            if (!player.inBattle && !player.inShop && !player.inBattle)
+            {
+
+                //talk to the homie
+                if (!player.inDialogue)
+                {
+                    GameManager.current.player.TalkToHomie();
+                    player.inDialogue = true;
+                    ResetInputAxis();
+                }
+                else
+                {
+                    UIManager.current.NPCNextTalk();
+                }
+
+            }
+        }
+    }
+
+    public void ResetInputAxis()
+    {
+        horizontalIn = 0;
+        verticalIn = 0;
+        player.ResetDeltaPos();
     }
 }

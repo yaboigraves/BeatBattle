@@ -32,6 +32,9 @@ public class Player : MonoBehaviour
 
     // Start is called before the first frame update
 
+    public GameObject homieObj;
+    Homie homie;
+
 
     void Start()
     {
@@ -48,7 +51,19 @@ public class Player : MonoBehaviour
 
         inventory = GetComponent<PlayerInventory>();
 
+        LoadHomie();
 
+
+    }
+
+    public void LoadHomie()
+    {
+        homie = Instantiate(homieObj, transform.position + Vector3.left * 2, Quaternion.identity).GetComponent<Homie>();
+    }
+
+    public void TalkToHomie()
+    {
+        homie.TalkToHomie();
     }
 
 
@@ -156,5 +171,10 @@ public class Player : MonoBehaviour
     void CreateDust()
     {
         footDust.Play();
+    }
+
+    public void ResetDeltaPos()
+    {
+        deltaPos = Vector3.zero;
     }
 }

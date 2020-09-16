@@ -33,7 +33,7 @@ public class Pad : MonoBehaviour
         if (Input.GetKeyDown(binding) || MidiJack.MidiMaster.GetKeyDown(midiKeyNum))
         {
 
-            DebugManager.current.print("pad pressed " + midiKeyNum);
+            //DebugManager.current.print("pad pressed " + midiKeyNum);
             if (indicator != null)
             {
                 //print("hit");

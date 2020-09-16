@@ -5964,6 +5964,7 @@ MonoBehaviour:
   interactRange: {fileID: 8796179301883559383}
   inBattle: 0
   inDialogue: 0
+  inShop: 0
   jumpVelocity: 8
   fallMultiplier: 3
   lowJumpMultiplier: 2.5
@@ -5971,6 +5972,9 @@ MonoBehaviour:
   globalGravity: -9.81
   spriteHolder: {fileID: 0}
   battleRangeChecker: {fileID: 0}
+  inventory: {fileID: 0}
+  homieObj: {fileID: 2898552078886871598, guid: 917abda343f9ad64bbebd210eac652aa,
+    type: 3}
 --- !u!136 &2855622435184960728
 CapsuleCollider:
   m_ObjectHideFlags: 0

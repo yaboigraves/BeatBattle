@@ -68,12 +68,6 @@ public class BattleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-
-
-
-
-
         //check if we're in testmode (which means theirs no scene manager present)
         if (TrackManager.current == null)
         {
@@ -98,16 +92,10 @@ public class BattleManager : MonoBehaviour
         }
         changeTurn();
         firstTurn = false;
-
-
-
-
     }
 
     public void setupTurnIndicators(Track newTrack)
     {
-
-
 
         Track track = newTrack;
 

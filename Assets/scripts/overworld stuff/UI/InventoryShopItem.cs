@@ -28,9 +28,5 @@ public class InventoryShopItem : MonoBehaviour
         }
     }
 
-    // public void BuyItem()
-    // {
 
-    //     //remove the item from the inventory 
-    // }
 }

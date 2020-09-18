@@ -15,16 +15,20 @@ public class Homie : MonoBehaviour
 
     public string currentDialogueNode = "";
 
-
     public float speed, maxSpeed;
 
     bool rampingUp, rampingDown;
+
+    Rigidbody rigidbody;
 
     // Start is called before the first frame update
     void Start()
     {
 
-        navAgent = GetComponent<NavMeshAgent>();
+        //navAgent = GetComponent<NavMeshAgent>();
+
+        rigidbody = GetComponent<Rigidbody>();
+
 
         if (GameManager.current != null)
         {
@@ -69,17 +73,18 @@ public class Homie : MonoBehaviour
 
         }
 
-        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed);
-
+        Vector3 direction = Vector3.MoveTowards(transform.position, player.transform.position, speed);
+        rigidbody.MovePosition(direction);
 
     }
 
     IEnumerator rampSpeedUp()
     {
+        //the maxspeed should be the players max speed
         while (speed < maxSpeed)
         {
             yield return new WaitForSeconds(0.1f);
-            speed += 0.1f;
+            speed += Time.fixedDeltaTime;
         }
     }
 
@@ -88,7 +93,7 @@ public class Homie : MonoBehaviour
         while (speed > 0)
         {
             yield return new WaitForSeconds(0.1f);
-            speed -= 0.1f;
+            speed -= Time.fixedDeltaTime;
         }
         speed = 0;
     }
@@ -98,5 +103,16 @@ public class Homie : MonoBehaviour
         FindObjectOfType<DialogueRunner>().StartDialogue(currentDialogueNode);
 
 
+    }
+
+    public void jump(Vector3 jumpForce)
+    {
+        rigidbody.AddForce(jumpForce, ForceMode.Impulse);
+    }
+
+    //if you get too far away
+    public void TeleportToPlayer()
+    {
+        transform.position = player.transform.position;
     }
 }

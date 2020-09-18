@@ -499,8 +499,36 @@ public class UIManager : MonoBehaviour
 
     public void UpdateMidiBind(string midiName)
     {
-        SaveManager.current.RebindMidi(midiName);
+        //rather than doing this in save manager lets just do it here?
+        // SaveManager.RebindMidi(midiName);
 
+        StopCoroutine("midiRebind");
+        StartCoroutine(midiRebind(midiName));
+
+    }
+
+    public static IEnumerator midiRebind(string midiName)
+    {
+        bool inputMade = false;
+
+        while (!inputMade)
+        {
+            for (int i = 0; i <= 127; i++)
+            {
+                if (MidiJack.MidiMaster.GetKeyDown(i))
+                {
+                    //we got a key to rebind
+                    //set that shit in the player prefs
+                    PlayerPrefs.SetInt(midiName, i);
+                    DebugManager.current.print("rebound " + midiName + " to " + i);
+
+                    inputMade = true;
+                    break;
+                }
+            }
+            yield return new WaitForEndOfFrame();
+
+        }
     }
 
     public GameObject debugWindow;

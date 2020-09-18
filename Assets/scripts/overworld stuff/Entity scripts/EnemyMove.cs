@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-public class EnemyMove : MonoBehaviour
+public class EnemyMove : Entity
 {
     //TODO: rewriting this to use the navmesh agent
 
@@ -104,23 +104,23 @@ public class EnemyMove : MonoBehaviour
         goToNextWaypoint();
     }
 
-    IEnumerator LerpToRotation(float endRotation, float time, float delay)
-    {
-        yield return new WaitForSeconds(delay);
+    // IEnumerator LerpToRotation(float endRotation, float time, float delay)
+    // {
+    //     yield return new WaitForSeconds(delay);
 
-        float startRotation = transform.rotation.eulerAngles.y;
-        float lerpRotation = startRotation;
+    //     float startRotation = transform.rotation.eulerAngles.y;
+    //     float lerpRotation = startRotation;
 
-        float i = 0f;
-        float rate = 1 / time;
-        while (i <= 1)
-        {
-            i += Time.deltaTime * rate;
+    //     float i = 0f;
+    //     float rate = 1 / time;
+    //     while (i <= 1)
+    //     {
+    //         i += Time.deltaTime * rate;
 
-            lerpRotation = Mathf.Lerp(startRotation, endRotation, i);
-            transform.rotation = Quaternion.Euler(0f, lerpRotation, 0f);
-            yield return null;
-        }
-        transform.rotation = Quaternion.Euler(0f, endRotation, 0f);
-    }
+    //         lerpRotation = Mathf.Lerp(startRotation, endRotation, i);
+    //         transform.rotation = Quaternion.Euler(0f, lerpRotation, 0f);
+    //         yield return null;
+    //     }
+    //     transform.rotation = Quaternion.Euler(0f, endRotation, 0f);
+    // }
 }

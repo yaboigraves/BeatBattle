@@ -5,7 +5,7 @@ using Yarn.Unity;
 using Cinemachine;
 using TMPro;
 
-public class NPC : MonoBehaviour, IInteractable
+public class NPC : Entity, IInteractable
 {
     //this npc class is moreso like the talk-to-able npc there need to also be one for npcs with passing dialogue
 

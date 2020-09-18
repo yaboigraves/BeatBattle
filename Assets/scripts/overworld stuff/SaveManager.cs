@@ -1,30 +1,66 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
-public class SaveManager : MonoBehaviour
+
+//this should probably be an abstract class considering it really doesnt have any variables
+
+
+public static class SaveManager
 {
 
     /*  SETTINGS NAMES
         -musicVolume
 
     */
-    public static SaveManager current;
 
-    private void Awake()
+
+
+    public static void saveGame()
     {
-        current = this;
+        BinaryFormatter formatter = new BinaryFormatter();
+        string path = Application.persistentDataPath + "/testSave.fun";
+        FileStream stream = new FileStream(path, FileMode.Create);
+
+
+        //later this should just
+        PlayerData data = new PlayerData();
+        GameStateData gameData = new GameStateData(data);
+
+        formatter.Serialize(stream, gameData);
+        stream.Close();
+
+
+    }
+    public static GameStateData loadGame()
+    {
+        string path = Application.persistentDataPath + "/testSave.fun";
+        if (File.Exists(path))
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream stream = new FileStream(path, FileMode.Open);
+
+            GameStateData data = formatter.Deserialize(stream) as GameStateData;
+            stream.Close();
+            return data;
+        }
+        else
+        {
+            //create a default save
+            Debug.LogError("o shit no save");
+            return null;
+        }
     }
 
-    public void LoadDefaultSettings()
+    public static void LoadDefaultSettings()
     {
         //go through some of the settings and if they're 0 or null set them to defaults
 
     }
 
-
-
-    public void LoadSettings()
+    public static void LoadSettings()
     {
 
         //set the track volume equal to whatever is loaded in memory 
@@ -36,42 +72,18 @@ public class SaveManager : MonoBehaviour
 
     }
 
-    public void UpdateVolume(float newVolume)
+    public static void UpdateVolume(float newVolume)
     {
         PlayerPrefs.SetFloat("musicVolume", newVolume);
     }
 
-    public void RebindMidi(string midiID)
-    {
-        StopCoroutine("midiRebind");
-        StartCoroutine(midiRebind(midiID));
+    //so to save the gamestate data going to need some kind of object that tracks a shit ton of booleans
+    //this can be an object in the game manager that gets 
 
-    }
 
-    public IEnumerator midiRebind(string midiName)
-    {
-        bool inputMade = false;
 
-        while (!inputMade)
-        {
-            for (int i = 0; i <= 127; i++)
-            {
-                if (MidiJack.MidiMaster.GetKeyDown(i))
-                {
-                    //we got a key to rebind
-                    //set that shit in the player prefs
-                    PlayerPrefs.SetInt(midiName, i);
-                    DebugManager.current.print("rebound " + midiName + " to " + i);
 
-                    inputMade = true;
-                    StopCoroutine("midiRebind");
-                    break;
-                }
-            }
-            yield return new WaitForEndOfFrame();
 
-        }
-    }
 
 
 }

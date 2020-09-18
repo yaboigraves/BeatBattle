@@ -101,6 +101,7 @@ public class InputHandler : MonoBehaviour
         {
             // rb.velocity = new Vector3(rb.velocity.x, jumpVelocity, rb.velocity.z);
             player.jump();
+
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))

@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class BattleManager : MonoBehaviour
 {
 
-
     public static BattleManager current;
     public bool battleStarted;
     //maybe move these somewhere but honestly doesnt need to be in the player 
@@ -30,16 +29,6 @@ public class BattleManager : MonoBehaviour
     public int vibe = 0;
     int maxVibe = 50, minVibe = -50;
 
-    //REVAMP NOTES
-    /*
-       1. figure out who's turn it is 
-       2. setup the track audio via the battle track manager 
-       3. setup the currentTrack variables 
-       4. setup the indicators starting from 5 away from the current beat
-       5. play 
-       6. on a turn swap repoeat from step 2 
-
-    */
 
 
 
@@ -99,16 +88,6 @@ public class BattleManager : MonoBehaviour
 
         Track track = newTrack;
 
-        //for now this will just use the testing track
-        //BattleTrackManager.current.totalBeats tells us what the current beat is, so when we want to setup the next turns indicaotrs
-        //we look at the currentbeat + 4 for where we should start initialization
-
-
-        //so before we instantiate all these mfers we need to create a container object for all these
-        //the container uses the actual indicator script, while the child objects just get moved by the parent
-
-        //so the original position of the container should be 104 units up 
-
         //TIMESCALE STUFF
         //so the uniform timescale is 60bpm. therefore the timescale we want is whatever the bpm of the curre
         Time.timeScale = newTrack.bpm / 60;
@@ -140,8 +119,6 @@ public class BattleManager : MonoBehaviour
             Instantiate(indicator, kickPos, Quaternion.identity, indicContainer.transform.GetChild(0));
         }
 
-        //look at whos's turn it is and then change the color 
-
 
     }
 
@@ -157,8 +134,6 @@ public class BattleManager : MonoBehaviour
             battleStarted = true;
             StartBattle();
         }
-
-
     }
 
     void StartBattle()

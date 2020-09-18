@@ -107,7 +107,7 @@ public class TrackManager : MonoBehaviour
     {
         currAudio.volume = newVolume;
 
-        SaveManager.current.UpdateVolume(newVolume);
+        SaveManager.UpdateVolume(newVolume);
     }
 }
 

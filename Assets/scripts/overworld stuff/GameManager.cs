@@ -33,6 +33,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        //load shit
+
+
+        StartCoroutine(LoadRoutine());
+
+    }
+
 
 
     public void setManagerReferences(Player player)
@@ -43,10 +52,7 @@ public class GameManager : MonoBehaviour
         CameraManager.current.setCameraFollow(player.transform);
     }
 
-    private void Start()
-    {
-        StartCoroutine(LoadRoutine());
-    }
+
 
 
 
@@ -55,15 +61,22 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForFixedUpdate();
         //SaveDataTest();
-        SaveManager.current.LoadSettings();
+        SaveManager.LoadSettings();
+        //SaveManager.saveGame();
+
+        GameStateData data = SaveManager.loadGame();
+
+        if (data == null)
+        {
+            print("creating data");
+            SaveManager.saveGame();
+        }
+        else
+        {
+            print(data.playerData.playerName);
+        }
 
     }
-
-
-
-
-
-
 
 
     //testing saving/loading stuff 

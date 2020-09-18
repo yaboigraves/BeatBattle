@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : Entity
 {
     public ParticleSystem footDust;
     public PlayerRootCollider playerRoot;
@@ -74,7 +74,7 @@ public class Player : MonoBehaviour
 
     public void Move(Vector3 deltaPos)
     {
-        deltaPos *= (speed * Time.deltaTime);
+        deltaPos *= (speed * Time.fixedDeltaTime);
         rb.MovePosition(transform.position + deltaPos);
         //transform.position = Vector3.MoveTowards(transform.position, transform.position + deltaPos, 0.1f);
     }
@@ -139,6 +139,9 @@ public class Player : MonoBehaviour
     {
         rb.AddForce(new Vector3(rb.velocity.x, jumpVelocity, rb.velocity.z), ForceMode.Impulse);
         CreateDust();
+
+        //also tell the homie to jump
+        homie.jump(new Vector3(rb.velocity.x, jumpVelocity, rb.velocity.z));
     }
 
     public void flip(float rotation)
@@ -147,26 +150,6 @@ public class Player : MonoBehaviour
         CreateDust();
     }
 
-    IEnumerator LerpToRotation(float endRotation, float time, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-
-        float startRotation = transform.rotation.eulerAngles.y;
-        float lerpRotation = startRotation;
-
-        float i = 0f;
-        float rate = 1 / time;
-        while (i <= 1)
-        {
-            i += Time.deltaTime * rate;
-
-            lerpRotation = Mathf.Lerp(startRotation, endRotation, i);
-            transform.rotation = Quaternion.Euler(0f, lerpRotation, 0f);
-            //fix this to apply the rotation rather than manually setting rotation
-            yield return null;
-        }
-        transform.rotation = Quaternion.Euler(0f, endRotation, 0f);
-    }
 
     void CreateDust()
     {

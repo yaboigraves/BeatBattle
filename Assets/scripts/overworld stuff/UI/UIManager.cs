@@ -464,8 +464,6 @@ public class UIManager : MonoBehaviour
         //look through all the inventory track objects until we find one with this track
 
 
-
-
         //TODO: this needs to be made more efficient, a ui manager variable or player inventory variable needs to be made 
         //that packages all relevant objects, for now just doin this dumb shit
 
@@ -482,7 +480,20 @@ public class UIManager : MonoBehaviour
                 inTrack.ToggleToggle(true);
             }
         }
+    }
 
+    public void LoadGear(Gear g)
+    {
+        for (int i = 0; i < inventoryGearContainer.transform.childCount; i++)
+        {
+            InventoryGear inGear = inventoryGearContainer.transform.GetChild(i).GetComponent<InventoryGear>();
+
+
+            if (inGear != null && inGear.gear == g)
+            {
+                inGear.ToggleToggle(true);
+            }
+        }
     }
 
 

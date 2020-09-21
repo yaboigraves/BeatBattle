@@ -28,6 +28,7 @@ public class PlayerInventory : MonoBehaviour
     public Track[] battleEquippedTracks;
     public List<Item> items = new List<Item>();
     public List<Gear> playerGear;
+    public List<Gear> equippedGear = new List<Gear>();
     public int powerUse, maxPower = 10;
     //delegate list of gear effects
     public List<GearEffects.GearEffect> gearEffects = new List<GearEffects.GearEffect>();
@@ -97,11 +98,21 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    public void EquipGear()
+    public void EquipGear(Gear gear)
     {
         //TODO: this needs to be implemented here otherwise this will get confusing
+
+        powerUse += gear.powerCost;
+        UIManager.current.UpdatePowerUse(powerUse);
+        EquipGearEffect(gear.gearFunction);
+
+        equippedGear.Add(gear);
     }
 
+    public void UnEquipGear(Gear gear)
+    {
+        equippedGear.Remove(gear);
+    }
 
 
     public void EquipGearEffect(string effectName)
@@ -114,6 +125,7 @@ public class PlayerInventory : MonoBehaviour
     {
         print("Removing the " + effectName);
         gearEffects.Remove(GearEffects.gearEffectDictionary[effectName]);
+
     }
 
     public void GetItem(GameItem item)
@@ -142,13 +154,13 @@ public class PlayerInventory : MonoBehaviour
     //used by stuff like playerprefs to load gear by its name
     public void LoadItemByName(string name)
     {
-
-
         foreach (Gear g in playerGear)
         {
             if (g.itemName == name)
             {
+                EquipGear(g);
 
+                UIManager.current.LoadGear(g);
                 return;
             }
         }
@@ -161,6 +173,7 @@ public class PlayerInventory : MonoBehaviour
                 EquipTrack(t, true);
                 //also need to update the ui with the toggle
                 UIManager.current.LoadTrack(t);
+                return;
             }
         }
     }

@@ -4,6 +4,7 @@ using UnityEngine;
 using Cinemachine;
 public class GameManager : MonoBehaviour
 {
+
     //todo: manage spawning of managers
     //the managers should not be tied to a particular scene, and if they are tie them to this one object
     //game manager will spawn all the other managers
@@ -36,10 +37,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         //load shit
-
-
-        StartCoroutine(LoadRoutine());
-
+        StartCoroutine(LateStart());
     }
 
 
@@ -50,14 +48,12 @@ public class GameManager : MonoBehaviour
         UIManager.current.player = player;
         SceneManage.current.player = player;
         CameraManager.current.setCameraFollow(player.transform);
+
     }
 
 
-
-
-
-
-    public IEnumerator LoadRoutine()
+    //this basically just runs after start so think of it as latestart or something 
+    public IEnumerator LateStart()
     {
         yield return new WaitForFixedUpdate();
         //SaveDataTest();
@@ -66,6 +62,7 @@ public class GameManager : MonoBehaviour
 
         GameStateData data = SaveManager.loadGame();
 
+        //TODO: later make a save select screen where we load this shit from
         if (data == null)
         {
             print("creating data");
@@ -73,7 +70,13 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            print(data.playerData.playerName);
+            // print(data.playerData.playerName);
+            //dispense loading jobs to various managers
+            //loading the level should be done via the save select screen (save select -> loading menu -> scene)
+
+            //load the players stats (health money gear and stuff)
+            player.LoadPlayerData(data.playerData);
+
         }
 
     }
@@ -83,19 +86,19 @@ public class GameManager : MonoBehaviour
     //PlayerPrefs.Set("key",value)
     //stored like a json and then you can PlayerPrefs.Get() shit too
 
-    public void SaveDataTest()
-    {
-        //so for now lets save that the tracks the player equips'
+    // public void SaveDataTest()
+    // {
+    //     //so for now lets save that the tracks the player equips'
 
-        PlayerPrefs.SetString("EquippedTrack0", "CuntyBlap");
+    //     PlayerPrefs.SetString("EquippedTrack0", "CuntyBlap");
 
-        for (int i = 0; i < 1; i++)
-        {
-            string trackName = PlayerPrefs.GetString("EquippedTrack" + i.ToString());
-            //then find that track by its name and equip them 
-            player.inventory.LoadItemByName(trackName);
-        }
-    }
+    //     for (int i = 0; i < 1; i++)
+    //     {
+    //         string trackName = PlayerPrefs.GetString("EquippedTrack" + i.ToString());
+    //         //then find that track by its name and equip them 
+    //         player.inventory.LoadItemByName(trackName);
+    //     }
+    // }
 
 
 

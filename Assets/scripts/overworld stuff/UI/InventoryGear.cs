@@ -31,6 +31,7 @@ public class InventoryGear : MonoBehaviour
         }
     }
 
+    //pass this to the uimanager to equi[]
     public void EquipGear()
     {
         int currentPower = playerInventory.powerUse;
@@ -39,27 +40,18 @@ public class InventoryGear : MonoBehaviour
         //so if you try to equip some gear we need to check and see if we have the power for it 
         if (gear.powerCost + currentPower <= maxPower)
         {
-            //we can equip the gear all good
-            //increase the power usage to its correct value 
-            playerInventory.powerUse += gear.powerCost;
-
-            //update the ui 
-            UIManager.current.UpdatePowerUse(playerInventory.powerUse);
-
-            //so then once the gear is equipped we need to add its function to the pipeline of gear effects
-            //TODO: implement pipeline of functions to call
-
-            playerInventory.EquipGearEffect(gear.gearFunction);
+            playerInventory.EquipGear(gear);
         }
     }
 
+    //TODO: REFACTOR THIS LIKE EQUIP GEAR, DEFER RESPONSIBILITY TO PLAYERINVENTORY
     public void UnequipGear()
     {
         playerInventory.powerUse -= gear.powerCost;
         UIManager.current.UpdatePowerUse(playerInventory.powerUse);
 
         //remove the gears effect from the list 
-
+        playerInventory.UnEquipGear(gear);
         playerInventory.UnequipGearEffect(gear.gearFunction);
     }
 
@@ -80,5 +72,10 @@ public class InventoryGear : MonoBehaviour
         {
             toggle.interactable = true;
         }
+    }
+
+    public void ToggleToggle(bool on)
+    {
+        toggle.isOn = on;
     }
 }

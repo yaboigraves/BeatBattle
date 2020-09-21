@@ -160,4 +160,73 @@ public class Player : Entity
     {
         deltaPos = Vector3.zero;
     }
+
+
+
+
+    //saving/loading functions 
+    public PlayerData savePlayerData()
+    {
+        PlayerData playerData = new PlayerData();
+        //temp for now
+        playerData.playerName = "Yancey";
+        playerData.playerHealth = health;
+        playerData.playerMaxHealth = maxHealth;
+
+        playerData.skrillaCount = inventory.coins;
+
+        //get the names of all the battle tracks
+        string[] trackNames = new string[inventory.battleEquippedTracks.Length];
+
+        for (int i = 0; i < inventory.battleEquippedTracks.Length; i++)
+        {
+            if (inventory.battleEquippedTracks[i] != null)
+            {
+                trackNames[i] = inventory.battleEquippedTracks[i].itemName;
+            }
+        }
+
+        //get the names of all the gear equipped
+
+        string[] gearNames = new string[inventory.equippedGear.Count];
+
+        for (int i = 0; i < inventory.equippedGear.Count; i++)
+        {
+            gearNames[i] = inventory.equippedGear[i].itemName;
+        }
+
+        playerData.tracks = trackNames;
+        playerData.gear = gearNames;
+
+        return playerData;
+    }
+
+    public void LoadPlayerData(PlayerData playerData)
+    {
+        health = playerData.playerHealth;
+        maxHealth = playerData.playerMaxHealth;
+        inventory.coins = playerData.skrillaCount;
+
+        if (playerData.tracks != null)
+        {
+            foreach (string trackName in playerData.tracks)
+            {
+                if (trackName != null)
+                {
+                    inventory.LoadItemByName(trackName);
+                }
+            }
+        }
+        //equip all the tracks from the playerDAta.tracks 
+
+        //loop through all the gear from t
+
+        if (playerData.gear != null)
+        {
+            foreach (string gearName in playerData.gear)
+            {
+                inventory.LoadItemByName(gearName);
+            }
+        }
+    }
 }

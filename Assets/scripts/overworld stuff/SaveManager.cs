@@ -5,7 +5,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
 
-//this should probably be an abstract class considering it really doesnt have any variables
+//so this things job is to use both the player prefs, and game state objects that are serialized to load and save game info
 
 
 public static class SaveManager
@@ -24,16 +24,19 @@ public static class SaveManager
         string path = Application.persistentDataPath + "/testSave.fun";
         FileStream stream = new FileStream(path, FileMode.Create);
 
+        //Load the players data into a playerdata object, send this object to the player,
+        //player will then fill it up and then ship it back here to be saved
 
-        //later this should just
-        PlayerData data = new PlayerData();
+        PlayerData data = GameManager.current.player.savePlayerData();
         GameStateData gameData = new GameStateData(data);
 
         formatter.Serialize(stream, gameData);
         stream.Close();
-
-
     }
+
+
+
+
     public static GameStateData loadGame()
     {
         string path = Application.persistentDataPath + "/testSave.fun";
@@ -42,7 +45,12 @@ public static class SaveManager
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(path, FileMode.Open);
 
-            GameStateData data = formatter.Deserialize(stream) as GameStateData;
+            GameStateData data = null;
+            if (stream.Length > 0)
+            {
+                data = formatter.Deserialize(stream) as GameStateData;
+            }
+
             stream.Close();
             return data;
         }

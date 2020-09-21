@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(fileName = "New Track", menuName = "Tracks/Track")]
 
+[Serializable]
 public class Track : GameItem
 {
     public AudioClip trackClip;

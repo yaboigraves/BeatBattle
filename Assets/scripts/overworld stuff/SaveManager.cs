@@ -17,6 +17,12 @@ public static class SaveManager
     */
 
 
+    //public static StoryData storyData;
+
+    //big globally accessible access to the currently loaded gamestate 
+    //this can be used to trigger alot of stuff and/or autosave stuff without needing to use yarn
+    public static GameStateData gameStateData;
+
 
     public static void saveGame()
     {
@@ -28,10 +34,65 @@ public static class SaveManager
         //player will then fill it up and then ship it back here to be saved
 
         PlayerData data = GameManager.current.player.savePlayerData();
-        GameStateData gameData = new GameStateData(data);
+
+        //load all the story data
+        StoryData storyData = new StoryData();
+
+        //so when we save the game we need to go through all of our story variables, and see if yarn's 
+        //variable storage has any differences
+        //load the values from yarn into the storage then we're good to go
+
+
+
+        foreach (Quest q in storyData.questList.quests)
+        {
+            Yarn.Value questValue = UIManager.current.dialogueRunner.variableStorage.GetValue(q.questName);
+
+            Debug.Log("saving story data for quest" + q.questName + " as value " + questValue);
+            if (questValue != null)
+            {
+                q.questStatus = (int)questValue.AsNumber;
+            }
+        }
+
+        //load any progress data currently stored in the yarn variable storage
+        //alot of progress data is going to be set via scripts so this is fine
+
+        ProgressData progressData;
+        if (gameStateData != null)
+        {
+
+            progressData = gameStateData.progressData;
+        }
+        else
+        {
+            Debug.Log("creating new progress data");
+            progressData = new ProgressData();
+        }
+
+
+        foreach (ProgressPoint p in progressData.progress)
+        {
+
+            Yarn.Value progressValue = UIManager.current.dialogueRunner.variableStorage.GetValue(p.pointName);
+
+            //Yarn.Values are always not null check the asstring variable
+            //what in the fuck is this, so yea its not null its a string containing null
+            if (progressValue.AsString != "null")
+            {
+                Debug.Log("saved progress value " + progressValue + " from yarn");
+                p.pointValue = progressValue.AsBool;
+            }
+        }
+
+        //TODO: right now the gamestatedata is only used to hold a live version of the progress data
+        //this is because the story data is mostly handled by yarn and the player data is loaded on save
+        //later probably load the story data the same way
+        GameStateData gameData = new GameStateData(data, storyData, progressData);
 
         formatter.Serialize(stream, gameData);
         stream.Close();
+
     }
 
 
@@ -46,12 +107,15 @@ public static class SaveManager
             FileStream stream = new FileStream(path, FileMode.Open);
 
             GameStateData data = null;
+
             if (stream.Length > 0)
             {
                 data = formatter.Deserialize(stream) as GameStateData;
             }
 
             stream.Close();
+
+            gameStateData = data;
             return data;
         }
         else
@@ -60,24 +124,23 @@ public static class SaveManager
             Debug.LogError("o shit no save");
             return null;
         }
+
+
+        //test stuff for loading story variables into the yarn variables
     }
 
     public static void LoadDefaultSettings()
     {
         //go through some of the settings and if they're 0 or null set them to defaults
-
     }
 
     public static void LoadSettings()
     {
-
         //set the track volume equal to whatever is loaded in memory 
         float musicVolume = PlayerPrefs.GetFloat("musicVolume", 0.5f);
         TrackManager.current.UpdateTrackVolume(musicVolume);
         //tell the ui to reflect this change
         UIManager.current.volumeSlider.value = musicVolume;
-
-
     }
 
     public static void UpdateVolume(float newVolume)
@@ -85,13 +148,8 @@ public static class SaveManager
         PlayerPrefs.SetFloat("musicVolume", newVolume);
     }
 
-    //so to save the gamestate data going to need some kind of object that tracks a shit ton of booleans
-    //this can be an object in the game manager that gets 
-
-
-
-
 
 
 
 }
+

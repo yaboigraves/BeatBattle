@@ -56,11 +56,12 @@ public class GameManager : MonoBehaviour
     public IEnumerator LateStart()
     {
         yield return new WaitForFixedUpdate();
-        //SaveDataTest();
+
+
         SaveManager.LoadSettings();
-        //SaveManager.saveGame();
 
         GameStateData data = SaveManager.loadGame();
+
 
         //TODO: later make a save select screen where we load this shit from
         if (data == null)
@@ -68,6 +69,7 @@ public class GameManager : MonoBehaviour
             print("creating data");
             SaveManager.saveGame();
         }
+
         else
         {
             // print(data.playerData.playerName);
@@ -76,6 +78,17 @@ public class GameManager : MonoBehaviour
 
             //load the players stats (health money gear and stuff)
             player.LoadPlayerData(data.playerData);
+
+            //dispense all the story variables
+            //load all the story variables into yarns variable storage
+
+            foreach (Quest q in data.storyData.questList.quests)
+            {
+                UIManager.current.dialogueRunner.variableStorage.SetValue(q.questName, q.questStatus);
+            }
+
+
+
 
         }
 

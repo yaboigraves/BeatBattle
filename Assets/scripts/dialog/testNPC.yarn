@@ -7,10 +7,43 @@ NPC: Ayo what up my duder.
 <<applyMarkup wiggle-8,14 wiggle-30,41>>
 NPC: You VIBIN dog? You really vibiiiiin?
 
-[[Yeah man|testNPC.Exit]]
-[[As real as I can|testNPC.OtherExit]]
+<<if $testQuest is 0>>
+    [[Yeah man|testNPC.questOffer]]
+    [[Im Aight|testNPC.OtherExit]]
+<<endif>>
+
+<<if $testQuest is 1>>
+    [[Yeah man|testNPC.Exit]]
+    [[Im Aight|testNPC.OtherExit]]
+<<endif>>
+
+
 
 ===
+
+
+
+title: testNPC.questOffer
+tags: 
+---
+<<changeCamera npccam>>
+NPC:Yo man you wanna do a quick job for me?
+[[Sure|testNPC.QuestInfo]]
+[[Nah|testNPC.OtherExit]]
+===
+
+
+
+title: testNPC.QuestInfo
+tags:
+---
+<<set $testQuest to 1>>
+NPC: Aight man heres the scoop, I need some weed. Come back when you got some ok dog?
+
+===
+
+
+
 
 title: testNPC.Exit
 tags:
@@ -19,6 +52,7 @@ tags:
 <<clearMarkup>>
 NPC: You stay safe out their homie
 ===
+
 
 title: testNPC.OtherExit
 tags:

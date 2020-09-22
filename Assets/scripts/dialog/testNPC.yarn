@@ -2,6 +2,7 @@
 tags:
 ---
 <<changeCamera npccam>>
+<<moveEntity cube>>
 NPC: Ayo what up my duder.
 
 <<applyMarkup wiggle-8,14 wiggle-30,41>>

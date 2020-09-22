@@ -20,8 +20,17 @@ public class NPC : Entity, IInteractable
 
     [TextArea]
     public string greetingText, goodbyeText;
+
+    //doesnt need to exist, just if entities need to move in this dialogue
+    public Cutscene cutscene;
     public void Interact()
     {
+        //check if we have a cutscene to load 
+        if (cutscene != null)
+        {
+            CutsceneManager.current.LoadCutscene(cutscene);
+        }
+
         DialogCameraController.current.setCameraObjects(cameraPositions);
         FindObjectOfType<DialogueRunner>().StartDialogue(talkToNode);
     }
@@ -41,8 +50,6 @@ public class NPC : Entity, IInteractable
         {
             cameraPositions.Add(cameraObjs.GetChild(i).name, cameraObjs.GetChild(i).GetComponent<CinemachineVirtualCamera>());
         }
-
-
 
         npcTextBox.transform.parent.gameObject.SetActive(false);
 

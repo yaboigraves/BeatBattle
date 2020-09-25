@@ -34,6 +34,10 @@ public class CutsceneManager : MonoBehaviour
 
     public Cutscene currentCutscene;
 
+    public int numEvents;
+
+    public bool inCutscene;
+
     private void Awake()
     {
         current = this;
@@ -53,6 +57,16 @@ public class CutsceneManager : MonoBehaviour
         currentCutscene = cutscene;
     }
 
+
+    public void StartCutscene()
+    {
+        numEvents = 0;
+        inCutscene = true;
+        //runs all the events, once they're all done they subtract from the number of events and when the number of events hits 0 we end the cutscene
+        currentCutscene.cutsceneActions.Invoke();
+    }
+
+
     //functions needed for cutscenes
 
     //move entity to its next waypoint
@@ -65,9 +79,80 @@ public class CutsceneManager : MonoBehaviour
         entity.moveToWayPoint();
     }
 
+    //so unity events can only take strings (annoying) so the arguments to these 2 functions need to be parsed between the comma 
+    //the format is argument,time to wait before we actually trigger the event
+    public void moveEntity(string entityName)
+    {
+        KeyValuePair<string, float> argTime = parseCutsceneEvent(entityName);
+        //pass this to a coroutine to wait  the alloted amount of time
+        StartCoroutine(moveEntityRoutine(argTime.Key, argTime.Value));
+
+    }
+
+    IEnumerator moveEntityRoutine(string entityName, float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        CutsceneEntity entity = currentCutscene.GetEntityByName(entityName);
+        //tell the entity to move to its next position
+        entity.moveToWayPoint();
+
+        //after the routine is done subtract 1 from the number of cutscenes, if we're out of events then end the cutscene 
+        numEvents--;
+
+        CheckEndOfCutscene();
+    }
 
 
 
+    //this is just going to look at the camera in that position in the cameras array
+    public void moveCamera(string positionNum)
+    {
+        KeyValuePair<string, float> argTime = parseCutsceneEvent(positionNum);
+        //switch the camera priority to the current camera after the wait
+        int cameraIndex = int.Parse(argTime.Key);
+        float waitTime = argTime.Value;
+
+        StartCoroutine(moveCameraRoutine(cameraIndex, waitTime));
+
+
+
+    }
+
+    IEnumerator moveCameraRoutine(int cameraIndex, float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+
+        numEvents--;
+        currentCutscene.cameras[cameraIndex].Priority = 420; //haha weed number
+        CheckEndOfCutscene();
+    }
+
+
+    private KeyValuePair<string, float> parseCutsceneEvent(string eventArg)
+    {
+        //we know that if we're parsing an event then that cutscene is running so add 1 to the numScenes 
+
+        numEvents++;
+
+        //find the comma then seperate the string there
+        string arg = eventArg.Substring(0, eventArg.IndexOf(','));
+
+        float time = float.Parse(eventArg.Substring(eventArg.IndexOf(',') + 1));
+
+        return new KeyValuePair<string, float>(arg, time);
+    }
+
+    private void CheckEndOfCutscene()
+    {
+        if (numEvents <= 0)
+        {
+            inCutscene = false;
+            //reset the camera priority back to player camera
+            //can just looop through all the cutscene cameras and set prio to -420 
+
+            currentCutscene.DisableCameras();
+        }
+    }
 
 
 

@@ -116,6 +116,9 @@ public class SceneManage : MonoBehaviour
         player.battleRangeChecker.enemiesInRange.Clear();
         TrackManager.current.inBattle = false;
         TrackManager.current.playRandomBackgroundTrack();
+
+        //unlock player movement
+        InputHandler.current.LockPlayerMovement(false);
     }
 
     public void loadInterior(string sceneName)

@@ -10,6 +10,17 @@ public class InputHandler : MonoBehaviour
     public Player player;
 
 
+    //tracks whether the player can move or not
+    public bool playerMovementLocked;
+
+    public static InputHandler current;
+
+    private void Awake()
+    {
+        current = this;
+    }
+
+
 
 
     //player variables for movement restrictions 
@@ -76,7 +87,8 @@ public class InputHandler : MonoBehaviour
             }
         }
 
-        if ((!player.inDialogue && !player.inBattle) && !player.inShop)
+        // if ((!player.inDialogue && !player.inBattle) && !player.inShop)
+        if (!playerMovementLocked)
         {
             //print("sending a move");
             Vector3 deltaPos = new Vector3(horizontalIn, 0, verticalIn);
@@ -97,7 +109,8 @@ public class InputHandler : MonoBehaviour
 
 
         //process the jump
-        if (Input.GetButtonDown("Jump") && player.playerRoot.onGround && !player.inDialogue && !player.inShop && !player.inBattle)
+        // if (Input.GetButtonDown("Jump") && player.playerRoot.onGround && !player.inDialogue && !player.inShop && !player.inBattle)
+        if (Input.GetButtonDown("Jump") && player.playerRoot.onGround && !playerMovementLocked)
         {
             // rb.velocity = new Vector3(rb.velocity.x, jumpVelocity, rb.velocity.z);
             player.jump();
@@ -160,4 +173,12 @@ public class InputHandler : MonoBehaviour
         verticalIn = 0;
         player.ResetDeltaPos();
     }
+
+    public void LockPlayerMovement(bool lockMove)
+    {
+        //reset the input axis
+        ResetInputAxis();
+        playerMovementLocked = lockMove;
+    }
+
 }

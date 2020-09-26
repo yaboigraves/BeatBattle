@@ -85,10 +85,33 @@ public static class SaveManager
             }
         }
 
+
+
+
+
+        //load cutscene progress 
+
+        //so if there is no gamestate currently loaded, then we create a new empty list of integers 
+        //TODO: remove this as gamestate is only loaded one time then assumed to be set good
+        List<int> cutsceneData;
+
+        if (gameStateData.cutScenesRun == null)
+        {
+            cutsceneData = new List<int>();
+        }
+        //otherwise we just load whatever cutscene data is stored in the save currently (this is changed during runtme) and save that
+        else
+        {
+            cutsceneData = gameStateData.cutScenesRun;
+        }
+
+
+        //eee
+
         //TODO: right now the gamestatedata is only used to hold a live version of the progress data
         //this is because the story data is mostly handled by yarn and the player data is loaded on save
         //later probably load the story data the same way
-        GameStateData gameData = new GameStateData(data, storyData, progressData);
+        GameStateData gameData = new GameStateData(data, storyData, progressData, cutsceneData);
 
         formatter.Serialize(stream, gameData);
         stream.Close();
@@ -149,7 +172,26 @@ public static class SaveManager
     }
 
 
+    //tells the currentsave that we've seen a custcene so dont run it again
+    public static void UpdateCutsceneData(int cutSceneID)
+    {
+        gameStateData.cutScenesRun.Add(cutSceneID);
+    }
 
+    public static bool checkIfCutsceneRan(int cutSceneID)
+    {
+
+        Debug.Log(gameStateData.cutScenesRun);
+
+        if (gameStateData.cutScenesRun.Contains(cutSceneID))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
 }
 

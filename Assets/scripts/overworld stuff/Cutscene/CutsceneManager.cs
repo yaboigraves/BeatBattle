@@ -67,6 +67,11 @@ public class CutsceneManager : MonoBehaviour
 
         //runs all the events, once they're all done they subtract from the number of events and when the number of events hits 0 we end the cutscene
         currentCutscene.cutsceneActions.Invoke();
+
+        //tell the savemanager we've run this cutscene
+        SaveManager.UpdateCutsceneData(currentCutscene.cutsceneID);
+
+
     }
 
 

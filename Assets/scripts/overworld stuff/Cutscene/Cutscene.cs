@@ -25,6 +25,8 @@ public class Cutscene : MonoBehaviour
     public CutsceneEntity[] entities;
     public CinemachineVirtualCamera[] cameras;
 
+    public int cutsceneID;
+
     //also going to maybe need camera positions for some cutscenes
     //need a function that goes through entities list and finds an entity by name
 

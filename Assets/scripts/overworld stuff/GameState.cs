@@ -8,13 +8,15 @@ public class GameStateData
     public PlayerData playerData;
     public StoryData storyData;
     public ProgressData progressData;
-    public GameStateData(PlayerData playerData, StoryData storyData, ProgressData progressData)
+    public List<int> cutScenesRun;
+    public GameStateData(PlayerData playerData, StoryData storyData, ProgressData progressData, List<int> cutsceneData)
     {
         this.playerData = playerData;
         this.storyData = storyData;
         this.progressData = progressData;
+        this.cutScenesRun = cutsceneData;
+        //this is a test comment
     }
-
 }
 
 

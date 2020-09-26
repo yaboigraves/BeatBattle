@@ -62,6 +62,9 @@ public class CutsceneManager : MonoBehaviour
     {
         numEvents = 0;
         inCutscene = true;
+        //lock player movement
+        InputHandler.current.LockPlayerMovement(true);
+
         //runs all the events, once they're all done they subtract from the number of events and when the number of events hits 0 we end the cutscene
         currentCutscene.cutsceneActions.Invoke();
     }
@@ -151,6 +154,8 @@ public class CutsceneManager : MonoBehaviour
             //can just looop through all the cutscene cameras and set prio to -420 
 
             currentCutscene.DisableCameras();
+            //give the player movement back
+            InputHandler.current.LockPlayerMovement(false);
         }
     }
 

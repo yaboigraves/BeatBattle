@@ -64,6 +64,7 @@ public class Player : Entity
     public void TalkToHomie()
     {
         homie.TalkToHomie();
+        InputHandler.current.LockPlayerMovement(true);
     }
 
 
@@ -82,18 +83,20 @@ public class Player : Entity
     public void enterDialogue()
     {
         inDialogue = true;
-        deltaPos = Vector3.zero;
+        InputHandler.current.LockPlayerMovement(true);
+
     }
 
     public void leaveDialogue()
     {
         inDialogue = false;
+        InputHandler.current.LockPlayerMovement(false);
     }
 
     public void enterBattle()
     {
         inBattle = true;
-        deltaPos = Vector3.zero;
+        InputHandler.current.LockPlayerMovement(true);
     }
 
 

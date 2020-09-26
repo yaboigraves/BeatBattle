@@ -172,7 +172,7 @@ public class BattleManager : MonoBehaviour
 
                 currentStreak = 1;
                 //u dont take damage
-                //print("block");
+                //print("b");
             }
             else
             {

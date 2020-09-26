@@ -134,6 +134,9 @@ public class UIManager : MonoBehaviour
 
         //set the playercamera back top main priority
         CameraManager.current.currentCamera.Priority = 15;
+
+        //unlock player movement
+        InputHandler.current.LockPlayerMovement(false);
     }
 
     public void updateCurrentTrack(Track newTrack)
@@ -355,15 +358,24 @@ public class UIManager : MonoBehaviour
 
     public void OpenShop(Shop shop)
     {
+
+        //lock player movement
+        InputHandler.current.LockPlayerMovement(true);
+
+
         currentShop = shop;
 
         //update the player coins 
 
         UpdateShopCoins(GameManager.current.player.inventory.coins);
 
+
+
         shopCanvas.SetActive(true);
         //loop through the shopInventory and append prefabs to the list 
         UpdateShopInventory();
+
+
     }
 
     //this function just refreshes the shop inventory based on what's in the array/list of items
@@ -401,6 +413,9 @@ public class UIManager : MonoBehaviour
         }
 
         GameManager.current.player.inShop = false;
+
+        //give the player control again
+        InputHandler.current.LockPlayerMovement(false);
 
 
     }

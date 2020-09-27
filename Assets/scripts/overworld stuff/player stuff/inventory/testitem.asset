@@ -13,5 +13,9 @@ MonoBehaviour:
   m_Name: testitem
   m_EditorClassIdentifier: 
   itemName: Test item
+  cost: 1
+  description: This is the default item description. Cool.
+  unique: 0
   effectFunction: test
   itemDescription: This is a fuckin test item lol
+  itemIcon: {fileID: 21300000, guid: 33b89d3602ad9cc4ab1cdc415fa30992, type: 3}

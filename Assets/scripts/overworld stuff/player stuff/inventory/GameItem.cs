@@ -10,4 +10,6 @@ public class GameItem : ScriptableObject
 
     public bool unique;
 
+    public Sprite itemIcon;
+
 }

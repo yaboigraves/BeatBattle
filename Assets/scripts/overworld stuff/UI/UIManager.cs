@@ -250,12 +250,15 @@ public class UIManager : MonoBehaviour
     [Header("Item Inventory Stuff")]
     public TextMeshProUGUI itemName, itemDescription;
     public InventoryItem useButton;
+
+    public Image itemIcon;
     public void SelectItem(Item selectedItem)
     {
         itemName.text = selectedItem.itemName;
         itemDescription.text = selectedItem.itemDescription;
         useButton.item = selectedItem;
         useButton.gameObject.SetActive(true);
+        itemIcon.sprite = selectedItem.itemIcon;
     }
 
     public void ResetInventoryItem()
@@ -304,11 +307,12 @@ public class UIManager : MonoBehaviour
     public GameObject inventoryGearContainer;
     public GameObject inventoryGearUIPrefab;
     public TextMeshProUGUI gearNameText, gearDescriptionText, currentPowerText, maxPowerText;
-
+    public Image gearIcon;
     public void SelectGear(Gear gear)
     {
         gearNameText.text = gear.itemName;
         gearDescriptionText.text = gear.gearDescription;
+        gearIcon.sprite = gear.itemIcon;
     }
 
     public void UpdateGearInventory(Gear newGear)

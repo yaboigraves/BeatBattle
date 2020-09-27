@@ -8,10 +8,18 @@ public class InventoryGear : MonoBehaviour
     PlayerInventory playerInventory;
     public Toggle toggle;
     public Gear gear;
+
+    Image image;
     private void Start()
     {
         toggle = GetComponentInChildren<Toggle>();
         playerInventory = GameManager.current.player.GetComponent<PlayerInventory>();
+
+        //set our sprite icon to whatever the gears icon is
+        image = GetComponent<Image>();
+        image.sprite = gear.itemIcon;
+
+
     }
     public void SelectGear()
     {

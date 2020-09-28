@@ -4,6 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+
+//keep in mind!
+//doing any movement to the ui forces a redraw 
+//to minimize the performance hit, move any dynamic ui elements onto their own canvas
+
 public class BattleUIManager : MonoBehaviour
 {
     public static BattleUIManager current;
@@ -143,5 +148,32 @@ public class BattleUIManager : MonoBehaviour
     public void UpdateVibe(int vibe)
     {
         vibeText.text = vibe.ToString();
+    }
+
+
+    public GameObject damageNumber;
+    public GameObject damageNumberContainer;
+    public void CreateDamageNumber(int damage)
+    {
+        //find the screenspace position that the ui element needs to be spawned at 
+        //for now just gonna spawn it at the enemies healthbar 
+        DamageNumber dmg = Instantiate(damageNumber, enemyHealthSlider.transform.position + (Vector3.up * 40), Quaternion.identity, damageNumberContainer.transform).GetComponent<DamageNumber>();
+        dmg.setDamage(damage);
+
+    }
+
+
+    //battle icon shit
+
+
+    public GameObject itemIcon, gearIconContainer;
+    public void CreateGearIcons(List<Gear> gears)
+    {
+        foreach (Gear gear in gears)
+        {
+            UIIcon gearIcon = Instantiate(itemIcon, gearIconContainer.transform.position, Quaternion.identity, gearIconContainer.transform).GetComponent<UIIcon>();
+            gearIcon.SetIconItem(gear);
+        }
+
     }
 }

@@ -23,6 +23,8 @@ public class BattleManager : MonoBehaviour
     public GameObject testEnemy;
     public GameObject bar;
 
+    public Gear testGear;
+
     bool firstTurn = true;
     //this variable keeps track of whether or not the player or the enemy did the first attack
     //vibe bar stuff 
@@ -66,6 +68,8 @@ public class BattleManager : MonoBehaviour
             setPlayerEnemyHealth(10, 10, testEnemy.GetComponent<Enemy>().health, testEnemy.GetComponent<Enemy>().maxHealth);
 
             //turn on the testing gear effects
+
+            BattleUIManager.current.CreateGearIcons(new List<Gear>() { testGear });
             equippedGearEffects.Add(GearEffects.sp404);
 
         }
@@ -76,11 +80,23 @@ public class BattleManager : MonoBehaviour
             //grab the equipped tracks of the player
 
             //grab the equipped gear from the player inventory
-            equippedGearEffects = GameManager.current.player.inventory.gearEffects;
+            LoadGear();
+
+
 
         }
         changeTurn();
         firstTurn = false;
+    }
+
+    void LoadGear()
+    {
+        equippedGearEffects = GameManager.current.player.inventory.gearEffects;
+        //load all the gear icons onto the ui
+
+        BattleUIManager.current.CreateGearIcons(GameManager.current.player.inventory.equippedGear);
+
+
     }
 
     public void setupTurnIndicators(Track newTrack)
@@ -156,6 +172,8 @@ public class BattleManager : MonoBehaviour
                 enemyTakeDamage(1);
                 currentStreak++;
                 vibe += BattleTrackManager.current.currentTrack.trackStats.vibePerHit;
+
+                //spawn a indicator number 
             }
             else
             {
@@ -221,6 +239,9 @@ public class BattleManager : MonoBehaviour
             sp404Buff = false;
             damage *= 4;
         }
+
+        //spawn a damage number from the ui manager
+        BattleUIManager.current.CreateDamageNumber(damage);
 
         enemyHealth -= damage;
 

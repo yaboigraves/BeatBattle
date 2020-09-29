@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TrackTimeManager : MonoBehaviour
 {
+
+    public static TrackTimeManager current;
     //Song beats per minute
     //This is determined by the song you're trying to sync up to
     public float songBpm;
@@ -23,27 +25,95 @@ public class TrackTimeManager : MonoBehaviour
     //an AudioSource attached to this GameObject that will play the music.
     public AudioSource audioSource;
 
+    public float debugDSPTIME;
 
-    public bool trackStarted;
+
+    public bool trackStarted = false;
+
+    private void Awake()
+    {
+        current = this;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        // secPerBeat = 60f / songBpm;
+    }
+
+    public void SetSongData(Track track)
+    {
+        audioSource.clip = track.trackClip;
+        songBpm = track.bpm;
         secPerBeat = 60f / songBpm;
-
         dspSongTime = (float)AudioSettings.dspTime;
-
     }
 
     // Update is called once per frame
+
+    public float startUpTime;
+
+    //TODO: implement a way to modify the starting audio time (because its starting time since the )
     void Update()
     {
+
+        debugDSPTIME = (float)AudioSettings.dspTime;
+
+        songPosition = (float)(AudioSettings.dspTime - startUpTime - (dspSongTime));
+        songPositionInBeats = (songPosition / secPerBeat);
+
+        //update ui with data 
+
+
         if (trackStarted)
         {
-            songPosition = (float)(AudioSettings.dspTime - dspSongTime);
-            songPositionInBeats = songPosition / secPerBeat;
+            BattleUIManager.current.UpdateMetronome(((Mathf.FloorToInt(songPositionInBeats)) % 4), false);
         }
+    }
+
+
+    public float dspTimeDifferenceFromStart;
+    public void startTrackTimer()
+    {
+        trackStarted = true;
+
+        //TODO: so also need to take note of the current difference in dsp time
+    }
+
+    public void stopTrackTimer()
+    {
+        trackStarted = false;
+    }
+
+    public void resetTrackTimer()
+    {
+        songPosition = 0;
+        songPositionInBeats = 0;
+    }
+
+
+    public void beatWait(int numBeats)
+    {
+        //dspTimeDifferenceFromStart = (float)AudioSettings.dspTime - dspSongTime;
+
+
+        StartCoroutine(beatWaitRoutine(numBeats));
+    }
+
+
+
+    //starts shit but waits 4 beats before resetting all the data back to 0
+    public IEnumerator beatWaitRoutine(int numBeats)
+    {
+        float songCurrentBeatPosition = songPositionInBeats;
+        yield return new WaitUntil(() => songPositionInBeats > songCurrentBeatPosition + numBeats);
+
+
+        //startup time is the difference in dsptime of the song + the amount of time it currently is 
+        startUpTime = (float)AudioSettings.dspTime - dspSongTime;
+        audioSource.Play();
+        trackStarted = true;
     }
 
 

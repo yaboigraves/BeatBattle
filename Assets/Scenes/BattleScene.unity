@@ -540,7 +540,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 262207967}
-  m_LocalRotation: {x: 0.091501854, y: 0.18280403, z: -0.017090373, w: 0.9787329}
+  m_LocalRotation: {x: 0.091606796, y: 0.17668875, z: -0.016518654, w: 0.97985536}
   m_LocalPosition: {x: -19.29, y: 100.31, z: -25.03}
   m_LocalScale: {x: 1.0000001, y: 1, z: 1}
   m_Children: []
@@ -2635,7 +2635,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 708335400}
-  m_LocalRotation: {x: 0.091501854, y: 0.18280403, z: -0.017090373, w: 0.9787329}
+  m_LocalRotation: {x: 0.091606796, y: 0.17668875, z: -0.016518654, w: 0.97985536}
   m_LocalPosition: {x: -19.29, y: 100.31, z: -25.03}
   m_LocalScale: {x: 1.0000001, y: 1, z: 1}
   m_Children:
@@ -4271,6 +4271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d62de85baf0b2574e909a5abd6834cea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeWindow: 0
 --- !u!1 &1138923255
 GameObject:
   m_ObjectHideFlags: 0
@@ -5195,7 +5196,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1379790092}
-  m_LocalRotation: {x: -0.011349483, y: 0.68889034, z: 0.010788723, w: 0.7246964}
+  m_LocalRotation: {x: 0.099582575, y: 0.39352983, z: -0.042928018, w: 0.91289365}
   m_LocalPosition: {x: -19.29, y: 100.31, z: -25.03}
   m_LocalScale: {x: 0.9999999, y: 1, z: 1}
   m_Children:
@@ -6553,6 +6554,7 @@ GameObject:
   - component: {fileID: 1831675817}
   - component: {fileID: 1831675818}
   - component: {fileID: 1831675819}
+  - component: {fileID: 1831675820}
   m_Layer: 0
   m_Name: BattleTrackManager
   m_TagString: Untagged
@@ -6701,6 +6703,25 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1831675820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831675816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f802c4707572e24689426956a304b80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  songBpm: 0
+  secPerBeat: 0
+  songPosition: 0
+  songPositionInBeats: 0
+  dspSongTime: 0
+  audioSource: {fileID: 0}
+  trackStarted: 0
 --- !u!1 &2006713434
 GameObject:
   m_ObjectHideFlags: 0

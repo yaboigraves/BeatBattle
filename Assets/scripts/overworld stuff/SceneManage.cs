@@ -122,7 +122,6 @@ public class SceneManage : MonoBehaviour
 
         //update the players inventory for any used items 
         GameManager.current.player.inventory.items = BattleUIManager.current.battleItems;
-
     }
 
     public void loadInterior(string sceneName)

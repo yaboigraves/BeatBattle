@@ -34,7 +34,6 @@ public class BattleUIManager : MonoBehaviour
     private void Start()
     {
         BattleEndUI.SetActive(false);
-
         //setup the buttons for the players track options
         InitTrackButtons();
 
@@ -176,4 +175,114 @@ public class BattleUIManager : MonoBehaviour
         }
 
     }
+
+
+    //battle item stuff 
+    //basic idea for items in battles
+    //you can access your big list of items at any time (will probably need some sorting options at some point)
+    //you bind items to one of your four item slots
+    //you then hit the bind or click the item icon to use the item 
+    //using the item on beat will do the items effect but multiplied (each item will need an additional multiplier for this)
+
+    //what do we gotta do to set that shit up 
+    //the inventory is going to need a new array[4] of items that are your hotbar
+    //pull all the items from the players inventory into the items list 
+    //pull hotbar into hotbar slots
+
+    //set the hotbar icons = to the item that is equipped there
+
+    public UIIcon[] itemIcons;
+
+    public GameObject battleUIItem;
+    public GameObject itemListContainer;
+
+    public void LoadItemsList(List<Item> items)
+    {
+        //go through the player inventory if player inventory existes 
+        foreach (Item item in items)
+        {
+            GameObject newItemUI = Instantiate(battleUIItem, itemListContainer.transform);
+            newItemUI.GetComponentInChildren<TextMeshProUGUI>().text = item.name;
+            newItemUI.GetComponent<BattleInventoryItem>().item = item;
+        }
+    }
+
+    public void EquipItem(Item item, int keyBound)
+    {
+        //so we need to go throug the list of itemicons 
+        //if we find an empty iconslot then we just slot the item in there
+        //otherwise we boot out the last element, shift all the other elements over one, and then plug the item into
+        //first slot 
+
+        //alternatively you hit the button then hit the key to bind it there(do this one instead)
+        //so the input handler needs to be told that we're waiting for a rebind, we just tell it to listen for 1,2,3,4 
+
+        //after the input handler recieves the event it then fires back to the actual equip function which then fucks with that slot
+        if (keyBound == 0)
+        {
+            BattleInputHandler.current.BattleRebindItem(item);
+        }
+        else
+        {
+            switch (keyBound)
+            {
+                case 1:
+                    itemIcons[0].SetIconItem(item);
+                    break;
+                case 2:
+                    itemIcons[1].SetIconItem(item);
+                    break;
+                case 3:
+                    itemIcons[2].SetIconItem(item);
+                    break;
+                case 4:
+                    itemIcons[3].SetIconItem(item);
+                    break;
+            }
+        }
+    }
+
+    public void TryUseItemInSlot(int slot)
+    {
+        if (itemIcons[slot - 1].item != null)
+        {
+            if (itemIcons[slot - 1].item is Item)
+            {
+                //so we use the item now
+                Item item = (Item)(itemIcons[slot - 1].item);
+                item.Use();
+                //once we use the item we now need to remove it from both our battle inventory list and the normal list 
+                //an optimization that can be done later is rather than removing it from the main inventory as well, when 
+                //we leave a battle we can just copy the battles version over to the new version 
+
+                RemoveItemFromInventory(item);
+
+                itemIcons[slot - 1].ResetItem();
+            }
+        }
+    }
+
+    private void RemoveItemFromInventory(Item item)
+    {
+        //go through the inventory till we find an item of this type and remove it
+
+        for (int i = 0; i < itemListContainer.transform.childCount; i++)
+        {
+            if (itemListContainer.transform.GetChild(i).GetComponent<BattleInventoryItem>().item == item)
+            {
+                Destroy(itemListContainer.transform.GetChild(i).gameObject);
+                return;
+            }
+        }
+    }
+
+
+
+    public void LoadHotbarItems()
+    {
+
+    }
+
+
+
 }

@@ -196,8 +196,12 @@ public class BattleUIManager : MonoBehaviour
     public GameObject battleUIItem;
     public GameObject itemListContainer;
 
+    //shallow copy of players inventory items
+    public List<Item> battleItems;
+
     public void LoadItemsList(List<Item> items)
     {
+        battleItems = items;
         //go through the player inventory if player inventory existes 
         foreach (Item item in items)
         {
@@ -274,6 +278,8 @@ public class BattleUIManager : MonoBehaviour
                 return;
             }
         }
+
+
     }
 
 

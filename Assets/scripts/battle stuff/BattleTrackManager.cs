@@ -89,8 +89,19 @@ public class BattleTrackManager : MonoBehaviour
     {
         paused = false;
 
-        audioSource.Play();
+        //audioSource.Play();
         BattleManager.current.battleStarted = true;
+
+
+
+
+        //so from right here, going to start weaving in the track time manager
+
+
+
+        TrackTimeManager.current.startTrackTimer();
+
+
         StartCoroutine(beatTick());
     }
 
@@ -102,7 +113,13 @@ public class BattleTrackManager : MonoBehaviour
 
     public void StartCountIn()
     {
-        StartCoroutine(battleCountIn());
+        //StartCoroutine(battleCountIn());
+        //StartBattle();
+
+        TrackTimeManager.current.beatWait(4);
+
+
+        //need to go to the tracktime manager and have it wait 4 beats, then reset all the timing data and actually start the song
     }
 
     IEnumerator battleCountIn()
@@ -142,9 +159,16 @@ public class BattleTrackManager : MonoBehaviour
 
         nextTurnStart = totalBeats + 5;
 
+
+        TrackTimeManager.current.SetSongData(currentTrack);
+        TrackTimeManager.current.stopTrackTimer();
+        TrackTimeManager.current.resetTrackTimer();
+
         if (!doWait)
         {
-            StartCoroutine(barWait());
+            // StartCoroutine(barWait());
+
+            TrackTimeManager.current.beatWait(4);
         }
     }
 
@@ -153,6 +177,7 @@ public class BattleTrackManager : MonoBehaviour
         yield return new WaitUntil(() => totalBeats == nextTurnStart);
         print("bar waiting playing");
         audioSource.Play();
+        TrackTimeManager.current.startTrackTimer();
     }
 
 
@@ -189,7 +214,7 @@ public class BattleTrackManager : MonoBehaviour
             BattleCameraController.current.CameraSwitchup();
         }
 
-        BattleUIManager.current.UpdateMetronome(beat, false);
+        // BattleUIManager.current.UpdateMetronome(beat, false);
 
         totalBeats++;
         currentBar = (int)Mathf.Floor(totalBeats / 4.0f);

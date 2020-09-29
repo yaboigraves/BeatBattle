@@ -22,8 +22,9 @@ public class BattleManager : MonoBehaviour
     public GameObject indicator;
     public GameObject testEnemy;
     public GameObject bar;
-
     public Gear testGear;
+    public Item[] testItems;
+
 
     bool firstTurn = true;
     //this variable keeps track of whether or not the player or the enemy did the first attack
@@ -72,7 +73,15 @@ public class BattleManager : MonoBehaviour
             BattleUIManager.current.CreateGearIcons(new List<Gear>() { testGear });
             equippedGearEffects.Add(GearEffects.sp404);
 
+            List<Item> testItems = new List<Item>();
+            foreach (Item i in this.testItems)
+            {
+                testItems.Add(i);
+            }
+            LoadItems(testItems);
         }
+
+
         else
         {
             //spawn the enemy in and turn off their move function 
@@ -81,6 +90,9 @@ public class BattleManager : MonoBehaviour
 
             //grab the equipped gear from the player inventory
             LoadGear();
+            LoadItems(GameManager.current.player.inventory.items);
+
+            //load the items from our inventory
 
 
 
@@ -95,8 +107,12 @@ public class BattleManager : MonoBehaviour
         //load all the gear icons onto the ui
 
         BattleUIManager.current.CreateGearIcons(GameManager.current.player.inventory.equippedGear);
+    }
 
-
+    void LoadItems(List<Item> items)
+    {
+        //load the items from either the players inventory or load them from a testlist
+        BattleUIManager.current.LoadItemsList(items);
     }
 
     public void setupTurnIndicators(Track newTrack)

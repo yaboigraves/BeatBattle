@@ -40,28 +40,44 @@ public class UIIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void SetIconItem(GameItem item)
     {
-
-
         this.item = item;
 
         //check if its gear or an item
-        Gear g = (Gear)item;
 
-        if (g != null)
+        if (item is Gear)
         {
+            Gear g = (Gear)item;
             descriptionText.text = g.gearDescription;
         }
-
+        else if (item is Item)
+        {
+            Item i = (Item)item;
+            descriptionText.text = i.itemDescription;
+        }
 
         //so we gotta set the text of this shit to whatever the items description is
         itemName.text = item.itemName;
         iconSprite.sprite = item.itemIcon;
     }
 
+
+    //call this if we want to empty the ui icon
+    public void ResetItem()
+    {
+        item = null;
+        descriptionPanel.SetActive(false);
+        iconSprite.sprite = null;
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
+
+        if (item != null)
+        {
+            descriptionPanel.SetActive(true);
+        }
         //toggle the blurb text 
-        descriptionPanel.SetActive(true);
+
     }
     public void OnPointerExit(PointerEventData eventData)
     {

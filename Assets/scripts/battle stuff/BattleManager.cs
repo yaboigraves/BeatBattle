@@ -32,6 +32,8 @@ public class BattleManager : MonoBehaviour
     public int vibe = 0;
     int maxVibe = 50, minVibe = -50;
 
+    public float barsPerTurn = 2;
+
 
 
 
@@ -115,8 +117,15 @@ public class BattleManager : MonoBehaviour
         BattleUIManager.current.LoadItemsList(items);
     }
 
+
+    GameObject lastIndicatorContainer;
     public void setupTurnIndicators(Track newTrack)
     {
+
+        if (lastIndicatorContainer != null)
+        {
+            Destroy(lastIndicatorContainer);
+        }
 
         Track track = newTrack;
 
@@ -151,6 +160,8 @@ public class BattleManager : MonoBehaviour
             Vector3 kickPos = new Vector3(1, 0 + 100 + (track.snareBeats.indicatorPositions[i]), 0);
             Instantiate(indicator, kickPos, Quaternion.identity, indicContainer.transform.GetChild(0));
         }
+
+        lastIndicatorContainer = indicContainer;
 
 
     }

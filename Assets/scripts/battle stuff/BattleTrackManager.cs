@@ -29,6 +29,9 @@ public class BattleTrackManager : MonoBehaviour
 
     public Track playerSelectedTrack;
 
+    //used by the track time manager to hopefully setup bar waits between tracks coming out
+    public float countInBeats = 4;
+
 
     private void Awake()
     {

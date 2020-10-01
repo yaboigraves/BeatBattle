@@ -27,8 +27,14 @@ public class TrackTimeManager : MonoBehaviour
 
     public float debugDSPTIME;
 
+    public float currentPlayerBars;
 
     public bool trackStarted = false;
+
+    public bool countingIn = false;
+
+    public float turnBeatCounter;
+
 
     private void Awake()
     {
@@ -54,6 +60,8 @@ public class TrackTimeManager : MonoBehaviour
 
     public float startUpTime;
 
+    public float currentTurnStartBeat = 0;
+
     //TODO: implement a way to modify the starting audio time (because its starting time since the )
     void Update()
     {
@@ -65,10 +73,25 @@ public class TrackTimeManager : MonoBehaviour
 
         //update ui with data 
 
+        if (songPositionInBeats >= 16)
+        {
+            //turn change 
+            currentTurnStartBeat = songPositionInBeats;
+            BattleManager.current.changeTurn();
+        }
+
+
+
+
 
         if (trackStarted)
         {
             BattleUIManager.current.UpdateMetronome(((Mathf.FloorToInt(songPositionInBeats)) % 4), false);
+        }
+
+        if (countingIn)
+        {
+
         }
     }
 
@@ -96,6 +119,10 @@ public class TrackTimeManager : MonoBehaviour
     public void beatWait(int numBeats)
     {
         //dspTimeDifferenceFromStart = (float)AudioSettings.dspTime - dspSongTime;
+
+        //so we want to have 4 beats of time progress
+        //as this time progresses need to lerp the indicator container down 4 units 
+        //so lerp(start,start -4, currentBeat/4)
 
 
         StartCoroutine(beatWaitRoutine(numBeats));

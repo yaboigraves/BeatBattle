@@ -68,7 +68,7 @@ public class Indicator : MonoBehaviour
             }
 
 
-            transform.position = Vector3.Lerp(start, end, TrackTimeManager.current.songPositionInBeats / beatOfThisNote);
+            transform.position = Vector3.Lerp(start, end, TrackTimeManager.current.songPositionInBeats / beatOfThisNote) + transform.parent.position;
 
 
 

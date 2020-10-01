@@ -66,10 +66,16 @@ public class TrackTimeManager : MonoBehaviour
     void Update()
     {
 
+
+
         debugDSPTIME = (float)AudioSettings.dspTime;
 
-        songPosition = (float)(AudioSettings.dspTime - startUpTime - (dspSongTime));
-        songPositionInBeats = (songPosition / secPerBeat);
+        if (trackStarted)
+        {
+            songPosition = (float)(AudioSettings.dspTime - startUpTime - (dspSongTime));
+            songPositionInBeats = (songPosition / secPerBeat);
+        }
+
 
         //update ui with data 
 
@@ -89,9 +95,10 @@ public class TrackTimeManager : MonoBehaviour
             BattleUIManager.current.UpdateMetronome(((Mathf.FloorToInt(songPositionInBeats)) % 4), false);
         }
 
-        if (countingIn)
+        if (doingWait)
         {
 
+            MoveIndicatorContainerForWait();
         }
     }
 
@@ -124,6 +131,9 @@ public class TrackTimeManager : MonoBehaviour
         //as this time progresses need to lerp the indicator container down 4 units 
         //so lerp(start,start -4, currentBeat/4)
 
+        waitTimeStart = (float)AudioSettings.dspTime;
+        waitTimeOver = (float)AudioSettings.dspTime + 4 * secPerBeat;
+
 
         StartCoroutine(beatWaitRoutine(numBeats));
         // audioSource.Play();
@@ -133,17 +143,44 @@ public class TrackTimeManager : MonoBehaviour
 
 
     //starts shit but waits 4 beats before resetting all the data back to 0
+
+    float waitTimeOver;
+    bool doingWait = false;
+    float waitTimeStart;
     public IEnumerator beatWaitRoutine(int numBeats)
     {
+
+        //so this needs to figure out basically jsut how much time needs to pass from now till 4 beats from now 
+        //first lets figure out when NOW IS 
+
         float songCurrentBeatPosition = songPositionInBeats;
-        //yield return new WaitUntil(() => songPositionInBeats > songCurrentBeatPosition + numBeats);
-        yield return null;
+        doingWait = true;
+
+
+        yield return new WaitUntil(() => AudioSettings.dspTime > waitTimeOver);
+
+        doingWait = false;
+        //yield return null;
 
         //startup time is the difference in dsptime of the song + the amount of time it currently is 
         startUpTime = (float)AudioSettings.dspTime - dspSongTime;
-        //songPositionInBeats = 0;
+        songPositionInBeats = 0;
         audioSource.Play();
         trackStarted = true;
+    }
+
+    public GameObject currIndicatorContainer;
+    Vector3 indicatorStartPos;
+    public void setCurrIndicatorContainer(GameObject indiContainer)
+    {
+        currIndicatorContainer = indiContainer;
+    }
+
+    public void MoveIndicatorContainerForWait()
+    {
+        float movePercent = (float)((AudioSettings.dspTime - waitTimeStart) / (waitTimeOver - waitTimeStart));
+        //lerp the indicator container between its spawn position and 0 based on where audio time is between the waittimeover variable
+        currIndicatorContainer.transform.position = Vector3.Lerp(new Vector3(0, 4, 0), new Vector3(0, 0, 0), movePercent);
     }
 
 

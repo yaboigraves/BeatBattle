@@ -18,6 +18,7 @@ public class Indicator : MonoBehaviour
     Vector3 start;
     Vector3 end;
 
+
     void Start()
     {
         bpm = BattleTrackManager.current.currentBpm;
@@ -60,11 +61,24 @@ public class Indicator : MonoBehaviour
             //just lerp down by 
 
 
+            if (beatOfThisNote == 0)
+            {
+                Debug.LogWarning("INDICATOR POSITION 0 DETECTED, DONT DO THIS SET IT TO 0.1");
+                beatOfThisNote = 0.01f;
+            }
+
+
             transform.position = Vector3.Lerp(start, end, TrackTimeManager.current.songPositionInBeats / beatOfThisNote);
+
+
+
 
         }
     }
 
-    //this will go through all the indicator children and update their color 
+    //so the countin does 4 beats of updating, and rather than moving the indicators it moves the indicator container
+
+
+
 
 }

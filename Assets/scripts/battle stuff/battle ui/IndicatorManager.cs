@@ -22,12 +22,12 @@ public class IndicatorManager : MonoBehaviour
         current = this;
     }
 
-    public void changeIndicatorColors(Color color)
-    {
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            transform.GetChild(i).GetComponent<Indicator>().UpdateColor(color);
-        }
-    }
+    // public void changeIndicatorColors(Color color)
+    // {
+    //     for (int i = 0; i < transform.childCount; i++)
+    //     {
+    //         transform.GetChild(i).GetComponent<Indicator>().UpdateColor(color);
+    //     }
+    // }
 
 }

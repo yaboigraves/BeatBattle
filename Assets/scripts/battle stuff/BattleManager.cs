@@ -122,22 +122,23 @@ public class BattleManager : MonoBehaviour
 
         //TIMESCALE STUFF
         //so the uniform timescale is 60bpm. therefore the timescale we want is whatever the bpm of the curre
+
         Time.timeScale = newTrack.bpm / 60;
 
-        GameObject indicContainer = Instantiate(indicatorContainer, Vector3.up * 104, Quaternion.identity, indicators);
+        GameObject indicContainer = Instantiate(indicatorContainer, Vector3.up * 100, Quaternion.identity, indicators);
 
         //instantiate uhhh 4 bars of bars so 16 total
 
         for (int i = 0; i <= 16; i++)
         {
-            GameObject _bar = Instantiate(bar, Vector3.up * (104 + i), Quaternion.identity, indicContainer.transform.GetChild(1));
+            GameObject _bar = Instantiate(bar, Vector3.up * (100 + i), Quaternion.identity, indicContainer.transform.GetChild(1));
         }
 
 
 
         for (int i = 0; i < track.kickBeats.indicatorPositions.Length; i++)
         {
-            Vector3 kickPos = new Vector3(-1, 4 + 100 + (track.kickBeats.indicatorPositions[i]), 0);
+            Vector3 kickPos = new Vector3(-1, 0 + 100 + (track.kickBeats.indicatorPositions[i]), 0);
             //each unit is 1 bar 
             //therefore we need to start the next batck of indicators at wherever the loop ends
             //probablyh easiest for now just to bake the length of the loop into the track object 
@@ -147,7 +148,7 @@ public class BattleManager : MonoBehaviour
 
         for (int i = 0; i < track.snareBeats.indicatorPositions.Length; i++)
         {
-            Vector3 kickPos = new Vector3(1, 4 + 100 + (track.snareBeats.indicatorPositions[i]), 0);
+            Vector3 kickPos = new Vector3(1, 0 + 100 + (track.snareBeats.indicatorPositions[i]), 0);
             Instantiate(indicator, kickPos, Quaternion.identity, indicContainer.transform.GetChild(0));
         }
 
@@ -321,7 +322,7 @@ public class BattleManager : MonoBehaviour
             //so we need to find which track the player has selected
             //for now we just use the 0th position 
             BattleTrackManager.current.switchBattleTrack(BattleTrackManager.current.playerSelectedTrack, firstTurn);
-            IndicatorManager.current.changeIndicatorColors(new Color(255, 0, 0, 1));
+            //IndicatorManager.current.changeIndicatorColors(new Color(255, 0, 0, 1));
 
             //indicatorContainer.GetComponent<Indicator>().UpdateColor(new Color(255, 0, 0));
 
@@ -330,7 +331,7 @@ public class BattleManager : MonoBehaviour
         {
             print("enemies turn");
             BattleTrackManager.current.switchBattleTrack(BattleTrackManager.current.testEnemyTracks[0], firstTurn);
-            IndicatorManager.current.changeIndicatorColors(new Color(0, 0, 255, 1));
+            //IndicatorManager.current.changeIndicatorColors(new Color(0, 0, 255, 1));
             //indicatorContainer.GetComponent<Indicator>().UpdateColor(new Color(0, 255, 0));
         }
 

@@ -99,6 +99,8 @@ public class TrackTimeManager : MonoBehaviour
 
 
         StartCoroutine(beatWaitRoutine(numBeats));
+        // audioSource.Play();
+        // trackStarted = true;
     }
 
 
@@ -107,11 +109,12 @@ public class TrackTimeManager : MonoBehaviour
     public IEnumerator beatWaitRoutine(int numBeats)
     {
         float songCurrentBeatPosition = songPositionInBeats;
-        yield return new WaitUntil(() => songPositionInBeats > songCurrentBeatPosition + numBeats);
-
+        //yield return new WaitUntil(() => songPositionInBeats > songCurrentBeatPosition + numBeats);
+        yield return null;
 
         //startup time is the difference in dsptime of the song + the amount of time it currently is 
         startUpTime = (float)AudioSettings.dspTime - dspSongTime;
+        //songPositionInBeats = 0;
         audioSource.Play();
         trackStarted = true;
     }

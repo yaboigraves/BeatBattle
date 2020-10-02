@@ -180,7 +180,7 @@ public class TrackTimeManager : MonoBehaviour
     {
         float movePercent = (float)((AudioSettings.dspTime - waitTimeStart) / (waitTimeOver - waitTimeStart));
         //lerp the indicator container between its spawn position and 0 based on where audio time is between the waittimeover variable
-        currIndicatorContainer.transform.position = Vector3.Lerp(new Vector3(0, 4, 0), new Vector3(0, 0, 0), movePercent);
+        //currIndicatorContainer.transform.position = Vector3.Lerp(new Vector3(0, 4, 0), new Vector3(0, 0, 0), movePercent);
     }
 
 

@@ -134,7 +134,7 @@ public class BattleManager : MonoBehaviour
 
         Time.timeScale = newTrack.bpm / 60;
 
-        GameObject indicContainer = Instantiate(indicatorContainer, Vector3.up * 104, Quaternion.identity, indicators);
+        GameObject indicContainer = Instantiate(indicatorContainer, Vector3.zero, Quaternion.identity, indicators);
         TrackTimeManager.current.currIndicatorContainer = indicContainer;
 
         //instantiate uhhh 4 bars of bars so 16 total

@@ -66,16 +66,8 @@ public class TrackTimeManager : MonoBehaviour
     void Update()
     {
 
-
-
+        beatTick();
         debugDSPTIME = (float)AudioSettings.dspTime;
-
-        if (trackStarted)
-        {
-            songPosition = (float)(AudioSettings.dspTime - startUpTime - (dspSongTime));
-            songPositionInBeats = (songPosition / secPerBeat);
-        }
-
 
         //update ui with data 
 
@@ -84,14 +76,13 @@ public class TrackTimeManager : MonoBehaviour
             //turn change 
             currentTurnStartBeat = songPositionInBeats;
             BattleManager.current.changeTurn();
+            BattleCameraController.current.CameraSwitchup();
         }
-
-
-
-
 
         if (trackStarted)
         {
+            songPosition = (float)(AudioSettings.dspTime - startUpTime - (dspSongTime));
+            songPositionInBeats = (songPosition / secPerBeat);
             BattleUIManager.current.UpdateMetronome(((Mathf.FloorToInt(songPositionInBeats)) % 4), false);
         }
 
@@ -99,6 +90,21 @@ public class TrackTimeManager : MonoBehaviour
         {
 
             MoveIndicatorContainerForWait();
+        }
+    }
+
+
+    float lastTick = 0;
+    public void beatTick()
+    {
+        if (lastTick + 1 < songPositionInBeats)
+        {
+            //call all the stuff we need to call for a beattick 
+            BattleManager.current.VibeUpdate();
+            BattleManager.current.UpdateGearPipeline();
+            lastTick = songPositionInBeats;
+
+
         }
     }
 

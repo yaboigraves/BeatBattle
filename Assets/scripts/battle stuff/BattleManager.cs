@@ -188,7 +188,6 @@ public class BattleManager : MonoBehaviour
         BattleTrackManager.current.StartCountIn();
     }
 
-
     //this should be passed to a battleUImanager object
 
     public void processPadHit(bool hit)
@@ -227,17 +226,14 @@ public class BattleManager : MonoBehaviour
                 playerTakeDamage(1);
             }
         }
-
         BattleUIManager.current.UpdateVibe(vibe);
     }
 
     public void playerTakeDamage(int damage)
     {
         //playerHealth -= damage;
-
         if (playerHealth <= 0)
         {
-
             //check if we're in test mode if we are just reload the scene
 
             if (SceneManage.current == null)
@@ -262,7 +258,6 @@ public class BattleManager : MonoBehaviour
     public bool sp404Buff;
     public void enemyTakeDamage(int damage)
     {
-
         if (sp404Buff)
         {
             sp404Buff = false;
@@ -273,8 +268,6 @@ public class BattleManager : MonoBehaviour
         BattleUIManager.current.CreateDamageNumber(damage);
 
         enemyHealth -= damage;
-
-
 
         if (enemyHealth <= 0)
         {

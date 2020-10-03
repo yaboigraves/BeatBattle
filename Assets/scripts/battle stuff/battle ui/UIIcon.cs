@@ -26,7 +26,7 @@ public class UIIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     //these variables wont change once instantiated so maybe not much rreason to have them?
     public GameItem item;
     public TextMeshProUGUI descriptionText, itemName;
-    public GameObject descriptionPanel;
+    public GameObject descriptionPanel, activeCooldownBorder;
     public Image iconSprite;
 
     //maybe make this a 3d model later might be cool to throw the 3d modelled gear around
@@ -34,7 +34,6 @@ public class UIIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private void Start()
     {
-
 
     }
 
@@ -83,4 +82,27 @@ public class UIIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         descriptionPanel.SetActive(false);
     }
+
+    public void toggleAbilityActiveBorder(bool toggle)
+    {
+        activeCooldownBorder.SetActive(toggle);
+    }
+
+    public bool checkIfEffectActive(string effectName, bool toggle)
+    {
+        if (item is Gear)
+        {
+            Gear iconGear = (Gear)item;
+
+            if (iconGear.gearFunction == effectName)
+            {
+                toggleAbilityActiveBorder(toggle);
+                return true;
+            }
+        }
+
+
+        return false;
+    }
+
 }

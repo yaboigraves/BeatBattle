@@ -10,9 +10,9 @@ public class Item : GameItem
     public string effectFunction;
     [TextArea]
     public string itemDescription;
-    public virtual void Use()
+    public virtual void Use(bool enhancedEffect = false)
     {
-        typeof(ItemEffects).GetMethod(effectFunction).Invoke(null, null);
+        typeof(ItemEffects).GetMethod(effectFunction).Invoke(null, new object[] { enhancedEffect });
     }
 
 

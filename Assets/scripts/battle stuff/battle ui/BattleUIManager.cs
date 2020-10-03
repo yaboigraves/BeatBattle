@@ -166,14 +166,33 @@ public class BattleUIManager : MonoBehaviour
 
 
     public GameObject itemIcon, gearIconContainer;
+
+    public UIIcon[] gearUIIcons;
+
     public void CreateGearIcons(List<Gear> gears)
     {
+        gearUIIcons = new UIIcon[gears.Count];
+
+        int counter = 0;
         foreach (Gear gear in gears)
         {
             UIIcon gearIcon = Instantiate(itemIcon, gearIconContainer.transform.position, Quaternion.identity, gearIconContainer.transform).GetComponent<UIIcon>();
             gearIcon.SetIconItem(gear);
+
+            gearUIIcons[counter] = gearIcon;
+            counter++;
         }
 
+    }
+
+
+    //when a gear effect is called and enabled we go through the icons and find the one we need to turn on
+    public void ToggleUiIconBorder(string functionName, bool toggle)
+    {
+        foreach (UIIcon icon in gearUIIcons)
+        {
+            icon.checkIfEffectActive(functionName, toggle);
+        }
     }
 
 
@@ -248,13 +267,23 @@ public class BattleUIManager : MonoBehaviour
 
     public void TryUseItemInSlot(int slot)
     {
+        if (!BattleManager.current.battleStarted)
+        {
+            return;
+        }
+
+
         if (itemIcons[slot - 1].item != null)
         {
             if (itemIcons[slot - 1].item is Item)
             {
                 //so we use the item now
                 Item item = (Item)(itemIcons[slot - 1].item);
-                item.Use();
+
+                //check if we're within the window for this to be on beat
+
+                item.Use(checkIfInputOnBeat());
+
                 //once we use the item we now need to remove it from both our battle inventory list and the normal list 
                 //an optimization that can be done later is rather than removing it from the main inventory as well, when 
                 //we leave a battle we can just copy the battles version over to the new version 
@@ -278,8 +307,25 @@ public class BattleUIManager : MonoBehaviour
                 return;
             }
         }
+    }
 
+    //range out of 100% you can miss a beat by and still get a correct input
+    public float inputOnBeatRange = 0.2f;
+    public bool checkIfInputOnBeat()
+    {
+        //look at the current time in beats and see if we're within the range of a whole number 
 
+        float nearestBeat = Mathf.Round(TrackTimeManager.current.songPositionInBeats);
+        if (Mathf.Abs(TrackTimeManager.current.songPositionInBeats - nearestBeat) < inputOnBeatRange)
+        {
+            //print("good hit on beat");
+            return true;
+        }
+        else
+        {
+            //print("hit not on beat");
+            return false;
+        }
     }
 
 
@@ -288,7 +334,5 @@ public class BattleUIManager : MonoBehaviour
     {
 
     }
-
-
 
 }

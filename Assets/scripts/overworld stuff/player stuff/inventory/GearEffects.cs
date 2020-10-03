@@ -25,12 +25,16 @@ public static class GearEffects
     public static void sp404(BattleManager.BattleState state)
     {
         //so this will make it so that every 4th beat you get in a row does 4x damage
-        Debug.Log("sp404 effect");
+        //Debug.Log("sp404 effect");
         if (state.beatStreak != 0 && state.beatStreak % 4 == 0)
         {
 
             //apply a buff of 4x damage for one hit to the player
             BattleManager.current.sp404Buff = true;
+
+            //we also need to tell the ui that the effect is active
+            //will need a dictionary/container to hold the gear icons
+            BattleUIManager.current.ToggleUiIconBorder("sp404", true);
         }
     }
 

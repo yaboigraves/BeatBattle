@@ -176,13 +176,14 @@ public class BattleManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && !battleStarted)
         {
             //wait till after the countdown to set this
-            battleStarted = true;
+
             StartBattle();
         }
     }
 
     void StartBattle()
     {
+        battleStarted = true;
         playerTurn = true;
         //1 2 3 4 
         BattleTrackManager.current.StartCountIn();
@@ -262,6 +263,7 @@ public class BattleManager : MonoBehaviour
         {
             sp404Buff = false;
             damage *= 4;
+            BattleUIManager.current.ToggleUiIconBorder("sp404", false);
         }
 
         //spawn a damage number from the ui manager

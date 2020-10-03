@@ -8,8 +8,16 @@ using UnityEngine.Events;
 
 public static class ItemEffects
 {
-    public static void test()
+    public static void test(bool enhancedEffect)
     {
-        Debug.Log("meme");
+        if (enhancedEffect)
+        {
+            Debug.Log("mega meme");
+        }
+        else
+        {
+            Debug.Log("meme");
+        }
+
     }
 }

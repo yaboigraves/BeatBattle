@@ -79,8 +79,6 @@ public class BattleInputHandler : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                //check if we are on time 
-
                 BattleUIManager.current.TryUseItemInSlot(1);
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))

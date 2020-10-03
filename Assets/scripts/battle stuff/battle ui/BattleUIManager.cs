@@ -19,6 +19,8 @@ public class BattleUIManager : MonoBehaviour
     AudioSource audioSource;
     public AudioClip[] metronomeCounts;
     public GameObject BattleEndUI;
+
+    public GameObject trackSelectionContainer;
     public GameObject[] trackSelectButtons;
 
     public Slider enemyHealthSlider;
@@ -90,6 +92,12 @@ public class BattleUIManager : MonoBehaviour
             }
         }
 
+    }
+
+
+    public void ToggleTrackSelectorOn(bool toggle)
+    {
+        trackSelectionContainer.SetActive(toggle);
     }
 
     //so the player needs to be able to select a battle track to use for the next loop, this then needs to be sent to 

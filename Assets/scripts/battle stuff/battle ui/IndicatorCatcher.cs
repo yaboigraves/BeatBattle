@@ -6,7 +6,7 @@ public class IndicatorCatcher : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "indicator")
+        if (other.gameObject.tag == "indicator" || other.gameObject.tag == "bar")
         {
             if (!BattleManager.current.playerTurn)
             {

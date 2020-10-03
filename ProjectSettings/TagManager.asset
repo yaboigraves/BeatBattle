@@ -8,6 +8,7 @@ TagManager:
   - indicator
   - playerSpawn
   - PlayerCamera
+  - bar
   layers:
   - Default
   - TransparentFX

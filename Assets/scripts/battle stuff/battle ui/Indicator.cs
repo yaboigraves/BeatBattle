@@ -7,19 +7,11 @@ public class Indicator : MonoBehaviour
     //so this manages a chunk of indicators not just one indicator now
     public float bpm;
     public float moveSpeed;
-
     // public Transform bars, indicators;
     bool activated;
-
-    Vector3 startPos;
-
     public float beatOfThisNote;
-
     Vector3 start;
     Vector3 end;
-
-
-
 
     void Start()
     {
@@ -28,12 +20,11 @@ public class Indicator : MonoBehaviour
         //commented this to experiment with timescale rather than calculating movespeed 
         //moveSpeed = bpm / 60;
 
-
         //uniform move speed of 60bpm 
         moveSpeed = 1;
 
         //startPos = transform.position;
-        beatOfThisNote = transform.position.y - 100;
+        beatOfThisNote = transform.position.y - 100 + 1;
 
         if (beatOfThisNote == 0)
         {
@@ -41,16 +32,12 @@ public class Indicator : MonoBehaviour
             beatOfThisNote = 0.01f;
         }
 
-
         start = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         //end is 99 because we want to go 1 unit below the pad
-        end = new Vector3(transform.position.x, 100, transform.position.z);
-
+        end = new Vector3(transform.position.x, 99, transform.position.z);
     }
 
     // Update is called once per frame
-
-
     void Update()
     {
         activated = BattleManager.current.battleStarted;

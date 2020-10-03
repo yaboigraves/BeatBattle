@@ -325,6 +325,10 @@ public class BattleManager : MonoBehaviour
 
         if (playerTurn)
         {
+            //toggle the track selector 
+
+            BattleUIManager.current.ToggleTrackSelectorOn(false);
+
             print("players turn");
             //so we need to find which track the player has selected
             //for now we just use the 0th position 
@@ -336,6 +340,9 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
+
+            BattleUIManager.current.ToggleTrackSelectorOn(true);
+
             print("enemies turn");
             BattleTrackManager.current.switchBattleTrack(BattleTrackManager.current.testEnemyTracks[0], firstTurn);
             //IndicatorManager.current.changeIndicatorColors(new Color(0, 0, 255, 1));

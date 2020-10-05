@@ -46,6 +46,12 @@ public class CutsceneManager : MonoBehaviour
     private void Start()
     {
         dialogueRunner.AddCommandHandler("moveEntity", moveEntity);
+
+        if (cutsceneYarnProgram != null)
+        {
+            DialogueRunner dialogueRunner = FindObjectOfType<Yarn.Unity.DialogueRunner>();
+            dialogueRunner.Add(cutsceneYarnProgram);
+        }
     }
 
     //so this means that to load a cutscene, the npc or the trigger
@@ -163,6 +169,37 @@ public class CutsceneManager : MonoBehaviour
             InputHandler.current.LockPlayerMovement(false);
         }
     }
+
+
+
+
+    //random utility custscene stuff 
+
+    public YarnProgram cutsceneYarnProgram;
+    public string cutsceneYarnNode = "";
+    public void PickupUniqueItemCutscene()
+    {
+        //lock the player movement
+
+
+        InputHandler.current.TogglePickupCutscene(true);
+
+        //enable the ui text for picking up a unique item (do this with yarn)
+        FindObjectOfType<DialogueRunner>().StartDialogue(cutsceneYarnNode);
+
+        //switch to the pickup camera through the camera manager
+        CameraManager.current.enablePickupItemCamera(true);
+    }
+
+    public void EndPickupItemCutscene()
+    {
+        FindObjectOfType<DialogueUI>().MarkLineComplete();
+        InputHandler.current.TogglePickupCutscene(false);
+        CameraManager.current.enablePickupItemCamera(false);
+        GameManager.current.player.inventory.TogglePickupItemSprite(false);
+    }
+
+
 
 
 

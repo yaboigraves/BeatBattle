@@ -10,6 +10,9 @@ public class CameraManager : MonoBehaviour
     public CinemachineBrain cinemachineBrain;
     public CinemachineVirtualCamera currentCamera;
 
+    public CinemachineVirtualCamera itemPickupCam;
+
+
     private void Awake()
     {
         current = this;
@@ -26,4 +29,26 @@ public class CameraManager : MonoBehaviour
         currentCamera = camera;
         setCameraFollow(GameManager.current.playerObj.transform);
     }
+
+    public void enablePickupItemCamera(bool enable)
+    {
+        if (itemPickupCam == null)
+        {
+            itemPickupCam = GameManager.current.player.pickupItemCam;
+        }
+
+        if (enable)
+        {
+            itemPickupCam.Priority = 20;
+        }
+        else
+        {
+            itemPickupCam.Priority = 0;
+        }
+
+
+    }
+
+
+
 }

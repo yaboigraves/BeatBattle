@@ -33,6 +33,10 @@ public class PlayerInventory : MonoBehaviour
     //delegate list of gear effects
     public List<GearEffects.GearEffect> gearEffects = new List<GearEffects.GearEffect>();
 
+
+    //newitem display sprite 
+    public SpriteRenderer itemDisplaySprite;
+
     private void Start()
     {
         items.Add(testItem);
@@ -132,6 +136,17 @@ public class PlayerInventory : MonoBehaviour
     {
         //later this needs to figure out what type the item is
 
+        //if the item is unique or you've never picked up one of these items before 
+        //TODO: log picked up items in save so we know if to play the unique animation
+        if (item.unique)
+        {
+            PickupItemCutscene(item);
+        }
+        else
+        {
+            SetPickupItemSprite(item);
+        }
+
         if (item is Gear)
         {
             playerGear.Add((Gear)item);
@@ -176,5 +191,48 @@ public class PlayerInventory : MonoBehaviour
                 return;
             }
         }
+    }
+    public float pickupWaitTime;
+
+    public void PickupItemCutscene(GameItem item)
+    {
+
+
+        //tell the cutscene manager to handle moving the camera around and stuff
+        CutsceneManager.current.PickupUniqueItemCutscene();
+
+        TogglePickupItemSprite(true, item);
+    }
+
+    public void TogglePickupItemSprite(bool toggle, GameItem item = null)
+    {
+        if (toggle)
+        {
+            itemDisplaySprite.gameObject.SetActive(true);
+            itemDisplaySprite.sprite = item.itemIcon;
+        }
+        else
+        {
+            itemDisplaySprite.gameObject.SetActive(false);
+            itemDisplaySprite.sprite = null;
+        }
+    }
+
+
+
+
+
+    public void SetPickupItemSprite(GameItem item)
+    {
+        StartCoroutine(pickupItemRoutine(item));
+    }
+
+    IEnumerator pickupItemRoutine(GameItem item)
+    {
+        itemDisplaySprite.gameObject.SetActive(true);
+        itemDisplaySprite.sprite = item.itemIcon;
+        yield return new WaitForSeconds(pickupWaitTime);
+        itemDisplaySprite.sprite = null;
+        itemDisplaySprite.gameObject.SetActive(false);
     }
 }

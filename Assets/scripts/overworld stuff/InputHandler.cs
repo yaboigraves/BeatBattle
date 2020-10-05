@@ -15,6 +15,8 @@ public class InputHandler : MonoBehaviour
 
     public static InputHandler current;
 
+    public bool inPickupCutscene;
+
     private void Awake()
     {
         current = this;
@@ -68,6 +70,10 @@ public class InputHandler : MonoBehaviour
                     print("no ui manager");
                 }
                 UIManager.current.NPCNextTalk();
+            }
+            else if (inPickupCutscene)
+            {
+                CutsceneManager.current.EndPickupItemCutscene();
             }
 
             else if (player.inShop)
@@ -182,6 +188,12 @@ public class InputHandler : MonoBehaviour
         //reset the input axis
         ResetInputAxis();
         playerMovementLocked = lockMove;
+    }
+
+    public void TogglePickupCutscene(bool toggle)
+    {
+        LockPlayerMovement(toggle);
+        inPickupCutscene = toggle;
     }
 
 

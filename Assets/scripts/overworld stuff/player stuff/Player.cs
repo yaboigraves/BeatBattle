@@ -35,6 +35,8 @@ public class Player : Entity
     public GameObject homieObj;
     Homie homie;
 
+    public Cinemachine.CinemachineVirtualCamera pickupItemCam;
+
 
     void Start()
     {

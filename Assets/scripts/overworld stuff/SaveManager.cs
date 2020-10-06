@@ -44,7 +44,7 @@ public static class SaveManager
 
 
 
-        foreach (Quest q in storyData.questList.quests)
+        foreach (QuestData q in storyData.questList.quests)
         {
             Yarn.Value questValue = UIManager.current.dialogueRunner.variableStorage.GetValue(q.questName);
 

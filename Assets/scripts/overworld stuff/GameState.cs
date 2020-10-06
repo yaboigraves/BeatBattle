@@ -60,7 +60,7 @@ public class StoryData
 
 //basic container object that just holds info on if a quest has been started or ended
 [System.Serializable]
-public class Quest
+public class QuestData
 {
 
     // NOTE: all quest names need to start with $ to play nice with yarns format
@@ -75,17 +75,20 @@ public class Quest
 
 
 //big list of default values and names for quests
+//TODO: move this to json file
+
+
 [System.Serializable]
 public class QuestList
 {
 
-    public Quest[] quests;
+    public QuestData[] quests;
     public QuestList()
     {
-        Quest testQuest = new Quest();
+        QuestData testQuest = new QuestData();
         testQuest.questName = "$testQuest";
         testQuest.questStatus = 0;
-        quests = new Quest[] { testQuest };
+        quests = new QuestData[] { testQuest };
     }
 
 }

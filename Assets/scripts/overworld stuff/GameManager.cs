@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
             //dispense all the story variables
             //load all the story variables into yarns variable storage
 
-            foreach (Quest q in data.storyData.questList.quests)
+            foreach (QuestData q in data.storyData.questList.quests)
             {
                 UIManager.current.dialogueRunner.variableStorage.SetValue(q.questName, q.questStatus);
             }

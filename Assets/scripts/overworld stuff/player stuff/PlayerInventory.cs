@@ -196,8 +196,6 @@ public class PlayerInventory : MonoBehaviour
 
     public void PickupItemCutscene(GameItem item)
     {
-
-
         //tell the cutscene manager to handle moving the camera around and stuff
         CutsceneManager.current.PickupUniqueItemCutscene();
 
@@ -217,10 +215,6 @@ public class PlayerInventory : MonoBehaviour
             itemDisplaySprite.sprite = null;
         }
     }
-
-
-
-
 
     public void SetPickupItemSprite(GameItem item)
     {

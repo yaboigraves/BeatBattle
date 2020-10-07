@@ -5,19 +5,29 @@ tags:
 <<moveEntity cube>>
 NPC: Ayo what up my duder.
 
-<<applyMarkup wiggle-8,14 wiggle-30,41>>
-NPC: You VIBIN dog? You really vibiiiiin?
 
 <<if $testQuest is 0>>
+    <<applyMarkup wiggle-8,14 wiggle-30,41>>
+    NPC: You VIBIN dog? You really vibiiiiin?
+
     [[Yeah man|testNPC.questOffer]]
     [[Im Aight|testNPC.OtherExit]]
 <<endif>>
 
 <<if $testQuest is 1>>
-    [[Yeah man|testNPC.Exit]]
-    [[Im Aight|testNPC.OtherExit]]
+    NPC: You got my shit?
+    [[Got it here!|testNPC.questTurnIn]]
+    [[Nah not yet man|testNPC.OtherExit]]
 <<endif>>
 
+===
+
+title: testNPC.questTurnIn
+tags:
+--- 
+    <<tryTurnInQuest $testQuest>>
+    Yancey: Here you go man!
+    
 
 
 ===
@@ -39,6 +49,7 @@ title: testNPC.QuestInfo
 tags:
 ---
 <<set $testQuest to 1>>
+<<startQuest $testQuest>>
 NPC: Aight man heres the scoop, I need some weed. Come back when you got some ok dog?
 
 ===

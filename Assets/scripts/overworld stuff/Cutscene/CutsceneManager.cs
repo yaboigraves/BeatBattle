@@ -76,8 +76,6 @@ public class CutsceneManager : MonoBehaviour
 
         //tell the savemanager we've run this cutscene
         SaveManager.UpdateCutsceneData(currentCutscene.cutsceneID);
-
-
     }
 
 

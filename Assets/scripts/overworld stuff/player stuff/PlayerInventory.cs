@@ -229,4 +229,21 @@ public class PlayerInventory : MonoBehaviour
         itemDisplaySprite.sprite = null;
         itemDisplaySprite.gameObject.SetActive(false);
     }
+
+    public bool CheckIfQuestItemInInventory(Item item)
+    {
+        if (items.Contains(item))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public void RemoveInventoryItem(Item item)
+    {
+        items.Remove(item);
+    }
 }

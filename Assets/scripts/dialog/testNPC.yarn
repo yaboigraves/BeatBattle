@@ -27,9 +27,13 @@ tags:
 --- 
     <<tryTurnInQuest $testQuest>>
     Yancey: Here you go man!
-    
 
-
+    <<if $testQuest is 2>>
+        NPC: Yo thanks lil homie! Here's some skrilla!
+        <<giveQuestReward $testQuest>>
+    <<else>>
+        NPC: Bruh you better not be fuckin with me again. Go get my weed!!!!
+    <<endif>>
 ===
 
 

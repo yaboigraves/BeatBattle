@@ -35,10 +35,19 @@ public class QuestGiver : MonoBehaviour
         {
             GameManager.current.player.inventory.RemoveInventoryItem((Item)quest.questObjective);
             print("quest done!");
+
+            //change the variable storage value
+            QuestManager.current.markQuestDone(quest.questName);
+
         }
         else
         {
             print("quest not done");
         }
+    }
+
+    public void GiveQuestReward()
+    {
+        print("your reward is a good deed");
     }
 }

@@ -10,6 +10,8 @@ public class QuestManager : MonoBehaviour
 
     public DialogueRunner dialogueRunner;
 
+    public InMemoryVariableStorage yarnVariableStorage;
+
     private void Awake()
     {
         current = this;
@@ -19,6 +21,7 @@ public class QuestManager : MonoBehaviour
     {
         dialogueRunner.AddCommandHandler("startQuest", startQuest);
         dialogueRunner.AddCommandHandler("tryTurnInQuest", tryTurnInQuest);
+        dialogueRunner.AddCommandHandler("giveQuestReward", giveQuestReward);
     }
 
     //big ol public dictionary full of the current quests
@@ -33,6 +36,16 @@ public class QuestManager : MonoBehaviour
     public void tryTurnInQuest(string[] paramaters)
     {
         currentQuests[paramaters[0]].tryTurnInQuest();
+    }
+
+    public void markQuestDone(string questName)
+    {
+        yarnVariableStorage.SetValue(questName, 2);
+    }
+
+    public void giveQuestReward(string[] parameters)
+    {
+        currentQuests[parameters[0]].GiveQuestReward();
     }
 
 

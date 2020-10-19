@@ -86,7 +86,6 @@ public class InputHandler : MonoBehaviour
 
                 if (player.interactRange.objectsInRange.Count > 0 && player.interactRange.objectsInRange[0].GetComponent<NPC>() != null)
                 {
-
                     player.enterDialogue();
                     ResetInputAxis();
                 }

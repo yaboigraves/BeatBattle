@@ -137,6 +137,9 @@ public class SceneManage : MonoBehaviour
 
 
         //print("loading scene " + sceneName);
+        //this has to run before we load the new scene
+        //print(player);
+
 
         SceneManager.LoadScene(sceneName);
         spawnPlayer();
@@ -144,6 +147,7 @@ public class SceneManage : MonoBehaviour
 
     public void spawnPlayer()
     {
-        player.RoomTransition();
+        // player.interactRange.objectsInRange.Clear();
+        //player.RoomTransition();
     }
 }

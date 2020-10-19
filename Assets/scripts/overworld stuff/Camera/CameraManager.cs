@@ -18,6 +18,14 @@ public class CameraManager : MonoBehaviour
         current = this;
     }
 
+    private void Start()
+    {
+        if (currentCamera == null)
+        {
+            currentCamera = GameObject.FindGameObjectWithTag("PlayerCamera").GetComponent<CinemachineVirtualCamera>();
+        }
+    }
+
     public void setCameraFollow(Transform followThis)
     {
         currentCamera.Follow = followThis;

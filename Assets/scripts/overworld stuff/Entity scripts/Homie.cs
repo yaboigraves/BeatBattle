@@ -40,8 +40,6 @@ public class Homie : MonoBehaviour
                 dialogueRunner.Add(currentDialogue);
             }
         }
-
-
     }
 
 

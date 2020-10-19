@@ -52,7 +52,6 @@ public class NPC : Entity, IInteractable
         }
 
         npcTextBox.transform.parent.gameObject.SetActive(false);
-
     }
 
     //text stuff

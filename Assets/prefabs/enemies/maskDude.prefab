@@ -261,7 +261,7 @@ MonoBehaviour:
   - {fileID: 7840641862103013398}
   - {fileID: 6886843934948342366}
   m_Bounds:
-    m_Center: {x: -0.039155543, y: 0.040665984, z: 0}
+    m_Center: {x: -0.03915745, y: 0.040665746, z: 0}
     m_Extent: {x: 0.7546842, y: 1.3207088, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -317,8 +317,7 @@ MonoBehaviour:
   chasingPlayer: 0
   idle: 0
   speed: 1
-  patrolRoute:
-  - {fileID: 0}
+  patrolRoute: []
   patrolTolerance: 0.3
   agent: {fileID: 0}
 --- !u!65 &4756209535108890715

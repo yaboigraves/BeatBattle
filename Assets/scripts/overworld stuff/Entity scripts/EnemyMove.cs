@@ -21,7 +21,11 @@ public class EnemyMove : Entity
     {
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
-        agent.SetDestination(patrolRoute[currentPatrol].position);
+        if (patrolRoute.Length > 1)
+        {
+            agent.SetDestination(patrolRoute[currentPatrol].position);
+        }
+
     }
 
     // Update is called once per frame
@@ -101,7 +105,12 @@ public class EnemyMove : Entity
         yield return new WaitForSeconds(Random.Range(1f, 3f));
         idle = false;
         //then start walking again to the next waypoint 
-        goToNextWaypoint();
+
+        if (patrolRoute.Length > 0)
+        {
+            goToNextWaypoint();
+        }
+
     }
 
     // IEnumerator LerpToRotation(float endRotation, float time, float delay)

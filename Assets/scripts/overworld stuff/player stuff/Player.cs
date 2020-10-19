@@ -240,10 +240,7 @@ public class Player : Entity
     //run this when moving between rooms (reloads stuff figures out which door we should go to)
     public void RoomTransition()
     {
-
-
-        interactRange.objectsInRange.Clear();
-        transform.position = GameObject.FindGameObjectWithTag("playerSpawn").transform.position;
-
+        //interactRange.objectsInRange.Clear();
+        //transform.position = GameObject.FindGameObjectWithTag("playerSpawn").transform.position;
     }
 }

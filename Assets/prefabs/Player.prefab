@@ -6250,8 +6250,8 @@ MonoBehaviour:
   gravityScale: 1
   globalGravity: -9.81
   spriteHolder: {fileID: 0}
-  battleRangeChecker: {fileID: 0}
-  inventory: {fileID: 0}
+  battleRangeChecker: {fileID: 3292425265038948178}
+  inventory: {fileID: 5122287838450495549}
   homieObj: {fileID: 2898552078886871598, guid: 917abda343f9ad64bbebd210eac652aa,
     type: 3}
   pickupItemCam: {fileID: 5338445408390812106}

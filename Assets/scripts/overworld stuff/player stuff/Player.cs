@@ -60,6 +60,7 @@ public class Player : Entity
 
     public void LoadHomie()
     {
+        print("creating homie");
         homie = Instantiate(homieObj, transform.position + Vector3.left * 2, Quaternion.identity).GetComponent<Homie>();
     }
 
@@ -233,5 +234,16 @@ public class Player : Entity
                 inventory.LoadItemByName(gearName);
             }
         }
+    }
+
+
+    //run this when moving between rooms (reloads stuff figures out which door we should go to)
+    public void RoomTransition()
+    {
+
+
+        interactRange.objectsInRange.Clear();
+        transform.position = GameObject.FindGameObjectWithTag("playerSpawn").transform.position;
+
     }
 }

@@ -60,8 +60,15 @@ public class UIManager : MonoBehaviour
         dialogueRunner.AddCommandHandler("applyMarkup", applyMarkup);
         dialogueRunner.AddCommandHandler("clearMarkup", clearMarkup);
 
+
         //init the power usage 
+
+    }
+
+    public void InitUIManager()
+    {
         UpdatePowerUse(GameManager.current.player.inventory.powerUse, GameManager.current.player.inventory.maxPower);
+
     }
 
     public void increaseLetterCount()
@@ -223,6 +230,7 @@ public class UIManager : MonoBehaviour
     public void ToggleInventoryMenu()
     {
         inventoryMenus.SetActive(!inventoryMenus.activeSelf);
+
     }
 
     //TODO: scrolling menu basics for the inventory so we can asctually use items and equip tracks 

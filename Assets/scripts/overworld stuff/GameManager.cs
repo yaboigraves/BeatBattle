@@ -87,10 +87,12 @@ public class GameManager : MonoBehaviour
                 UIManager.current.dialogueRunner.variableStorage.SetValue(q.questName, q.questStatus);
             }
 
-
-
-
         }
+
+
+        //maybe send out a big global init to everyone telling them to update now
+        UIManager.current.InitUIManager();
+
 
     }
 

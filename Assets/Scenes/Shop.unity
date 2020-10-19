@@ -1258,6 +1258,11 @@ PrefabInstance:
       propertyPath: talkToNode
       value: shopNPC
       objectReference: {fileID: 0}
+    - target: {fileID: 6322460233993330122, guid: 9f3fe4c2179c924479da6441ace32ad0,
+        type: 3}
+      propertyPath: npcTextBox
+      value: 
+      objectReference: {fileID: 1387307372}
     - target: {fileID: 6322460233993330123, guid: 9f3fe4c2179c924479da6441ace32ad0,
         type: 3}
       propertyPath: m_Size.x
@@ -1273,7 +1278,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: weedDude (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7115125700225346747, guid: 9f3fe4c2179c924479da6441ace32ad0,
+        type: 3}
+      propertyPath: nPC
+      value: 
+      objectReference: {fileID: 1387307373}
+    m_RemovedComponents:
+    - {fileID: 2889975727186464438, guid: 9f3fe4c2179c924479da6441ace32ad0, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9f3fe4c2179c924479da6441ace32ad0, type: 3}
 --- !u!1 &1387307370 stripped
 GameObject:
@@ -1299,6 +1310,30 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6db31f387b047a9448ebacd4829dce26, type: 2}
   - {fileID: 11400000, guid: fcf9db3b5babf204c9463e703868124b, type: 2}
   - {fileID: 11400000, guid: 2485eea25b2c2cc4383b66af16962636, type: 2}
+--- !u!114 &1387307372 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5148266664454201396, guid: 9f3fe4c2179c924479da6441ace32ad0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1387307369}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1387307373 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6322460233993330122, guid: 9f3fe4c2179c924479da6441ace32ad0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1387307369}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1387307370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 969daf2b71ab69c4d87229c7a1e81111, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &1393583866
 Mesh:
   m_ObjectHideFlags: 0

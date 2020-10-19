@@ -82,8 +82,6 @@ public class BattleManager : MonoBehaviour
             }
             LoadItems(testItems);
         }
-
-
         else
         {
             //spawn the enemy in and turn off their move function 
@@ -95,12 +93,15 @@ public class BattleManager : MonoBehaviour
             LoadItems(GameManager.current.player.inventory.items);
 
             //load the items from our inventory
-
-
-
         }
         changeTurn();
         firstTurn = false;
+
+        //load all the spectators for the battle
+
+
+
+
     }
 
     void LoadGear()

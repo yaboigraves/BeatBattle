@@ -25,6 +25,8 @@ public class Homie : MonoBehaviour
     void Start()
     {
 
+        DontDestroyOnLoad(this.gameObject);
+
         //navAgent = GetComponent<NavMeshAgent>();
 
         rigidbody = GetComponent<Rigidbody>();
@@ -37,7 +39,11 @@ public class Homie : MonoBehaviour
             if (currentDialogue != null)
             {
                 DialogueRunner dialogueRunner = FindObjectOfType<Yarn.Unity.DialogueRunner>();
-                dialogueRunner.Add(currentDialogue);
+                if (!dialogueRunner.NodeExists(currentDialogueNode))
+                {
+                    dialogueRunner.Add(currentDialogue);
+                }
+
             }
         }
     }

@@ -126,6 +126,7 @@ public class SceneManage : MonoBehaviour
 
     public void loadInterior(string sceneName)
     {
+
         //wipe the screen
         if (UIManager.current == null)
         {
@@ -133,13 +134,16 @@ public class SceneManage : MonoBehaviour
         }
 
         UIManager.current.screenWipe();
-        spawnPlayer();
+
+
+        //print("loading scene " + sceneName);
+
         SceneManager.LoadScene(sceneName);
+        spawnPlayer();
     }
 
     public void spawnPlayer()
     {
-        player.interactRange.objectsInRange.Clear();
-        player.transform.position = GameObject.FindGameObjectWithTag("playerSpawn").transform.position;
+        player.RoomTransition();
     }
 }

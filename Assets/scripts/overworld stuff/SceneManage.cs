@@ -19,8 +19,15 @@ public class SceneManage : MonoBehaviour
 
     void Awake()
     {
-        current = this;
-        enemies = new List<Enemy>();
+        if (current == null)
+        {
+            current = this;
+            enemies = new List<Enemy>();
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     void Start()
@@ -48,6 +55,8 @@ public class SceneManage : MonoBehaviour
 
     public void TransitionToBattle(GameObject enemy, Track battleTrack)
     {
+
+
         inBattle = true;
         enemyInBattle = enemy;
 
@@ -63,7 +72,6 @@ public class SceneManage : MonoBehaviour
         cameraReturnPosition = mainCamera.transform.position;
         mainCamera.gameObject.SetActive(false);
 
-
         //pause the overworld(audio)
         playerHealth = player.health;
         playerMaxHealth = player.maxHealth;
@@ -71,6 +79,7 @@ public class SceneManage : MonoBehaviour
         enemyMaxHealth = enemy.GetComponent<Enemy>().maxHealth;
 
         SceneManager.LoadScene("BattleScene", LoadSceneMode.Additive);
+
         //tell the battleManager to set the enemy sprite to whatever sprite was collided with 
 
         TrackManager.current.UpdateCurrentTrack(battleTrack);

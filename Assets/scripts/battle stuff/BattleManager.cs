@@ -63,7 +63,7 @@ public class BattleManager : MonoBehaviour
     void Start()
     {
         //check if we're in testmode (which means theirs no scene manager present)
-        if (TrackManager.current == null)
+        if (TrackManager.current == null || SceneManage.current == null)
         {
             //use the testing enemy and the backup track that was loaded in the battle track manager
             enemy.setEnemies(testEnemy, null);
@@ -84,6 +84,7 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
+            //print(enemy);
             //spawn the enemy in and turn off their move function 
             enemy.setEnemies(SceneManage.current.enemyInBattle, GameManager.current.player.battleRangeChecker.enemiesInRange);
             //grab the equipped tracks of the player
@@ -98,10 +99,6 @@ public class BattleManager : MonoBehaviour
         firstTurn = false;
 
         //load all the spectators for the battle
-
-
-
-
     }
 
     void LoadGear()
@@ -171,8 +168,6 @@ public class BattleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-
         //TODO: defer this to the inputhandler
         if (Input.GetKeyDown(KeyCode.Space) && !battleStarted)
         {
@@ -274,6 +269,10 @@ public class BattleManager : MonoBehaviour
 
         if (enemyHealth <= 0)
         {
+            //TODO: when you reload into a new scene the scene manager current reference becomes broken
+
+
+
             if (SceneManage.current == null)
             {
                 SceneManager.LoadScene("BattleScene", LoadSceneMode.Single);
@@ -300,6 +299,7 @@ public class BattleManager : MonoBehaviour
 
     public void EndStopBattle(bool playerWon)
     {
+        print("ENDING THE BATTLE");
         SceneManage.current.LeaveBattle(playerWon);
     }
 
@@ -321,9 +321,6 @@ public class BattleManager : MonoBehaviour
     {
         playerTurn = !playerTurn;
         //first we check who's turn it is
-
-
-
         if (playerTurn)
         {
             //toggle the track selector 

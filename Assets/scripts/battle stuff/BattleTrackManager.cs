@@ -51,7 +51,7 @@ public class BattleTrackManager : MonoBehaviour
             audioClip = currentTrack.trackClip;
         }
 
-        print("audiosource" + audioSource.name);
+        //print("audiosource" + audioSource.name);
 
         currentBpm = currentTrack.bpm;
         audioSource.clip = audioClip;

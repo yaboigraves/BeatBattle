@@ -154,7 +154,7 @@ public class UIManager : MonoBehaviour
         //enable the trackinfo for a sec
         if (!trackInfoUI.activeSelf)
         {
-            print("routine");
+            //print("routine");
             StartCoroutine(showTrackInfoUI(trackInfoUI, -300));
         }
 
@@ -498,7 +498,7 @@ public class UIManager : MonoBehaviour
 
         for (int i = 0; i < inventoryTrackContainer.transform.childCount; i++)
         {
-            print(inventoryTrackContainer.transform.GetChild(i).name);
+            //print(inventoryTrackContainer.transform.GetChild(i).name);
             InventoryTrack inTrack = inventoryTrackContainer.transform.GetChild(i).GetComponent<InventoryTrack>();
 
 

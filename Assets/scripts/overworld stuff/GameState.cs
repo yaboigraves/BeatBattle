@@ -153,7 +153,7 @@ public class ProgressData
         }
 
         return false;
-        Debug.LogError("progress point not found : " + pointName);
+        //Debug.LogError("progress point not found : " + pointName);
     }
 
 }

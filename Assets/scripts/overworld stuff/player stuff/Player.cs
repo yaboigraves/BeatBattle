@@ -60,7 +60,7 @@ public class Player : Entity
 
     public void LoadHomie()
     {
-        print("creating homie");
+        //print("creating homie");
         homie = Instantiate(homieObj, transform.position + Vector3.left * 2, Quaternion.identity).GetComponent<Homie>();
     }
 

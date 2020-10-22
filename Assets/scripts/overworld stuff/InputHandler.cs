@@ -7,6 +7,9 @@ public class InputHandler : MonoBehaviour
 {
     public float horizontalIn, verticalIn;
     public GameObject playerPrefab;
+
+    //note: we cant actually do this player variable here the reference might get broke
+    //just look to the gaem manager
     public Player player;
 
 
@@ -27,11 +30,8 @@ public class InputHandler : MonoBehaviour
 
     //player variables for movement restrictions 
 
-
-
     void Start()
     {
-
         player = GameManager.current.playerObj.GetComponentInChildren<Player>();
         if (player == null)
         {
@@ -41,15 +41,10 @@ public class InputHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-
-
         // Remove all player control when we're in dialogue
 
         horizontalIn = Input.GetAxisRaw("Horizontal");
         verticalIn = Input.GetAxisRaw("Vertical");
-
-
 
         //if we're just running around the overworld
 
@@ -171,6 +166,16 @@ public class InputHandler : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            print("TESTING MANAGERS");
+            print(GameManager.current);
+            print(UIManager.current);
+            print(SceneManage.current);
+            print(TrackManager.current);
+            print("DONE TESTING");
+        }
+
 
 
     }
@@ -179,7 +184,12 @@ public class InputHandler : MonoBehaviour
     {
         horizontalIn = 0;
         verticalIn = 0;
-        player.ResetDeltaPos();
+        print("PLAYER");
+        print(player);
+        //player.ResetDeltaPos();
+
+        //maybe need to do this and reference the gm version cause our reference is broken
+        GameManager.current.player.ResetDeltaPos();
     }
 
     public void LockPlayerMovement(bool lockMove)

@@ -36,8 +36,11 @@ public class Enemy : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
+
+
             if (!SceneManage.current.inBattle)
             {
+                SceneManage cur = SceneManage.current;
                 SceneManage.current.TransitionToBattle(this.gameObject, battleTracks[UnityEngine.Random.Range(0, battleTracks.Length)]);
             }
         }

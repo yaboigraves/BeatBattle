@@ -13,9 +13,16 @@ public class CameraManager : MonoBehaviour
     public CinemachineVirtualCamera itemPickupCam;
 
 
-    private void Awake()
+    void Awake()
     {
-        current = this;
+        if (current == null)
+        {
+            current = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     private void Start()
@@ -55,6 +62,14 @@ public class CameraManager : MonoBehaviour
         }
 
 
+    }
+
+    public void updatePlayerCameraPriority(int newPrio)
+    {
+        print("updating player camera priority!!!");
+        currentCamera.Priority = newPrio;
+        print("NEW CAMERA PRIORITY");
+        print(currentCamera.Priority);
     }
 
 

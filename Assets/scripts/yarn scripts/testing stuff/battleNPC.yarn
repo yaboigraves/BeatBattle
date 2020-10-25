@@ -1,0 +1,23 @@
+﻿title: battleNPC
+tags:
+---
+BattleNPC: Yo dude go fuck that beak fool up over there ok?
+[[Uh ok.|battleNPC.TriggerBattle]]
+[[Nah bruh.|battleNPC.Exit]]
+===
+
+
+title: battleNPC.Exit
+tags:
+---
+BattleNPC: Aw ok. Peace dude.
+===
+
+
+title: battleNPC.TriggerBattle
+tags:
+---
+BattleNPC: FIGHT FIGHT FIGHT!
+<<triggerBattle>>
+===
+

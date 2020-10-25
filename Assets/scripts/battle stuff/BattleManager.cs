@@ -271,8 +271,6 @@ public class BattleManager : MonoBehaviour
         {
             //TODO: when you reload into a new scene the scene manager current reference becomes broken
 
-
-
             if (SceneManage.current == null)
             {
                 SceneManager.LoadScene("BattleScene", LoadSceneMode.Single);

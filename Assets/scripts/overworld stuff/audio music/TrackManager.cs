@@ -100,7 +100,12 @@ public class TrackManager : MonoBehaviour
     public void StopCurrentTrack()
     {
         PauseTrack();
-        StopCoroutine(songRoutine);
+        if (songRoutine != null)
+        {
+            StopCoroutine(songRoutine);
+        }
+
+
     }
 
     public void UpdateTrackVolume(float newVolume)

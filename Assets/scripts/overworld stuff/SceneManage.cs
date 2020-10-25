@@ -55,12 +55,13 @@ public class SceneManage : MonoBehaviour
 
     public void TransitionToBattle(GameObject enemy, Track battleTrack)
     {
-
-
         inBattle = true;
         enemyInBattle = enemy;
 
         toggleEnemiesOn(false);
+        //lock the player movement
+        InputHandler.current.LockPlayerMovement(true);
+
 
         if (mainCamera == null)
         {
@@ -93,6 +94,9 @@ public class SceneManage : MonoBehaviour
     //TODO: this could probably take a battleResult object that tells us if the player won or not 
     public void LeaveBattle(bool playerWon)
     {
+        //reset the time scale 
+        Time.timeScale = 1;
+
         //first tell the battleui manager to run its thing 
         UIManager.current.screenWipe();
         Destroy(BattleCameraController.current.gameObject);
@@ -112,7 +116,6 @@ public class SceneManage : MonoBehaviour
             foreach (GameObject en in player.battleRangeChecker.enemiesInRange)
             {
                 Destroy(en);
-
             }
         }
         else
@@ -143,12 +146,6 @@ public class SceneManage : MonoBehaviour
         }
 
         UIManager.current.screenWipe();
-
-
-        //print("loading scene " + sceneName);
-        //this has to run before we load the new scene
-        //print(player);
-
 
         SceneManager.LoadScene(sceneName);
         spawnPlayer();

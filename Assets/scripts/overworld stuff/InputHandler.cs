@@ -20,13 +20,17 @@ public class InputHandler : MonoBehaviour
 
     public bool inPickupCutscene;
 
-    private void Awake()
+    void Awake()
     {
-        current = this;
+        if (current == null)
+        {
+            current = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
-
-
-
 
     //player variables for movement restrictions 
 
@@ -38,7 +42,7 @@ public class InputHandler : MonoBehaviour
             print("ERROR : INPUT HANDLER PLAYER REFERENCE BROKEN");
         }
     }
-    // Update is called once per frame
+
     void Update()
     {
         // Remove all player control when we're in dialogue

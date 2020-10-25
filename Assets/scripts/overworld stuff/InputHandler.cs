@@ -54,7 +54,7 @@ public class InputHandler : MonoBehaviour
 
         //Vector3 deltaPos = new Vector3(horizontalIn, 0, verticalIn) * speed * Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && !player.inBattle)
         {
             //TODO: this will probably cause alot of bugs later refactor this error
             //clear the list of any missing game objects or fucked up references
@@ -188,8 +188,8 @@ public class InputHandler : MonoBehaviour
     {
         horizontalIn = 0;
         verticalIn = 0;
-        print("PLAYER");
-        print(player);
+        //print("PLAYER");
+        //print(player);
         //player.ResetDeltaPos();
 
         //maybe need to do this and reference the gm version cause our reference is broken
@@ -208,8 +208,4 @@ public class InputHandler : MonoBehaviour
         LockPlayerMovement(toggle);
         inPickupCutscene = toggle;
     }
-
-
-
-
 }

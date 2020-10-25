@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Cinemachine;
-
+using Yarn.Unity;
 public class SceneManage : MonoBehaviour
 {
     //public Dictionary<Enemy, string> enemySceneDictionary;
@@ -16,6 +16,8 @@ public class SceneManage : MonoBehaviour
     //pos for camera to return to after battle
     Vector3 cameraReturnPosition;
     public GameObject mainCamera;
+
+    public DialogueRunner dialogueRunner;
 
     void Awake()
     {
@@ -33,6 +35,8 @@ public class SceneManage : MonoBehaviour
     void Start()
     {
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+
+
     }
     // Start is called before the first frame update
 
@@ -55,13 +59,14 @@ public class SceneManage : MonoBehaviour
 
     public void TransitionToBattle(GameObject enemy, Track battleTrack)
     {
+        //lower the priority of the players camera
+
         inBattle = true;
         enemyInBattle = enemy;
 
         toggleEnemiesOn(false);
         //lock the player movement
         InputHandler.current.LockPlayerMovement(true);
-
 
         if (mainCamera == null)
         {
@@ -81,6 +86,8 @@ public class SceneManage : MonoBehaviour
 
         SceneManager.LoadScene("BattleScene", LoadSceneMode.Additive);
 
+        CameraManager.current.updatePlayerCameraPriority(-15);
+
         //tell the battleManager to set the enemy sprite to whatever sprite was collided with 
 
         TrackManager.current.UpdateCurrentTrack(battleTrack);
@@ -94,6 +101,11 @@ public class SceneManage : MonoBehaviour
     //TODO: this could probably take a battleResult object that tells us if the player won or not 
     public void LeaveBattle(bool playerWon)
     {
+
+        //reset the players camera priority
+
+
+
         //reset the time scale 
         Time.timeScale = 1;
 
@@ -112,7 +124,9 @@ public class SceneManage : MonoBehaviour
         if (playerWon)
         {
             //todo: trigger death animation
-            Destroy(enemyInBattle.gameObject);
+
+            //this breaks if its a prefab, dont really need to do it cause the foreach will handle deletion
+            //Destroy(enemyInBattle.gameObject);
             foreach (GameObject en in player.battleRangeChecker.enemiesInRange)
             {
                 Destroy(en);
@@ -134,6 +148,11 @@ public class SceneManage : MonoBehaviour
 
         //update the players inventory for any used items 
         GameManager.current.player.inventory.items = BattleUIManager.current.battleItems;
+
+        //reset the priority of the player camera
+        CameraManager.current.updatePlayerCameraPriority(15);
+
+
     }
 
     public void loadInterior(string sceneName)
@@ -156,4 +175,6 @@ public class SceneManage : MonoBehaviour
         // player.interactRange.objectsInRange.Clear();
         //player.RoomTransition();
     }
+
+
 }

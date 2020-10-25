@@ -93,7 +93,7 @@ public class Player : Entity
     public void leaveDialogue()
     {
         inDialogue = false;
-        InputHandler.current.LockPlayerMovement(false);
+        //InputHandler.current.LockPlayerMovement(false);
     }
 
     public void enterBattle()

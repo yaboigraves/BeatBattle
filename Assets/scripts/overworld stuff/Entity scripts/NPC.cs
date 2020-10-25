@@ -12,19 +12,24 @@ public class NPC : Entity, IInteractable
     //the npc also needs to load all the custom cameras for its dialogue if it has any
     //these are then loaded into a dictionary 
     //this dictionary of camera's is then
-
     Dictionary<string, CinemachineVirtualCamera> cameraPositions;
     public string talkToNode = "";
     public YarnProgram scriptToLoad;
     public TextMeshProUGUI npcTextBox;
-
     [TextArea]
     public string greetingText, goodbyeText;
-
     //doesnt need to exist, just if entities need to move in this dialogue
     public Cutscene cutscene;
+
+    //if this npc spawns a battle set this here
+    public GameObject battleEnemy;
+
+    DialogueRunner dialogueRunner;
+
     public void Interact()
     {
+
+
         //check if we have a cutscene to load 
         if (cutscene != null)
         {
@@ -35,12 +40,28 @@ public class NPC : Entity, IInteractable
         FindObjectOfType<DialogueRunner>().StartDialogue(talkToNode);
     }
 
+
+    private void Awake()
+    {
+        dialogueRunner = FindObjectOfType<Yarn.Unity.DialogueRunner>();
+    }
     private void Start()
     {
         if (scriptToLoad != null)
         {
-            DialogueRunner dialogueRunner = FindObjectOfType<Yarn.Unity.DialogueRunner>();
-            dialogueRunner.Add(scriptToLoad);
+            try
+            {
+                dialogueRunner.AddCommandHandler("triggerBattle", triggerBattle);
+                //bruh why tf this borked
+                dialogueRunner.Add(scriptToLoad);
+            }
+            catch
+            {
+                Debug.LogWarning("o shit?");
+            }
+
+
+
         }
 
         cameraPositions = new Dictionary<string, CinemachineVirtualCamera>();
@@ -52,6 +73,8 @@ public class NPC : Entity, IInteractable
         }
 
         npcTextBox.transform.parent.gameObject.SetActive(false);
+
+
     }
 
     //text stuff
@@ -82,5 +105,29 @@ public class NPC : Entity, IInteractable
     {
         yield return new WaitForSeconds(2);
         npcTextBox.transform.parent.gameObject.SetActive(false);
+    }
+
+    public void triggerBattle(string[] parameters)
+    {
+        //launch a battle with the enemy 
+        Enemy enemy = battleEnemy.GetComponent<Enemy>();
+
+
+        if (battleEnemy != null)
+        {
+
+
+            //lock the players movement
+
+            InputHandler.current.LockPlayerMovement(true);
+            // UIManager.current.NPCNextTalk();
+            //end dialogue
+            SceneManage.current.TransitionToBattle(battleEnemy, enemy.battleTracks[UnityEngine.Random.Range(0, enemy.battleTracks.Length)]);
+
+        }
+        else
+        {
+            Debug.LogError("NO ENEMY IN NPC COMPONENT");
+        }
     }
 }

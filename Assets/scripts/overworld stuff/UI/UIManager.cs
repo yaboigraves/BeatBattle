@@ -59,10 +59,7 @@ public class UIManager : MonoBehaviour
 
         dialogueRunner.AddCommandHandler("applyMarkup", applyMarkup);
         dialogueRunner.AddCommandHandler("clearMarkup", clearMarkup);
-
-
         //init the power usage 
-
     }
 
     public void InitUIManager()
@@ -131,6 +128,8 @@ public class UIManager : MonoBehaviour
         FindObjectOfType<DialogueUI>().MarkLineComplete();
     }
 
+
+    //so this is causing bugs when an npc triggers a battle
     public void leaveDialogue()
     {
         dialogTextContainer.text = "";
@@ -139,11 +138,16 @@ public class UIManager : MonoBehaviour
         //turns off the priority of the main camera
         DialogCameraController.current.resetCamera();
 
-        //set the playercamera back top main priority
-        CameraManager.current.currentCamera.Priority = 15;
+        if (!SceneManage.current.inBattle)
+        {
 
-        //unlock player movement
-        InputHandler.current.LockPlayerMovement(false);
+            //set the playercamera back top main priority
+            CameraManager.current.currentCamera.Priority = 15;
+
+            //unlock player movement
+            InputHandler.current.LockPlayerMovement(false);
+        }
+
     }
 
     public void updateCurrentTrack(Track newTrack)
@@ -370,24 +374,17 @@ public class UIManager : MonoBehaviour
 
     public void OpenShop(Shop shop)
     {
-
         //lock player movement
         InputHandler.current.LockPlayerMovement(true);
-
 
         currentShop = shop;
 
         //update the player coins 
-
         UpdateShopCoins(GameManager.current.player.inventory.coins);
-
-
 
         shopCanvas.SetActive(true);
         //loop through the shopInventory and append prefabs to the list 
         UpdateShopInventory();
-
-
     }
 
     //this function just refreshes the shop inventory based on what's in the array/list of items

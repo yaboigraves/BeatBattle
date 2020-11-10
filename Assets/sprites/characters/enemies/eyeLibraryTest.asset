@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bf7c34a0dc4e6348bea04faa70406ee, type: 3}
+  m_Name: eyeLibraryTest
+  m_EditorClassIdentifier: 
+  m_Labels:
+  - m_Name: eyes
+    m_Hash: -1491454826
+    m_CategoryList:
+    - m_Name: open
+      m_Hash: -1536130140
+      m_Sprite: {fileID: 5147829890451070220, guid: f5ecb31998933414fb8a0aa35b7058ea,
+        type: 3}
+    - m_Name: closed
+      m_Hash: 80170468
+      m_Sprite: {fileID: 8945177959720696278, guid: 12e576c58b97526489b90c6e30875593,
+        type: 3}

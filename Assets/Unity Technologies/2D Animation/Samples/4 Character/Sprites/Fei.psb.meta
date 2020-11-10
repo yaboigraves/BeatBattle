@@ -309,6 +309,7 @@ ScriptedImporter:
     isReadable: 0
     streamingMipmaps: 1
     streamingMipmapsPriority: 0
+    vTOnly: 0
     nPOTScale: 1
     sRGBTexture: 1
     spriteMode: 2
@@ -327,6 +328,7 @@ ScriptedImporter:
     textureType: 8
     textureShape: 1
     singleChannelComponent: 0
+    ignorePngGamma: 0
     filterMode: 1
     aniso: 1
     mipBias: 0
@@ -346,6 +348,7 @@ ScriptedImporter:
     maxTextureSizeSet: 0
     compressionQualitySet: 0
     textureFormatSet: 0
+    applyGammaDecoding: 0
   spriteImportData:
   - name: 
     originalName: 
@@ -6443,49 +6446,6 @@ ScriptedImporter:
       order: 0
     dimension: {x: 0, y: 0}
     characterGroups: []
-  boneGOs:
-  - go: {fileID: 100022, guid: 629172793891c4bfea23e66eddf0a88b, type: 3}
-    index: 0
-  - go: {fileID: 100024, guid: 629172793891c4bfea23e66eddf0a88b, type: 3}
-    index: 1
-  - go: {fileID: 100026, guid: 629172793891c4bfea23e66eddf0a88b, type: 3}
-    index: 2
-  - go: {fileID: 100028, guid: 629172793891c4bfea23e66eddf0a88b, type: 3}
-    index: 3
-  - go: {fileID: 100030, guid: 629172793891c4bfea23e66eddf0a88b, type: 3}
-    index: 4
-  - go: {fileID: 100032, guid: 629172793891c4bfea23e66eddf0a88b, type: 3}
-    index: 5
-  - go: {fileID: 100034, guid: 629172793891c4bfea23e66eddf0a88b, type: 3}
-    index: 6
-  - go: {fileID: 100036, guid: 629172793891c4bfea23e66eddf0a88b, type: 3}
-    index: 7
-  - go: {fileID: 100038, guid: 629172793891c4bfea23e66eddf0a88b, type: 3}
-    index: 8
-  - go: {fileID: 100040, guid: 629172793891c4bfea23e66eddf0a88b, type: 3}
-    index: 9
-  - go: {fileID: 100042, guid: 629172793891c4bfea23e66eddf0a88b, type: 3}
-    index: 10
-  - go: {fileID: 100044, guid: 629172793891c4bfea23e66eddf0a88b, type: 3}
-    index: 11
-  - go: {fileID: 100046, guid: 629172793891c4bfea23e66eddf0a88b, type: 3}
-    index: 12
-  - go: {fileID: 100048, guid: 629172793891c4bfea23e66eddf0a88b, type: 3}
-    index: 13
-  - go: {fileID: 100050, guid: 629172793891c4bfea23e66eddf0a88b, type: 3}
-    index: 14
-  - go: {fileID: 100052, guid: 629172793891c4bfea23e66eddf0a88b, type: 3}
-    index: 15
-  - go: {fileID: 100054, guid: 629172793891c4bfea23e66eddf0a88b, type: 3}
-    index: 16
-  - go: {fileID: 100056, guid: 629172793891c4bfea23e66eddf0a88b, type: 3}
-    index: 17
-  - go: {fileID: 100058, guid: 629172793891c4bfea23e66eddf0a88b, type: 3}
-    index: 18
-  - go: {fileID: 100060, guid: 629172793891c4bfea23e66eddf0a88b, type: 3}
-    index: 19
-  - go: {fileID: 100062, guid: 629172793891c4bfea23e66eddf0a88b, type: 3}
-    index: 20
   generateGOHierarchy: 0
   textureAssetName: Fei
   prefabAssetName: Fei_GO

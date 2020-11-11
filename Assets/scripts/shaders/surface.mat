@@ -34,7 +34,7 @@ Material:
     - _SpecularFalloff: 0
     - _SpecularSize: 0
     - _StepAmount: 12
-    - _StepWidth: 0.1
+    - _StepWidth: 0.111
     m_Colors:
     - _Color: {r: 0.27647737, g: 0.46720153, b: 0.5377358, a: 1}
     - _Emission: {r: 0.0007467831, g: 0.0006778493, b: 0, a: 1}

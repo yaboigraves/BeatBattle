@@ -14,12 +14,12 @@ public class EnemyMove : Entity
     public Transform[] patrolRoute;
     public float patrolTolerance = 0.3f;
     int currentPatrol = 0;
-    public NavMeshAgent agent;
+    NavMeshAgent agent;
 
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
+        animator = transform.GetComponentInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();
         if (patrolRoute.Length > 1)
         {
@@ -34,7 +34,7 @@ public class EnemyMove : Entity
         //TODO: hacky short fix
         if (!SceneManage.current.inBattle)
         {
-            if (chasingPlayer && !SceneManage.current.inBattle)
+            if (agent.isOnNavMesh && chasingPlayer && !SceneManage.current.inBattle)
             {
                 //transform.position = Vector3.MoveTowards(transform.position, playerPos.position, speed * Time.deltaTime);
                 agent.SetDestination(playerPos.position);
@@ -48,7 +48,7 @@ public class EnemyMove : Entity
             else if (!idle)
             {
                 animator.SetBool("isMoving", true);
-                if (agent.remainingDistance < agent.stoppingDistance)
+                if (agent.isOnNavMesh && agent.remainingDistance < agent.stoppingDistance)
                 {
                     //we need to go to the next spot in the patrol route
 

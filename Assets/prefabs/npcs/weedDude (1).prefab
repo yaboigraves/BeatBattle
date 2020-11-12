@@ -414,7 +414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a158daae10d9464689dd5ba6f81e06d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nPC: {fileID: 0}
+  nPC: {fileID: 6322460233993330122}
 --- !u!1 &4842743977678858715
 GameObject:
   m_ObjectHideFlags: 0
@@ -780,6 +780,7 @@ GameObject:
   - component: {fileID: 6322460233993330132}
   - component: {fileID: 6322460233993330122}
   - component: {fileID: 6322460233993330123}
+  - component: {fileID: 2093449062593822505}
   m_Layer: 0
   m_Name: weedDude (1)
   m_TagString: Untagged
@@ -921,6 +922,7 @@ MonoBehaviour:
   greetingText: Yo dude!
   goodbyeText: Peace Peace Dawg.
   cutscene: {fileID: 0}
+  battleEnemy: {fileID: 0}
 --- !u!65 &6322460233993330123
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -934,6 +936,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 8.252883, y: 6.1787734, z: 0.2}
   m_Center: {x: -0.31258154, y: 0.6053736, z: 0}
+--- !u!210 &2093449062593822505
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6322460233993330133}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &6322460234150061863
 GameObject:
   m_ObjectHideFlags: 0

@@ -6337,7 +6337,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 881023034}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 16.550001, y: 7.9, z: -5.2599998}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 300009356}
@@ -6368,7 +6368,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 40
+  field of view: 47
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -13931,7 +13931,12 @@ PrefabInstance:
         type: 3}
       propertyPath: cinemachineBrain
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 881023035}
+    - target: {fileID: 1176327977657843116, guid: 10dca7cbc57b6954289deabfbc3d0cdf,
+        type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 881023038}
     - target: {fileID: 1176327977657843117, guid: 10dca7cbc57b6954289deabfbc3d0cdf,
         type: 3}
       propertyPath: m_LocalPosition.x

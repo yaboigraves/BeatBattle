@@ -101,13 +101,14 @@ public class InputHandler : MonoBehaviour
 
 
             //check for flips
+            //TODO: fix this so its uniform
             if (Input.GetKeyDown(KeyCode.D))
             {
-                player.flip(0);
+                player.flip(0.2f);
             }
             else if (Input.GetKeyDown(KeyCode.A))
             {
-                player.flip(180);
+                player.flip(-0.2f);
             }
         }
 

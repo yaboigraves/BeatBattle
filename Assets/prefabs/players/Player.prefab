@@ -6234,6 +6234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f5fcab5c766dbe41a55738902fefe2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteContainer: {fileID: 1944790142945810907}
   footDust: {fileID: 7067901319407065426}
   playerRoot: {fileID: 3126388464040287878}
   rb: {fileID: 8796179302061234379}

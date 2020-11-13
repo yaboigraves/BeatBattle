@@ -9,6 +9,10 @@ public class Entity : MonoBehaviour
 
 
     //this will probably need some refinement
+
+    //TODO: make entities enable shadows cast on their sprite renderers by default
+
+
     public GameObject spriteContainer;
 
     private void Start()

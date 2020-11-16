@@ -6180,6 +6180,7 @@ GameObject:
   - component: {fileID: 5122287838450495549}
   - component: {fileID: 3195855955633630875}
   - component: {fileID: 2855622435184960728}
+  - component: {fileID: 6092002489857706678}
   m_Layer: 12
   m_Name: Player
   m_TagString: Player
@@ -6287,6 +6288,7 @@ MonoBehaviour:
   inventory: {fileID: 5122287838450495549}
   homieObj: {fileID: 2898552078886871598, guid: 917abda343f9ad64bbebd210eac652aa,
     type: 3}
+  homie: {fileID: 0}
   pickupItemCam: {fileID: 5338445408390812106}
 --- !u!136 &2855622435184960728
 CapsuleCollider:
@@ -6302,6 +6304,24 @@ CapsuleCollider:
   m_Height: 3
   m_Direction: 1
   m_Center: {x: 0, y: 1.5, z: 0}
+--- !u!114 &6092002489857706678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8796179302061234381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e33f2abeade6a948b882d928bd48d8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  jumpVelocity: 8
+  fallMultiplier: 3
+  lowJumpMultiplier: 2.5
+  gravityScale: 1
+  globalGravity: -9.81
 --- !u!1001 &107852678600366526
 PrefabInstance:
   m_ObjectHideFlags: 0

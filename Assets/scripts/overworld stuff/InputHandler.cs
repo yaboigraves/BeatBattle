@@ -11,6 +11,7 @@ public class InputHandler : MonoBehaviour
     //note: we cant actually do this player variable here the reference might get broke
     //just look to the gaem manager
     public Player player;
+    PlayerMove playerMove;
 
 
     //tracks whether the player can move or not
@@ -37,10 +38,14 @@ public class InputHandler : MonoBehaviour
     void Start()
     {
         player = GameManager.current.playerObj.GetComponentInChildren<Player>();
+
+        playerMove = player.gameObject.GetComponent<PlayerMove>();
         if (player == null)
         {
             print("ERROR : INPUT HANDLER PLAYER REFERENCE BROKEN");
         }
+
+
     }
 
     void Update()
@@ -97,7 +102,7 @@ public class InputHandler : MonoBehaviour
             //print("sending a move");
             Vector3 deltaPos = new Vector3(horizontalIn, 0, verticalIn);
             //player.Move(deltaPos);
-            player.inputMoveCommand(deltaPos);
+            playerMove.inputMoveCommand(deltaPos);
 
 
             //check for flips
@@ -118,7 +123,7 @@ public class InputHandler : MonoBehaviour
         if (Input.GetButtonDown("Jump") && player.playerRoot.onGround && !playerMovementLocked)
         {
             // rb.velocity = new Vector3(rb.velocity.x, jumpVelocity, rb.velocity.z);
-            player.jump();
+            playerMove.jump();
 
         }
 

@@ -115,8 +115,6 @@ public class NPC : Entity, IInteractable
 
         if (battleEnemy != null)
         {
-
-
             //lock the players movement
 
             InputHandler.current.LockPlayerMovement(true);

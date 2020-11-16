@@ -29,6 +29,15 @@ public class GameManager : MonoBehaviour
                 //to actually be the INSTANCE of the prefab object NOT the prefab itself
                 //all this does is replace the referenced prefab with this particular INSTANCE of the prefab
                 playerObj = Instantiate(playerObj);
+                //move the player to a spawner if one exists
+                Transform spawnPos = GameObject.FindGameObjectWithTag("playerSpawn").transform;
+
+                if (spawnPos)
+                {
+                    playerObj.transform.position = spawnPos.position;
+                }
+
+
             }
             input = GetComponent<InputHandler>();
         }

@@ -7,36 +7,20 @@ public class Player : Entity
     public ParticleSystem footDust;
     public PlayerRootCollider playerRoot;
     public Rigidbody rb;
-
     public int maxHealth, health;
-    public float speed;
     public InteractRange interactRange;
     public bool inBattle;
     float horizontalIn;
     float verticalIn;
     public bool inDialogue, inShop;
-
-    [Range(1, 100)]
-    public float jumpVelocity;
-    public float fallMultiplier = 2.5f;
-    public float lowJumpMultiplier = 2f;
-    public float gravityScale = 1;
-    public float globalGravity = -1.81f;
     Vector3 deltaPos;
     public Transform spriteHolder;
-
     public BattleRangeChecker battleRangeChecker;
-
     public PlayerInventory inventory;
-
-
     // Start is called before the first frame update
-
     public GameObject homieObj;
-    Homie homie;
-
+    public Homie homie;
     public Cinemachine.CinemachineVirtualCamera pickupItemCam;
-
 
     void Start()
     {
@@ -54,8 +38,6 @@ public class Player : Entity
         inventory = GetComponent<PlayerInventory>();
 
         LoadHomie();
-
-
     }
 
     public void LoadHomie()
@@ -70,24 +52,10 @@ public class Player : Entity
         InputHandler.current.LockPlayerMovement(true);
     }
 
-
-    public void inputMoveCommand(Vector3 deltaPos)
-    {
-        this.deltaPos = deltaPos;
-    }
-
-    public void Move(Vector3 deltaPos)
-    {
-        deltaPos *= (speed * Time.fixedDeltaTime);
-        rb.MovePosition(transform.position + deltaPos);
-        //transform.position = Vector3.MoveTowards(transform.position, transform.position + deltaPos, 0.1f);
-    }
-
     public void enterDialogue()
     {
         inDialogue = true;
         InputHandler.current.LockPlayerMovement(true);
-
     }
 
     public void leaveDialogue()
@@ -103,32 +71,6 @@ public class Player : Entity
     }
 
 
-    private void FixedUpdate()
-    {
-
-        Move(deltaPos);
-
-        //better jump code
-        if (rb.velocity.y < 0)
-        {
-            //rb.velocity += new Vector3(rb.velocity.x, Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime, rb.velocity.z);
-            gravityScale = fallMultiplier;
-        }
-        else if (rb.velocity.y > 0 && !Input.GetButton("Jump"))
-        {
-            //rb.velocity += new Vector3(rb.velocity.x, Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime, rb.velocity.z);
-            gravityScale = lowJumpMultiplier;
-        }
-        else
-        {
-            gravityScale = 1;
-        }
-
-        //custom gravity
-        Vector3 gravity = globalGravity * gravityScale * Vector3.up;
-        rb.AddForce(gravity, ForceMode.Acceleration);
-    }
-
     public void clearObjectsInRange()
     {
         for (int i = 0; i < interactRange.objectsInRange.Count; i++)
@@ -141,14 +83,14 @@ public class Player : Entity
     }
 
     //controls stuff 
-    public void jump()
-    {
-        rb.AddForce(new Vector3(rb.velocity.x, jumpVelocity, rb.velocity.z), ForceMode.Impulse);
-        CreateDust();
+    // public void jump()
+    // {
+    //     rb.AddForce(new Vector3(rb.velocity.x, jumpVelocity, rb.velocity.z), ForceMode.Impulse);
+    //     CreateDust();
 
-        //also tell the homie to jump
-        homie.jump(new Vector3(rb.velocity.x, jumpVelocity, rb.velocity.z));
-    }
+    //     //also tell the homie to jump
+    //     homie.jump(new Vector3(rb.velocity.x, jumpVelocity, rb.velocity.z));
+    // }
 
     public void flip(float rotation)
     {
@@ -158,7 +100,7 @@ public class Player : Entity
     }
 
 
-    void CreateDust()
+    public void CreateDust()
     {
         footDust.Play();
     }

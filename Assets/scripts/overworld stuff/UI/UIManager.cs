@@ -305,7 +305,7 @@ public class UIManager : MonoBehaviour
         trackName.text = track.itemName;
         trackArtist.text = track.artist;
         trackDescription.text = "this is a placeholder track description";
-        trackVibeInfo.text = track.trackStats.vibePerHit.ToString();
+        trackVibeInfo.text = "Vibe : " + track.trackStats.vibePerHit.ToString();
     }
 
     public void ResetTrack()

@@ -6273,16 +6273,10 @@ MonoBehaviour:
   rb: {fileID: 8796179302061234379}
   maxHealth: 5
   health: 5
-  speed: 10
   interactRange: {fileID: 8796179301883559383}
   inBattle: 0
   inDialogue: 0
   inShop: 0
-  jumpVelocity: 8
-  fallMultiplier: 3
-  lowJumpMultiplier: 2.5
-  gravityScale: 1
-  globalGravity: -9.81
   spriteHolder: {fileID: 0}
   battleRangeChecker: {fileID: 3292425265038948178}
   inventory: {fileID: 5122287838450495549}
@@ -6300,7 +6294,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 1
+  m_Radius: 1.5
   m_Height: 3
   m_Direction: 1
   m_Center: {x: 0, y: 1.5, z: 0}

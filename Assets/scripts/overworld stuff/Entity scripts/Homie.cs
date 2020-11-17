@@ -90,6 +90,7 @@ public class Homie : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
             speed += Time.fixedDeltaTime;
         }
+
     }
 
     IEnumerator rampSpeedDown()
@@ -106,17 +107,23 @@ public class Homie : MonoBehaviour
     {
         FindObjectOfType<DialogueRunner>().StartDialogue(currentDialogueNode);
 
-
     }
 
     public void jump(Vector3 jumpForce)
     {
         rigidbody.AddForce(jumpForce, ForceMode.Impulse);
+
     }
+
+
+
 
     //if you get too far away
     public void TeleportToPlayer()
     {
         transform.position = player.transform.position;
+
     }
+
+
 }

@@ -688,7 +688,7 @@ GameObject:
   - component: {fileID: 552532933}
   - component: {fileID: 552532932}
   - component: {fileID: 552532931}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Van Placeholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -857,7 +857,7 @@ GameObject:
   - component: {fileID: 867584326}
   - component: {fileID: 867584325}
   - component: {fileID: 867584324}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -934,7 +934,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 867584323}
   m_LocalRotation: {x: 0.00021626375, y: 0.06959662, z: -0.0030998392, w: 0.9975704}
-  m_LocalPosition: {x: 77.2, y: 4.9, z: 136.6}
+  m_LocalPosition: {x: 77.2, y: 2.7, z: 136.6}
   m_LocalScale: {x: 15, y: 5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}

@@ -19,6 +19,13 @@ public class SceneManage : MonoBehaviour
 
     public DialogueRunner dialogueRunner;
 
+    public string currentSceneName;
+
+    //so this dictionary maps scene names to positions
+    //basically if you've visited a room before we need to store the position you left it in
+    //if you rejoin this room we ignore the playerspawn object and instead spawn you where this left you
+    public Dictionary<string, Vector3> sceneSpawnPositions;
+
     void Awake()
     {
         if (current == null)
@@ -30,13 +37,14 @@ public class SceneManage : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+
+        sceneSpawnPositions = new Dictionary<string, Vector3>();
     }
 
     void Start()
     {
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-
-
+        currentSceneName = SceneManager.GetActiveScene().name;
     }
     // Start is called before the first frame update
 
@@ -59,6 +67,7 @@ public class SceneManage : MonoBehaviour
 
     public void TransitionToBattle(GameObject enemy, Track battleTrack)
     {
+
         //lower the priority of the players camera
 
         inBattle = true;
@@ -102,9 +111,9 @@ public class SceneManage : MonoBehaviour
     public void LeaveBattle(bool playerWon)
     {
 
+
+
         //reset the players camera priority
-
-
 
         //reset the time scale 
         Time.timeScale = 1;
@@ -124,13 +133,15 @@ public class SceneManage : MonoBehaviour
         if (playerWon)
         {
             //todo: trigger death animation
+            //TODO: reimpliment after multi enemies battle are back in
+            // foreach (GameObject en in player.battleRangeChecker.enemiesInRange)
+            // {
+            //     Destroy(en);
+            // }
 
-            //this breaks if its a prefab, dont really need to do it cause the foreach will handle deletion
-            //Destroy(enemyInBattle.gameObject);
-            foreach (GameObject en in player.battleRangeChecker.enemiesInRange)
-            {
-                Destroy(en);
-            }
+            //player.battleRangeChecker.enemiesInRange.Clear();
+
+            Destroy(enemyInBattle);
         }
         else
         {
@@ -139,7 +150,7 @@ public class SceneManage : MonoBehaviour
         }
 
         //emppty out the players enemies in range variable 
-        player.battleRangeChecker.enemiesInRange.Clear();
+
         TrackManager.current.inBattle = false;
         TrackManager.current.playRandomBackgroundTrack();
 
@@ -155,8 +166,10 @@ public class SceneManage : MonoBehaviour
 
     }
 
-    public void loadInterior(string sceneName)
+    public void loadLevel(string sceneName, Vector3 loadPosition)
     {
+
+        sceneSpawnPositions[sceneName] = loadPosition;
 
         //wipe the screen
         if (UIManager.current == null)
@@ -167,7 +180,10 @@ public class SceneManage : MonoBehaviour
         UIManager.current.screenWipe();
 
         SceneManager.LoadScene(sceneName);
-        spawnPlayer();
+
+        //spawnPlayer();
+
+        currentSceneName = SceneManager.GetActiveScene().name;
     }
 
     public void spawnPlayer()

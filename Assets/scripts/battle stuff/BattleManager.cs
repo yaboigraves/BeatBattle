@@ -92,8 +92,6 @@ public class BattleManager : MonoBehaviour
             //grab the equipped gear from the player inventory
             LoadGear();
             LoadItems(GameManager.current.player.inventory.items);
-
-            //load the items from our inventory
         }
         changeTurn();
         firstTurn = false;

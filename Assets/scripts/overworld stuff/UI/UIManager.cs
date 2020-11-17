@@ -299,12 +299,13 @@ public class UIManager : MonoBehaviour
     }
 
     [Header("Track Inventory Stuff")]
-    public TextMeshProUGUI trackName, trackArtist, trackDescription;
+    public TextMeshProUGUI trackName, trackArtist, trackDescription, trackVibeInfo;
     public void SelectTrack(Track track)
     {
         trackName.text = track.itemName;
         trackArtist.text = track.artist;
         trackDescription.text = "this is a placeholder track description";
+        trackVibeInfo.text = "Vibe : " + track.trackStats.vibePerHit.ToString();
     }
 
     public void ResetTrack()

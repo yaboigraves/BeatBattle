@@ -66,10 +66,10 @@ public class CameraManager : MonoBehaviour
 
     public void updatePlayerCameraPriority(int newPrio)
     {
-        print("updating player camera priority!!!");
+        //print("updating player camera priority!!!");
         currentCamera.Priority = newPrio;
-        print("NEW CAMERA PRIORITY");
-        print(currentCamera.Priority);
+        //print("NEW CAMERA PRIORITY");
+        //print(currentCamera.Priority);
     }
 
 

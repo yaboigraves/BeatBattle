@@ -11,6 +11,7 @@ public class InputHandler : MonoBehaviour
     //note: we cant actually do this player variable here the reference might get broke
     //just look to the gaem manager
     public Player player;
+    PlayerMove playerMove;
 
 
     //tracks whether the player can move or not
@@ -37,10 +38,14 @@ public class InputHandler : MonoBehaviour
     void Start()
     {
         player = GameManager.current.playerObj.GetComponentInChildren<Player>();
+
+        playerMove = player.gameObject.GetComponent<PlayerMove>();
         if (player == null)
         {
             print("ERROR : INPUT HANDLER PLAYER REFERENCE BROKEN");
         }
+
+
     }
 
     void Update()
@@ -97,17 +102,17 @@ public class InputHandler : MonoBehaviour
             //print("sending a move");
             Vector3 deltaPos = new Vector3(horizontalIn, 0, verticalIn);
             //player.Move(deltaPos);
-            player.inputMoveCommand(deltaPos);
-
+            playerMove.inputMoveCommand(deltaPos);
 
             //check for flips
+            //TODO: fix this so its uniform
             if (Input.GetKeyDown(KeyCode.D))
             {
-                player.flip(0);
+                player.flip(1f);
             }
             else if (Input.GetKeyDown(KeyCode.A))
             {
-                player.flip(180);
+                player.flip(-1f);
             }
         }
 
@@ -117,7 +122,7 @@ public class InputHandler : MonoBehaviour
         if (Input.GetButtonDown("Jump") && player.playerRoot.onGround && !playerMovementLocked)
         {
             // rb.velocity = new Vector3(rb.velocity.x, jumpVelocity, rb.velocity.z);
-            player.jump();
+            playerMove.jump();
 
         }
 
@@ -154,7 +159,6 @@ public class InputHandler : MonoBehaviour
         {
             if (!player.inBattle && !player.inShop && !player.inBattle)
             {
-
                 //talk to the homie
                 if (!player.inDialogue)
                 {
@@ -166,7 +170,6 @@ public class InputHandler : MonoBehaviour
                 {
                     UIManager.current.NPCNextTalk();
                 }
-
             }
         }
 
@@ -188,12 +191,8 @@ public class InputHandler : MonoBehaviour
     {
         horizontalIn = 0;
         verticalIn = 0;
-        //print("PLAYER");
-        //print(player);
-        //player.ResetDeltaPos();
 
-        //maybe need to do this and reference the gm version cause our reference is broken
-        GameManager.current.player.ResetDeltaPos();
+        playerMove.ResetDeltaPos();
     }
 
     public void LockPlayerMovement(bool lockMove)

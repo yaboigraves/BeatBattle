@@ -9,7 +9,7 @@ public class Door : MonoBehaviour, IInteractable
     public void Interact()
     {
         GameManager.current.player.interactRange.objectsInRange.Clear();
-        SceneManage.current.loadInterior(goesToScene);
+        SceneManage.current.loadLevel(goesToScene, GameManager.current.player.transform.position);
 
     }
 }

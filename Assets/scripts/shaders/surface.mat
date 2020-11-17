@@ -20,7 +20,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: b235d3c511a2cb44ba5037dfeb2ddc6b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Ramp:
@@ -33,13 +33,13 @@ Material:
     - _SecondOutlineWidth: 0.15
     - _SpecularFalloff: 0
     - _SpecularSize: 0
-    - _StepAmount: 12
-    - _StepWidth: 0.111
+    - _StepAmount: 5
+    - _StepWidth: 0.369
     m_Colors:
-    - _Color: {r: 0.27647737, g: 0.46720153, b: 0.5377358, a: 1}
-    - _Emission: {r: 0.0007467831, g: 0.0006778493, b: 0, a: 1}
+    - _Color: {r: 0.373576, g: 0.6886792, b: 0.373576, a: 1}
+    - _Emission: {r: 0.38431373, g: 0.2882353, b: 0.18235295, a: 1}
     - _FirstOutlineColor: {r: 0, g: 0, b: 0, a: 0.5}
     - _SecondOutlineColor: {r: 0, g: 0, b: 0, a: 1}
-    - _ShadowTint: {r: 0.37447608, g: 0, b: 0.5660378, a: 1}
-    - _Specular: {r: 0.8039216, g: 0.7019608, b: 0.047058824, a: 1}
+    - _ShadowTint: {r: 0.066037714, g: 0.009684777, b: 0.004049484, a: 1}
+    - _Specular: {r: 0.4716981, g: 0.23655699, b: 0.12682448, a: 1}
   m_BuildTextureStacks: []

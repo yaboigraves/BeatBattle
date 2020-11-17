@@ -30,6 +30,7 @@ public class Enemy : MonoBehaviour
             track.kickBeats.indicatorPositions = Array.ConvertAll(track.kickBeats.indicatorData.Split(' '), float.Parse);
             track.snareBeats.indicatorPositions = Array.ConvertAll(track.snareBeats.indicatorData.Split(' '), float.Parse);
         }
+
     }
 
     private void OnCollisionEnter(Collision other)

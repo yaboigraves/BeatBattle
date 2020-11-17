@@ -12,7 +12,7 @@ Material:
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA PIXELSNAP_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
+  m_DoubleSidedGI: 1
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
@@ -62,7 +62,7 @@ Material:
     m_Floats:
     - PixelSnap: 1
     - _BumpScale: 1
-    - _Cutoff: 0.455
+    - _Cutoff: 0.528
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EnableExternalAlpha: 0

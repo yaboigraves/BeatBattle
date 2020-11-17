@@ -6,13 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/Scenes/testing levels/SampleScene.unity
     guid: 74fb8a5139f817544b38a2a8559dda8e
   - enabled: 1
     path: Assets/Scenes/BattleScene.unity
     guid: 22997d85aa6ae2343ae5a80ecd27d5e0
   - enabled: 1
-    path: Assets/Scenes/TestInterior.unity
+    path: Assets/Scenes/interiors/TestInterior.unity
     guid: c23dca5c324ffa645a1b33b6317e9299
   - enabled: 1
     path: Assets/Scenes/demo/demoScene1.unity
@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: Assets/Scenes/demo/demoScene2.unity
     guid: d6a3a29b53b2f0e419ef37935857e764
   - enabled: 1
-    path: Assets/Scenes/Shop.unity
+    path: Assets/Scenes/interiors/Shop.unity
     guid: e45b9facfa586c946b49b34a42c29d37
   - enabled: 1
     path: Assets/Scenes/demo/desertBase.unity

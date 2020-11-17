@@ -104,7 +104,6 @@ public class InputHandler : MonoBehaviour
             //player.Move(deltaPos);
             playerMove.inputMoveCommand(deltaPos);
 
-
             //check for flips
             //TODO: fix this so its uniform
             if (Input.GetKeyDown(KeyCode.D))
@@ -160,7 +159,6 @@ public class InputHandler : MonoBehaviour
         {
             if (!player.inBattle && !player.inShop && !player.inBattle)
             {
-
                 //talk to the homie
                 if (!player.inDialogue)
                 {
@@ -172,7 +170,6 @@ public class InputHandler : MonoBehaviour
                 {
                     UIManager.current.NPCNextTalk();
                 }
-
             }
         }
 
@@ -194,12 +191,8 @@ public class InputHandler : MonoBehaviour
     {
         horizontalIn = 0;
         verticalIn = 0;
-        //print("PLAYER");
-        //print(player);
-        //player.ResetDeltaPos();
 
-        //maybe need to do this and reference the gm version cause our reference is broken
-        GameManager.current.player.ResetDeltaPos();
+        playerMove.ResetDeltaPos();
     }
 
     public void LockPlayerMovement(bool lockMove)

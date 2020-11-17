@@ -62,6 +62,11 @@ public class PlayerMove : MonoBehaviour
         this.deltaPos = deltaPos;
     }
 
+    public void ResetDeltaPos()
+    {
+        deltaPos = Vector3.zero;
+    }
+
     private void FixedUpdate()
     {
 

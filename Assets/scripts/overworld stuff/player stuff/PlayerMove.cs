@@ -29,6 +29,10 @@ public class PlayerMove : MonoBehaviour
     public void Move(Vector3 deltaPos)
     {
 
+        //normalize the deltaPos 
+
+        deltaPos = deltaPos.normalized;
+
         deltaPos *= (speed * Time.fixedDeltaTime);
 
         //check if this movement would collide us with a wall or something

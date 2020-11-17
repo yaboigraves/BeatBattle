@@ -14,6 +14,8 @@ public class PlayerMove : MonoBehaviour
     public float gravityScale = 1;
     public float globalGravity = -1.81f;
 
+    public float canMoveRayRange = 0.5f;
+
     Player player;
     Vector3 deltaPos;
     void Start()
@@ -26,8 +28,28 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     public void Move(Vector3 deltaPos)
     {
+
         deltaPos *= (speed * Time.fixedDeltaTime);
-        rb.MovePosition(transform.position + deltaPos);
+
+        //check if this movement would collide us with a wall or something
+        //probably need some kind of layer solution for this, certain objects will block movement
+        //this means no sliding on spaces but who cares really?
+
+        bool canMove = true;
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, deltaPos, out hit, canMoveRayRange))
+        {
+            if (hit.collider.gameObject.layer == 13)
+            {
+                canMove = false;
+            }
+        }
+
+        if (canMove)
+        {
+            rb.MovePosition(transform.position + deltaPos);
+        }
+
         //transform.position = Vector3.MoveTowards(transform.position, transform.position + deltaPos, 0.1f);
     }
 
@@ -38,6 +60,7 @@ public class PlayerMove : MonoBehaviour
 
     private void FixedUpdate()
     {
+
 
         Move(deltaPos);
 

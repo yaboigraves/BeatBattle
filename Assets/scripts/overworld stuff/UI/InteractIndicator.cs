@@ -11,6 +11,7 @@ public class InteractIndicator : MonoBehaviour
     private void Start()
     {
         indicator = transform.GetComponentInChildren<Image>();
+        indicator.CrossFadeAlpha(0, 0.001f, true);
     }
 
     void ToggleIndicator(bool toggle)
@@ -24,8 +25,6 @@ public class InteractIndicator : MonoBehaviour
             indicator.CrossFadeAlpha(0, 1, true);
 
         }
-
-
     }
 
     private void OnTriggerEnter(Collider other)

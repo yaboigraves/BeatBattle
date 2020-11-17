@@ -19,6 +19,13 @@ public class SceneManage : MonoBehaviour
 
     public DialogueRunner dialogueRunner;
 
+    public string currentSceneName;
+
+    //so this dictionary maps scene names to positions
+    //basically if you've visited a room before we need to store the position you left it in
+    //if you rejoin this room we ignore the playerspawn object and instead spawn you where this left you
+    public Dictionary<string, Vector3> sceneSpawnPositions;
+
     void Awake()
     {
         if (current == null)
@@ -30,13 +37,14 @@ public class SceneManage : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+
+        sceneSpawnPositions = new Dictionary<string, Vector3>();
     }
 
     void Start()
     {
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-
-
+        currentSceneName = SceneManager.GetActiveScene().name;
     }
     // Start is called before the first frame update
 
@@ -158,8 +166,10 @@ public class SceneManage : MonoBehaviour
 
     }
 
-    public void loadInterior(string sceneName)
+    public void loadLevel(string sceneName, Vector3 loadPosition)
     {
+
+        sceneSpawnPositions[sceneName] = loadPosition;
 
         //wipe the screen
         if (UIManager.current == null)
@@ -170,7 +180,10 @@ public class SceneManage : MonoBehaviour
         UIManager.current.screenWipe();
 
         SceneManager.LoadScene(sceneName);
-        spawnPlayer();
+
+        //spawnPlayer();
+
+        currentSceneName = SceneManager.GetActiveScene().name;
     }
 
     public void spawnPlayer()

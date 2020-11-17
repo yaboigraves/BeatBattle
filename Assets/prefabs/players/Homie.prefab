@@ -224,13 +224,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fb3b0cabc247424fb81998ca94406a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteContainer: {fileID: 7494014471389422507}
+  facingDirection: 1
   player: {fileID: 0}
-  stoppingDistance: 4
+  stoppingDistance: 5
+  maxPlayerDistance: 15
+  acceleration: 50
+  deceleration: 30
   currentDialogue: {fileID: 2480198943629176163, guid: 411ded0e6ea1e2f4d818c8db36fac6e9,
     type: 3}
   currentDialogueNode: testHomie
   speed: 0
-  maxSpeed: 5
+  maxSpeed: 10.5
 --- !u!54 &7794925736078813202
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -393,6 +398,7 @@ GameObject:
   - component: {fileID: 7922088825666036770}
   - component: {fileID: 7217594289615625871}
   - component: {fileID: 6670324283649512247}
+  - component: {fileID: 2099004811293648834}
   m_Layer: 11
   m_Name: SpriteStuff
   m_TagString: Untagged
@@ -511,3 +517,14 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!210 &2099004811293648834
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7494014471389422507}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0

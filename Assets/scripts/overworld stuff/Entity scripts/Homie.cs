@@ -4,11 +4,13 @@ using UnityEngine;
 using UnityEngine.AI;
 using Yarn.Unity;
 
-public class Homie : MonoBehaviour
+public class Homie : Entity
 {
     NavMeshAgent navAgent;
     public Player player;
-    public float stoppingDistance = 3;
+    public float stoppingDistance = 3, maxPlayerDistance = 15;
+
+    public float acceleration, deceleration;
 
     //so this needs to get updated depending on where we are
     public YarnProgram currentDialogue;
@@ -53,69 +55,115 @@ public class Homie : MonoBehaviour
     void FixedUpdate()
     {
 
-        if (Vector3.Distance(transform.position, player.transform.position) < stoppingDistance)
+        // if (Vector3.Distance(transform.position, player.transform.position) < stoppingDistance)
+        // {
+        //     rampingUp = false;
+        //     if (!rampingDown)
+        //     {
+        //         StopAllCoroutines();
+        //         StartCoroutine(rampSpeedDown());
+        //         rampingDown = true;
+        //     }
+
+
+        // }
+        // else
+        // {
+        //     rampingDown = false;
+        //     if (!rampingUp)
+        //     {
+        //         StopAllCoroutines();
+        //         StartCoroutine(rampSpeedUp());
+        //         rampingUp = true;
+        //     }
+
+        // }
+
+        // Vector3 direction = Vector3.MoveTowards(transform.position, player.transform.position, speed);
+        // rigidbody.MovePosition(direction);
+
+        //going to try and rewrite this to be a little less spammy
+        //dont really need any physics stuff so we're just gonna translate this bad boy
+
+        if (Vector3.Distance(transform.position, player.transform.position) > maxPlayerDistance)
         {
-            rampingUp = false;
-            if (!rampingDown)
+            //teleport to the player
+            transform.position = player.transform.position - Vector3.left;
+        }
+
+
+
+
+        //so if the distance between us and the player is larger than the stopping distance
+        //1.ramp up the speed to move towards them if its not at its max already 
+
+        //if the player is within range ramp the speed down
+
+        if (Vector3.Distance(transform.position, player.transform.position) > stoppingDistance)
+        {
+            //check if our currentSpeed has ramped up to the correct speed
+
+            if (speed <= maxSpeed)
             {
-                StopAllCoroutines();
-                StartCoroutine(rampSpeedDown());
-                rampingDown = true;
+                speed = speed + acceleration * Time.deltaTime;
             }
 
+            //figure out the direction we should be moving
 
         }
         else
         {
-            rampingDown = false;
-            if (!rampingUp)
+            if (speed > deceleration * Time.deltaTime)
             {
-                StopAllCoroutines();
-                StartCoroutine(rampSpeedUp());
-                rampingUp = true;
+                speed = speed - deceleration * Time.deltaTime;
             }
-
+            else
+            {
+                speed = 0;
+            }
         }
 
-        Vector3 direction = Vector3.MoveTowards(transform.position, player.transform.position, speed);
-        rigidbody.MovePosition(direction);
-
-    }
-
-    IEnumerator rampSpeedUp()
-    {
-        //the maxspeed should be the players max speed
-        while (speed < maxSpeed)
+        if (speed > 0)
         {
-            yield return new WaitForSeconds(0.1f);
-            speed += Time.fixedDeltaTime;
-        }
 
+            Vector3 dir = (player.transform.position - transform.position).normalized;
+            checkFlip(dir.x);
+            dir.y = 0;
+            transform.Translate(dir * speed * Time.deltaTime);
+        }
     }
 
-    IEnumerator rampSpeedDown()
-    {
-        while (speed > 0)
-        {
-            yield return new WaitForSeconds(0.1f);
-            speed -= Time.fixedDeltaTime;
-        }
-        speed = 0;
-    }
 
     public void TalkToHomie()
     {
         FindObjectOfType<DialogueRunner>().StartDialogue(currentDialogueNode);
-
     }
 
     public void jump(Vector3 jumpForce)
     {
         rigidbody.AddForce(jumpForce, ForceMode.Impulse);
-
     }
 
-
+    void checkFlip(float dX)
+    {
+        if (dX > 0)
+        {
+            //going right
+            if (facingDirection != 1)
+            {
+                facingDirection = 1;
+                StartCoroutine(LerpToScale(1, 0.1f, 0));
+            }
+        }
+        else
+        {
+            if (facingDirection != -1)
+            {
+                facingDirection = -1;
+                StartCoroutine(LerpToScale(-1, 0.1f, 0));
+            }
+        }
+    }
 
 
     //if you get too far away
@@ -124,6 +172,4 @@ public class Homie : MonoBehaviour
         transform.position = player.transform.position;
 
     }
-
-
 }

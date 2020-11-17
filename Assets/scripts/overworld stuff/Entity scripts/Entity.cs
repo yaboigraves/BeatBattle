@@ -7,18 +7,17 @@ public class Entity : MonoBehaviour
     //anything that moves uses this
     //for now its just got lerp to rotation but alot of interact range stuff can be handled in here possibly too
 
-
     //this will probably need some refinement
 
     //TODO: make entities enable shadows cast on their sprite renderers by default
-
-
     public GameObject spriteContainer;
+    public int facingDirection = 1;
 
     private void Start()
     {
         spriteContainer = transform.GetComponentInChildren<SpriteRenderer>().gameObject;
     }
+
     public IEnumerator LerpToRotation(float endRotation, float time, float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -61,5 +60,6 @@ public class Entity : MonoBehaviour
 
         spriteContainer.transform.localScale = new Vector3(endScale, 1, 1);
 
+        facingDirection = (int)endScale;
     }
 }

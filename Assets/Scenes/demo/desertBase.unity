@@ -783,6 +783,11 @@ PrefabInstance:
       propertyPath: m_ScreenY
       value: 0.83
       objectReference: {fileID: 0}
+    - target: {fileID: 7024526367560965560, guid: a92bfd9078e86ed4b995a40da7b64fd3,
+        type: 3}
+      propertyPath: m_DeadZoneDepth
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7024526367578221794, guid: a92bfd9078e86ed4b995a40da7b64fd3,
         type: 3}
       propertyPath: m_Name

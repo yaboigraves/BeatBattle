@@ -6,7 +6,6 @@ public class PlayerSpawner : MonoBehaviour
 {
     //so we do need one of these in every scene now
     GameObject player;
-    //:)
     private void Start()
     {
         //check and see if theres a different spawn position set via the scene manager

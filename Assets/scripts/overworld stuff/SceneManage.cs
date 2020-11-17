@@ -59,6 +59,7 @@ public class SceneManage : MonoBehaviour
 
     public void TransitionToBattle(GameObject enemy, Track battleTrack)
     {
+
         //lower the priority of the players camera
 
         inBattle = true;
@@ -102,9 +103,9 @@ public class SceneManage : MonoBehaviour
     public void LeaveBattle(bool playerWon)
     {
 
+
+
         //reset the players camera priority
-
-
 
         //reset the time scale 
         Time.timeScale = 1;
@@ -124,13 +125,15 @@ public class SceneManage : MonoBehaviour
         if (playerWon)
         {
             //todo: trigger death animation
+            //TODO: reimpliment after multi enemies battle are back in
+            // foreach (GameObject en in player.battleRangeChecker.enemiesInRange)
+            // {
+            //     Destroy(en);
+            // }
 
-            //this breaks if its a prefab, dont really need to do it cause the foreach will handle deletion
-            //Destroy(enemyInBattle.gameObject);
-            foreach (GameObject en in player.battleRangeChecker.enemiesInRange)
-            {
-                Destroy(en);
-            }
+            //player.battleRangeChecker.enemiesInRange.Clear();
+
+            Destroy(enemyInBattle);
         }
         else
         {
@@ -139,7 +142,7 @@ public class SceneManage : MonoBehaviour
         }
 
         //emppty out the players enemies in range variable 
-        player.battleRangeChecker.enemiesInRange.Clear();
+
         TrackManager.current.inBattle = false;
         TrackManager.current.playRandomBackgroundTrack();
 

@@ -39,6 +39,11 @@ public class Pad : MonoBehaviour
 
                 if (indic.indicatorType == "Heady")
                 {
+
+                    print("you hit on a green note");
+
+                    //in order not to trigger an ontriggerexit we need to set the type not to heady anymore
+                    indic.indicatorType = "";
                     BattleManager.current.processPadHit(false);
                 }
                 else

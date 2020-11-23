@@ -169,9 +169,7 @@ public class BattleUIManager : MonoBehaviour
 
     }
 
-
     //battle icon shit
-
 
     public GameObject itemIcon, gearIconContainer;
 
@@ -192,7 +190,6 @@ public class BattleUIManager : MonoBehaviour
         }
 
     }
-
 
     //when a gear effect is called and enabled we go through the icons and find the one we need to turn on
     public void ToggleUiIconBorder(string functionName, bool toggle)

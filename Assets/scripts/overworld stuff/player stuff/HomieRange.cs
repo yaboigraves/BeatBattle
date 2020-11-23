@@ -12,8 +12,9 @@ public class HomieRange : MonoBehaviour
         //homie = transform.parent.GetComponent<Homie>();
     }
 
-    private void Update()
+    private void LateUpdate()
     {
+
         if (Mathf.Abs(Vector3.Distance(transform.position, homie.player.transform.position)) >= playerTolerance)
         {
             homie.TeleportToPlayer();

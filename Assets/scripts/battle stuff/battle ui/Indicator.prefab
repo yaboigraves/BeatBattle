@@ -99,6 +99,9 @@ MonoBehaviour:
   bpm: 88
   moveSpeed: 0
   beatOfThisNote: 0
+  attackOrDefend: 0
+  indicatorType: 
+  sprite: {fileID: 2797802640930910}
 --- !u!61 &18888683312364883
 BoxCollider2D:
   m_ObjectHideFlags: 0

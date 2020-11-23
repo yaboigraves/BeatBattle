@@ -16,7 +16,6 @@ public class BattleManager : MonoBehaviour
     //battle ui obkjects 
     public Transform indicators;
 
-
     [Header("UI Stuff")]
     public GameObject indicatorContainer;
     public GameObject indicator;
@@ -24,8 +23,6 @@ public class BattleManager : MonoBehaviour
     public GameObject bar;
     public Gear testGear;
     public Item[] testItems;
-
-
     bool firstTurn = true;
     //this variable keeps track of whether or not the player or the enemy did the first attack
     //vibe bar stuff 
@@ -33,8 +30,6 @@ public class BattleManager : MonoBehaviour
     int maxVibe = 50, minVibe = -50;
 
     public float barsPerTurn = 2;
-
-
 
 
     //list of delegates for the gear effects
@@ -115,6 +110,8 @@ public class BattleManager : MonoBehaviour
 
 
     GameObject lastIndicatorContainer;
+
+    //TODO: add colors to indicators
     public void setupTurnIndicators(Track newTrack)
     {
 
@@ -148,14 +145,55 @@ public class BattleManager : MonoBehaviour
             //each unit is 1 bar 
             //therefore we need to start the next batck of indicators at wherever the loop ends
             //probablyh easiest for now just to bake the length of the loop into the track object 
-            Instantiate(indicator, kickPos, Quaternion.identity, indicContainer.transform.GetChild(0));
+            GameObject indic = Instantiate(indicator, kickPos, Quaternion.identity, indicContainer.transform.GetChild(0));
+            //check who's turn it is 
 
+            if (playerTurn)
+            {
+                indic.GetComponent<SpriteRenderer>().color = Color.red;
+            }
+            else
+            {
+                indic.GetComponent<SpriteRenderer>().color = Color.blue;
+            }
         }
 
         for (int i = 0; i < track.snareBeats.indicatorPositions.Length; i++)
         {
             Vector3 kickPos = new Vector3(1, 0 + 100 + (track.snareBeats.indicatorPositions[i]), 0);
-            Instantiate(indicator, kickPos, Quaternion.identity, indicContainer.transform.GetChild(0));
+            GameObject indic = Instantiate(indicator, kickPos, Quaternion.identity, indicContainer.transform.GetChild(0));
+
+            //check who's turn it is 
+
+            if (playerTurn)
+            {
+                //so now check if we should make this track a unique indicator depending on the type of the current track
+
+                if (track.trackStats.trackVibe.ToString() == "Heady")
+                {
+                    //1 in 4 will be green 
+                    int r = Random.Range(0, 4);
+                    if (r == 0)
+                    {
+                        indic.GetComponent<SpriteRenderer>().color = Color.green;
+                    }
+                    else
+                    {
+                        indic.GetComponent<SpriteRenderer>().color = Color.red;
+
+                    }
+
+                }
+                else
+                {
+                    indic.GetComponent<SpriteRenderer>().color = Color.red;
+                }
+
+            }
+            else
+            {
+                indic.GetComponent<SpriteRenderer>().color = Color.blue;
+            }
         }
 
         lastIndicatorContainer = indicContainer;

@@ -17,6 +17,8 @@ public class Track : GameItem
     public IndicatorData snareBeats;
 
 
+
+
     public TrackStats trackStats;
 
     //public List<float> kickBeats = new List<float>();
@@ -53,7 +55,13 @@ public class IndicatorData
 public struct TrackStats
 {
     //heat or chill
-    public string trackVibe;
+    public enum vibeType
+    {
+        Heady,
+        Chill
+    };
+
+    public vibeType trackVibe;
 
     public int vibePerHit;
 }

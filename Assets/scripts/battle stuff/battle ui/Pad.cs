@@ -29,23 +29,29 @@ public class Pad : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (Input.GetKeyDown(binding) || MidiJack.MidiMaster.GetKeyDown(midiKeyNum))
         {
-
             //DebugManager.current.print("pad pressed " + midiKeyNum);
             if (indicator != null)
             {
                 //print("hit");
-                BattleManager.current.processPadHit(true);
-                Destroy(indicator);
+                Indicator indic = indicator.GetComponent<Indicator>();
 
+                if (indic.indicatorType == "Heady")
+                {
+                    BattleManager.current.processPadHit(false);
+                }
+                else
+                {
+                    BattleManager.current.processPadHit(true);
+                }
+
+                Destroy(indicator);
             }
             else
             {
                 //print("miss");
                 BattleManager.current.processPadHit(false);
-
             }
         }
     }
@@ -62,6 +68,16 @@ public class Pad : MonoBehaviour
     {
         if (other.gameObject.tag == "indicator")
         {
+            //check if its a heady note 
+
+            if (other.gameObject.GetComponent<Indicator>().indicatorType == "Heady")
+            {
+                //if its a heady note then this is considered success 
+                BattleManager.current.processPadHit(true);
+                Destroy(other.gameObject);
+
+
+            }
             indicator = null;
         }
     }

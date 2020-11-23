@@ -66,11 +66,9 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForFixedUpdate();
 
-
         SaveManager.LoadSettings();
 
         GameStateData data = SaveManager.loadGame();
-
 
         //TODO: later make a save select screen where we load this shit from
         if (data == null)

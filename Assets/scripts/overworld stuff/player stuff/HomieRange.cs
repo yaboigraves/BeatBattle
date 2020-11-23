@@ -5,11 +5,11 @@ using UnityEngine;
 public class HomieRange : MonoBehaviour
 {
     // Start is called before the first frame update
-    Homie homie;
+    public Homie homie;
     public float playerTolerance = 20;
     private void Start()
     {
-        homie = transform.parent.GetComponent<Homie>();
+        //homie = transform.parent.GetComponent<Homie>();
     }
 
     private void Update()

@@ -573,4 +573,15 @@ public class UIManager : MonoBehaviour
         debugWindow.SetActive(!debugWindow.activeSelf);
     }
 
+
+
+    public void QuitGame()
+    {
+        //save the game
+        SaveManager.saveGame();
+
+        //quit da game
+        Application.Quit();
+    }
+
 }

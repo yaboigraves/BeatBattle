@@ -109,7 +109,6 @@ public class BattleTrackManager : MonoBehaviour
         //5.we need to setup the new indicators 
         //BattleManager.current.setupTurnIndicators(newTrack);
         IndicatorManager.current.setupTurnIndicators(newTrack);
-
         //6.play the new track AFTER 4 BARS OF WAITING if a wait is requested
 
         nextTurnStart = totalBeats + 5;

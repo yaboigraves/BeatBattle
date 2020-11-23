@@ -13,8 +13,23 @@ public class Indicator : MonoBehaviour
     Vector3 start;
     Vector3 end;
 
+    //so there are a couple different types of indicators
+    //no type means its just a normal indicator (either defense or attack)
+
+    public bool attackOrDefend;
+    public string indicatorType;
+
+    public SpriteRenderer sprite;
+
+
+    private void Awake()
+    {
+        sprite = GetComponent<SpriteRenderer>();
+
+    }
     void Start()
     {
+
         bpm = BattleTrackManager.current.currentBpm;
 
         //commented this to experiment with timescale rather than calculating movespeed 
@@ -37,6 +52,40 @@ public class Indicator : MonoBehaviour
         end = new Vector3(transform.position.x, 99, transform.position.z);
     }
 
+    public void SetIndicatorType(bool attackOrDefend, string indicType)
+    {
+        this.attackOrDefend = attackOrDefend;
+
+        //so make a 1/4 chance for the indicator to actually even get the type set rather than setting 
+        //makes pad processing easier 
+
+        if (Random.Range(0, 3) > 1)
+        {
+            this.indicatorType = indicType;
+        }
+
+
+        switch (indicatorType)
+        {
+            case "Heady":
+
+                sprite.color = Color.green;
+
+                break;
+
+            default:
+                if (this.attackOrDefend)
+                {
+                    sprite.color = Color.red;
+                }
+                else
+                {
+                    sprite.color = Color.blue;
+                }
+                break;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -48,5 +97,4 @@ public class Indicator : MonoBehaviour
         }
     }
 
-    //so the countin does 4 beats of updating, and rather than moving the indicators it moves the indicator container
 }

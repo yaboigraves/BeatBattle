@@ -16,6 +16,8 @@ public class PlayerMove : MonoBehaviour
 
     public float canMoveRayRange = 0.5f;
 
+    public bool canMove;
+
     Player player;
     Vector3 deltaPos;
     void Start()
@@ -39,7 +41,7 @@ public class PlayerMove : MonoBehaviour
         //probably need some kind of layer solution for this, certain objects will block movement
         //this means no sliding on spaces but who cares really?
 
-        bool canMove = true;
+        canMove = true;
         RaycastHit hit;
         if (Physics.Raycast(transform.position, deltaPos, out hit, canMoveRayRange))
         {
@@ -51,8 +53,10 @@ public class PlayerMove : MonoBehaviour
 
         if (canMove)
         {
+
             rb.MovePosition(transform.position + deltaPos);
         }
+
 
         //transform.position = Vector3.MoveTowards(transform.position, transform.position + deltaPos, 0.1f);
     }

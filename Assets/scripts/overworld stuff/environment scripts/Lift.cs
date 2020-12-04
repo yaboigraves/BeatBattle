@@ -25,6 +25,7 @@ public class Lift : MonoBehaviour, IActivateable
 
         //wayPoints[currentWaypoint] = transform;
         //currentWaypoint = 0;
+        rigidbody = GetComponent<Rigidbody>();
     }
 
     public void Activate()
@@ -46,7 +47,8 @@ public class Lift : MonoBehaviour, IActivateable
             }
         }
 
-        transform.position = Vector3.MoveTowards(transform.position, wayPoints[currentWaypoint].position, speed * Time.deltaTime);
+        //transform.position = Vector3.MoveTowards(transform.position, wayPoints[currentWaypoint].position, speed * Time.deltaTime);
+        rigidbody.MovePosition(transform.position + ((wayPoints[currentWaypoint].position - transform.position).normalized * Time.deltaTime * speed));
     }
 
     private void OnTriggerEnter(Collider other)

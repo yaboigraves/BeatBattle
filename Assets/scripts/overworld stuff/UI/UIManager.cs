@@ -8,6 +8,9 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
+
+
+
     //TODO: make ui state an object and then i can do away with the like 6 or 7 variables at a time
     //components for fading in and out
     [Header("Overworld UI ELements")]
@@ -23,6 +26,9 @@ public class UIManager : MonoBehaviour
 
     [Header("UI Fade effects")]
     public CanvasGroup faderCanvas;
+
+    public TextMeshProUGUI battleText, loadingText;
+    public Image loadingIcon;
     public float fadeTime;
     //ui elements
     //public Text coinsText;
@@ -205,16 +211,30 @@ public class UIManager : MonoBehaviour
         playerHealthText.text = newHealth.ToString() + "/" + player.maxHealth;
     }
 
-    IEnumerator screenWipeRoutine()
+    IEnumerator screenWipeRoutine(string loadingFor)
     {
         faderCanvas.alpha = 1;
+        //enable either the battle text or the loading text
+        //
+        if (loadingFor == "loading")
+        {
+            loadingIcon.enabled = true;
+            loadingText.enabled = true;
+            battleText.enabled = false;
+        }
+        else if (loadingFor == "battle")
+        {
+            loadingIcon.enabled = false;
+            loadingText.enabled = false;
+            battleText.enabled = true;
+        }
         yield return new WaitForSeconds(fadeTime);
         faderCanvas.alpha = 0;
     }
 
-    public void screenWipe()
+    public void screenWipe(string loadingFor)
     {
-        StartCoroutine(screenWipeRoutine());
+        StartCoroutine(screenWipeRoutine(loadingFor));
     }
 
     public void updateCoinsText(int numCoins)

@@ -34,7 +34,7 @@ public class Lift : MonoBehaviour, IActivateable
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //check distance to current waypoint
         if (Vector3.Distance(transform.position, wayPoints[currentWaypoint].position) < 0.01f)
@@ -47,8 +47,8 @@ public class Lift : MonoBehaviour, IActivateable
             }
         }
 
-        //transform.position = Vector3.MoveTowards(transform.position, wayPoints[currentWaypoint].position, speed * Time.deltaTime);
-        rigidbody.MovePosition(transform.position + ((wayPoints[currentWaypoint].position - transform.position).normalized * Time.deltaTime * speed));
+        transform.position = Vector3.MoveTowards(transform.position, wayPoints[currentWaypoint].position, speed * Time.deltaTime);
+        //rigidbody.MovePosition(transform.position + ((wayPoints[currentWaypoint].position - transform.position).normalized * speed));
     }
 
     private void OnTriggerEnter(Collider other)

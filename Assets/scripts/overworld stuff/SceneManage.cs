@@ -83,7 +83,7 @@ public class SceneManage : MonoBehaviour
             mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         }
 
-        UIManager.current.screenWipe();
+        UIManager.current.screenWipe("battle");
         cameraReturnPosition = mainCamera.transform.position;
         mainCamera.gameObject.SetActive(false);
 
@@ -119,7 +119,7 @@ public class SceneManage : MonoBehaviour
         Time.timeScale = 1;
 
         //first tell the battleui manager to run its thing 
-        UIManager.current.screenWipe();
+        UIManager.current.screenWipe("loading");
         Destroy(BattleCameraController.current.gameObject);
         inBattle = false;
         SceneManager.UnloadSceneAsync("BattleScene");
@@ -177,7 +177,7 @@ public class SceneManage : MonoBehaviour
             print("shit no ui manager");
         }
 
-        UIManager.current.screenWipe();
+        UIManager.current.screenWipe("loading");
 
         SceneManager.LoadScene(sceneName);
 

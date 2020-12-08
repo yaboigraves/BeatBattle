@@ -12,7 +12,7 @@ WeedMan: Care to browse my wares traveller?
 title: shopNPC.OpenStore
 tags: 
 ---
-<<OpenShop WeedMan>>
+<<OpenShop shop>>
 ===
 
 

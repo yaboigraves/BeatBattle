@@ -14605,6 +14605,11 @@ PrefabInstance:
       objectReference: {fileID: 1831357635}
     - target: {fileID: 1449719685833244066, guid: 1642c9054685d664f9e47ad9ed1e32cc,
         type: 3}
+      propertyPath: battleText
+      value: 
+      objectReference: {fileID: 7236308075339346894}
+    - target: {fileID: 1449719685833244066, guid: 1642c9054685d664f9e47ad9ed1e32cc,
+        type: 3}
       propertyPath: shopCanvas
       value: 
       objectReference: {fileID: 550094790}
@@ -14613,6 +14618,16 @@ PrefabInstance:
       propertyPath: debugWindow
       value: 
       objectReference: {fileID: 1653813985}
+    - target: {fileID: 1449719685833244066, guid: 1642c9054685d664f9e47ad9ed1e32cc,
+        type: 3}
+      propertyPath: loadingIcon
+      value: 
+      objectReference: {fileID: 60782708023319570}
+    - target: {fileID: 1449719685833244066, guid: 1642c9054685d664f9e47ad9ed1e32cc,
+        type: 3}
+      propertyPath: loadingText
+      value: 
+      objectReference: {fileID: 865258358959603067}
     - target: {fileID: 1449719685833244066, guid: 1642c9054685d664f9e47ad9ed1e32cc,
         type: 3}
       propertyPath: trackArtist
@@ -14915,7 +14930,7 @@ PrefabInstance:
     - target: {fileID: 1449719686623590267, guid: 1642c9054685d664f9e47ad9ed1e32cc,
         type: 3}
       propertyPath: m_Alpha
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1449719686896769737, guid: 1642c9054685d664f9e47ad9ed1e32cc,
         type: 3}

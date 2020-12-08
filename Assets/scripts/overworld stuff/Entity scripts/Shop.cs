@@ -27,17 +27,25 @@ public class Shop : MonoBehaviour
     private void Start()
     {
         dialogueRunner = GameObject.FindObjectOfType<DialogueRunner>();
+        if (dialogueRunner == null && UIManager.current != null)
+        {
+            //look for it in a ui manager if that exists
+            dialogueRunner = UIManager.current.dialogueRunner;
+        }
         dialogueRunner.AddCommandHandler("OpenShop", OpenShop);
-
         print("lol");
     }
 
     public void OpenShop(string[] parameters)
     {
         print("opening shop");
+
+        if (dialogueRunner == null)
+        {
+            dialogueRunner = UIManager.current.dialogueRunner;
+        }
         if (parameters[0] == shopName)
         {
-
             //tell the player that they're in the shop now
             GameManager.current.player.inShop = true;
             //actually open the shop

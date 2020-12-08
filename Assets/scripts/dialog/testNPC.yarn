@@ -2,8 +2,11 @@
 tags:
 ---
 <<changeCamera npccam>>
-<<moveEntity cube>>
+
+<<applyMarkup wiggle-0,10>>
 NPC: Ayo what up my duder.
+NPC: Keep it real!
+
 
 
 <<if $testQuest is 0>>

@@ -31,7 +31,7 @@ public class InventoryGear : MonoBehaviour
     {
         if (toggle.isOn)
         {
-            EquipGear();
+            //EquipGear();
         }
         else
         {

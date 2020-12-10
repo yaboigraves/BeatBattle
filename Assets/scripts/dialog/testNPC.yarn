@@ -1,12 +1,12 @@
 ﻿title: testNPC
 tags:
 ---
-<<changeCamera npccam>>
 
 <<applyMarkup wiggle-0,10>>
+<<changeCamera npccam>>
 NPC: Ayo what up my duder.
 NPC: Keep it real!
-
+<<clearMarkup>>
 
 
 <<if $testQuest is 0>>
@@ -67,7 +67,6 @@ NPC: Aight man heres the scoop, I need some weed. Come back when you got some ok
 title: testNPC.Exit
 tags:
 --- 
-<<changeCamera test>>
 <<clearMarkup>>
 NPC: You stay safe out their homie
 ===

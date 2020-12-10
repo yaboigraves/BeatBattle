@@ -10,12 +10,10 @@ public class DialogCameraController : MonoBehaviour
     public CinemachineVirtualCamera currentCamera;
     //camera is by default the playercamera
     public DialogueRunner dialogueRunner;
-    Dictionary<string, CinemachineVirtualCamera> cameraPositions;
+    Dictionary<string, CinemachineVirtualCamera> cameraPositions = new Dictionary<string, CinemachineVirtualCamera>();
     private void Awake()
     {
         current = this;
-
-
     }
 
     private void Start()
@@ -41,15 +39,45 @@ public class DialogCameraController : MonoBehaviour
 
     public void setCameraObjects(Dictionary<string, CinemachineVirtualCamera> newCameraPositions)
     {
-        cameraPositions = newCameraPositions;
+        print("camera objects set");
+
+        //print(newCameraPositions);
+
+        // cameraPositions = newCameraPositions;
+
+        // print(cameraPositions);
+
+        //print(cameraPositions.Count);
+
+        //TODO: optimize this so on a scene change we should truncate all the old positions
+
+        foreach (KeyValuePair<string, CinemachineVirtualCamera> cams in newCameraPositions)
+        {
+            cameraPositions.Add(cams.Key, cams.Value);
+        }
     }
 
+    //do this on a scene load
+    public void ClearDialogCameraPositions()
+    {
+        //cameraPositions.Clear();
+    }
+
+
+    //TODO: this still breaks sometimes so this needs to be further tested, it works for now
+    //for some reason the camera positions get truncated so we need to check if its actually there
     public void changeCamera(string[] paramaters)
     {
         print("changing camera to camera :" + paramaters[0]);
         //first argument is the camera to switch to
-
         //check if their are any custom positions 
+        foreach (KeyValuePair<string, CinemachineVirtualCamera> cameraPos in cameraPositions)
+        {
+            print(cameraPos.Key);
+        }
+
+        print(cameraPositions.Count);
+
         if (cameraPositions != null && cameraPositions.ContainsKey(paramaters[0]))
         {
             if (currentCamera == null)

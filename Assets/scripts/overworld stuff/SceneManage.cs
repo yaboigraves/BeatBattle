@@ -177,6 +177,10 @@ public class SceneManage : MonoBehaviour
             print("shit no ui manager");
         }
 
+        //trunctate the camera positiions 
+
+        DialogCameraController.current.ClearDialogCameraPositions();
+
         UIManager.current.screenWipe("loading");
 
         SceneManager.LoadScene(sceneName);
@@ -184,6 +188,8 @@ public class SceneManage : MonoBehaviour
         //spawnPlayer();
 
         currentSceneName = SceneManager.GetActiveScene().name;
+
+
     }
 
     public void spawnPlayer()

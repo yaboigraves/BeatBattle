@@ -36,7 +36,8 @@ public class NPC : Entity, IInteractable
             CutsceneManager.current.LoadCutscene(cutscene);
         }
 
-        DialogCameraController.current.setCameraObjects(cameraPositions);
+        print(cameraPositions);
+
         FindObjectOfType<DialogueRunner>().StartDialogue(talkToNode);
     }
 
@@ -51,17 +52,15 @@ public class NPC : Entity, IInteractable
         {
             try
             {
-                dialogueRunner.AddCommandHandler("triggerBattle", triggerBattle);
+                //dialogueRunner.AddommandHandler("triggerBattle", triggerBattle);
                 //bruh why tf this borked
                 dialogueRunner.Add(scriptToLoad);
             }
             catch
             {
-                Debug.LogWarning("o shit?");
+                // Debug.LogWarning("o shit?");
+                //script already loaded
             }
-
-
-
         }
 
         cameraPositions = new Dictionary<string, CinemachineVirtualCamera>();
@@ -69,12 +68,14 @@ public class NPC : Entity, IInteractable
         Transform cameraObjs = transform.GetChild(0);
         for (int i = 0; i < cameraObjs.childCount; i++)
         {
+
             cameraPositions.Add(cameraObjs.GetChild(i).name, cameraObjs.GetChild(i).GetComponent<CinemachineVirtualCamera>());
+            //print(cameraObjs.GetChild(i).name);
         }
 
+        DialogCameraController.current.setCameraObjects(cameraPositions);
+
         npcTextBox.transform.parent.gameObject.SetActive(false);
-
-
     }
 
     //text stuff
@@ -107,6 +108,7 @@ public class NPC : Entity, IInteractable
         npcTextBox.transform.parent.gameObject.SetActive(false);
     }
 
+    [YarnCommand("triggerBattle")]
     public void triggerBattle(string[] parameters)
     {
         //launch a battle with the enemy 

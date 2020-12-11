@@ -12,7 +12,7 @@ public class NPC : Entity, IInteractable
     //the npc also needs to load all the custom cameras for its dialogue if it has any
     //these are then loaded into a dictionary 
     //this dictionary of camera's is then
-    Dictionary<string, CinemachineVirtualCamera> cameraPositions;
+    Dictionary<string, CinemachineVirtualCamera> cameraPositions = new Dictionary<string, CinemachineVirtualCamera>();
     public string talkToNode = "";
     public YarnProgram scriptToLoad;
     public TextMeshProUGUI npcTextBox;
@@ -63,7 +63,7 @@ public class NPC : Entity, IInteractable
             }
         }
 
-        cameraPositions = new Dictionary<string, CinemachineVirtualCamera>();
+
 
         Transform cameraObjs = transform.GetChild(0);
         for (int i = 0; i < cameraObjs.childCount; i++)

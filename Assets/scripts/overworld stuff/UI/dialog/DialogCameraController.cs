@@ -60,7 +60,7 @@ public class DialogCameraController : MonoBehaviour
     //do this on a scene load
     public void ClearDialogCameraPositions()
     {
-        //cameraPositions.Clear();
+        cameraPositions.Clear();
     }
 
 

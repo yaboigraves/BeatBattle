@@ -178,12 +178,14 @@ public class SceneManage : MonoBehaviour
         }
 
         //trunctate the camera positiions 
-
         DialogCameraController.current.ClearDialogCameraPositions();
+
 
         UIManager.current.screenWipe("loading");
 
         SceneManager.LoadScene(sceneName);
+
+
 
         //spawnPlayer();
 

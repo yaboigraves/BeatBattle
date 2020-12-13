@@ -121,7 +121,7 @@ public class PlayerInventory : MonoBehaviour
 
     public void EquipGearEffect(string effectName)
     {
-        print("applying effect " + effectName);
+        //print("applying effect " + effectName);
         gearEffects.Add(GearEffects.gearEffectDictionary[effectName]);
     }
 

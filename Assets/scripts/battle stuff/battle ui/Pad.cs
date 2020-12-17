@@ -48,7 +48,7 @@ public class Pad : MonoBehaviour
                 }
                 else
                 {
-                    BattleManager.current.processPadHit(true);
+                    //BattleManager.current.processPadHit(true);
                 }
 
                 Destroy(indicator);
@@ -56,7 +56,7 @@ public class Pad : MonoBehaviour
             else
             {
                 //print("miss");
-                BattleManager.current.processPadHit(false);
+                //BattleManager.current.processPadHit(false);
             }
         }
     }

@@ -10,8 +10,8 @@ public class Indicator : MonoBehaviour
     // public Transform bars, indicators;
     bool activated;
     public float beatOfThisNote;
-    Vector3 start;
-    Vector3 end;
+    public Vector3 start;
+    public Vector3 end;
 
     //so there are a couple different types of indicators
     //no type means its just a normal indicator (either defense or attack)
@@ -29,8 +29,14 @@ public class Indicator : MonoBehaviour
     }
     void Start()
     {
-
-        bpm = BattleTrackManager.current.currentBpm;
+        if (BattleTrackManager.current != null)
+        {
+            bpm = BattleTrackManager.current.currentBpm;
+        }
+        else
+        {
+            bpm = CircularBattleManager.current.testTrack.bpm;
+        }
 
         //commented this to experiment with timescale rather than calculating movespeed 
         //moveSpeed = bpm / 60;
@@ -39,7 +45,9 @@ public class Indicator : MonoBehaviour
         moveSpeed = 1;
 
         //startPos = transform.position;
-        beatOfThisNote = transform.position.y - 100 + 1;
+
+        //TODO: this depends on if its on a different horizontal plane, probably just the distance from 0
+        beatOfThisNote = Mathf.Abs(transform.position.x);
 
         if (beatOfThisNote == 0)
         {
@@ -49,7 +57,9 @@ public class Indicator : MonoBehaviour
 
         start = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         //end is 99 because we want to go 1 unit below the pad
-        end = new Vector3(transform.position.x, 99, transform.position.z);
+        //end = new Vector3(transform.position.x, 99, transform.position.z);
+
+        end = new Vector3(0, 0, 0);
     }
 
     public void SetIndicatorType(bool attackOrDefend, string indicType)
@@ -89,11 +99,19 @@ public class Indicator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        activated = BattleManager.current.battleStarted;
+        if (BattleManager.current != null)
+        {
+            activated = BattleManager.current.battleStarted;
+        }
+        else
+        {
+            activated = CircularBattleManager.current.battleStarted;
+        }
+
 
         if (activated)
         {
-            transform.position = Vector3.Lerp(start, end, TrackTimeManager.current.songPositionInBeats / beatOfThisNote) + transform.parent.position;
+            transform.position = Vector3.Lerp(start, end, LightweightTrackTimeManager.current.songPositionInBeats / beatOfThisNote);
         }
     }
 

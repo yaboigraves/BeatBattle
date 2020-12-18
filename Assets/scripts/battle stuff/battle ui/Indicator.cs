@@ -25,7 +25,6 @@ public class Indicator : MonoBehaviour
     private void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
-
     }
     void Start()
     {
@@ -49,6 +48,8 @@ public class Indicator : MonoBehaviour
         //TODO: this depends on if its on a different horizontal plane, probably just the distance from 0
         beatOfThisNote = Mathf.Abs(transform.position.x);
 
+
+
         if (beatOfThisNote == 0)
         {
             Debug.LogWarning("INDICATOR POSITION 0 DETECTED, DONT DO THIS SET IT TO 0.1");
@@ -59,7 +60,13 @@ public class Indicator : MonoBehaviour
         //end is 99 because we want to go 1 unit below the pad
         //end = new Vector3(transform.position.x, 99, transform.position.z);
 
-        end = new Vector3(0, 0, 0);
+        //end = new Vector3(0, 0, 0);
+    }
+
+    public void SetIndicInfo(Vector3 end, float beatTime)
+    {
+        this.end = end;
+        beatOfThisNote = beatTime;
     }
 
     public void SetIndicatorType(bool attackOrDefend, string indicType)
@@ -73,7 +80,6 @@ public class Indicator : MonoBehaviour
         {
             this.indicatorType = indicType;
         }
-
 
         switch (indicatorType)
         {
@@ -111,7 +117,20 @@ public class Indicator : MonoBehaviour
 
         if (activated)
         {
-            transform.position = Vector3.Lerp(start, end, LightweightTrackTimeManager.current.songPositionInBeats / beatOfThisNote);
+            //there are two possible lerps that we do
+            //first lerp is the indicator is moving towards its pad
+            //second is a lerp from it's ending position to 0,0
+            //the time we should end can be calculated by the bpm * original position
+
+            if (LightweightTrackTimeManager.current.songPositionInBeats / beatOfThisNote < 1)
+            {
+                transform.position = Vector3.Lerp(start, end, LightweightTrackTimeManager.current.songPositionInBeats / beatOfThisNote);
+
+            }
+            else
+            {
+
+            }
         }
     }
 

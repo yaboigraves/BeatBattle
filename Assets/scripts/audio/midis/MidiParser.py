@@ -15,6 +15,7 @@ totTime = 0
 # midi file
 # mid = MidiFile('midis/sonic midi shitfuck.mid')
 midiFilePath = sys.argv[1]
+fileName = sys.argv[3]
 mid = MidiFile(midiFilePath)
 
 # bpm

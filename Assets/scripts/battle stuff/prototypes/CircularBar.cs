@@ -11,7 +11,7 @@ public class CircularBar : MonoBehaviour
 
     private void Start()
     {
-        end = Vector3.one;
+        end = Vector3.zero;
     }
 
     // Update is called once per frame
@@ -21,7 +21,16 @@ public class CircularBar : MonoBehaviour
 
         if (activated)
         {
-            transform.localScale = Vector3.Lerp(start, end, LightweightTrackTimeManager.current.songPositionInBeats / start.x);
+            if (LightweightTrackTimeManager.current.songPositionInBeats / start.x < 1)
+            {
+                transform.localScale = Vector3.Lerp(start, end, LightweightTrackTimeManager.current.songPositionInBeats / start.x);
+
+            }
+            else
+            {
+                Destroy(this.gameObject);
+            }
+
         }
     }
 }

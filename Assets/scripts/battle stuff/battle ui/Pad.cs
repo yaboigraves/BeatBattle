@@ -66,6 +66,8 @@ public class Pad : MonoBehaviour
         if (other.gameObject.tag == "indicator")
         {
             indicator = other.gameObject;
+            indicator.GetComponent<SpriteRenderer>().color = Color.green;
+
         }
     }
 
@@ -83,6 +85,8 @@ public class Pad : MonoBehaviour
 
 
             }
+
+            //indicator.GetComponent<SpriteRenderer>().color = Color.red;
             indicator = null;
         }
     }

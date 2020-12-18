@@ -9,8 +9,11 @@ public class LightweightTrackTimeManager : MonoBehaviour
     public static LightweightTrackTimeManager current;
     public bool isCounting;
 
-    public float songPositionInBeats, dspSongTime, songBpm, secPerBeat, songPosition;
+    public float songPositionInBeats, dspSongTime, songBpm, secPerBeat, songPosition, songStartTime;
     public AudioSource audioSource;
+
+    [Header("DEBUG DSP TIME")]
+    public float debugDspSongTime;
 
 
     private void Awake()
@@ -30,14 +33,26 @@ public class LightweightTrackTimeManager : MonoBehaviour
         dspSongTime = (float)AudioSettings.dspTime;
     }
 
+    public void StartCount()
+    {
+        songStartTime = (float)AudioSettings.dspTime;
+        isCounting = true;
+    }
+
 
     // Update is called once per frame
     void Update()
     {
+        debugDspSongTime = (float)AudioSettings.dspTime;
+
         if (isCounting)
         {
-            songPosition = (float)(AudioSettings.dspTime - (dspSongTime));
+            songPosition = (float)(AudioSettings.dspTime - (songStartTime));
             songPositionInBeats = (songPosition / secPerBeat);
+
+            CircularBattleManager.current.updateBPMTime((Mathf.FloorToInt(songPositionInBeats) % 4) + 1);
         }
     }
+
+
 }

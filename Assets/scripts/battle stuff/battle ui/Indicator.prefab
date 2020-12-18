@@ -99,6 +99,8 @@ MonoBehaviour:
   bpm: 88
   moveSpeed: 0
   beatOfThisNote: 0
+  start: {x: 0, y: 0, z: 0}
+  end: {x: 0, y: 0, z: 0}
   attackOrDefend: 0
   indicatorType: 
   sprite: {fileID: 2797802640930910}
@@ -126,5 +128,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.25, y: 0.25}
+  m_Size: {x: 0.4, y: 0.25}
   m_EdgeRadius: 0

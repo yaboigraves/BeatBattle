@@ -16,6 +16,7 @@ MonoBehaviour:
   cost: 5
   description: A certified chatzy classic.
   unique: 1
+  itemIcon: {fileID: 0}
   trackClip: {fileID: 8300000, guid: e364b8bd0ed5b1342b14009b49fe5183, type: 3}
   artist: cunty
   bpm: 88
@@ -56,5 +57,5 @@ MonoBehaviour:
     - 13.479163
     - 14.979162
   trackStats:
-    trackVibe: heat
+    trackVibe: 1
     vibePerHit: 1

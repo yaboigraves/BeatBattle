@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
+using TMPro;
 public class CircularBattleManager : MonoBehaviour
 {
 
@@ -16,9 +17,11 @@ public class CircularBattleManager : MonoBehaviour
 
     public static CircularBattleManager current;
 
-    public Transform indicatorContainer;
+    public Transform rightIndicatorLane, leftIndicatorLane;
 
     public bool battleStarted;
+
+    public TextMeshProUGUI bpmText;
 
     AudioSource audio;
     private void Awake()
@@ -31,9 +34,13 @@ public class CircularBattleManager : MonoBehaviour
         if (!battleStarted)
         {
             battleStarted = true;
-            LightweightTrackTimeManager.current.isCounting = true;
+
             //play the song 
             audio.Play();
+
+            LightweightTrackTimeManager.current.StartCount();
+
+            //set the timing to actually start now
         }
 
     }
@@ -53,40 +60,45 @@ public class CircularBattleManager : MonoBehaviour
         //kick indicators
 
 
-
+        SetupIndicators();
+    }
+    void SetupIndicators()
+    {
+        //do this multiple times
         for (int i = 0; i < testTrack.kickBeats.indicatorPositions.Length; i++)
         {
-            Vector3 kickPos = new Vector3(-testTrack.kickBeats.indicatorPositions[i], 0, 0);
+            Vector3 kickPos = new Vector3((-testTrack.kickBeats.indicatorPositions[i]), 0, 0);
+
             //each unit is 1 bar 
             //therefore we need to start the next batck of indicators at wherever the loop ends
             //probablyh easiest for now just to bake the length of the loop into the track object 
-            GameObject indic = Instantiate(indicator, kickPos, Quaternion.identity, indicatorContainer);
+            GameObject indic = Instantiate(indicator, kickPos, Quaternion.identity, leftIndicatorLane);
 
-            indic.GetComponent<Indicator>().end = new Vector3(-1, 0, 0);
+            // indic.GetComponent<Indicator>().end = new Vector3(-1, 0, 0);
+            indic.GetComponent<Indicator>().SetIndicInfo(Vector3.zero, testTrack.kickBeats.indicatorPositions[i]);
             //check who's turn it is 
         }
         for (int i = 0; i < testTrack.snareBeats.indicatorPositions.Length; i++)
         {
             Vector3 snarePos = new Vector3(testTrack.snareBeats.indicatorPositions[i], 0, 0);
+
             //each unit is 1 bar 
             //therefore we need to start the next batck of indicators at wherever the loop ends
             //probablyh easiest for now just to bake the length of the loop into the track object 
-            GameObject indic = Instantiate(indicator, snarePos, Quaternion.identity, indicatorContainer);
-            indic.GetComponent<Indicator>().end = new Vector3(1, 0, 0);
+            GameObject indic = Instantiate(indicator, snarePos, Quaternion.identity, rightIndicatorLane);
+            //indic.GetComponent<Indicator>().end = new Vector3(1, 0, 0);
+            indic.GetComponent<Indicator>().SetIndicInfo(Vector3.zero, testTrack.snareBeats.indicatorPositions[i]);
+
         }
 
         //bars
 
-        for (int i = 1; i <= 16; i++)
+        for (int i = 1; i <= 64; i++)
         {
             GameObject b = Instantiate(circleBar, Vector3.zero, Quaternion.identity);
             b.GetComponent<CircularBar>().start = new Vector3(i, i, i);
             b.transform.localScale = new Vector3(i, i, i);
         }
-    }
-    void SetupIndicators()
-    {
-
     }
 
     // Update is called once per frame
@@ -96,5 +108,10 @@ public class CircularBattleManager : MonoBehaviour
         {
             StartBattle();
         }
+    }
+
+    public void updateBPMTime(int beat)
+    {
+        bpmText.text = beat.ToString();
     }
 }

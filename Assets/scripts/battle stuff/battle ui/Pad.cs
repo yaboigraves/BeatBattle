@@ -10,9 +10,12 @@ public class Pad : MonoBehaviour
     public KeyCode binding;
     public int midiKeyNum;
 
+    PulseEffect pulse;
+
     // Start is called before the first frame update
     void Start()
     {
+        pulse = GetComponent<PulseEffect>();
         //so when we initialize in a battle we need to tell the pads what midi key they're coordinated with
         //this is probably just gonna be passed into the battlemanager
 
@@ -36,6 +39,8 @@ public class Pad : MonoBehaviour
             {
                 //print("hit");
                 Indicator indic = indicator.GetComponent<Indicator>();
+
+                pulse.TriggerPulse(pulse.transform.localScale *= 2);
 
                 if (indic.indicatorType == "Heady")
                 {

@@ -19,18 +19,18 @@ public class CircularBar : MonoBehaviour
     {
         activated = CircularBattleManager.current.battleStarted;
 
-        if (activated)
-        {
-            if (LightweightTrackTimeManager.current.songPositionInBeats / start.x < 1)
-            {
-                transform.localScale = Vector3.Lerp(start, end, LightweightTrackTimeManager.current.songPositionInBeats / start.x);
+        // if (activated)
+        // {
+        //     if (LightweightTrackTimeManager.current.songPositionInBeats / start.x < 1)
+        //     {
+        //         transform.localScale = Vector3.Lerp(start, end, LightweightTrackTimeManager.current.songPositionInBeats / start.x);
 
-            }
-            else
-            {
-                Destroy(this.gameObject);
-            }
+        //     }
+        //     else
+        //     {
+        //         Destroy(this.gameObject);
+        //     }
 
-        }
+        // }
     }
 }

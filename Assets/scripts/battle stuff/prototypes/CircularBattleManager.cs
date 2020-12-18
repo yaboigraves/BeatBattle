@@ -58,10 +58,9 @@ public class CircularBattleManager : MonoBehaviour
         //kick is left
         //snare is right lane
         //kick indicators
-
-
         SetupIndicators();
     }
+
     void SetupIndicators()
     {
         //do this multiple times
@@ -72,27 +71,21 @@ public class CircularBattleManager : MonoBehaviour
             //each unit is 1 bar 
             //therefore we need to start the next batck of indicators at wherever the loop ends
             //probablyh easiest for now just to bake the length of the loop into the track object 
-            GameObject indic = Instantiate(indicator, kickPos, Quaternion.identity, leftIndicatorLane);
-
-            // indic.GetComponent<Indicator>().end = new Vector3(-1, 0, 0);
-            indic.GetComponent<Indicator>().SetIndicInfo(Vector3.zero, testTrack.kickBeats.indicatorPositions[i]);
+            GameObject indic = Instantiate(indicator, kickPos + leftIndicatorLane.transform.position, Quaternion.identity, leftIndicatorLane);
+            indic.GetComponent<Indicator>().SetIndicInfo(new Vector3(0, 0, 0), testTrack.kickBeats.indicatorPositions[i]);
             //check who's turn it is 
         }
         for (int i = 0; i < testTrack.snareBeats.indicatorPositions.Length; i++)
         {
             Vector3 snarePos = new Vector3(testTrack.snareBeats.indicatorPositions[i], 0, 0);
-
             //each unit is 1 bar 
             //therefore we need to start the next batck of indicators at wherever the loop ends
             //probablyh easiest for now just to bake the length of the loop into the track object 
-            GameObject indic = Instantiate(indicator, snarePos, Quaternion.identity, rightIndicatorLane);
-            //indic.GetComponent<Indicator>().end = new Vector3(1, 0, 0);
-            indic.GetComponent<Indicator>().SetIndicInfo(Vector3.zero, testTrack.snareBeats.indicatorPositions[i]);
-
+            GameObject indic = Instantiate(indicator, snarePos + rightIndicatorLane.transform.position, Quaternion.identity, rightIndicatorLane);
+            indic.GetComponent<Indicator>().SetIndicInfo(new Vector3(0, 0, 0), testTrack.snareBeats.indicatorPositions[i]);
         }
 
         //bars
-
         for (int i = 1; i <= 64; i++)
         {
             GameObject b = Instantiate(circleBar, Vector3.zero, Quaternion.identity);

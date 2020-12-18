@@ -1130,7 +1130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0c3b587606ff3c4d9a39b17aa100001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testTrack: {fileID: 11400000, guid: 643fd89a0c3b6c8478d71ff0cf78d31a, type: 2}
+  testTrack: {fileID: 11400000, guid: 6db31f387b047a9448ebacd4829dce26, type: 2}
   indicator: {fileID: 2797802640930905, guid: 2fdd905a916edd84a99d71189820ad30, type: 3}
   circleBar: {fileID: 7497712438798582521, guid: 2fba44191f334ac42be31601a68471bb,
     type: 3}

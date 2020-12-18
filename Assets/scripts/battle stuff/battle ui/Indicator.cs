@@ -122,15 +122,10 @@ public class Indicator : MonoBehaviour
             //second is a lerp from it's ending position to 0,0
             //the time we should end can be calculated by the bpm * original position
 
-            if (LightweightTrackTimeManager.current.songPositionInBeats / beatOfThisNote < 1)
-            {
-                transform.position = Vector3.Lerp(start, end, LightweightTrackTimeManager.current.songPositionInBeats / beatOfThisNote);
 
-            }
-            else
-            {
+            transform.position = Vector3.Lerp(start, end, LightweightTrackTimeManager.current.songPositionInBeats / beatOfThisNote);
 
-            }
+
         }
     }
 

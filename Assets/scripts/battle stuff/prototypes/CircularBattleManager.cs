@@ -5,24 +5,16 @@ using UnityEngine.UI;
 using TMPro;
 public class CircularBattleManager : MonoBehaviour
 {
-
     //so the basic thing this is gonna need is gonna be a track to source the info from
     //a way to drop down all the track info onto the grid
     //a way to move the indicators inwards and then delete once reaching the center
     //a way to make bars that indicate bpm
-
-
     public Track testTrack;
     public GameObject indicator, circleBar;
-
     public static CircularBattleManager current;
-
     public Transform rightIndicatorLane, leftIndicatorLane;
-
     public bool battleStarted;
-
     public TextMeshProUGUI bpmText;
-
     AudioSource audio;
     private void Awake()
     {
@@ -39,10 +31,8 @@ public class CircularBattleManager : MonoBehaviour
             audio.Play();
 
             LightweightTrackTimeManager.current.StartCount();
-
             //set the timing to actually start now
         }
-
     }
 
     void Start()
@@ -72,7 +62,9 @@ public class CircularBattleManager : MonoBehaviour
             //therefore we need to start the next batck of indicators at wherever the loop ends
             //probablyh easiest for now just to bake the length of the loop into the track object 
             GameObject indic = Instantiate(indicator, kickPos + leftIndicatorLane.transform.position, Quaternion.identity, leftIndicatorLane);
+
             indic.GetComponent<Indicator>().SetIndicInfo(new Vector3(0, 0, 0), testTrack.kickBeats.indicatorPositions[i]);
+            indic.GetComponent<Indicator>().SetIndicatorType(true, "Heady");
             //check who's turn it is 
         }
         for (int i = 0; i < testTrack.snareBeats.indicatorPositions.Length; i++)

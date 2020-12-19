@@ -6,12 +6,9 @@ public class Pad : MonoBehaviour
 {
     public GameObject indicator;
     public string padID;
-
     public KeyCode binding;
     public int midiKeyNum;
-
     PulseEffect pulse;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -24,9 +21,6 @@ public class Pad : MonoBehaviour
         {
             midiKeyNum = PlayerPrefs.GetInt(padID);
         }
-
-
-
     }
 
     // Update is called once per frame
@@ -49,7 +43,7 @@ public class Pad : MonoBehaviour
 
                     //in order not to trigger an ontriggerexit we need to set the type not to heady anymore
                     indic.indicatorType = "";
-                    BattleManager.current.processPadHit(false);
+                    //BattleManager.current.processPadHit(false);
                 }
                 else
                 {
@@ -72,7 +66,6 @@ public class Pad : MonoBehaviour
         {
             indicator = other.gameObject;
             indicator.GetComponent<SpriteRenderer>().color = Color.green;
-
         }
     }
 
@@ -87,14 +80,10 @@ public class Pad : MonoBehaviour
                 //if its a heady note then this is considered success 
                 BattleManager.current.processPadHit(true);
                 Destroy(other.gameObject);
-
-
             }
 
             //indicator.GetComponent<SpriteRenderer>().color = Color.red;
             indicator = null;
         }
     }
-
-
 }

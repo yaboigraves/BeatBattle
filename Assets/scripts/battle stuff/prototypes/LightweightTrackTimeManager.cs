@@ -15,7 +15,6 @@ public class LightweightTrackTimeManager : MonoBehaviour
     [Header("DEBUG DSP TIME")]
     public float debugDspSongTime;
 
-
     private void Awake()
     {
         current = this;
@@ -53,6 +52,4 @@ public class LightweightTrackTimeManager : MonoBehaviour
             CircularBattleManager.current.updateBPMTime((Mathf.FloorToInt(songPositionInBeats) % 4) + 1);
         }
     }
-
-
 }

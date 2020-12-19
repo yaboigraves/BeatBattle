@@ -63,7 +63,7 @@ public class CircularBattleManager : MonoBehaviour
             //probablyh easiest for now just to bake the length of the loop into the track object 
             GameObject indic = Instantiate(indicator, kickPos + leftIndicatorLane.transform.position, Quaternion.identity, leftIndicatorLane);
 
-            indic.GetComponent<Indicator>().SetIndicInfo(new Vector3(0, 0, 0), testTrack.kickBeats.indicatorPositions[i]);
+            indic.GetComponent<Indicator>().SetIndicInfo(new Vector3(-1, 0, 0), testTrack.kickBeats.indicatorPositions[i]);
             indic.GetComponent<Indicator>().SetIndicatorType(true, "Heady");
             //check who's turn it is 
         }
@@ -74,7 +74,7 @@ public class CircularBattleManager : MonoBehaviour
             //therefore we need to start the next batck of indicators at wherever the loop ends
             //probablyh easiest for now just to bake the length of the loop into the track object 
             GameObject indic = Instantiate(indicator, snarePos + rightIndicatorLane.transform.position, Quaternion.identity, rightIndicatorLane);
-            indic.GetComponent<Indicator>().SetIndicInfo(new Vector3(0, 0, 0), testTrack.snareBeats.indicatorPositions[i]);
+            indic.GetComponent<Indicator>().SetIndicInfo(new Vector3(1, 0, 0), testTrack.snareBeats.indicatorPositions[i]);
         }
 
         //bars

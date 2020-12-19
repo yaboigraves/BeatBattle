@@ -21,7 +21,7 @@ public class Indicator : MonoBehaviour
 
 
     //positions for heady beat movements
-    float slerpStart, slerpEnd;
+    public float firstSlerpStart, firstSlerpEnd;
 
     private void Awake()
     {
@@ -47,7 +47,7 @@ public class Indicator : MonoBehaviour
         //startPos = transform.position;
 
         //TODO: this depends on if its on a different horizontal plane, probably just the distance from 0
-        beatOfThisNote = Mathf.Abs(transform.position.x);
+        //beatOfThisNote = Mathf.Abs(transform.position.x);
 
         if (beatOfThisNote == 0)
         {
@@ -103,23 +103,40 @@ public class Indicator : MonoBehaviour
         }
     }
 
+    public float secondSlerpStart, secondSlerpEnd, lerpProgress, finalLerpStart, finalLerpEnd;
+
     public void SetHeadyTriggerTimes()
     {
-        //so this will look at the beat of the note and decide at what percentage of the interpolation a slerp needs to happen
-        //slerp needs to happen when the indicator is two beats away from the destination
-        //slerp ends one beat away from the destination
 
-        //lets say the beat is on 4 
-        //if the beat is on 4 then the percentage to get to 2 is 50% 
-        //if the beat is on 5 then the percentage to get to 2 is 2/5
+        //so the slerp needs to start 2 beats away from the indicator
+        //the beat of this note is the beat's distance from that indicator
+        //so if our beat is located at beat 10
+        //the slerp would need to start at 0.8( will this always be true?)
+        //if the beat is located at 8 needs to slerp on beat 2 
+        //that means 6 beats need to pass
 
-        //
+        firstSlerpStart = (beatOfThisNote - 2) / beatOfThisNote;
 
-        slerpStart = 2 / beatOfThisNote;
-        slerpEnd = slerpStart + 1;
+        //the first slerp is going to end 1/2 a beat after it starts
+        firstSlerpEnd = (beatOfThisNote - 1.5f) / beatOfThisNote;
+
+        //so the second slerp starts at the first slerps end 
+        secondSlerpStart = firstSlerpEnd;
+
+        //the second slerp ends 1 away from the beat end 
+
+        secondSlerpEnd = (beatOfThisNote - 1) / beatOfThisNote;
+
+        finalLerpStart = secondSlerpEnd;
+        finalLerpEnd = 1;
+
+
     }
 
-
+    //heady lerp positional variables
+    Vector3 slerpStartPos, slerpEndPos;
+    bool firstSlerpStarted, secondSlerpStarted;
+    bool finalLerpStarted;
 
     // Update is called once per frame
     void Update()
@@ -135,6 +152,8 @@ public class Indicator : MonoBehaviour
 
         if (activated)
         {
+
+            lerpProgress = LightweightTrackTimeManager.current.songPositionInBeats / beatOfThisNote;
             // normal indicator movement
             if (indicatorType == "Heady")
             {
@@ -143,28 +162,40 @@ public class Indicator : MonoBehaviour
                 //these points in the song need to be precalculated doing it on the fly is a) stupid b) slow c)annoying
                 //1.havent reached the slerp part so normal lerp
 
-
-                if ()
+                if (lerpProgress < firstSlerpStart)
                 {
-                    transform.position = Vector3.Lerp(start, end, LightweightTrackTimeManager.current.songPositionInBeats / beatOfThisNote);
+                    transform.position = Vector3.Lerp(start, end, lerpProgress);
                 }
-
-                //2.slerping for one beat over to the other side
-                else if ()
+                else if (lerpProgress >= firstSlerpStart && lerpProgress <= firstSlerpEnd)
                 {
 
-                }
-                //3.lerping the final beat to the indicator (back to normal we're just in the other lane now)
+                    //so here we slerp starting from the left up to the 
+                    //the slerp progress is 
+                    float slerpProgress = (lerpProgress - firstSlerpStart) / (firstSlerpEnd - firstSlerpStart);
+                    transform.position = Vector3.Slerp(Vector3.left * 2, new Vector3(0, 2.5f, 0), slerpProgress);
 
+                }
+                else if (lerpProgress >= firstSlerpEnd && lerpProgress < secondSlerpEnd)
+                {
+                    float slerpProgress = (lerpProgress - secondSlerpStart) / (secondSlerpEnd - secondSlerpStart);
+                    transform.position = Vector3.Slerp(new Vector3(0, 2.5f, 0), new Vector3(2, 0f, 0), slerpProgress);
+
+                    //lerp down to the 
+                }
                 else
                 {
+                    //the final lerp 
+                    //lerp from 1 away on the opposite indicator to the new indicator destination
 
+                    float yes = (lerpProgress - finalLerpStart) / (1 - finalLerpStart);
+                    transform.position = Vector3.Lerp(new Vector3(2, 0, 0), new Vector3(1, 0, 0), yes);
                 }
+
             }
 
             else
             {
-                transform.position = Vector3.Lerp(start, end, LightweightTrackTimeManager.current.songPositionInBeats / beatOfThisNote);
+                transform.position = Vector3.Lerp(start, end, lerpProgress);
             }
         }
     }

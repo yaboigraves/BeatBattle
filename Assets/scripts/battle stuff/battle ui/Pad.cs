@@ -40,6 +40,7 @@ public class Pad : MonoBehaviour
                 {
 
                     print("you hit on a green note");
+                    Destroy(indicator);
 
                     //in order not to trigger an ontriggerexit we need to set the type not to heady anymore
                     indic.indicatorType = "";
@@ -78,8 +79,8 @@ public class Pad : MonoBehaviour
             if (other.gameObject.GetComponent<Indicator>().indicatorType == "Heady")
             {
                 //if its a heady note then this is considered success 
-                BattleManager.current.processPadHit(true);
-                Destroy(other.gameObject);
+                //BattleManager.current.processPadHit(true);
+                //Destroy(other.gameObject);
             }
 
             //indicator.GetComponent<SpriteRenderer>().color = Color.red;

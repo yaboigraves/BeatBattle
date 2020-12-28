@@ -22,4 +22,8 @@ public class TestingDebugConsole : MonoBehaviour
     public void TogglePanel(){
         this.gameObject.SetActive(!this.gameObject.activeSelf);
     }
+
+    public void ResetScene(){
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 }

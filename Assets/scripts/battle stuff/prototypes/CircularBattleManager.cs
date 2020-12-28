@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 public class CircularBattleManager : MonoBehaviour
 {
     //so the basic thing this is gonna need is gonna be a track to source the info from
@@ -12,13 +13,20 @@ public class CircularBattleManager : MonoBehaviour
     public Track testTrack;
     public GameObject indicator, circleBar;
     public static CircularBattleManager current;
-    public Transform rightIndicatorLane, leftIndicatorLane;
+    public Transform rightIndicatorLane, leftIndicatorLane,barContainer;
     public bool battleStarted;
     public TextMeshProUGUI bpmText;
     AudioSource audio;
+
+    public Track[] testTracks;
     private void Awake()
     {
+        if(current != null){
+            Destroy(this.gameObject);
+        }
+        
         current = this;
+        DontDestroyOnLoad(this.gameObject);
     }
 
     public void StartBattle()
@@ -29,6 +37,9 @@ public class CircularBattleManager : MonoBehaviour
 
             //play the song 
             audio.Play();
+
+            print("starting counter?");
+            
 
             LightweightTrackTimeManager.current.StartCount();
             //set the timing to actually start now
@@ -48,6 +59,15 @@ public class CircularBattleManager : MonoBehaviour
         //kick is left
         //snare is right lane
         //kick indicators
+
+        //creates the bars
+
+        for (int i = 1; i <= 64; i++)
+        {
+            GameObject b = Instantiate(circleBar, Vector3.zero, Quaternion.identity,barContainer);
+            b.GetComponent<CircularBar>().start = new Vector3(i, i, i);
+            b.transform.localScale = new Vector3(i, i, i);
+        }
         SetupIndicators();
     }
 
@@ -81,12 +101,12 @@ public class CircularBattleManager : MonoBehaviour
         
 
         //bars
-        for (int i = 1; i <= 64; i++)
-        {
-            GameObject b = Instantiate(circleBar, Vector3.zero, Quaternion.identity);
-            b.GetComponent<CircularBar>().start = new Vector3(i, i, i);
-            b.transform.localScale = new Vector3(i, i, i);
-        }
+        // for (int i = 1; i <= 64; i++)
+        // {
+        //     GameObject b = Instantiate(circleBar, Vector3.zero, Quaternion.identity,barContainer);
+        //     b.GetComponent<CircularBar>().start = new Vector3(i, i, i);
+        //     b.transform.localScale = new Vector3(i, i, i);
+        // }
     }
 
     // Update is called once per frame
@@ -101,5 +121,53 @@ public class CircularBattleManager : MonoBehaviour
     public void updateBPMTime(int beat)
     {
         bpmText.text = beat.ToString();
+    }
+
+    public void ClearIndicators(){
+        for(int i = 0; i < leftIndicatorLane.transform.childCount; i++){
+            Destroy(leftIndicatorLane.transform.GetChild(i).gameObject);
+        }
+        for(int i = 0; i < rightIndicatorLane.transform.childCount; i++){
+            Destroy(rightIndicatorLane.transform.GetChild(i).gameObject);
+        }
+    }
+
+    public void SetNewTrack(Track newTrack){
+
+        LightweightTrackTimeManager.current.StopCount();
+        battleStarted = false;
+        //stop the current audio 
+        audio.Stop();
+
+        //clear the old indicators
+        ClearIndicators();
+
+
+        testTrack = newTrack;
+        
+        audio.clip = testTrack.trackClip;
+
+        //set up all the indicators at their various lanes depending on the track info for indicator positions
+        LightweightTrackTimeManager.current.SetSongData(testTrack);
+
+        testTrack.kickBeats.initData();
+        testTrack.snareBeats.initData();
+        //kick is left
+        //snare is right lane
+        //kick indicators
+        SetupIndicators();
+    }
+
+    public void UpdateTrackTest(int val){
+        //reload the scene
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name,LoadSceneMode.Single);
+        SetNewTrack(testTracks[val]);
+        
+    }
+
+    public void ResetBattle(){
+        //stop the audio 
+        
+        SetNewTrack(testTrack);
     }
 }

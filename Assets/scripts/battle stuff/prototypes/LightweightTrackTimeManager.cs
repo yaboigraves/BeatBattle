@@ -38,6 +38,10 @@ public class LightweightTrackTimeManager : MonoBehaviour
         isCounting = true;
     }
 
+    public void StopCount(){
+        isCounting = false;
+    }
+
 
     // Update is called once per frame
     void Update()

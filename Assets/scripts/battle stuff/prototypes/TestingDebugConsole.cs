@@ -24,6 +24,12 @@ public class TestingDebugConsole : MonoBehaviour
     }
 
     public void ResetScene(){
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        CircularBattleManager.current.ResetBattle();
+    }
+
+    public void SelectTrack(int val){
+        print(val);
+        CircularBattleManager.current.UpdateTrackTest(val);
     }
 }

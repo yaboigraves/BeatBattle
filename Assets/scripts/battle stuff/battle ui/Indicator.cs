@@ -77,7 +77,7 @@ public class Indicator : MonoBehaviour
         //so make a 1/4 chance for the indicator to actually even get the type set rather than setting 
         //makes pad processing easier 
 
-        if (Random.Range(0, 3) > 1)
+        if (Random.Range(0, 10) > 8)
         {
             this.indicatorType = indicType;
         }
@@ -138,6 +138,8 @@ public class Indicator : MonoBehaviour
     bool firstSlerpStarted, secondSlerpStarted;
     bool finalLerpStarted;
 
+
+
     // Update is called once per frame
     void Update()
     {
@@ -182,7 +184,7 @@ public class Indicator : MonoBehaviour
 
                     //lerp down to the 
                 }
-                else
+                else if(lerpProgress < 1)
                 {
                     //the final lerp 
                     //lerp from 1 away on the opposite indicator to the new indicator destination
@@ -190,13 +192,43 @@ public class Indicator : MonoBehaviour
                     float yes = (lerpProgress - finalLerpStart) / (1 - finalLerpStart);
                     transform.position = Vector3.Lerp(new Vector3(2, 0, 0), new Vector3(1, 0, 0), yes);
                 }
+                else{
+                    missedLerp();
+
+                }
+
 
             }
 
-            else
+            else if(lerpProgress < 1)
             {
                 transform.position = Vector3.Lerp(start, end, lerpProgress);
             }
+
+            else{
+                missedLerp();
+            }
         }
+    }
+
+    public bool missedLerpStarted = false;
+    public float missedLerpStartBeat;
+    Vector3 missedLerpStart;
+
+
+
+    void missedLerp(){
+        //so this is where we finally lerp to the center and get cleaned up
+        //mark the time we started this final transition as the missLerpStart beat
+        if(!missedLerpStarted){
+            missedLerpStarted = true;
+            missedLerpStartBeat = LightweightTrackTimeManager.current.songPositionInBeats;
+            missedLerpStart = transform.position;
+        }
+
+        float missedLerpProgress = (LightweightTrackTimeManager.current.songPositionInBeats - missedLerpStartBeat)/1;
+
+        transform.position = Vector3.Lerp(missedLerpStart,Vector3.zero,missedLerpProgress);
+
     }
 }

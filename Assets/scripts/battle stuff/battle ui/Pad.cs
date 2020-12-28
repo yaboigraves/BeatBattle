@@ -9,6 +9,8 @@ public class Pad : MonoBehaviour
     public KeyCode binding;
     public int midiKeyNum;
     PulseEffect pulse;
+
+    public Vector3 pulseSize;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +36,7 @@ public class Pad : MonoBehaviour
                 //print("hit");
                 Indicator indic = indicator.GetComponent<Indicator>();
 
-                pulse.TriggerPulse(pulse.transform.localScale *= 2);
+                pulse.TriggerPulse(pulseSize);
 
                 if (indic.indicatorType == "Heady")
                 {

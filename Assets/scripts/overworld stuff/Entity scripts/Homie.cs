@@ -21,7 +21,7 @@ public class Homie : Entity
 
     bool rampingUp, rampingDown;
 
-    Rigidbody rigidbody;
+    Rigidbody rb;
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +31,7 @@ public class Homie : Entity
 
         //navAgent = GetComponent<NavMeshAgent>();
 
-        rigidbody = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
 
 
         if (GameManager.current != null)
@@ -141,7 +141,7 @@ public class Homie : Entity
 
     public void jump(Vector3 jumpForce)
     {
-        rigidbody.AddForce(jumpForce, ForceMode.Impulse);
+        rb.AddForce(jumpForce, ForceMode.Impulse);
     }
 
     void checkFlip(float dX)

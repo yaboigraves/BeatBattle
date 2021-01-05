@@ -1,0 +1,26 @@
+ManifestFileVersion: 0
+CRC: 2861861723
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: fcb72f395b63e0badebab8d38dd83ca5
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: e087a2029d2db136f69f6fa26bed4ebc
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 5bf7c34a0dc4e6348bea04faa70406ee, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/custom packages/Unity Technologies/2D Animation/Samples/5 SpriteSwap/Sprites/Rikr
+  Poison.png
+- Assets/custom packages/Unity Technologies/2D Animation/Samples/5 SpriteSwap/Sprite
+  Library/Rikr Poison.asset
+Dependencies: []

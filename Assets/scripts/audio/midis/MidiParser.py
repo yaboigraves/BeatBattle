@@ -7,7 +7,7 @@
 
 from mido import MidiFile
 import mido
-import midi
+#import midi
 import sys
 
 totTime = 0

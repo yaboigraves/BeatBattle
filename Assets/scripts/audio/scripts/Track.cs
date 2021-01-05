@@ -15,10 +15,6 @@ public class Track : GameItem
     public bool isBattleTrack;
     public IndicatorData kickBeats;
     public IndicatorData snareBeats;
-
-
-
-
     public TrackStats trackStats;
 
     //public List<float> kickBeats = new List<float>();

@@ -27,7 +27,7 @@ public class BattleManager : MonoBehaviour
     //this variable keeps track of whether or not the player or the enemy did the first attack
     //vibe bar stuff 
     public int vibe = 0;
-    int maxVibe = 50, minVibe = -50;
+    //int maxVibe = 50, minVibe = -50;
 
     public float barsPerTurn = 2;
 

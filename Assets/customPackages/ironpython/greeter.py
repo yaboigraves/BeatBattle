@@ -1,4 +1,6 @@
 import random
+import mido
+
 class Greeter():
     def __init__(self, name):
         self.name = name

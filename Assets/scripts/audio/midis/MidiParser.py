@@ -10,56 +10,74 @@ import mido
 #import midi
 import sys
 
-totTime = 0
 
-# midi file
-# mid = MidiFile('midis/sonic midi shitfuck.mid')
-midiFilePath = sys.argv[1]
-mid = MidiFile(midiFilePath)
+class MidiParser:
 
-# bpm
-bpm = float(sys.argv[2])
+    def parse(self,filePath,bpmArg):
+        totTime = 0
 
-# times of midi events in millis for each track
-kickMessages = []
-hatMessages = []
-snareMessages = []
+        # midi file
+        # mid = MidiFile('midis/sonic midi shitfuck.mid')
+        midiFilePath = filePath
+        mid = MidiFile(midiFilePath)
 
-# 96 bpm
-# 4 beats per bar
-# 24 bars per minute
-# 60/24 = 2.5 bars
-# each midi is 2 bars
+        # bpm
+        bpm = float(bpmArg)
 
-# gotta figure out how to calculate this based on bpm
+        # times of midi events in millis for each track
+        kickMessages = []
+        hatMessages = []
+        snareMessages = []
 
+        # 96 bpm
+        # 4 beats per bar
+        # 24 bars per minute
+        # 60/24 = 2.5 bars
+        # each midi is 2 bars
 
-for i, track in enumerate(mid.tracks):
-    totTime -= track[3].time
-    # for msg in track:
-    for j in range(3, len(track) - 1):
-        # print(track[j].type)
-        totTime += track[j].time
-        if(track[j].type == "note_on"):
-            if(track[j].note == 36):
-                kickMessages.append(mido.tick2second(
-                    totTime, mid.ticks_per_beat, mido.bpm2tempo(bpm)) * (bpm/60))
-            if(track[j].note == 38):
-                snareMessages.append(mido.tick2second(
-                    totTime, mid.ticks_per_beat, mido.bpm2tempo(bpm)) * (bpm/60))
-
-# note this gives the time of the last note off event, not the actual end of the midi track
-#print(mido.tick2second(totTime, mid.ticks_per_beat, mido.bpm2tempo(bpm)) * 2)
-print(kickMessages)
-print(snareMessages)
+        # gotta figure out how to calculate this based on bpm
 
 
-f = open("cunty.txt", "w")
+        for i, track in enumerate(mid.tracks):
+            totTime -= track[3].time
+            # for msg in track:
+            for j in range(3, len(track) - 1):
+                # print(track[j].type)
+                totTime += track[j].time
+                if(track[j].type == "note_on"):
+                    if(track[j].note == 36):
+                        kickMessages.append(mido.tick2second(
+                            totTime, mid.ticks_per_beat, mido.bpm2tempo(bpm)) * (bpm/60))
+                    if(track[j].note == 38):
+                        snareMessages.append(mido.tick2second(
+                            totTime, mid.ticks_per_beat, mido.bpm2tempo(bpm)) * (bpm/60))
 
-f.write("k " + str(kickMessages) + "\n")
-f.write("s " + str(snareMessages) + "\n")
-f.write("l " + str(mido.tick2second(totTime,
-                                    mid.ticks_per_beat, mido.bpm2tempo(bpm) * (bpm/60))) + "\n")
-# f.write("t " + str(secondsPer2Bars) + "\n")
+        # note this gives the time of the last note off event, not the actual end of the midi track
+        #print(mido.tick2second(totTime, mid.ticks_per_beat, mido.bpm2tempo(bpm)) * 2)
+        print(kickMessages)
+        print(snareMessages)
 
-f.close()
+        kM = ""
+
+        for kickMessage in kickMessages:
+            kM += str(kickMessage) + " "
+        
+
+        return kM
+
+
+        
+
+  
+
+
+        #no longer need to write to a file
+        # f = open("sucess.txt", "w")
+
+        # f.write("k " + str(kickMessages) + "\n")
+        # f.write("s " + str(snareMessages) + "\n")
+        # f.write("l " + str(mido.tick2second(totTime,
+        #                                     mid.ticks_per_beat, mido.bpm2tempo(bpm) * (bpm/60))) + "\n")
+        # # f.write("t " + str(secondsPer2Bars) + "\n")
+
+        # f.close()

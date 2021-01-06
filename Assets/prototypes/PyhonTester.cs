@@ -21,7 +21,7 @@ public class PyhonTester : MonoBehaviour
 
         dynamic py = engine.ExecuteFile(Application.dataPath + @"\scripts\audio\midis\MidiParser.py");
         dynamic midiParser = py.MidiParser();
-        print(midiParser.parse(Application.dataPath + @"\scripts\audio\midis\cunty.mid", "88"));
+        print(midiParser.parse(Application.dataPath + @"\scripts\audio\midis\cunty.mid", "88")[0]);
 
 
         //Debug.Log(greeter.random_number(1, 5));

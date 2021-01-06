@@ -9,11 +9,18 @@ from mido import MidiFile
 import mido
 #import midi
 import sys
+from System.Collections.Generic import *
+
+
+class MidiOutput:
+    def __init__(self, kickMessages, snareMessages):
+        self.kickMessages = kickMessages
+        self.snareMessages = snareMessages
 
 
 class MidiParser:
 
-    def parse(self,filePath,bpmArg):
+    def parse(self, filePath, bpmArg):
         totTime = 0
 
         # midi file
@@ -36,7 +43,6 @@ class MidiParser:
         # each midi is 2 bars
 
         # gotta figure out how to calculate this based on bpm
-
 
         for i, track in enumerate(mid.tracks):
             totTime -= track[3].time
@@ -61,17 +67,12 @@ class MidiParser:
 
         for kickMessage in kickMessages:
             kM += str(kickMessage) + " "
-        
 
-        return kM
+        output = MidiOutput(kickMessages, snareMessages)
 
+        return List[float](kickMessages)
 
-        
-
-  
-
-
-        #no longer need to write to a file
+        # no longer need to write to a file
         # f = open("sucess.txt", "w")
 
         # f.write("k " + str(kickMessages) + "\n")

@@ -35,8 +35,10 @@ public class BattleTrackManager : MonoBehaviour
         if (TrackManager.current == null)
         {
             //initialize the indicator positions 
-            testPlayerTracks[0].kickBeats.indicatorPositions = Array.ConvertAll(testPlayerTracks[0].kickBeats.indicatorData.Split(' '), float.Parse);
-            testPlayerTracks[0].snareBeats.indicatorPositions = Array.ConvertAll(testPlayerTracks[0].snareBeats.indicatorData.Split(' '), float.Parse);
+
+            //TRACK REWRITE COMMENTOUT
+            //testPlayerTracks[0].kickBeats.indicatorPositions = Array.ConvertAll(testPlayerTracks[0].kickBeats.indicatorData.Split(' '), float.Parse);
+            //testPlayerTracks[0].snareBeats.indicatorPositions = Array.ConvertAll(testPlayerTracks[0].snareBeats.indicatorData.Split(' '), float.Parse);
 
             //default the selected track to just the first track
             playerSelectedTrack = testPlayerTracks[0];

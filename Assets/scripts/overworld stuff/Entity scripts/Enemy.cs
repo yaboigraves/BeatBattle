@@ -27,8 +27,10 @@ public class Enemy : MonoBehaviour
         foreach (Track track in battleTracks)
         {
             //print(Array.ConvertAll(track.kickBeats.indicatorData.Split(','), float.Parse));
-            track.kickBeats.indicatorPositions = Array.ConvertAll(track.kickBeats.indicatorData.Split(' '), float.Parse);
-            track.snareBeats.indicatorPositions = Array.ConvertAll(track.snareBeats.indicatorData.Split(' '), float.Parse);
+
+            //TRACK REWRITE COMMENTOUT
+            //track.kickBeats.indicatorPositions = Array.ConvertAll(track.kickBeats.indicatorData.Split(' '), float.Parse);
+            //track.snareBeats.indicatorPositions = Array.ConvertAll(track.snareBeats.indicatorData.Split(' '), float.Parse);
         }
     }
 

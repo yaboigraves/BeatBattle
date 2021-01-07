@@ -21,10 +21,18 @@ public class PyhonTester : MonoBehaviour
 
         dynamic py = engine.ExecuteFile(Application.dataPath + @"\scripts\audio\midis\MidiParser.py");
         dynamic midiParser = py.MidiParser();
-        print(midiParser.parse(Application.dataPath + @"\scripts\audio\midis\cunty.mid", "88")[0]);
 
+        //Dictionray to store the output of the midi parser
+        //each event is stored with a string,list keypair
 
-        //Debug.Log(greeter.random_number(1, 5));
+        Dictionary<string, List<System.Double>> midiMessages = (midiParser.parse(Application.dataPath + @"\scripts\audio\midis\cunty.mid", "88"));
+        print(midiMessages["kick"]);
+
+        for (int i = 0; i < midiMessages["kick"].Count; i++)
+        {
+            print(midiMessages["kick"][i]);
+        }
+
     }
 
     // Update is called once per frame

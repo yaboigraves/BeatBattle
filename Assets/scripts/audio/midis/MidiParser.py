@@ -12,12 +12,6 @@ import sys
 from System.Collections.Generic import *
 
 
-class MidiOutput:
-    def __init__(self, kickMessages, snareMessages):
-        self.kickMessages = kickMessages
-        self.snareMessages = snareMessages
-
-
 class MidiParser:
 
     def parse(self, filePath, bpmArg):
@@ -60,25 +54,11 @@ class MidiParser:
 
         # note this gives the time of the last note off event, not the actual end of the midi track
         #print(mido.tick2second(totTime, mid.ticks_per_beat, mido.bpm2tempo(bpm)) * 2)
-        print(kickMessages)
-        print(snareMessages)
+        # print(kickMessages)
+        # print(snareMessages)
 
-        kM = ""
+        messagesDictionary = Dictionary[str, List[float]]()
+        messagesDictionary.Add("kick", List[float](kickMessages))
+        messagesDictionary.Add("snare", List[float](snareMessages))
 
-        for kickMessage in kickMessages:
-            kM += str(kickMessage) + " "
-
-        output = MidiOutput(kickMessages, snareMessages)
-
-        return List[float](kickMessages)
-
-        # no longer need to write to a file
-        # f = open("sucess.txt", "w")
-
-        # f.write("k " + str(kickMessages) + "\n")
-        # f.write("s " + str(snareMessages) + "\n")
-        # f.write("l " + str(mido.tick2second(totTime,
-        #                                     mid.ticks_per_beat, mido.bpm2tempo(bpm) * (bpm/60))) + "\n")
-        # # f.write("t " + str(secondsPer2Bars) + "\n")
-
-        # f.close()
+        return messagesDictionary

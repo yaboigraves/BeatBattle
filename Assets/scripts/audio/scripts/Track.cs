@@ -17,10 +17,32 @@ public class Track : GameItem
     public IndicatorData snareBeats;
     public TrackStats trackStats;
 
+    public string midiFileName;
+
     //public List<float> kickBeats = new List<float>();
     //public List<float> snareBeats = new List<float>();
 
+    // public void ButtonTest()
+    // {
+    //     Debug.Log("button testo");
+    // }
+
+    public void BuildMidi()
+    {
+        /*
+            asks the midiLoader (abstract/static class) to load the midi data from the midiFileName
+            -these files need to be in some sort of standardized folder (midi folder ) in the assets folder
+        */
+
+        Debug.Log(MidiLoader.parseMidi("cunty.mid"));
+    }
 }
+
+
+
+
+
+//TODO: probably dont need two of these, consolidate the indicator data into one sub object ideally
 
 [Serializable]
 public class IndicatorData
@@ -43,6 +65,8 @@ public class IndicatorData
             indicatorPositions = Array.ConvertAll(indicatorData.Split(' '), float.Parse);
         }
     }
+
+
 }
 
 

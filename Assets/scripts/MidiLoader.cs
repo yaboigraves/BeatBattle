@@ -6,7 +6,7 @@ using UnityEngine;
 public static class MidiLoader
 {
 
-    public static Dictionary<string, List<System.Double>> parseMidi(string filename)
+    public static Dictionary<string, List<System.Double>> parseMidi(string filename, float bpm)
     {
         var engine = Python.CreateEngine();
 
@@ -22,7 +22,7 @@ public static class MidiLoader
         dynamic py = engine.ExecuteFile(Application.dataPath + @"\scripts\audio\midis\MidiParser.py");
         dynamic midiParser = py.MidiParser();
 
-        return (midiParser.parse(Application.dataPath + @"\scripts\audio\midis\cunty.mid", "88"));
+        return (midiParser.parse(Application.dataPath + @"\midis\" + filename, bpm.ToString()));
     }
 
 }

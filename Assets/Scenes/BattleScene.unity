@@ -617,7 +617,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 262207967}
-  m_LocalRotation: {x: 0.12195218, y: 0.22335152, z: -0.028177403, w: 0.9666684}
+  m_LocalRotation: {x: 0.12275361, y: 0.1938143, z: -0.02445107, w: 0.973021}
   m_LocalPosition: {x: -19.29, y: 100.31, z: -25.03}
   m_LocalScale: {x: 1.0000001, y: 1, z: 1}
   m_Children: []
@@ -1136,6 +1136,7 @@ GameObject:
   - component: {fileID: 413254362}
   - component: {fileID: 413254361}
   - component: {fileID: 413254363}
+  - component: {fileID: 413254364}
   m_Layer: 8
   m_Name: Pad (2)
   m_TagString: pad
@@ -1264,13 +1265,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 413254358}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5546ac55acacbb444a4887231bb4040a, type: 3}
+  m_Script: {fileID: 11500000, guid: d8ce24f3f755a05438b309897a67aa45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   indicator: {fileID: 0}
-  padID: midi2
+  padID: 2
   binding: 102
-  midiKeyNum: 40
+  midiKeyNum: 0
+  pulseSize: {x: 0, y: 0, z: 0}
+--- !u!114 &413254364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 413254358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c1c384a973e04b4e9bb871eed713d4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  decayRate: 0.3
 --- !u!1 &422669781
 GameObject:
   m_ObjectHideFlags: 0
@@ -1325,6 +1340,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -1938,6 +1954,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!223 &505211369
 Canvas:
   m_ObjectHideFlags: 0
@@ -2918,7 +2935,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 708335400}
-  m_LocalRotation: {x: 0.12195218, y: 0.22335152, z: -0.028177403, w: 0.9666684}
+  m_LocalRotation: {x: 0.12275361, y: 0.1938143, z: -0.02445107, w: 0.973021}
   m_LocalPosition: {x: -19.29, y: 100.31, z: -25.03}
   m_LocalScale: {x: 1.0000001, y: 1, z: 1}
   m_Children:
@@ -3796,6 +3813,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3aca28193a842354b92ef836d797d1ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &908238100 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7462329366701169845, guid: d59824d27951a2c4b9739be5b0e2d9f3,
+    type: 3}
+  m_PrefabInstance: {fileID: 7462329367501875524}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &908238101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908238100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8ce24f3f755a05438b309897a67aa45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  indicator: {fileID: 0}
+  padID: 0
+  binding: 0
+  midiKeyNum: 0
+  pulseSize: {x: 0, y: 0, z: 0}
+--- !u!114 &908238102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908238100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c1c384a973e04b4e9bb871eed713d4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  decayRate: 0.3
 --- !u!1 &918000380
 GameObject:
   m_ObjectHideFlags: 0
@@ -4362,6 +4415,7 @@ Light:
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!4 &1081628830
@@ -5111,6 +5165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 0
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -5196,6 +5251,7 @@ GameObject:
   - component: {fileID: 1359379916}
   - component: {fileID: 1359379915}
   - component: {fileID: 1359379917}
+  - component: {fileID: 1359379918}
   m_Layer: 8
   m_Name: Pad (1)
   m_TagString: pad
@@ -5324,13 +5380,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 1359379912}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5546ac55acacbb444a4887231bb4040a, type: 3}
+  m_Script: {fileID: 11500000, guid: d8ce24f3f755a05438b309897a67aa45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   indicator: {fileID: 0}
-  padID: midi1
+  padID: 1
   binding: 100
-  midiKeyNum: 38
+  midiKeyNum: 0
+  pulseSize: {x: 0, y: 0, z: 0}
+--- !u!114 &1359379918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1359379912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c1c384a973e04b4e9bb871eed713d4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  decayRate: 0.3
 --- !u!4 &1373271539 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7462329366701169847, guid: d59824d27951a2c4b9739be5b0e2d9f3,
@@ -5398,7 +5468,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1379790092}
-  m_LocalRotation: {x: 0.10139805, y: 0.35242355, z: -0.038443957, w: 0.9295365}
+  m_LocalRotation: {x: 0.100289226, y: 0.37814844, z: -0.041250143, w: 0.91937166}
   m_LocalPosition: {x: -19.29, y: 100.31, z: -25.03}
   m_LocalScale: {x: 0.9999999, y: 1, z: 1}
   m_Children:
@@ -5624,6 +5694,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 0
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -5713,6 +5784,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 0
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -5988,6 +6060,7 @@ GameObject:
   - component: {fileID: 1641879190}
   - component: {fileID: 1641879189}
   - component: {fileID: 1641879191}
+  - component: {fileID: 1641879192}
   m_Layer: 8
   m_Name: Pad (3)
   m_TagString: pad
@@ -6116,13 +6189,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 1641879186}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5546ac55acacbb444a4887231bb4040a, type: 3}
+  m_Script: {fileID: 11500000, guid: d8ce24f3f755a05438b309897a67aa45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   indicator: {fileID: 0}
-  padID: 
+  padID: 3
   binding: 0
-  midiKeyNum: 35
+  midiKeyNum: 0
+  pulseSize: {x: 0, y: 0, z: 0}
+--- !u!114 &1641879192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641879186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c1c384a973e04b4e9bb871eed713d4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  decayRate: 0.3
 --- !u!1001 &1645439399
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6533,6 +6620,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -7540,5 +7628,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7462329366701169842, guid: d59824d27951a2c4b9739be5b0e2d9f3, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d59824d27951a2c4b9739be5b0e2d9f3, type: 3}

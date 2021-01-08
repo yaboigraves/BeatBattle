@@ -36,7 +36,7 @@ public class Pad : MonoBehaviour
                 //print("hit");
                 Indicator indic = indicator.GetComponent<Indicator>();
 
-                pulse.TriggerPulse(pulseSize);
+                //pulse.TriggerPulse(pulseSize);
 
                 if (indic.indicatorType == "Heady")
                 {

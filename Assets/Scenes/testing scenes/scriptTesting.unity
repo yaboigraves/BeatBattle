@@ -215,6 +215,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6243852396415342853, guid: 88eab55e26be6314e81942186025c7e9,
         type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6243852396415342853, guid: 88eab55e26be6314e81942186025c7e9,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -227,6 +232,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6243852396415342853, guid: 88eab55e26be6314e81942186025c7e9,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6243852396415342853, guid: 88eab55e26be6314e81942186025c7e9,
         type: 3}
@@ -245,16 +255,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6243852396415342853, guid: 88eab55e26be6314e81942186025c7e9,
         type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6243852396415342853, guid: 88eab55e26be6314e81942186025c7e9,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6243852396415342853, guid: 88eab55e26be6314e81942186025c7e9,
-        type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
@@ -266,6 +266,11 @@ PrefabInstance:
     - target: {fileID: 6243852396415342853, guid: 88eab55e26be6314e81942186025c7e9,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6243852396415342854, guid: 88eab55e26be6314e81942186025c7e9,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6243852396415342854, guid: 88eab55e26be6314e81942186025c7e9,
@@ -282,6 +287,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TrackManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 6243852396415342855, guid: 88eab55e26be6314e81942186025c7e9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88eab55e26be6314e81942186025c7e9, type: 3}
@@ -361,6 +371,7 @@ Light:
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!4 &2092621275

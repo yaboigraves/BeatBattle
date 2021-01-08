@@ -16,21 +16,33 @@ MonoBehaviour:
   cost: 1
   description: What a slapper.
   unique: 1
+  itemIcon: {fileID: 0}
   trackClip: {fileID: 8300000, guid: 33da81c1c68cdc74fb40a44689e57baa, type: 3}
   artist: Samiyam
   bpm: 86.25
   numBars: 4
   isBattleTrack: 1
-  kickBeats:
-    indicatorData: 0.0 1.9999995 4.0937489765625 6.0104151640625 8.0104146640625
-      9.9999975 12.010413664062497 14.010413164062498 15.979162671874997
-    indicatorPositions:
-    - 0
-    - 1.999999
-  snareBeats:
-    indicatorData: 0.9895830859374999 1.7604162265624999 2.9895825859375 4.9895820859375
-      6.999998249999999 8.989581085937498 10.99999725 12.999996749999998 14.99999625
-    indicatorPositions: []
   trackStats:
-    trackVibe: chill
+    trackVibe: 0
     vibePerHit: -1
+  midiFileName: samiyam.mid
+  kickBeats:
+  - 0
+  - 1.9999995
+  - 4.0937489765625
+  - 6.0104151640625
+  - 8.0104146640625
+  - 9.9999975
+  - 12.010413664062497
+  - 14.010413164062498
+  - 15.979162671874997
+  snareBeats:
+  - 0.9895830859374999
+  - 1.7604162265624999
+  - 2.9895825859375
+  - 4.9895820859375
+  - 6.999998249999999
+  - 8.989581085937498
+  - 10.99999725
+  - 12.999996749999998
+  - 14.99999625

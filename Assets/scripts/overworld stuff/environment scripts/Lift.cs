@@ -8,7 +8,7 @@ public class Lift : MonoBehaviour, IActivateable
 
     public float speed = 1f;
     public float delta = 3f;
-    Rigidbody rigidbody;
+    Rigidbody rb;
 
     //should be able to move between all waypoitns
     public Transform[] wayPoints;
@@ -25,7 +25,7 @@ public class Lift : MonoBehaviour, IActivateable
 
         //wayPoints[currentWaypoint] = transform;
         //currentWaypoint = 0;
-        rigidbody = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
     }
 
     public void Activate()

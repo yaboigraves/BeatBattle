@@ -44,9 +44,9 @@ public class IndicatorManager : MonoBehaviour
             GameObject _bar = Instantiate(bar, Vector3.up * (100 + i), Quaternion.identity, indicContainer.transform.GetChild(1));
         }
 
-        for (int i = 0; i < track.kickBeats.indicatorPositions.Length; i++)
+        for (int i = 0; i < track.kickBeats.Count; i++)
         {
-            Vector3 kickPos = new Vector3(-1, 0 + 100 + (track.kickBeats.indicatorPositions[i]), 0);
+            Vector3 kickPos = new Vector3(-1, 0 + 100 + ((float)track.kickBeats[i]), 0);
             //each unit is 1 bar 
             //therefore we need to start the next batck of indicators at wherever the loop ends
             //probablyh easiest for now just to bake the length of the loop into the track object 
@@ -57,9 +57,9 @@ public class IndicatorManager : MonoBehaviour
 
         }
 
-        for (int i = 0; i < track.snareBeats.indicatorPositions.Length; i++)
+        for (int i = 0; i < track.snareBeats.Count; i++)
         {
-            Vector3 kickPos = new Vector3(1, 0 + 100 + (track.snareBeats.indicatorPositions[i]), 0);
+            Vector3 kickPos = new Vector3(1, 0 + 100 + ((float)track.snareBeats[i]), 0);
             GameObject indic = Instantiate(indicator, kickPos, Quaternion.identity, indicContainer.transform.GetChild(0));
 
 

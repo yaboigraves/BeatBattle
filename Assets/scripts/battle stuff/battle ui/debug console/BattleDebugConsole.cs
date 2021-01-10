@@ -26,6 +26,11 @@ public class BattleDebugConsole : MonoBehaviour
 
     }
 
+    public void UpdateLanePosition(string inp)
+    {
+
+    }
+
     public void ActivateConsole()
     {
         debugPanel.SetActive(!debugPanel.activeSelf);

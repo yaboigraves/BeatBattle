@@ -1,13 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
+using TMPro;
 public class TrackPosToggle : MonoBehaviour
 {
     public Transform lane;
+    TMP_Dropdown dropdown;
     // Start is called before the first frame update
     void Start()
     {
+        dropdown = GetComponent<TMP_Dropdown>();
+
+        if (lane.transform.position.x == -3)
+        {
+            dropdown.value = 0;
+        }
+        if (lane.transform.position.x == -1)
+        {
+            dropdown.value = 1;
+        }
+        if (lane.transform.position.x == 1)
+        {
+            dropdown.value = 2;
+        }
+        if (lane.transform.position.x == 3)
+        {
+            dropdown.value = 3;
+        }
 
     }
 

@@ -8,13 +8,15 @@ public class Pad : MonoBehaviour
     public string padID;
     public KeyCode binding;
     public int midiKeyNum;
-    PulseEffect pulse;
+    //PulseEffect pulse;
 
-    public Vector3 pulseSize;
+    //public Vector3 pulseSize;
+
+    Pulse pulse;
     // Start is called before the first frame update
     void Start()
     {
-        pulse = GetComponent<PulseEffect>();
+        pulse = GetComponent<Pulse>();
         //so when we initialize in a battle we need to tell the pads what midi key they're coordinated with
         //this is probably just gonna be passed into the battlemanager
 
@@ -51,6 +53,7 @@ public class Pad : MonoBehaviour
                 else
                 {
                     //BattleManager.current.processPadHit(true);
+                    pulse.pulse();
                 }
 
                 Destroy(indicator);

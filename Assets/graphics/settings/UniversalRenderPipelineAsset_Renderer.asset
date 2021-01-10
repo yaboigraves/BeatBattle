@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: de640fe3d0db1804a85f9fc8f5cadab6, type: 3}
-  m_Name: Pipe_Renderer
+  m_Name: UniversalRenderPipelineAsset_Renderer
   m_EditorClassIdentifier: 
   m_RendererFeatures:
-  - {fileID: 8402590795451797040}
-  m_RendererFeatureMap: 300edf43cfff9b74
+  - {fileID: 3676814142769167741}
+  m_RendererFeatureMap: 7d7de374fbaa0633
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
   shaders:
@@ -36,7 +36,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_DefaultStencilState:
     overrideStencilState: 0
-    stencilReference: 0
+    stencilReference: 8
     stencilCompareFunction: 8
     passOperation: 0
     failOperation: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_ShadowTransparentReceive: 1
   m_RenderingMode: 0
   m_AccurateGbufferNormals: 0
---- !u!114 &8402590795451797040
+--- !u!114 &3676814142769167741
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -54,14 +54,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 639e0aa661ca1d948a1bf034d781e31a, type: 3}
-  m_Name: NewOutlineFeature
+  m_Name: Outline
   m_EditorClassIdentifier: 
   m_Active: 1
   outlineSettings:
-    color: {r: 0, g: 0.25, b: 1, a: 1}
-    width: 21.2
-    layer: 13
-    renderPassEvent: 500
+    color: {r: 0, g: 0, b: 0, a: 1}
+    width: 9.1
+    layer: 4
+    renderPassEvent: 0
   stencilSettings:
     layer: 4
-    renderPassEvent: 500
+    renderPassEvent: 0

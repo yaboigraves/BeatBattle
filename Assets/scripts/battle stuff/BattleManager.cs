@@ -230,9 +230,10 @@ public class BattleManager : MonoBehaviour
         {
             if (hit)
             {
-                enemyTakeDamage(1);
+                //enemyTakeDamage(1);
                 currentStreak++;
-                vibe += BattleTrackManager.current.currentTrack.trackStats.vibePerHit;
+                //vibe += BattleTrackManager.current.currentTrack.trackStats.vibePerHit;
+                vibe += 1;
 
                 //spawn a indicator number 
             }
@@ -240,6 +241,7 @@ public class BattleManager : MonoBehaviour
             {
                 currentStreak = 0;
                 //print("u missed lol");
+                vibe -= 1;
             }
 
         }
@@ -247,8 +249,8 @@ public class BattleManager : MonoBehaviour
         {
             if (hit)
             {
-                vibe += BattleTrackManager.current.currentTrack.trackStats.vibePerHit;
-
+                //vibe += BattleTrackManager.current.currentTrack.trackStats.vibePerHit;
+                vibe += 1;
                 currentStreak = 1;
                 //u dont take damage
                 //print("b");
@@ -256,7 +258,8 @@ public class BattleManager : MonoBehaviour
             else
             {
                 currentStreak = 0;
-                playerTakeDamage(1);
+                //playerTakeDamage(1);
+                vibe--;
             }
         }
         BattleUIManager.current.UpdateVibe(vibe);

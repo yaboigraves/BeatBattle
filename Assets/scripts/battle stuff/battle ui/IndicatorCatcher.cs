@@ -13,31 +13,34 @@ public class IndicatorCatcher : MonoBehaviour
 
             Indicator indic = other.gameObject.GetComponent<Indicator>();
 
-            //so first we check if the indicator has a type 
+            // //so first we check if the indicator has a type 
 
-            switch (indic.indicatorType)
-            {
-                //TODO: iterate on this
-                // case "Heady":
-                //     //if its heady the catcher getting it is actually good
-                //     BattleManager.current.processPadHit(true);
-                //     break;
+            // switch (indic.indicatorType)
+            // {
+            //     //TODO: iterate on this
+            //     // case "Heady":
+            //     //     //if its heady the catcher getting it is actually good
+            //     //     BattleManager.current.processPadHit(true);
+            //     //     break;
 
-                default:
-                    //if its not any type then we just look at whether or not it's an attack or defense note
+            //     default:
+            //         //if its not any type then we just look at whether or not it's an attack or defense note
 
-                    if (indic.attackOrDefend)
-                    {
-                        //attack note, currently no damage done to the player
-                    }
-                    else
-                    {
-                        //defense note, take damage
-                        BattleManager.current.playerTakeDamage(1);
-                    }
+            //         if (indic.attackOrDefend)
+            //         {
+            //             //attack note, currently no damage done to the player
+            //         }
+            //         else
+            //         {
+            //             //defense note, take damage
+            //             BattleManager.current.playerTakeDamage(1);
+            //         }
 
-                    break;
-            }
+            //         break;
+            // }
+
+            BattleManager.current.vibe--;
+            BattleUIManager.current.UpdateVibe(BattleManager.current.vibe);
 
             Destroy(other.gameObject);
         }

@@ -15,7 +15,7 @@ MonoBehaviour:
   m_Active: 1
   outlineSettings:
     color: {r: 0, g: 0, b: 0, a: 1}
-    width: 15
+    width: 5
     layer: 4
     renderPassEvent: 500
   stencilSettings:

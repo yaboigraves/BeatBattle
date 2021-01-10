@@ -39,7 +39,7 @@ public class Indicator : MonoBehaviour
         moveSpeed = 1;
 
         //startPos = transform.position;
-        beatOfThisNote = transform.position.y - 100 + 1;
+        beatOfThisNote = transform.position.y - 100;
 
         if (beatOfThisNote == 0)
         {
@@ -47,9 +47,9 @@ public class Indicator : MonoBehaviour
             beatOfThisNote = 0.01f;
         }
 
-        start = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        start = new Vector3(0, beatOfThisNote, transform.position.z);
         //end is 99 because we want to go 1 unit below the pad
-        end = new Vector3(transform.position.x, 99, transform.position.z);
+        end = new Vector3(0, 0, transform.position.z);
     }
 
     public void SetIndicatorType(bool attackOrDefend, string indicType)
@@ -61,7 +61,8 @@ public class Indicator : MonoBehaviour
 
         if (Random.Range(0, 3) > 1)
         {
-            this.indicatorType = indicType;
+            //TODO: re-enable
+            //this.indicatorType = indicType;
         }
 
 

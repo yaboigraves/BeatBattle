@@ -61,7 +61,8 @@ public class Indicator : MonoBehaviour
 
         if (Random.Range(0, 3) > 1)
         {
-            this.indicatorType = indicType;
+            //TODO: re-enable
+            //this.indicatorType = indicType;
         }
 
 

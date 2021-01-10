@@ -37,7 +37,7 @@ public class BattleUIManager : MonoBehaviour
     {
         BattleEndUI.SetActive(false);
         //setup the buttons for the players track options
-        InitTrackButtons();
+        //InitTrackButtons();
 
     }
 

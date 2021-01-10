@@ -29,6 +29,7 @@ class MidiParser:
         kickMessages = []
         hatMessages = []
         snareMessages = []
+        percMessages = []
 
         # 96 bpm
         # 4 beats per bar
@@ -51,6 +52,12 @@ class MidiParser:
                     if(track[j].note == 38):
                         snareMessages.append(mido.tick2second(
                             totTime, mid.ticks_per_beat, mido.bpm2tempo(bpm)) * (bpm/60))
+                    if(track[j].note == 40):
+                        hatMessages.append(mido.tick2second(
+                            totTime, mid.ticks_per_beat, mido.bpm2tempo(bpm)) * (bpm/60))
+                    if(track[j].note == 41):
+                        percMessages.append(mido.tick2second(
+                            totTime, mid.ticks_per_beat, mido.bpm2tempo(bpm)) * (bpm/60))
 
         # note this gives the time of the last note off event, not the actual end of the midi track
         #print(mido.tick2second(totTime, mid.ticks_per_beat, mido.bpm2tempo(bpm)) * 2)
@@ -60,5 +67,7 @@ class MidiParser:
         messagesDictionary = Dictionary[str, List[float]]()
         messagesDictionary.Add("kick", List[float](kickMessages))
         messagesDictionary.Add("snare", List[float](snareMessages))
+        messagesDictionary.Add("hat", List[float](hatMessages))
+        messagesDictionary.Add("perc", List[float](percMessages))
 
         return messagesDictionary

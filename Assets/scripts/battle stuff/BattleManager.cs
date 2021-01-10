@@ -88,7 +88,7 @@ public class BattleManager : MonoBehaviour
             LoadGear();
             LoadItems(GameManager.current.player.inventory.items);
         }
-        changeTurn();
+        setupBattle();
         firstTurn = false;
 
         //load all the spectators for the battle
@@ -351,7 +351,7 @@ public class BattleManager : MonoBehaviour
 
 
     //TODO: This is a little too unwieldy right now rewrite this at some point
-    public void changeTurn()
+    public void setupBattle()
     {
         playerTurn = !playerTurn;
         //first we check who's turn it is
@@ -368,7 +368,6 @@ public class BattleManager : MonoBehaviour
             //IndicatorManager.current.changeIndicatorColors(new Color(255, 0, 0, 1));
 
             //indicatorContainer.GetComponent<Indicator>().UpdateColor(new Color(255, 0, 0));
-
         }
         else
         {

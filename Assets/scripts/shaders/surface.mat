@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: surface
-  m_Shader: {fileID: 4800000, guid: 506982cf372ceee4aac166bb689cac44, type: 3}
+  m_Shader: {fileID: 4800000, guid: e3df3d93f182e3c4bb2f2e3489e266a2, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -27,18 +27,34 @@ Material:
         m_Texture: {fileID: 2800000, guid: 55f0b2d1f8eb2684dad0ff459ea2ba60, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
+    - CORNERS: 0
     - _Angle: 89
     - _FirstOutlineWidth: 0
+    - _OutlineThickness: 20
     - _SecondOutlineWidth: 0.15
     - _SpecularFalloff: 0
     - _SpecularSize: 0
     - _StepAmount: 5
     - _StepWidth: 0.369
+    - _Transparency: 1
     m_Colors:
     - _Color: {r: 0.373576, g: 0.6886792, b: 0.373576, a: 1}
     - _Emission: {r: 0.38431373, g: 0.2882353, b: 0.18235295, a: 1}
     - _FirstOutlineColor: {r: 0, g: 0, b: 0, a: 0.5}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _SecondOutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _ShadowTint: {r: 0.066037714, g: 0.009684777, b: 0.004049484, a: 1}
     - _Specular: {r: 0.4716981, g: 0.23655699, b: 0.12682448, a: 1}

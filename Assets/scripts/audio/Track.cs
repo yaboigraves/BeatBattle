@@ -19,7 +19,7 @@ public class Track : GameItem
 
     public string midiFileName;
 
-    public List<double> kickBeats, snareBeats;
+    public List<double> kickBeats, snareBeats, hatBeats, percBeats;
 
 
     public void BuildMidi()
@@ -33,6 +33,8 @@ public class Track : GameItem
 
         kickBeats = messageData["kick"];
         snareBeats = messageData["snare"];
+        hatBeats = messageData["hat"];
+        percBeats = messageData["perc"];
     }
 }
 

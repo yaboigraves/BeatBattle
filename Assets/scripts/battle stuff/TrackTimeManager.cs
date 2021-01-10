@@ -71,13 +71,13 @@ public class TrackTimeManager : MonoBehaviour
 
         //update ui with data 
 
-        if (songPositionInBeats >= 16)
-        {
-            //turn change 
-            currentTurnStartBeat = songPositionInBeats;
-            BattleManager.current.changeTurn();
-            BattleCameraController.current.CameraSwitchup();
-        }
+        // if (songPositionInBeats >= 16)
+        // {
+        //     //turn change 
+        //     // currentTurnStartBeat = songPositionInBeats;
+        //     //BattleManager.current.changeTurn();
+        //     BattleCameraController.current.CameraSwitchup();
+        // }
 
         if (trackStarted)
         {

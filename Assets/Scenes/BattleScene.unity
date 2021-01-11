@@ -2229,7 +2229,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 262207967}
-  m_LocalRotation: {x: 0.12304769, y: 0.18171972, z: -0.02292525, w: 0.9753521}
+  m_LocalRotation: {x: 0.1230477, y: 0.18171969, z: -0.022925247, w: 0.9753521}
   m_LocalPosition: {x: -19.29, y: 100.31, z: -25.03}
   m_LocalScale: {x: 1.0000001, y: 1, z: 1}
   m_Children: []
@@ -6293,7 +6293,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 708335400}
-  m_LocalRotation: {x: 0.12304769, y: 0.18171972, z: -0.02292525, w: 0.9753521}
+  m_LocalRotation: {x: 0.1230477, y: 0.18171969, z: -0.022925247, w: 0.9753521}
   m_LocalPosition: {x: -19.29, y: 100.31, z: -25.03}
   m_LocalScale: {x: 1.0000001, y: 1, z: 1}
   m_Children:
@@ -9467,7 +9467,7 @@ MonoBehaviour:
   enemyMaxHealth: 0
   playerTracks:
   - {fileID: 11400000, guid: d8c9e3823a42a1c418d9b52ac468fbc0, type: 2}
-  playerTurn: 0
+  playerTurn: 1
   enemy: {fileID: 484811456055130513}
   indicators: {fileID: 1748981234}
   indicatorContainer: {fileID: 989058674}
@@ -10979,7 +10979,7 @@ GameObject:
   - component: {fileID: 1327092990}
   - component: {fileID: 1327092989}
   m_Layer: 0
-  m_Name: Dropdown
+  m_Name: TrackSelector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11064,9 +11064,23 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Option C
       m_Image: {fileID: 0}
+    - m_Text: Option C
+      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1389777754}
+        m_TargetAssemblyTypeName: BattleDebugConsole, Assembly-CSharp
+        m_MethodName: SelectTrack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &1327092990
 MonoBehaviour:
@@ -11893,6 +11907,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugPanel: {fileID: 1372738438}
+  trackSelector: {fileID: 1327092989}
 --- !u!4 &1389777755
 Transform:
   m_ObjectHideFlags: 0

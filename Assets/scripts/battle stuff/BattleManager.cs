@@ -356,7 +356,7 @@ public class BattleManager : MonoBehaviour
     //TODO: This is a little too unwieldy right now rewrite this at some point
     public void setupBattle()
     {
-        playerTurn = !playerTurn;
+        //playerTurn = !playerTurn;
         //first we check who's turn it is
         if (playerTurn)
         {
@@ -367,7 +367,7 @@ public class BattleManager : MonoBehaviour
             print("players turn");
             //so we need to find which track the player has selected
             //for now we just use the 0th position 
-            BattleTrackManager.current.switchBattleTrack(BattleTrackManager.current.playerSelectedTrack, firstTurn);
+            BattleTrackManager.current.setBattleTrack(BattleTrackManager.current.playerSelectedTrack, firstTurn);
             //IndicatorManager.current.changeIndicatorColors(new Color(255, 0, 0, 1));
 
             //indicatorContainer.GetComponent<Indicator>().UpdateColor(new Color(255, 0, 0));
@@ -378,7 +378,7 @@ public class BattleManager : MonoBehaviour
             BattleUIManager.current.ToggleTrackSelectorOn(true);
 
             print("enemies turn");
-            BattleTrackManager.current.switchBattleTrack(BattleTrackManager.current.testEnemyTracks[0], firstTurn);
+            BattleTrackManager.current.setBattleTrack(BattleTrackManager.current.testEnemyTracks[0], firstTurn);
             //IndicatorManager.current.changeIndicatorColors(new Color(0, 0, 255, 1));
             //indicatorContainer.GetComponent<Indicator>().UpdateColor(new Color(0, 255, 0));
         }
@@ -430,6 +430,19 @@ public class BattleManager : MonoBehaviour
         {
             playerTakeDamage(1);
         }
+    }
+
+    public void ResetVibe()
+    {
+        this.vibe = 0;
+    }
+
+    //TODO: theres some random bs other functions with similar names/functions maybe kill this later but its mostly for debug
+    public void StopBattle()
+    {
+        ResetVibe();
+        battleStarted = false;
+        BattleTrackManager.current.StopBattle();
     }
 
 

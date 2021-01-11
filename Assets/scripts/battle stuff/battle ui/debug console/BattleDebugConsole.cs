@@ -38,6 +38,23 @@ public class BattleDebugConsole : MonoBehaviour
 
     public void ReloadScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
+        //so instead of relading the scene (which will fuck with track selection) just going to clear all the indicators and reset vibe and start fresh
+
+        //stuff to do in this function
+        //-clear all the indicators and bars
+        //-reset the vibe
+
+        IndicatorManager.current.ClearIndicators();
+        IndicatorManager.current.ClearBars();
+
+        BattleManager.current.StopBattle();
+
+        BattleManager.current.setupBattle();
+
+
+        //after all this shit is done tell the battlemanager to reload the currently selected track and set the battle to not started
+
+
     }
 }

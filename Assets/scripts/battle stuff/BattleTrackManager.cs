@@ -122,7 +122,6 @@ public class BattleTrackManager : MonoBehaviour
         if (!doWait)
         {
             // StartCoroutine(barWait());
-
             TrackTimeManager.current.beatWait(4);
         }
     }

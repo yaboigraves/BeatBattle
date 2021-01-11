@@ -39,7 +39,7 @@ public class Indicator : MonoBehaviour
         moveSpeed = 1;
 
         //startPos = transform.position;
-        beatOfThisNote = transform.position.y - 100;
+        beatOfThisNote = transform.position.y;
 
         if (beatOfThisNote == 0)
         {

@@ -82,4 +82,35 @@ public class IndicatorManager : MonoBehaviour
 
         //lastIndicatorContainer = indicContainer;
     }
+
+    public void ClearIndicators()
+    {
+        //TODO: loop through all the indicators lanes and kill all the indicators there
+
+        for (int i = 0; i < kickLane.transform.childCount; i++)
+        {
+            Destroy(kickLane.transform.GetChild(i).gameObject);
+        }
+        for (int i = 0; i < snareLane.transform.childCount; i++)
+        {
+            Destroy(snareLane.transform.GetChild(i).gameObject);
+        }
+        for (int i = 0; i < hatLane.transform.childCount; i++)
+        {
+            Destroy(hatLane.transform.GetChild(i).gameObject);
+        }
+        for (int i = 0; i < percLane.transform.childCount; i++)
+        {
+            Destroy(percLane.transform.GetChild(i).gameObject);
+        }
+    }
+
+    public void ClearBars()
+    {
+        //TODO: loop through all the bars and kill them all
+        for (int i = 0; i < barContainer.transform.childCount; i++)
+        {
+            Destroy(barContainer.transform.GetChild(i).gameObject);
+        }
+    }
 }

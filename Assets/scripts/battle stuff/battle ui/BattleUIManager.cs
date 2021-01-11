@@ -27,6 +27,10 @@ public class BattleUIManager : MonoBehaviour
 
     public Slider playerHealthSlider;
 
+    public Slider vibeSlider;
+
+    //vibe slider is on a -50 to 50 scale rn (0-100)
+
     private void Awake()
     {
         current = this;
@@ -155,6 +159,7 @@ public class BattleUIManager : MonoBehaviour
     public void UpdateVibe(int vibe)
     {
         vibeText.text = vibe.ToString();
+        vibeSlider.value = vibe + 50;
     }
 
 

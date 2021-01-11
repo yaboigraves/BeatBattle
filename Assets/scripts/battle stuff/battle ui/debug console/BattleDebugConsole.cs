@@ -72,4 +72,6 @@ public class BattleDebugConsole : MonoBehaviour
         BattleTrackManager.current.playerSelectedTrack = BattleTrackManager.current.testPlayerTracks[selection];
         ReloadScene();
     }
+
+
 }

@@ -96,7 +96,7 @@ public class BattleTrackManager : MonoBehaviour
 
 
     public int nextTurnStart;
-    public void switchBattleTrack(Track newTrack, bool doWait)
+    public void setBattleTrack(Track newTrack, bool doWait)
     {
         //couple things need to happen here
         //1. we turn off the current track audio

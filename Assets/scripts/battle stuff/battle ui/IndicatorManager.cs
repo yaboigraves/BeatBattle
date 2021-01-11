@@ -50,7 +50,7 @@ public class IndicatorManager : MonoBehaviour
 
         for (int i = 0; i < track.kickBeats.Count; i++)
         {
-            Vector3 kickPos = new Vector3(kickLane.transform.position.x, 3.1f + ((float)track.kickBeats[i]), 0);
+            Vector3 kickPos = new Vector3(kickLane.transform.position.x, ((float)track.kickBeats[i]), 0);
             //each unit is 1 bar 
             //therefore we need to start the next batck of indicators at wherever the loop ends
             //probablyh easiest for now just to bake the length of the loop into the track object 
@@ -60,21 +60,21 @@ public class IndicatorManager : MonoBehaviour
 
         for (int i = 0; i < track.snareBeats.Count; i++)
         {
-            Vector3 kickPos = new Vector3(snareLane.transform.position.x, 3.1f + ((float)track.snareBeats[i]), 0);
+            Vector3 kickPos = new Vector3(snareLane.transform.position.x, ((float)track.snareBeats[i]), 0);
             GameObject indic = Instantiate(indicator, kickPos, Quaternion.identity, snareLane.transform);
             indic.GetComponent<Indicator>().SetIndicatorType(BattleManager.current.playerTurn, newTrack.trackStats.trackVibe.ToString());
         }
 
         for (int i = 0; i < track.hatBeats.Count; i++)
         {
-            Vector3 kickPos = new Vector3(hatLane.transform.position.x, 3.1f + ((float)track.hatBeats[i]), 0);
+            Vector3 kickPos = new Vector3(hatLane.transform.position.x, ((float)track.hatBeats[i]), 0);
             GameObject indic = Instantiate(indicator, kickPos, Quaternion.identity, hatLane.transform);
             indic.GetComponent<Indicator>().SetIndicatorType(BattleManager.current.playerTurn, newTrack.trackStats.trackVibe.ToString());
         }
 
         for (int i = 0; i < track.percBeats.Count; i++)
         {
-            Vector3 kickPos = new Vector3(percLane.transform.position.x, 3.1f + ((float)track.percBeats[i]), 0);
+            Vector3 kickPos = new Vector3(percLane.transform.position.x, ((float)track.percBeats[i]), 0);
             GameObject indic = Instantiate(indicator, kickPos, Quaternion.identity, percLane.transform);
             indic.GetComponent<Indicator>().SetIndicatorType(BattleManager.current.playerTurn, newTrack.trackStats.trackVibe.ToString());
         }

@@ -55,7 +55,7 @@ public class TrackPosToggle : MonoBehaviour
         {
             choice = 3;
         }
-        Vector3 lanePos = new Vector3(choice, 99, 0);
+        Vector3 lanePos = new Vector3(choice, 0, 0);
         lane.transform.position = lanePos;
     }
 }

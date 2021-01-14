@@ -1,0 +1,8 @@
+﻿title: timelineTestNPC
+tags:
+---
+
+TimelineTestNPC: Yo this should trigger a custscene to happen in the back.
+
+TimelineTestNPC: This should then trigger the next phase.
+===

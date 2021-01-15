@@ -4,6 +4,7 @@ using UnityEngine;
 using Yarn.Unity;
 using Cinemachine;
 using TMPro;
+using UnityEngine.Playables;
 
 public class NPC : Entity, IInteractable
 {
@@ -25,18 +26,26 @@ public class NPC : Entity, IInteractable
     public GameObject battleEnemy;
 
     DialogueRunner dialogueRunner;
+    public PlayableDirector cutsceneDirector;
 
     public void Interact()
     {
 
 
         //check if we have a cutscene to load 
-        if (cutscene != null)
+        // if (cutscene != null)
+        // {
+        //     CutsceneManager.current.LoadCutscene(cutscene);
+        // }
+
+        //check if we have a cutscene to load 
+        if (cutsceneDirector.playableAsset != null)
         {
-            CutsceneManager.current.LoadCutscene(cutscene);
+            NewCutsceneManager.current.SetCutscene(cutsceneDirector);
         }
 
-        print(cameraPositions);
+
+        //print(cameraPositions);
 
         FindObjectOfType<DialogueRunner>().StartDialogue(talkToNode);
     }
@@ -76,6 +85,8 @@ public class NPC : Entity, IInteractable
         DialogCameraController.current.setCameraObjects(cameraPositions);
 
         npcTextBox.transform.parent.gameObject.SetActive(false);
+
+        cutsceneDirector = GetComponent<PlayableDirector>();
     }
 
     //text stuff
@@ -129,5 +140,11 @@ public class NPC : Entity, IInteractable
         {
             Debug.LogError("NO ENEMY IN NPC COMPONENT");
         }
+    }
+
+    //called from the signal emitter
+    public void PauseCutscene()
+    {
+        NewCutsceneManager.current.PauseCutscene();
     }
 }

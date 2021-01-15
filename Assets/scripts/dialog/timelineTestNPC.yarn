@@ -1,8 +1,9 @@
 ﻿title: timelineTestNPC
 tags:
 ---
-
+<<startCutscene>>
 TimelineTestNPC: Yo this should trigger a custscene to happen in the back.
 
+<<cutsceneCheckpoint>>
 TimelineTestNPC: This should then trigger the next phase.
 ===

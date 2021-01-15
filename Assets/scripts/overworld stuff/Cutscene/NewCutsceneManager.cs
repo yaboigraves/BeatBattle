@@ -13,7 +13,14 @@ public class NewCutsceneManager : MonoBehaviour
     public DialogueRunner dialogueRunner;
 
     //assuming that if you have a cutscene in a dialogue there's a pause somewhere
-    public bool pauseScheduled = true;
+
+    //so this probably cant be a bool just in case we pass through multiple checkpoints
+    //going to convert this to an int instead
+
+    //if there is a pause scheduled then this is going to be 1, if theres no pause scheduled it will be lower than 1
+    //every checkpoint we pass will then increase this by 1
+
+    int checkPoints = 1;
 
 
 
@@ -26,62 +33,51 @@ public class NewCutsceneManager : MonoBehaviour
     {
         dialogueRunner.AddCommandHandler("startCutscene", startCutscene);
         dialogueRunner.AddCommandHandler("cutsceneCheckpoint", cutsceneCheckpoint);
+    }
 
-
-
+    public void SetCutscene(PlayableDirector director)
+    {
+        this.director = director;
     }
 
     public void startCutscene(string[] parameters)
     {
-        pauseScheduled = true;
+        checkPoints = 1;
         director.Play();
 
     }
+    //every checkpoint we pass should decrease the pauseScheduler
 
     //this is emitted from the cutscene when we need to pause stuff and wait for yarn to progress forward
     public void PauseCutscene()
     {
-        //so we're only gonna pause if their is still a pause scheduled
+        //so if we hit a pause we lose a checkpoint 
 
-        if (pauseScheduled)
+        checkPoints--;
+
+        //if u got 0 checkpoints left we pause
+
+        if (checkPoints <= 0)
         {
             director.playableGraph.GetRootPlayable(0).SetSpeed(0d);
-            pauseScheduled = false;
-        }
-        else
-        {
-            //if theres no pause scheduled then we re assume theres gonna be a pause
-            pauseScheduled = true;
         }
     }
 
     //this is called from yarn and when that happens we can resume the timeline
 
-    /*
-    TODO: if the user spams then we need to create some kind of queue, like if the cutscene hasn't finished
-    yet and the player moves to the next cutscene it will pause before the trigger is reached.
-    -so if the cutscene hasnt even finished and the users blowing through the dialogue we need to ignore the checkpoint?
-
-    */
     public void cutsceneCheckpoint(string[] parameters)
     {
-        //so if their is a pause scheduled and we get here then we're just gonna say no more pause
-        if (pauseScheduled)
+
+        //if you're at 0 checkpoints we're going to unpause
+
+        if (checkPoints <= 0)
         {
-            pauseScheduled = false;
-        }
-        else
-        {
-            //if theres no pause scheduled and we get to a checkpoint i think we assume theirs gonna be a pause
-            pauseScheduled = true;
             director.playableGraph.GetRootPlayable(0).SetSpeed(1d);
 
         }
 
-        //if theres no pause scheduled and we get here
-
+        //when you hit a checkpoint you get one more
+        checkPoints++;
     }
-
-
 
 }

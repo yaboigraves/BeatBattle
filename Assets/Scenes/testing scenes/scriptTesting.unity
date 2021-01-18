@@ -287,75 +287,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &325512207 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 897047723988557199, guid: e8447a2349e6f6046a81a46ea70dfaea,
-    type: 3}
-  m_PrefabInstance: {fileID: 1649933743}
-  m_PrefabAsset: {fileID: 0}
---- !u!320 &325512208
-PlayableDirector:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 325512207}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 9a071c7c1cfa09344a53588fc45de4db, type: 2}
-  m_InitialState: 0
-  m_WrapMode: 2
-  m_DirectorUpdateMode: 1
-  m_InitialTime: 0
-  m_SceneBindings:
-  - key: {fileID: 6468414688870681607, guid: 9a071c7c1cfa09344a53588fc45de4db, type: 2}
-    value: {fileID: 1406087592}
-  - key: {fileID: -1290574385204307370, guid: 9a071c7c1cfa09344a53588fc45de4db, type: 2}
-    value: {fileID: 2018425400}
-  m_ExposedReferences:
-    m_References: []
---- !u!114 &325512209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 325512207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Events:
-    m_Signals:
-    - {fileID: 11400000, guid: 9e99952d8d4fd664da4b867ef56528e2, type: 2}
-    m_Events:
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 325512210}
-          m_TargetAssemblyTypeName: NPC, Assembly-CSharp
-          m_MethodName: PauseCutscene
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!114 &325512210 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 897047723988557200, guid: e8447a2349e6f6046a81a46ea70dfaea,
-    type: 3}
-  m_PrefabInstance: {fileID: 1649933743}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 325512207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 969daf2b71ab69c4d87229c7a1e81111, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &651087392
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,7 +317,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueRunner: {fileID: 1338572425}
-  pauseScheduled: 1
   director: {fileID: 0}
 --- !u!4 &651087394
 Transform:
@@ -621,22 +551,19 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 325512208, guid: e8447a2349e6f6046a81a46ea70dfaea, type: 3}
+      propertyPath: m_SceneBindings.Array.data[0].value
+      value: 
+      objectReference: {fileID: 1406087592}
+    - target: {fileID: 325512208, guid: e8447a2349e6f6046a81a46ea70dfaea, type: 3}
+      propertyPath: m_SceneBindings.Array.data[1].value
+      value: 
+      objectReference: {fileID: 2018425400}
     - target: {fileID: 897047723988557199, guid: e8447a2349e6f6046a81a46ea70dfaea,
         type: 3}
       propertyPath: m_Name
       value: Weed Dude Variant
       objectReference: {fileID: 0}
-    - target: {fileID: 897047723988557200, guid: e8447a2349e6f6046a81a46ea70dfaea,
-        type: 3}
-      propertyPath: talkToNode
-      value: timelineTestNPC
-      objectReference: {fileID: 0}
-    - target: {fileID: 897047723988557200, guid: e8447a2349e6f6046a81a46ea70dfaea,
-        type: 3}
-      propertyPath: scriptToLoad
-      value: 
-      objectReference: {fileID: 2480198943629176163, guid: d451b709aeb316843820e7c513c1537d,
-        type: 3}
     - target: {fileID: 897047723988557203, guid: e8447a2349e6f6046a81a46ea70dfaea,
         type: 3}
       propertyPath: m_RootOrder

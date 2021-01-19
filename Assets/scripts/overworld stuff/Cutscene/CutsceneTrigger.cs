@@ -48,15 +48,19 @@ public class CutsceneTrigger : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            //run the current cutscene if we're nto already in one 
-            if (CutsceneManager.current.inCutscene == false)
-            {
-                CutsceneManager.current.LoadCutscene(cutscene);
-                CutsceneManager.current.StartCutscene();
 
-                //disable the collider so we cant possibly 
-                GetComponent<Collider>().enabled = false;
-            }
+            //TODO: rewrite for new custscene manager
+
+
+            //run the current cutscene if we're nto already in one 
+            // if (CutsceneManager.current.inCutscene == false)
+            // {
+            //     // CutsceneManager.current.LoadCutscene(cutscene);
+            //     // CutsceneManager.current.StartCutscene();
+
+            //     //disable the collider so we cant possibly 
+            //     //GetComponent<Collider>().enabled = false;
+            // }
         }
     }
 

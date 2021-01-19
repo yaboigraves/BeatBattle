@@ -41,7 +41,7 @@ public class NPC : Entity, IInteractable
         //check if we have a cutscene to load 
         if (cutsceneDirector.playableAsset != null)
         {
-            NewCutsceneManager.current.SetCutscene(cutsceneDirector);
+            CutsceneManager.current.SetCutscene(cutsceneDirector);
         }
 
 
@@ -145,6 +145,6 @@ public class NPC : Entity, IInteractable
     //called from the signal emitter
     public void PauseCutscene()
     {
-        NewCutsceneManager.current.PauseCutscene();
+        CutsceneManager.current.PauseCutscene();
     }
 }

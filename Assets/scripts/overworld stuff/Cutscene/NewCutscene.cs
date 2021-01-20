@@ -9,6 +9,7 @@ using UnityEngine.Playables;
 public class NewCutscene : ScriptableObject
 {
     public TimelineAsset cutscene;
+    public int cutsceneID;
 
     // Start is called before the first frame update
 

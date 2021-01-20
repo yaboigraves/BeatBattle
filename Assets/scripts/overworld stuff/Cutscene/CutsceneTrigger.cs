@@ -37,12 +37,12 @@ public class CutsceneTrigger : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         //TODO: rewrite cutscene objects that shoudln't repeat as scriptable objects with timelines?
-        //if (SaveManager.checkIfCutsceneRan(cutscene.cutsceneID))
-        //{
-        //turn off the collider
+        if (SaveManager.checkIfCutsceneRan(cutscene.cutsceneID))
+        {
+            // turn off the collider
 
-        //  GetComponent<Collider>().enabled = false;
-        //}
+            GetComponent<Collider>().enabled = false;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -80,6 +80,11 @@ public class CutsceneTrigger : MonoBehaviour
                 CutsceneManager.current.startCutscene();
 
 
+                //if the cutscene triggers then we're going to mark that in the save manager
+
+                //TODO: refactor this into the cutscene manager
+
+                SaveManager.UpdateCutsceneData(cutscene.cutsceneID);
             }
 
         }

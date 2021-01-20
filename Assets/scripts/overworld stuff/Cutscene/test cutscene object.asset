@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a54a2ad7cc75084ca072c1ee203a654, type: 3}
   m_Name: test cutscene object
   m_EditorClassIdentifier: 
+  cutscene: {fileID: 11400000, guid: f28798e16a2226442897d19fc7cb325d, type: 2}

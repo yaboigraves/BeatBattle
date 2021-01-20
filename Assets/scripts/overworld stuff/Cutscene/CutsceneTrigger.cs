@@ -19,14 +19,10 @@ public class CutsceneTrigger : MonoBehaviour
 
     //check if we should even load our collider, if this cutscene has been run before dont load it
 
-
-
     public Cutscene cutscene;
 
     private void Start()
     {
-
-
         StartCoroutine(LateLateUpdate());
     }
 
@@ -36,6 +32,7 @@ public class CutsceneTrigger : MonoBehaviour
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
 
+        //TODO: rewrite cutscene objects that shoudln't repeat as scriptable objects with timelines?
         if (SaveManager.checkIfCutsceneRan(cutscene.cutsceneID))
         {
             //turn off the collider
@@ -48,6 +45,7 @@ public class CutsceneTrigger : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
+
 
             //TODO: rewrite for new custscene manager
 

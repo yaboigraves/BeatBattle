@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
+
 
 /*
     so this also needs to check if the cutscene with the given id/name has been already triggered
@@ -19,11 +21,13 @@ public class CutsceneTrigger : MonoBehaviour
 
     //check if we should even load our collider, if this cutscene has been run before dont load it
 
-    public Cutscene cutscene;
+    public NewCutscene cutscene;
+    PlayableDirector director;
 
     private void Start()
     {
         StartCoroutine(LateLateUpdate());
+        director = GetComponent<PlayableDirector>();
     }
 
     //runs after the second frame update
@@ -33,12 +37,12 @@ public class CutsceneTrigger : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         //TODO: rewrite cutscene objects that shoudln't repeat as scriptable objects with timelines?
-        if (SaveManager.checkIfCutsceneRan(cutscene.cutsceneID))
-        {
-            //turn off the collider
+        //if (SaveManager.checkIfCutsceneRan(cutscene.cutsceneID))
+        //{
+        //turn off the collider
 
-            GetComponent<Collider>().enabled = false;
-        }
+        //  GetComponent<Collider>().enabled = false;
+        //}
     }
 
     private void OnTriggerEnter(Collider other)
@@ -59,6 +63,25 @@ public class CutsceneTrigger : MonoBehaviour
             //     //disable the collider so we cant possibly 
             //     //GetComponent<Collider>().enabled = false;
             // }
+
+            //so check if we're already in a cutscene
+
+            if (CutsceneManager.current.inCutscene == false)
+            {
+                //if we're not in a cutscene play the cutscene
+
+                //this means we pass the cutscene to the cutscene manager and tell it to play
+                //NOTE: this is for now only going to work with blocking cutscenes 
+                //CutsceneManager.current.SetCutscene(cutscene);
+                // CutsceneManager.current.SetBlockingCutscene(cutscene.cutscene);
+
+                //so we need to pass the director attached to this object to the manager
+                CutsceneManager.current.SetCutscene(director);
+                CutsceneManager.current.startCutscene();
+
+
+            }
+
         }
     }
 

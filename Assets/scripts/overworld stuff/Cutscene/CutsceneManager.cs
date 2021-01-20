@@ -22,6 +22,8 @@ public class CutsceneManager : MonoBehaviour
 
     int checkPoints = 1;
 
+    public bool inCutscene = false;
+
 
 
     public PlayableDirector director;
@@ -44,8 +46,15 @@ public class CutsceneManager : MonoBehaviour
     {
         checkPoints = 1;
         director.Play();
-
     }
+
+    public void startCutscene()
+    {
+        checkPoints = 1;
+
+        director.Play();
+    }
+
     //every checkpoint we pass should decrease the pauseScheduler
 
     //this is emitted from the cutscene when we need to pause stuff and wait for yarn to progress forward
@@ -78,6 +87,14 @@ public class CutsceneManager : MonoBehaviour
 
         //when you hit a checkpoint you get one more
         checkPoints++;
+    }
+
+    public void SetBlockingCutscene(TimelineAsset cutscene)
+    {
+
+        director = GetComponent<PlayableDirector>();
+        director.playableAsset = cutscene;
+        director.Play();
     }
 
 }

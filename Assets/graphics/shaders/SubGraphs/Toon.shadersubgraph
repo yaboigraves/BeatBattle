@@ -306,7 +306,7 @@
         "m_GuidSerialized": "9b40145b-cc12-498e-b950-c8c1200e5b20"
     },
     "m_Name": "DiffuseTexture",
-    "m_DefaultReferenceName": "",
+    "m_DefaultReferenceName": "Texture2D_024ef8e2d3594834a0547888893dc091",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
@@ -329,7 +329,7 @@
         "m_GuidSerialized": "eab8816e-2bb6-4ea7-8390-ec6b47b26973"
     },
     "m_Name": "SpecularRampTexture",
-    "m_DefaultReferenceName": "",
+    "m_DefaultReferenceName": "Texture2D_195237b46e72470e9f2e45b902de9c41",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
@@ -713,7 +713,7 @@
         "m_GuidSerialized": "421f98fc-5001-4270-8d30-db9a556cdfba"
     },
     "m_Name": "RampTexture",
-    "m_DefaultReferenceName": "",
+    "m_DefaultReferenceName": "Texture2D_55c0c9a895a141fdbb2d991adc276d65",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
@@ -985,7 +985,7 @@
         "m_GuidSerialized": "fd3ad3de-781f-4809-a6f4-2f81c116e75f"
     },
     "m_Name": "Smoothness",
-    "m_DefaultReferenceName": "",
+    "m_DefaultReferenceName": "Vector1_8cdd6ad91b494b1880677fe23833f874",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,

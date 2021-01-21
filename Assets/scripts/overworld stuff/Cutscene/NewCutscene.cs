@@ -11,6 +11,10 @@ public class NewCutscene : ScriptableObject
     public TimelineAsset cutscene;
     public int cutsceneID;
 
+    public bool isUnique, isBlocking;
+
+    public PlayableDirector director;
+
     // Start is called before the first frame update
 
 

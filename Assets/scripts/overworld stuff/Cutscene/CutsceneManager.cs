@@ -89,12 +89,56 @@ public class CutsceneManager : MonoBehaviour
         checkPoints++;
     }
 
-    public void SetBlockingCutscene(TimelineAsset cutscene)
-    {
 
-        director = GetComponent<PlayableDirector>();
-        director.playableAsset = cutscene;
+
+
+    /*
+        new play cutscene function needs to do two things
+        1.play cutscenes from dialog 
+        2.play world cutscenes 
+        3.(optional) handle stuff like item pickup transitions\
+
+        cutscenes for both need the option to be blocking cutscenes where the player cannot move until the cutscene ends
+        system for both is essentially the same, pass a director and we're good to go
+
+    */
+
+    public void PlayCutscene(NewCutscene cutscene)
+    {
+        director = cutscene.director;
+
+        if (cutscene.isBlocking)
+        {
+            InputHandler.current.LockPlayerMovement(true);
+            director.stopped += EndBlockingCutscene;
+
+        }
+
+        //if the cutscene is unique we need to mark in the save manager that it's been played
+        if (cutscene.isUnique)
+        {
+            SaveManager.UpdateCutsceneData(cutscene.cutsceneID);
+        }
+
+
+        checkPoints = 1;
         director.Play();
     }
+
+    // void OnPlayableDirectorStopped(PlayableDirector aDirector)
+    // {
+    //     if (director == aDirector)
+    //     {
+    //         Debug.Log("PlayableDirector named " + aDirector.name + " is now stopped.");
+    //     }
+    // }
+
+    void EndBlockingCutscene(PlayableDirector aDirector)
+    {
+        InputHandler.current.LockPlayerMovement(false);
+    }
+
+
+
 
 }

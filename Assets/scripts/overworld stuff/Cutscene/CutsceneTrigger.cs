@@ -24,10 +24,15 @@ public class CutsceneTrigger : MonoBehaviour
     public NewCutscene cutscene;
     PlayableDirector director;
 
+    Collider collider;
     private void Start()
     {
         StartCoroutine(LateLateUpdate());
         director = GetComponent<PlayableDirector>();
+
+        cutscene.director = director;
+
+        collider = GetComponent<Collider>();
     }
 
     //runs after the second frame update
@@ -49,23 +54,6 @@ public class CutsceneTrigger : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-
-
-            //TODO: rewrite for new custscene manager
-
-
-            //run the current cutscene if we're nto already in one 
-            // if (CutsceneManager.current.inCutscene == false)
-            // {
-            //     // CutsceneManager.current.LoadCutscene(cutscene);
-            //     // CutsceneManager.current.StartCutscene();
-
-            //     //disable the collider so we cant possibly 
-            //     //GetComponent<Collider>().enabled = false;
-            // }
-
-            //so check if we're already in a cutscene
-
             if (CutsceneManager.current.inCutscene == false)
             {
                 //if we're not in a cutscene play the cutscene
@@ -76,17 +64,31 @@ public class CutsceneTrigger : MonoBehaviour
                 // CutsceneManager.current.SetBlockingCutscene(cutscene.cutscene);
 
                 //so we need to pass the director attached to this object to the manager
-                CutsceneManager.current.SetCutscene(director);
-                CutsceneManager.current.startCutscene();
+                // CutsceneManager.current.SetCutscene(director);
+                // CutsceneManager.current.startCutscene();
+                CutsceneManager.current.PlayCutscene(cutscene);
+
+                if (cutscene.isUnique)
+                {
+                    //turn off the collider
+                    this.collider.enabled = false;
+                }
 
 
                 //if the cutscene triggers then we're going to mark that in the save manager
 
-                //TODO: refactor this into the cutscene manager
 
-                SaveManager.UpdateCutsceneData(cutscene.cutsceneID);
+
             }
 
+        }
+    }
+
+    void OnPlayableDirectorStopped(PlayableDirector aDirector)
+    {
+        if (director == aDirector)
+        {
+            Debug.Log("PlayableDirector named " + aDirector.name + " is now stopped.");
         }
     }
 

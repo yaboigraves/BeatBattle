@@ -4,23 +4,6 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    //TODO: setup equipabble tracks, this will probably require some thinking out
-
-    //so tracks are items that you can pickup from enemies after you defeat them
-    //once you have a track you can then use that track in combat if you choose to on your turn
-    //you pick the track on the enemies turn and then that track is loaded as a short loop 
-    //this will require tracks to be setup as 4 - 8 bar loops 
-
-    //firstly we need to store these tracks inside the inventory, this will be done via a simple array for now 
-    //later these loops will need to be changeable from within the inventory screen 
-
-    //once in battle, we need to integrate a swap between the players turn and the enemies turn
-    //this means that battle indicators need to be spawned in dynamically rather than all at once
-
-    //in battle, once the players turn is finished the enemy then plays out its loop after a 1 bar delay 
-
-    //at any point the player can cycle through their tracks and select a loop to play on their next turn
-    //perhaps certain loops will have certain elements that make them stronger in situations?
 
     public Item testItem;
     public int coins;
@@ -134,10 +117,7 @@ public class PlayerInventory : MonoBehaviour
 
     public void GetItem(GameItem item)
     {
-        //later this needs to figure out what type the item is
 
-        //if the item is unique or you've never picked up one of these items before 
-        //TODO: log picked up items in save so we know if to play the unique animation
         if (item.unique)
         {
             PickupItemCutscene(item);
@@ -197,7 +177,9 @@ public class PlayerInventory : MonoBehaviour
     public void PickupItemCutscene(GameItem item)
     {
         //tell the cutscene manager to handle moving the camera around and stuff
-        CutsceneManager.current.PickupUniqueItemCutscene();
+
+        //TODO: rewrite for new cutscene engine
+        //CutsceneManager.current.PickupUniqueItemCutscene();
 
         TogglePickupItemSprite(true, item);
     }

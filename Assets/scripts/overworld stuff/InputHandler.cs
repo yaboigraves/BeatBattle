@@ -77,7 +77,8 @@ public class InputHandler : MonoBehaviour
             }
             else if (inPickupCutscene)
             {
-                CutsceneManager.current.EndPickupItemCutscene();
+                //TODO: rewrite for new cutscene manager 
+                //CutsceneManager.current.EndPickupItemCutscene();
             }
 
             else if (player.inShop)

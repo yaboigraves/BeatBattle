@@ -24,8 +24,6 @@ public class CutsceneManager : MonoBehaviour
 
     public bool inCutscene = false;
 
-
-
     public PlayableDirector director;
     private void Awake()
     {
@@ -103,7 +101,7 @@ public class CutsceneManager : MonoBehaviour
 
     */
 
-    public void PlayCutscene(NewCutscene cutscene)
+    public void PlayCutscene(Cutscene cutscene)
     {
         director = cutscene.director;
 

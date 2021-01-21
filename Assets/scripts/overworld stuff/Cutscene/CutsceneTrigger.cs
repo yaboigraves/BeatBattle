@@ -21,10 +21,10 @@ public class CutsceneTrigger : MonoBehaviour
 
     //check if we should even load our collider, if this cutscene has been run before dont load it
 
-    public NewCutscene cutscene;
+    public Cutscene cutscene;
     PlayableDirector director;
 
-    Collider collider;
+    Collider coll;
     private void Start()
     {
         StartCoroutine(LateLateUpdate());
@@ -32,7 +32,7 @@ public class CutsceneTrigger : MonoBehaviour
 
         cutscene.director = director;
 
-        collider = GetComponent<Collider>();
+        coll = GetComponent<Collider>();
     }
 
     //runs after the second frame update
@@ -71,7 +71,7 @@ public class CutsceneTrigger : MonoBehaviour
                 if (cutscene.isUnique)
                 {
                     //turn off the collider
-                    this.collider.enabled = false;
+                    this.coll.enabled = false;
                 }
 
 

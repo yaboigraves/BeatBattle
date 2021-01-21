@@ -2209,7 +2209,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 262207967}
-  m_LocalRotation: {x: 0.1304934, y: 0.20020257, z: -0.026915004, w: 0.9706524}
+  m_LocalRotation: {x: 0.13050878, y: 0.19964725, z: -0.02684035, w: 0.9707667}
   m_LocalPosition: {x: -19.29, y: 0.30999994, z: -25.03}
   m_LocalScale: {x: 1.0000001, y: 1, z: 1}
   m_Children: []
@@ -3415,7 +3415,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   indicator: {fileID: 0}
   padID: 2
-  binding: 103
+  binding: 104
   midiKeyNum: 0
 --- !u!114 &413254364
 MonoBehaviour:
@@ -6401,7 +6401,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 708335400}
-  m_LocalRotation: {x: 0.1304934, y: 0.20020257, z: -0.026915004, w: 0.9706524}
+  m_LocalRotation: {x: 0.13050878, y: 0.19964725, z: -0.02684035, w: 0.9707667}
   m_LocalPosition: {x: -19.29, y: 0.30999994, z: -25.03}
   m_LocalScale: {x: 1.0000001, y: 1, z: 1}
   m_Children:
@@ -7549,7 +7549,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 815066275}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -8274,7 +8274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   indicator: {fileID: 0}
   padID: 0
-  binding: 97
+  binding: 102
   midiKeyNum: 0
 --- !u!114 &908238102
 MonoBehaviour:
@@ -10943,7 +10943,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 24.8, y: -27}
+  m_AnchoredPosition: {x: 24.800049, y: -27}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &1282982710
@@ -11894,7 +11894,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   indicator: {fileID: 0}
   padID: 1
-  binding: 100
+  binding: 103
   midiKeyNum: 0
 --- !u!114 &1359379918
 MonoBehaviour:
@@ -12093,7 +12093,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1379790092}
-  m_LocalRotation: {x: 0.1035817, y: 0.37227848, z: -0.041851934, w: 0.9213729}
+  m_LocalRotation: {x: -0.011349483, y: 0.68889034, z: 0.010788723, w: 0.7246964}
   m_LocalPosition: {x: -19.29, y: 0.30999994, z: -25.03}
   m_LocalScale: {x: 0.9999999, y: 1, z: 1}
   m_Children:
@@ -15280,6 +15280,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d8c9e3823a42a1c418d9b52ac468fbc0, type: 2}
   - {fileID: 11400000, guid: 643fd89a0c3b6c8478d71ff0cf78d31a, type: 2}
   - {fileID: 11400000, guid: 6db31f387b047a9448ebacd4829dce26, type: 2}
+  - {fileID: 11400000, guid: cc4afb9d054dd4d81b4a91a7d7484acb, type: 2}
+  - {fileID: 11400000, guid: 331a04bbcf465430ba329b3ea0f95501, type: 2}
+  - {fileID: 11400000, guid: 3e43ae6b2ca2247948f1f4c3cee659a5, type: 2}
   testEnemyTracks:
   - {fileID: 11400000, guid: 6db31f387b047a9448ebacd4829dce26, type: 2}
   metronomeAudio: 0

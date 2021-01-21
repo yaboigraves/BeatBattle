@@ -77,7 +77,7 @@ public class Indicator : MonoBehaviour
             default:
                 if (this.attackOrDefend)
                 {
-                    sprite.color = Color.red;
+                    sprite.color = Color.blue;
                 }
                 else
                 {

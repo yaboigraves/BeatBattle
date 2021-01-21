@@ -15,14 +15,17 @@ public static class MidiLoader
         //Path to the folder of greeter.py
         searchPaths.Add(Application.dataPath);
         //Path to the Python standard library
-        searchPaths.Add(Application.dataPath + @"\Plugins\Lib\");
+        //searchPaths.Add(Application.dataPath + @"\Plugins\Lib\");
+        searchPaths.Add(Application.dataPath + @"/Plugins/Lib/");
         engine.SetSearchPaths(searchPaths);
 
 
-        dynamic py = engine.ExecuteFile(Application.dataPath + @"\scripts\audio\midis\MidiParser.py");
+        //dynamic py = engine.ExecuteFile(Application.dataPath + @"\scripts\audio\midis\MidiParser.py");
+        dynamic py = engine.ExecuteFile(Application.dataPath + @"/scripts/audio/midis/MidiParser.py");
         dynamic midiParser = py.MidiParser();
 
-        return (midiParser.parse(Application.dataPath + @"\midis\" + filename, bpm.ToString()));
+        //return (midiParser.parse(Application.dataPath + @"\midis\" + filename, bpm.ToString()));
+        return (midiParser.parse(Application.dataPath + @"/midis/" + filename, bpm.ToString()));
     }
 
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Cinemachine;
+using UnityEngine.Playables;
 
 //each cutscene needs a array of gameobjects in the cutscene to be manipulated by yarn
 //each gameobject needs an array of waypoints 
@@ -26,6 +27,8 @@ public class Cutscene : MonoBehaviour
     public CinemachineVirtualCamera[] cameras;
 
     public int cutsceneID;
+
+    public PlayableDirector director;
 
     //also going to maybe need camera positions for some cutscenes
     //need a function that goes through entities list and finds an entity by name

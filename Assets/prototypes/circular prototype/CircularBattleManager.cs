@@ -16,7 +16,7 @@ public class CircularBattleManager : MonoBehaviour
     public Transform rightIndicatorLane, leftIndicatorLane, barContainer;
     public bool battleStarted;
     public TextMeshProUGUI bpmText;
-    AudioSource audio;
+    AudioSource audioSource;
 
     public Track[] testTracks;
     private void Awake()
@@ -37,7 +37,7 @@ public class CircularBattleManager : MonoBehaviour
             battleStarted = true;
 
             //play the song 
-            audio.Play();
+            audioSource.Play();
 
             print("starting counter?");
 
@@ -49,8 +49,8 @@ public class CircularBattleManager : MonoBehaviour
 
     void Start()
     {
-        audio = GetComponent<AudioSource>();
-        audio.clip = testTrack.trackClip;
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = testTrack.trackClip;
 
         //set up all the indicators at their various lanes depending on the track info for indicator positions
         LightweightTrackTimeManager.current.SetSongData(testTrack);
@@ -142,7 +142,7 @@ public class CircularBattleManager : MonoBehaviour
         LightweightTrackTimeManager.current.StopCount();
         battleStarted = false;
         //stop the current audio 
-        audio.Stop();
+        audioSource.Stop();
 
         //clear the old indicators
         ClearIndicators();
@@ -150,7 +150,7 @@ public class CircularBattleManager : MonoBehaviour
 
         testTrack = newTrack;
 
-        audio.clip = testTrack.trackClip;
+        audioSource.clip = testTrack.trackClip;
 
         //set up all the indicators at their various lanes depending on the track info for indicator positions
         LightweightTrackTimeManager.current.SetSongData(testTrack);

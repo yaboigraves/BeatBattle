@@ -119,11 +119,11 @@ public class BattleTrackManager : MonoBehaviour
         TrackTimeManager.current.stopTrackTimer();
         TrackTimeManager.current.resetTrackTimer();
 
-        if (!doWait)
-        {
-            // StartCoroutine(barWait());
-            TrackTimeManager.current.beatWait(4);
-        }
+        // if (!doWait)
+        // {
+        //     // StartCoroutine(barWait());
+        //     TrackTimeManager.current.beatWait(4);
+        // }
     }
 
     //so we need a centralized place for the time passage to be managed from

@@ -41,10 +41,10 @@ public class Homie : Entity
             if (currentDialogue != null)
             {
                 DialogueRunner dialogueRunner = FindObjectOfType<Yarn.Unity.DialogueRunner>();
-                if (!dialogueRunner.NodeExists(currentDialogueNode))
-                {
-                    dialogueRunner.Add(currentDialogue);
-                }
+                // if (!dialogueRunner.NodeExists(currentDialogueNode))
+                // {
+                //     dialogueRunner.Add(currentDialogue);
+                // }
 
             }
         }

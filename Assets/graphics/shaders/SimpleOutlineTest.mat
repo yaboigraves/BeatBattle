@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SimpleOutlineTest
+  m_Shader: {fileID: -6465566751694194690, guid: 51de09fc6cac36449bd967b2c5fb69d9,
+    type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Vector1_070a14eb22944f148e82a58f22e333ff: 1
+    - Vector1_2ee661f10532490eb7c8d785eec4deb0: 10
+    - Vector1_371d80ebb5f24f9f8ff50e37e6b75480: -327.85
+    - Vector1_4c6f92bc2c664a86992e0af570f5af26: 1
+    - Vector1_908bf6df4f334f298a5456ea2ea5facc: 1
+    - Vector1_96e0e87466814f848c2ce600e6553ee5: 10
+    - Vector1_bd9b6dbf420a47d198a46594127f8ed3: 1
+    - Vector1_d1d314836d274b0889d46c3242c14bdc: 0.003
+    - Vector1_d93f39def8894c7e956f8121c50d4194: 1
+    - Vector1_e2adbf9b38b64f1090243d7a43405d25: 1
+    - Vector1_e8c65e20e8624795a8e9d16c849482aa: 1
+    - Vector1_f98e04be2842459d975ca9a0ddd1272a: 6.03
+    m_Colors:
+    - Color_375d7db541b04929821856134d5eb8fe: {r: 0.26366144, g: 0.5257969, b: 0.7075472,
+        a: 0}
+    - Color_8324f7487c19496e8308c94aeb49677c: {r: 0.2924528, g: 0.11725702, b: 0.11725702,
+        a: 0}
+    - Vector2_ce9148307bd544ff841cace691907220: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []

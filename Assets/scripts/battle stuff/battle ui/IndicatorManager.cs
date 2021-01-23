@@ -43,9 +43,9 @@ public class IndicatorManager : MonoBehaviour
 
         //TODO: this dont really need to be dynamically instantiated they can just be part of the container prefab
 
-        for (int i = 0; i <= 128; i++)
+        for (int i = 0; i <= 256; i++)
         {
-            GameObject _bar = Instantiate(bar, Vector3.up * (i), Quaternion.identity, barContainer.transform);
+            GameObject _bar = Instantiate(bar, Vector3.up * (i) / 2, Quaternion.identity, barContainer.transform);
         }
 
         for (int i = 0; i < track.kickBeats.Count; i++)

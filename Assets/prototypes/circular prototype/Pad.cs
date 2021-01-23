@@ -48,11 +48,11 @@ public class Pad : MonoBehaviour
 
                     //in order not to trigger an ontriggerexit we need to set the type not to heady anymore
                     indic.indicatorType = "";
-                    BattleManager.current.processPadHit(false);
+                    BattleManager.current.processPadHit(false, int.Parse(padID));
                 }
                 else
                 {
-                    BattleManager.current.processPadHit(true);
+                    BattleManager.current.processPadHit(true, int.Parse(padID));
                     pulse.pulse();
                 }
 
@@ -61,7 +61,7 @@ public class Pad : MonoBehaviour
             else
             {
                 //print("miss");
-                BattleManager.current.processPadHit(false);
+                BattleManager.current.processPadHit(false, int.Parse(padID));
             }
         }
     }

@@ -43,6 +43,7 @@ public class BattleUIManager : MonoBehaviour
         //setup the buttons for the players track options
         //InitTrackButtons();
 
+
     }
 
     public void InitHealthSliders()
@@ -169,7 +170,7 @@ public class BattleUIManager : MonoBehaviour
     {
         //find the screenspace position that the ui element needs to be spawned at 
         //for now just gonna spawn it at the enemies healthbar 
-        DamageNumber dmg = Instantiate(damageNumber, enemyHealthSlider.transform.position + (Vector3.up * 40), Quaternion.identity, damageNumberContainer.transform).GetComponent<DamageNumber>();
+        FloatingStatusText dmg = Instantiate(damageNumber, enemyHealthSlider.transform.position + (Vector3.up * 40), Quaternion.identity, damageNumberContainer.transform).GetComponent<FloatingStatusText>();
         dmg.setDamage(damage);
 
     }
@@ -343,6 +344,17 @@ public class BattleUIManager : MonoBehaviour
     public void LoadHotbarItems()
     {
 
+    }
+
+    //render on top of pad test
+    public Transform[] padPositions;
+    public GameObject testPadText;
+    public Camera uiCamera;
+    public void SpawnHitText(int padIndex, string statusMessage, Color color)
+    {
+        //render some shit at screen space on top of the pad
+        FloatingStatusText ft = Instantiate(testPadText, uiCamera.WorldToScreenPoint(padPositions[padIndex].position), Quaternion.identity, transform.GetChild(0)).GetComponent<FloatingStatusText>();
+        ft.setText(statusMessage, color);
     }
 
 }

@@ -7,7 +7,12 @@ using UnityEngine;
 [Serializable]
 public class Track : GameItem
 {
+    [Header("AUDIO FILES")]
     public AudioClip trackClip;
+
+    public AudioClip[] trackTransitions;
+
+    [Header("")]
     public string artist;
     public float bpm;
     //need to take in the number of bars the loops take up
@@ -20,6 +25,8 @@ public class Track : GameItem
     public string midiFileName;
 
     public List<double> kickBeats, snareBeats, hatBeats, percBeats;
+
+
 
 
     public void BuildMidi()
@@ -45,13 +52,20 @@ public class Track : GameItem
 public struct TrackStats
 {
     //heat or chill
-    public enum vibeType
+    public enum VibeType
     {
         Heady,
         Chill
     };
 
-    public vibeType trackVibe;
+    public enum MixType
+    {
+        QuickMix,
+        LongMix
+    };
+
+    public VibeType trackVibe;
+    public MixType mixType;
 
     public int vibePerHit;
 }

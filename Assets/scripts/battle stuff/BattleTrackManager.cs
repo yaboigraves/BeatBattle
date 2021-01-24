@@ -5,8 +5,17 @@ using System;
 
 public class BattleTrackManager : MonoBehaviour
 {
-    AudioSource audioSource;
     //this guy takes in a track and then manages all the playing of that track IN a battle
+
+
+    //so there's going to need to be multiple audio sources here
+    //
+
+
+    public AudioSource mix1AudioSource, mix2AudioSource, transitionAudioSource;
+
+    public Queue<Track> mix1Queue, mix2Queue;
+
     public Track currentTrack;
     public static BattleTrackManager current;
     public float bpmTimer, beatDeltaTime;
@@ -30,7 +39,7 @@ public class BattleTrackManager : MonoBehaviour
     private void Awake()
     {
         current = this;
-        audioSource = GetComponent<AudioSource>();
+        //mix1AudioSource = GetComponent<AudioSource>();
         AudioClip audioClip;
         if (TrackManager.current == null)
         {
@@ -56,7 +65,7 @@ public class BattleTrackManager : MonoBehaviour
         //print("audiosource" + audioSource.name);
 
         currentBpm = currentTrack.bpm;
-        audioSource.clip = audioClip;
+        mix1AudioSource.clip = audioClip;
 
         //commented out to test timescale shit 
         //beatDeltaTime = (1 / currentBpm) * 60;
@@ -85,7 +94,7 @@ public class BattleTrackManager : MonoBehaviour
     public void StopBattle()
     {
         //for now just pauses but should play the win audio
-        audioSource.Pause();
+        mix1AudioSource.Pause();
     }
 
     public void StartCountIn()
@@ -96,16 +105,18 @@ public class BattleTrackManager : MonoBehaviour
 
 
     public int nextTurnStart;
+
+    //this is for setting the battle track for the longmix mode
     public void setBattleTrack(Track newTrack, bool doWait)
     {
         //couple things need to happen here
         //1. we turn off the current track audio
-        audioSource.Stop();
+        mix1AudioSource.Stop();
         //2.we load in the new track as the current track
         currentTrack = newTrack;
         //3.replace the audiosource's clip
 
-        audioSource.clip = currentTrack.trackClip;
+        mix1AudioSource.clip = currentTrack.trackClip;
         //4.we need to modify the speed of the indicators (they all look at this variable for their speed)
         currentBpm = newTrack.bpm;
         //5.we need to setup the new indicators 
@@ -126,10 +137,56 @@ public class BattleTrackManager : MonoBehaviour
         // }
     }
 
+    public void setupQuickMix()
+    {
+        //TODO: create 2 queues of quickmix tracks
+        //TODO: init all the indicators for quickmix tracks
+    }
+
+
+
     //so we need a centralized place for the time passage to be managed from
 
     public void setPlayerSelectedTrack(Track newTrack)
     {
         playerSelectedTrack = newTrack;
+    }
+
+
+    public enum BattlePhase
+    {
+        mix1,
+        mix2,
+        transition
+    };
+    public float beatTransitionCounter = 0;
+    public void checkForTransition()
+    {
+        //TODO: this function needs to check if its time to trigger a transition or trigger another mix 
+        //after a transition
+
+        beatTransitionCounter++;
+
+        //check the battles phase 
+
+        if (BattleManager.current.battlePhase.Equals(BattlePhase.mix1) || BattleManager.current.battlePhase.Equals(BattlePhase.mix2))
+        {
+            //so if we're in mix1 or mix2 and 4 * the bars per mixphase is less than or equal to the counter we're gonna go to a transition'
+            if (beatTransitionCounter >= BattleManager.current.barsPerTurn * 4)
+            {
+                //reset the transition counter 
+
+                beatTransitionCounter = 0;
+                //trigger a transition in the battle manager
+
+            }
+        }
+        else
+        {
+            //we're in a transition
+            //so do the same check and then look at what the last battle phase is to see if we need to do a transition
+
+
+        }
     }
 }

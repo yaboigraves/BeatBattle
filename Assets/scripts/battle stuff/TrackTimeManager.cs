@@ -106,7 +106,7 @@ public class TrackTimeManager : MonoBehaviour
 
             //spawn a bar
             IndicatorManager.current.spawnBar(songPositionInBeats + IndicatorManager.current.barSpawnPosition);
-
+            BattleTrackManager.current.checkForTransition();
 
         }
     }

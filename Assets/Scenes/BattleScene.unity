@@ -2209,7 +2209,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 262207967}
-  m_LocalRotation: {x: 0.13099709, y: 0.1810901, z: -0.024345547, w: 0.97439903}
+  m_LocalRotation: {x: 0.13050878, y: 0.19964725, z: -0.02684035, w: 0.9707667}
   m_LocalPosition: {x: -19.29, y: 0.30999994, z: -25.03}
   m_LocalScale: {x: 1.0000001, y: 1, z: 1}
   m_Children: []
@@ -6409,7 +6409,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 708335400}
-  m_LocalRotation: {x: 0.13099709, y: 0.1810901, z: -0.024345547, w: 0.97439903}
+  m_LocalRotation: {x: 0.13050878, y: 0.19964725, z: -0.02684035, w: 0.9707667}
   m_LocalPosition: {x: -19.29, y: 0.30999994, z: -25.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -9653,6 +9653,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleType: 0
+  battlePhase: 0
+  lastBattlePhase: 0
   battleStarted: 0
   playerHealth: 0
   enemyHealth: 0
@@ -9681,11 +9683,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2485eea25b2c2cc4383b66af16962636, type: 2}
   vibe: 0
   barsPerTurn: 2
+  barsPerTransition: 1
   fuckupSounds:
-  - {fileID: 8300000, guid: 6a88a177f83e5fe468499a5525650d18, type: 3}
-  - {fileID: 8300000, guid: b93208eda0fd0db4f86dc65c9f60a37f, type: 3}
-  - {fileID: 8300000, guid: dfa42aed052efe64d98cfe42950867ce, type: 3}
-  - {fileID: 8300000, guid: 0ee4a9df038ece346b115cc3086c4fb2, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   sp404Buff: 0
   currentStreak: 0
 --- !u!4 &1113073679
@@ -15400,6 +15403,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cc4afb9d054dd4d81b4a91a7d7484acb, type: 2}
   - {fileID: 11400000, guid: 331a04bbcf465430ba329b3ea0f95501, type: 2}
   - {fileID: 11400000, guid: 3e43ae6b2ca2247948f1f4c3cee659a5, type: 2}
+  - {fileID: 11400000, guid: 70f75831ea503475f882c72d4818d139, type: 2}
+  - {fileID: 11400000, guid: 465167a6f36334317820a626ff6fefd4, type: 2}
   testEnemyTracks:
   - {fileID: 11400000, guid: 6db31f387b047a9448ebacd4829dce26, type: 2}
   metronomeAudio: 0
@@ -15408,6 +15413,7 @@ MonoBehaviour:
   playerSelectedTrack: {fileID: 0}
   countInBeats: 4
   nextTurnStart: 0
+  beatTransitionCounter: 0
 --- !u!82 &1831675819
 AudioSource:
   m_ObjectHideFlags: 0

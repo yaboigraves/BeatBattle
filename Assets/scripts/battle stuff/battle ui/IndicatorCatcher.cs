@@ -22,10 +22,8 @@ public class IndicatorCatcher : MonoBehaviour
             //     //     //if its heady the catcher getting it is actually good
             //     //     BattleManager.current.processPadHit(true);
             //     //     break;
-
             //     default:
             //         //if its not any type then we just look at whether or not it's an attack or defense note
-
             //         if (indic.attackOrDefend)
             //         {
             //             //attack note, currently no damage done to the player
@@ -35,12 +33,32 @@ public class IndicatorCatcher : MonoBehaviour
             //             //defense note, take damage
             //             BattleManager.current.playerTakeDamage(1);
             //         }
-
             //         break;
             // }
+            // BattleManager.current.vibe--;
+            // BattleUIManager.current.UpdateVibe(BattleManager.current.vibe);
 
-            BattleManager.current.vibe--;
-            BattleUIManager.current.UpdateVibe(BattleManager.current.vibe);
+            //TODO: get the lane info from the indicator?
+            int indicatorPos = 0;
+
+            switch (other.gameObject.transform.parent.transform.position.x)
+            {
+                case -3:
+                    indicatorPos = 0;
+                    break;
+                case -1:
+                    indicatorPos = 1;
+                    break;
+                case 1:
+                    indicatorPos = 2;
+                    break;
+                case 3:
+                    indicatorPos = 3;
+                    break;
+            }
+
+
+            BattleManager.current.processPadHit(false, indicatorPos);
 
             Destroy(other.gameObject);
         }

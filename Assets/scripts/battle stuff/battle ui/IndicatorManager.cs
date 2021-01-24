@@ -14,6 +14,8 @@ public class IndicatorManager : MonoBehaviour
     public GameObject bar;
     public static IndicatorManager current;
 
+    public float barSpawnPosition = 32;
+
     void Awake()
     {
         current = this;
@@ -43,9 +45,10 @@ public class IndicatorManager : MonoBehaviour
 
         //TODO: this dont really need to be dynamically instantiated they can just be part of the container prefab
 
-        for (int i = 0; i <= 128; i++)
+        for (int i = 0; i <= barSpawnPosition; i++)
         {
-            GameObject _bar = Instantiate(bar, Vector3.up * (i), Quaternion.identity, barContainer.transform);
+            // GameObject _bar = Instantiate(bar, Vector3.up * (i) / 2, Quaternion.identity, barContainer.transform);
+            spawnBar(i);
         }
 
         for (int i = 0; i < track.kickBeats.Count; i++)
@@ -113,5 +116,13 @@ public class IndicatorManager : MonoBehaviour
         {
             Destroy(barContainer.transform.GetChild(i).gameObject);
         }
+    }
+
+    //
+
+    public void spawnBar(float beatPosition)
+    {
+        GameObject _bar = Instantiate(bar, Vector3.up * beatPosition, Quaternion.identity, barContainer.transform);
+
     }
 }

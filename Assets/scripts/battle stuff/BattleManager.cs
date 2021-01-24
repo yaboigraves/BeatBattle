@@ -35,6 +35,10 @@ public class BattleManager : MonoBehaviour
     //list of delegates for the gear effects
     List<GearEffects.GearEffect> equippedGearEffects = new List<GearEffects.GearEffect>();
 
+    AudioSource soundFxAudioSource;
+
+    public AudioClip[] fuckupSounds;
+
 
     void Awake()
     {
@@ -57,6 +61,8 @@ public class BattleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        soundFxAudioSource = GetComponent<AudioSource>();
         //check if we're in testmode (which means theirs no scene manager present)
         if (TrackManager.current == null || SceneManage.current == null)
         {
@@ -134,8 +140,9 @@ public class BattleManager : MonoBehaviour
 
     //this should be passed to a battleUImanager object
 
-    public void processPadHit(bool hit)
+    public void processPadHit(bool hit, int padIndex)
     {
+
         //hit is true 
         if (playerTurn)
         {
@@ -145,6 +152,8 @@ public class BattleManager : MonoBehaviour
                 currentStreak++;
                 //vibe += BattleTrackManager.current.currentTrack.trackStats.vibePerHit;
                 vibe += 1;
+                BattleUIManager.current.SpawnHitText(padIndex, "GOOD!", Color.green);
+
 
                 //spawn a indicator number 
             }
@@ -153,6 +162,9 @@ public class BattleManager : MonoBehaviour
                 currentStreak = 0;
                 //print("u missed lol");
                 vibe -= 1;
+                //play the fuckup sound
+                BattleUIManager.current.SpawnHitText(padIndex, "FUCK!", Color.red);
+                PlayFuckupSound();
             }
 
         }
@@ -163,6 +175,7 @@ public class BattleManager : MonoBehaviour
                 //vibe += BattleTrackManager.current.currentTrack.trackStats.vibePerHit;
                 vibe += 1;
                 currentStreak = 1;
+                BattleUIManager.current.SpawnHitText(padIndex, "GOOD!", Color.green);
                 //u dont take damage
                 //print("b");
             }
@@ -171,6 +184,11 @@ public class BattleManager : MonoBehaviour
                 currentStreak = 0;
                 //playerTakeDamage(1);
                 vibe--;
+                BattleUIManager.current.SpawnHitText(padIndex, "FUCK!", Color.red);
+                //play the fuckup sound
+                PlayFuckupSound();
+
+
             }
         }
         BattleUIManager.current.UpdateVibe(vibe);
@@ -354,6 +372,15 @@ public class BattleManager : MonoBehaviour
         ResetVibe();
         battleStarted = false;
         BattleTrackManager.current.StopBattle();
+    }
+
+    public void PlayFuckupSound()
+    {
+        //randomly pick an audioclip from the list to play
+
+        //maybe randomize the pitch
+
+        soundFxAudioSource.PlayOneShot(fuckupSounds[Random.Range(0, fuckupSounds.Length - 1)], soundFxAudioSource.volume);
     }
 
 

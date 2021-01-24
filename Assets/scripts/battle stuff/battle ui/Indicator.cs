@@ -21,6 +21,7 @@ public class Indicator : MonoBehaviour
 
     public SpriteRenderer sprite;
 
+    float finalLerpStatus;
 
     private void Awake()
     {
@@ -92,10 +93,24 @@ public class Indicator : MonoBehaviour
     {
         activated = BattleManager.current.battleStarted;
 
-        if (activated)
+        float lerpStatus = TrackTimeManager.current.songPositionInBeats / beatOfThisNote;
+        //main travel lerp
+        if (activated && lerpStatus < 1)
         {
             transform.position = Vector3.Lerp(start, end, TrackTimeManager.current.songPositionInBeats / beatOfThisNote) + transform.parent.position;
         }
+        else if (activated && lerpStatus >= 1)
+        {
+            finalLerpStatus = TrackTimeManager.current.songPositionInBeats - beatOfThisNote;
+            //so now what we're going to do is lerp for one more unit over one more bar
+
+            transform.position = Vector3.Lerp(end, end - new Vector3(0, end.y + 1, 0), finalLerpStatus) + transform.parent.position;
+        }
+
+
+        //once we reach the destination we're just going to lerp to one unit below over one more bar
+
+
     }
 
 }

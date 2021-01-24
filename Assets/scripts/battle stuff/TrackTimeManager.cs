@@ -104,6 +104,9 @@ public class TrackTimeManager : MonoBehaviour
             BattleManager.current.UpdateGearPipeline();
             lastTick = songPositionInBeats;
 
+            //spawn a bar
+            IndicatorManager.current.spawnBar(songPositionInBeats + IndicatorManager.current.barSpawnPosition);
+
 
         }
     }

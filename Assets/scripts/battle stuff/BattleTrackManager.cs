@@ -11,6 +11,8 @@ public class BattleTrackManager : MonoBehaviour
     //so there's going to need to be multiple audio sources here
     //
 
+    [Range(0.0f, 1.0f)]
+    public float volume = 0.5f;
 
     public AudioSource mix1AudioSource, mix2AudioSource, transitionAudioSource;
 
@@ -188,5 +190,12 @@ public class BattleTrackManager : MonoBehaviour
 
 
         }
+    }
+
+    private void Update()
+    {
+        mix1AudioSource.volume = volume;
+        mix2AudioSource.volume = volume;
+        transitionAudioSource.volume = volume;
     }
 }

@@ -127,7 +127,7 @@ public class InputHandler : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.I))
         {
             //check if we're in dialogue
             if (player.inDialogue)

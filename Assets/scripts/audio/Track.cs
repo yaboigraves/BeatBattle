@@ -10,7 +10,7 @@ public class Track : GameItem
     [Header("AUDIO FILES")]
     public AudioClip trackClip;
 
-    public AudioClip[] trackTransitions;
+    public TransitionData[] trackTransitions;
 
     [Header("")]
     public string artist;
@@ -38,10 +38,27 @@ public class Track : GameItem
 
         Dictionary<string, List<double>> messageData = (MidiLoader.parseMidi(midiFileName, bpm));
 
+
         kickBeats = messageData["kick"];
         snareBeats = messageData["snare"];
         hatBeats = messageData["hat"];
         percBeats = messageData["perc"];
+
+        //TODO: so this is also going to need to read all the transitions midi data and set that as well
+
+        for (int i = 0; i < trackTransitions.Length; i++)
+        {
+
+            TransitionData t = trackTransitions[i];
+            Dictionary<string, List<double>> transitionData = (MidiLoader.parseMidi("transition-midi/" + t.transitionMidiName, bpm));
+            Debug.Log(transitionData["kick"].Count);
+            t.kickBeats = transitionData["kick"];
+            t.snareBeats = transitionData["snare"];
+            t.hatBeats = transitionData["hat"];
+            t.percBeats = transitionData["perc"];
+            trackTransitions[i] = t;
+        }
+
     }
 }
 
@@ -70,3 +87,12 @@ public struct TrackStats
     public int vibePerHit;
 }
 
+[Serializable]
+
+public struct TransitionData
+{
+    public AudioClip transitionClip;
+    public string transitionMidiName;
+    public List<double> kickBeats, snareBeats, hatBeats, percBeats;
+
+}

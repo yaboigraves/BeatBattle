@@ -18,12 +18,20 @@ MonoBehaviour:
   unique: 0
   itemIcon: {fileID: 0}
   trackClip: {fileID: 8300000, guid: c98a8c940789047d680e10f4952d3ad0, type: 3}
+  trackTransitions:
+  - transitionClip: {fileID: 0}
+    transitionMidiName: 
+    kickBeats: []
+    snareBeats: []
+    hatBeats: []
+    percBeats: []
   artist: 
   bpm: 87
   numBars: 0
   isBattleTrack: 1
   trackStats:
     trackVibe: 0
+    mixType: 0
     vibePerHit: 0
   midiFileName: swap-mashup-test-1-simple.mid
   kickBeats:

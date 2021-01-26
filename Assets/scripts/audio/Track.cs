@@ -58,7 +58,6 @@ public class Track : GameItem
             t.percBeats = transitionData["perc"];
             trackTransitions[i] = t;
         }
-
     }
 }
 

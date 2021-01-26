@@ -14,6 +14,7 @@ from System.Collections.Generic import *
 
 class MidiParser:
 
+    # so in reality all we need to do is just take in some different args
     def parse(self, filePath, bpmArg):
         totTime = 0
 
@@ -71,3 +72,19 @@ class MidiParser:
         messagesDictionary.Add("perc", List[float](percMessages))
 
         return messagesDictionary
+
+    # def parseQuickMix(self, filePath):
+
+    #     kickMessages = []
+    #     hatMessages = []
+    #     snareMessages = []
+    #     percMessages = []
+
+    # def parseLongMix(self, filePath):
+
+    #     # long mix parsing is basically the same as the base parse except the filepath is different
+
+    #     kickMessages = []
+    #     hatMessages = []
+    #     snareMessages = []
+    #     percMessages = []

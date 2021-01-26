@@ -1,14 +1,20 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+
 [CreateAssetMenu(fileName = "New Track", menuName = "Tracks/Track")]
 
 [Serializable]
 public class Track : GameItem
 {
+
+    public string trackName;
+
     [Header("AUDIO FILES")]
     public AudioClip trackClip;
+
+    public TrackData[] tracks;
 
     public TransitionData[] trackTransitions;
 
@@ -22,42 +28,74 @@ public class Track : GameItem
     //public IndicatorData snareBeats;
     public TrackStats trackStats;
 
-    public string midiFileName;
-
     public List<double> kickBeats, snareBeats, hatBeats, percBeats;
 
 
 
 
-    public void BuildMidi()
+    public void BuildTrack()
     {
         /*
-            asks the midiLoader (abstract/static class) to load the midi data from the midiFileName
-            -these files need to be in some sort of standardized folder (midi folder ) in the assets folder
+            so this is not only going to build the midis but also set some other basic data
+            main datapoint is the trackName which will be used to calculate all other stuff 
+
+            FOR THE MOST PART THE TRACKLOADER DOES ALL THE HEAVY LIFTING TO KEEP THIS FILE FROM IMPORTING HELLA LIBS
         */
 
-        Dictionary<string, List<double>> messageData = (MidiLoader.parseMidi(midiFileName, bpm));
 
 
-        kickBeats = messageData["kick"];
-        snareBeats = messageData["snare"];
-        hatBeats = messageData["hat"];
-        percBeats = messageData["perc"];
 
-        //TODO: so this is also going to need to read all the transitions midi data and set that as well
 
-        for (int i = 0; i < trackTransitions.Length; i++)
+        if (trackStats.mixType == TrackStats.MixType.QuickMix)
         {
 
-            TransitionData t = trackTransitions[i];
-            Dictionary<string, List<double>> transitionData = (MidiLoader.parseMidi("transition-midi/" + t.transitionMidiName, bpm));
-            Debug.Log(transitionData["kick"].Count);
-            t.kickBeats = transitionData["kick"];
-            t.snareBeats = transitionData["snare"];
-            t.hatBeats = transitionData["hat"];
-            t.percBeats = transitionData["perc"];
-            trackTransitions[i] = t;
+            //TODO: check if this works in builds dynamically
+            AudioClip[] trackClips = TrackLoader.loadAudioClips(trackName);
+
+            //go through all the trackclips and create a track data for them
+            TrackData[] tData = new TrackData[trackClips.Length];
+
+            for (int i = 0; i < trackClips.Length; i++)
+            {
+                tData[i].trackClip = trackClips[i];
+
+            }
+
+            tracks = tData;
         }
+        else if (trackStats.mixType == TrackStats.MixType.LongMix)
+        {
+
+        }
+
+
+
+        // Dictionary<string, List<double>> messageData = (TrackLoader.parseMidi(midiFileName, bpm));
+
+
+        // kickBeats = messageData["kick"];
+        // snareBeats = messageData["snare"];
+        // hatBeats = messageData["hat"];
+        // percBeats = messageData["perc"];
+
+        // //TODO: so this is also going to need to read all the transitions midi data and set that as well
+
+        // for (int i = 0; i < trackTransitions.Length; i++)
+        // {
+
+        //     TransitionData t = trackTransitions[i];
+        //     Dictionary<string, List<double>> transitionData = (TrackLoader.parseMidi("transition-midi/" + t.transitionMidiName, bpm));
+        //     Debug.Log(transitionData["kick"].Count);
+        //     t.kickBeats = transitionData["kick"];
+        //     t.snareBeats = transitionData["snare"];
+        //     t.hatBeats = transitionData["hat"];
+        //     t.percBeats = transitionData["perc"];
+        //     trackTransitions[i] = t;
+        // }
+
+
+
+
     }
 }
 
@@ -93,5 +131,15 @@ public struct TransitionData
     public AudioClip transitionClip;
     public string transitionMidiName;
     public List<double> kickBeats, snareBeats, hatBeats, percBeats;
+    public float bpm;
+
+}
+
+[Serializable]
+public struct TrackData
+{
+    public AudioClip trackClip;
+    public List<double> kickBeats, snareBeats, hatBeats, percBeats;
+    public float bpm;
 
 }

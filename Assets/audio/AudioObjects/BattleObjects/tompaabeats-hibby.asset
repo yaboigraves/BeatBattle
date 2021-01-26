@@ -17,26 +17,16 @@ MonoBehaviour:
   description: This is the default item description. Cool.
   unique: 0
   itemIcon: {fileID: 0}
+  trackName: hibby
   trackClip: {fileID: 8300000, guid: 68794962b17fb4915988aa4c630a5dd4, type: 3}
-  trackTransitions:
-  - transitionClip: {fileID: 8300000, guid: 91d5df0eb2d0848c19494b801839d68e, type: 3}
-    transitionMidiName: tompaabeats-hibby-var1.mid
+  tracks:
+  - trackClip: {fileID: 8300000, guid: 50650f0ac831b5949bb58cd708b49cc0, type: 3}
     kickBeats: []
     snareBeats: []
     hatBeats: []
     percBeats: []
-  - transitionClip: {fileID: 8300000, guid: 5cf73bd89079943aa9df2e9b07694639, type: 3}
-    transitionMidiName: tompaabeats-hibby-var2.mid
-    kickBeats: []
-    snareBeats: []
-    hatBeats: []
-    percBeats: []
-  - transitionClip: {fileID: 8300000, guid: ad1749420851e4d3281dfbb474176069, type: 3}
-    transitionMidiName: tompaabeats-hibby-var3.mid
-    kickBeats: []
-    snareBeats: []
-    hatBeats: []
-    percBeats: []
+    bpm: 0
+  trackTransitions: []
   artist: Tompaa Beats
   bpm: 87
   numBars: 0
@@ -45,7 +35,6 @@ MonoBehaviour:
     trackVibe: 0
     mixType: 0
     vibePerHit: 0
-  midiFileName: TomppaBeats - Hibby.mid
   kickBeats:
   - 0
   - 1.7499995625

@@ -25,7 +25,7 @@ public static class TrackLoader
         DirectoryInfo battleTracksInfo = new DirectoryInfo(path);
         FileInfo[] info = battleTracksInfo.GetFiles("*.wav");
 
-        Debug.Log(trackName);
+        //Debug.Log(trackName);
 
         //go over all the filesnames and check if it includes the trackname
         //if so add it to the list of clips
@@ -36,9 +36,9 @@ public static class TrackLoader
             {
                 if (isTransition)
                 {
-                    Debug.Log("TRANSITION DEBUG");
-                    Debug.Log(path + "/" + f.Name);
-                    Debug.Log("");
+                    //Debug.Log("TRANSITION DEBUG");
+                    //Debug.Log(path + "/" + f.Name);
+                    //Debug.Log("");
                 }
                 //if the filename has the trackname in it we're going to load the audio clip
                 AudioClip c = (AudioClip)AssetDatabase.LoadAssetAtPath(path + "/" + f.Name, typeof(AudioClip));
@@ -71,7 +71,7 @@ public static class TrackLoader
             if (f.Name.Contains(trackName))
             {
 
-                Debug.Log("trying to create python file execution");
+                //Debug.Log("trying to create python file execution");
                 //extract the bpm from the fname
                 string bpm = f.Name.Split('_')[2];
 
@@ -82,7 +82,7 @@ public static class TrackLoader
                 }
 
 
-                Debug.Log(bpm);
+                //Debug.Log(bpm);
 
                 midiData.Add(parseMidi(f.Name, float.Parse(bpm), path));
             }
@@ -114,7 +114,7 @@ public static class TrackLoader
         dynamic py = engine.ExecuteFile(Application.dataPath + @"/audio/Midi/MidiParser.py");
         dynamic midiParser = py.MidiParser();
 
-        Debug.Log(Application.dataPath + prePath + filename);
+        //Debug.Log(Application.dataPath + prePath + filename);
         //return (midiParser.parse(Application.dataPath + @"\midis\" + filename, bpm.ToString()));
         return (midiParser.parse(Application.dataPath + prePath + "/" + filename, bpm.ToString()));
     }

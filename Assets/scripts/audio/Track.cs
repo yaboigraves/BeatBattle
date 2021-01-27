@@ -31,8 +31,6 @@ public class Track : GameItem
     public List<double> kickBeats, snareBeats, hatBeats, percBeats;
 
 
-
-
     public void BuildTrack()
     {
         /*
@@ -48,7 +46,7 @@ public class Track : GameItem
             AudioClip[] trackClips = TrackLoader.loadAudioClips(trackName, false);
             AudioClip[] transitionClips = TrackLoader.loadAudioClips(trackName, true);
 
-            Debug.Log("transiction clip length" + transitionClips.Length.ToString());
+            //Debug.Log("transiction clip length" + transitionClips.Length.ToString());
 
             //so to get all the midi data the trackloader is also going to need a function to calculate that all
             Dictionary<string, List<System.Double>>[] tracksMidiData = TrackLoader.loadMidis(trackName, false);
@@ -59,14 +57,19 @@ public class Track : GameItem
             TransitionData[] transData = new TransitionData[transitionClips.Length];
 
 
+
+
             for (int i = 0; i < trackClips.Length; i++)
             {
                 tData[i].trackClip = trackClips[i];
+                tData[i].bpm = parseBPM(trackClips[i].name);
             }
 
             for (int i = 0; i < transitionClips.Length; i++)
             {
                 transData[i].transitionClip = transitionClips[i];
+                transData[i].bpm = parseBPM(transitionClips[i].name);
+
             }
 
             for (int i = 0; i < tracksMidiData.Length; i++)
@@ -130,6 +133,28 @@ public class Track : GameItem
 
 
 
+    }
+    public float parseBPM(string fileName)
+    {
+        //format is 
+        //artist-name_song-name_bpm_[transition]._
+        //transition bit is optional so if parsing the bpm will contain the file extension if its not a transition
+
+        string bpm = fileName.Split('_')[2];
+
+        if (bpm.Contains("."))
+        {
+            bpm = bpm.Remove(bpm.IndexOf('.'), 4);
+        }
+
+        if (bpm.Contains("bpm"))
+        {
+            bpm = bpm.Remove(bpm.IndexOf('b'), 3);
+        }
+
+        // Debug.Log("PARSING BPM : " + bpm);
+        // Debug.Log(fileName);
+        return float.Parse(bpm);
     }
 }
 

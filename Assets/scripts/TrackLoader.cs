@@ -7,9 +7,22 @@ using UnityEditor;
 public static class TrackLoader
 {
 
-    public static AudioClip[] loadAudioClips(string trackName)
+    public static AudioClip[] loadAudioClips(string trackName, bool isTransition)
     {
-        DirectoryInfo battleTracksInfo = new DirectoryInfo("Assets/audio/AudioFiles/BattleTracks");
+
+        string path;
+        if (isTransition)
+        {
+
+            path = "Assets/audio/AudioFiles/BattleTransitions";
+        }
+        else
+        {
+            path = "Assets/audio/AudioFiles/BattleTracks";
+        }
+
+
+        DirectoryInfo battleTracksInfo = new DirectoryInfo(path);
         FileInfo[] info = battleTracksInfo.GetFiles("*.wav");
 
         Debug.Log(trackName);
@@ -21,8 +34,14 @@ public static class TrackLoader
         {
             if (f.Name.Contains(trackName))
             {
+                if (isTransition)
+                {
+                    Debug.Log("TRANSITION DEBUG");
+                    Debug.Log(path + "/" + f.Name);
+                    Debug.Log("");
+                }
                 //if the filename has the trackname in it we're going to load the audio clip
-                AudioClip c = (AudioClip)AssetDatabase.LoadAssetAtPath("Assets/audio/AudioFiles/BattleTracks/" + f.Name, typeof(AudioClip));
+                AudioClip c = (AudioClip)AssetDatabase.LoadAssetAtPath(path + "/" + f.Name, typeof(AudioClip));
 
                 audioClips.Add(c);
             }
@@ -31,15 +50,20 @@ public static class TrackLoader
     }
 
 
-    public static Dictionary<string, List<System.Double>>[] loadMidis(string trackName)
+    public static Dictionary<string, List<System.Double>>[] loadMidis(string trackName, bool isTransition)
     {
-        DirectoryInfo battleTracksInfo = new DirectoryInfo("Assets/audio/Midi/BattleTracks");
+        string path;
+        if (isTransition)
+        {
+            path = "/audio/Midi/BattleTransitions";
+        }
+        else
+        {
+            path = "/audio/Midi/BattleTracks";
+        }
+
+        DirectoryInfo battleTracksInfo = new DirectoryInfo("Assets" + path);
         FileInfo[] info = battleTracksInfo.GetFiles("*.mid");
-
-
-
-
-
 
         List<Dictionary<string, List<System.Double>>> midiData = new List<Dictionary<string, List<System.Double>>>();
         foreach (FileInfo f in info)
@@ -51,17 +75,20 @@ public static class TrackLoader
                 //extract the bpm from the fname
                 string bpm = f.Name.Split('_')[2];
 
-                bpm = bpm.Remove(bpm.IndexOf('.'), 4);
+
+                if (bpm.Contains("."))
+                {
+                    bpm = bpm.Remove(bpm.IndexOf('.'), 4);
+                }
 
 
                 Debug.Log(bpm);
 
-                midiData.Add(parseMidi(f.Name, float.Parse(bpm), "/audio/Midi/BattleTracks/"));
+                midiData.Add(parseMidi(f.Name, float.Parse(bpm), path));
             }
         }
 
         return midiData.ToArray();
-
     }
 
 
@@ -89,7 +116,7 @@ public static class TrackLoader
 
         Debug.Log(Application.dataPath + prePath + filename);
         //return (midiParser.parse(Application.dataPath + @"\midis\" + filename, bpm.ToString()));
-        return (midiParser.parse(Application.dataPath + prePath + filename, bpm.ToString()));
+        return (midiParser.parse(Application.dataPath + prePath + "/" + filename, bpm.ToString()));
     }
 
     public static Dictionary<string, List<System.Double>> parseQuickMixTrack(string trackName, float bpm)

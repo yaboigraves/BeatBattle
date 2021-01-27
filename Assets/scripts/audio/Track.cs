@@ -52,16 +52,27 @@ public class Track : GameItem
             //TODO: check if this works in builds dynamically
             AudioClip[] trackClips = TrackLoader.loadAudioClips(trackName);
 
+            //so to get all the midi data the trackloader is also going to need a function to calculate that all
+
+
+
+
+
+
+
             //go through all the trackclips and create a track data for them
             TrackData[] tData = new TrackData[trackClips.Length];
 
             for (int i = 0; i < trackClips.Length; i++)
             {
                 tData[i].trackClip = trackClips[i];
-
+                //TODO: load the midi too lol
             }
 
             tracks = tData;
+
+
+
         }
         else if (trackStats.mixType == TrackStats.MixType.LongMix)
         {

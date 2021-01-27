@@ -19,19 +19,43 @@ public static class TrackLoader
         List<AudioClip> audioClips = new List<AudioClip>();
         foreach (FileInfo f in info)
         {
-            if (f.FullName.Contains(trackName))
+            if (f.Name.Contains(trackName))
             {
-
                 //if the filename has the trackname in it we're going to load the audio clip
                 AudioClip c = (AudioClip)AssetDatabase.LoadAssetAtPath("Assets/audio/AudioFiles/BattleTracks/" + f.Name, typeof(AudioClip));
 
-                //TODO: THIS STUFF SHOULD REALLY BE GOING DOWN IN MIDILOADER, WHICH SHOULD BE RENAMED TRACKLOADER
-                //this stuff should really be going down in the midiloader (whic)
                 audioClips.Add(c);
             }
         }
         return audioClips.ToArray();
     }
+
+
+    static Dictionary<string, List<System.Double>>[] loadMidis(string trackName)
+    {
+        DirectoryInfo battleTracksInfo = new DirectoryInfo("Assets/audio/Midi/BattleTracks");
+        FileInfo[] info = battleTracksInfo.GetFiles("*.mid");
+
+
+
+
+        List<Dictionary<string, List<System.Double>>> midiData = new List<Dictionary<string, List<System.Double>>>();
+        foreach (FileInfo f in info)
+        {
+            if (f.Name.Contains(trackName))
+            {
+                //extract the bpm from the fname
+                string bpm = f.Name.spl
+
+
+            }
+        }
+
+        return null;
+
+    }
+
+
 
     public static Dictionary<string, List<System.Double>> parseMidi(string filename, float bpm)
     {

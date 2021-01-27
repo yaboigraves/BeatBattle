@@ -31,10 +31,12 @@ public static class TrackLoader
     }
 
 
-    static Dictionary<string, List<System.Double>>[] loadMidis(string trackName)
+    public static Dictionary<string, List<System.Double>>[] loadMidis(string trackName)
     {
         DirectoryInfo battleTracksInfo = new DirectoryInfo("Assets/audio/Midi/BattleTracks");
         FileInfo[] info = battleTracksInfo.GetFiles("*.mid");
+
+
 
 
 
@@ -44,22 +46,31 @@ public static class TrackLoader
         {
             if (f.Name.Contains(trackName))
             {
+
+                Debug.Log("trying to create python file execution");
                 //extract the bpm from the fname
-                string bpm = f.Name.spl
+                string bpm = f.Name.Split('_')[2];
+
+                bpm = bpm.Remove(bpm.IndexOf('.'), 4);
 
 
+                Debug.Log(bpm);
+
+                midiData.Add(parseMidi(f.Name, float.Parse(bpm), "/audio/Midi/BattleTracks/"));
             }
         }
 
-        return null;
+        return midiData.ToArray();
 
     }
 
 
 
-    public static Dictionary<string, List<System.Double>> parseMidi(string filename, float bpm)
+    public static Dictionary<string, List<System.Double>> parseMidi(string filename, float bpm, string prePath)
     {
         var engine = Python.CreateEngine();
+
+
 
         ICollection<string> searchPaths = engine.GetSearchPaths();
 
@@ -71,19 +82,18 @@ public static class TrackLoader
         engine.SetSearchPaths(searchPaths);
 
 
+
         //dynamic py = engine.ExecuteFile(Application.dataPath + @"\scripts\audio\midis\MidiParser.py");
-        dynamic py = engine.ExecuteFile(Application.dataPath + @"/scripts/audio/midis/MidiParser.py");
+        dynamic py = engine.ExecuteFile(Application.dataPath + @"/audio/Midi/MidiParser.py");
         dynamic midiParser = py.MidiParser();
 
+        Debug.Log(Application.dataPath + prePath + filename);
         //return (midiParser.parse(Application.dataPath + @"\midis\" + filename, bpm.ToString()));
-        return (midiParser.parse(Application.dataPath + @"/midis/" + filename, bpm.ToString()));
+        return (midiParser.parse(Application.dataPath + prePath + filename, bpm.ToString()));
     }
 
     public static Dictionary<string, List<System.Double>> parseQuickMixTrack(string trackName, float bpm)
     {
-
-
-
 
 
         var engine = Python.CreateEngine();

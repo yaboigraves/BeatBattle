@@ -56,7 +56,7 @@ public class Track : GameItem
 
 
 
-
+            Dictionary<string, List<System.Double>>[] midiData = TrackLoader.loadMidis(trackName);
 
 
 
@@ -67,9 +67,21 @@ public class Track : GameItem
             {
                 tData[i].trackClip = trackClips[i];
                 //TODO: load the midi too lol
+
+            }
+
+            for (int i = 0; i < midiData.Length; i++)
+            {
+                tData[i].kickBeats = midiData[i]["kick"];
+                tData[i].hatBeats = midiData[i]["hat"];
+                tData[i].snareBeats = midiData[i]["snare"];
+                tData[i].percBeats = midiData[i]["perc"];
             }
 
             tracks = tData;
+
+            //after we do all this we need to load the transition data as well for the track, basically the same process 
+            //but the filepath differs
 
 
 

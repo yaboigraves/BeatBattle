@@ -50,10 +50,12 @@ public class TrackTimeManager : MonoBehaviour
 
     public void SetSongData(Track track)
     {
-        audioSource.clip = track.trackClip;
+        //audioSource.clip = track.trackClip;
         songBpm = track.bpm;
         secPerBeat = 60f / songBpm;
         dspSongTime = (float)AudioSettings.dspTime;
+
+
     }
 
     // Update is called once per frame
@@ -147,6 +149,7 @@ public class TrackTimeManager : MonoBehaviour
         StartCoroutine(beatWaitRoutine(numBeats));
         // audioSource.Play();
         // trackStarted = true;
+
     }
 
 
@@ -174,7 +177,11 @@ public class TrackTimeManager : MonoBehaviour
         //startup time is the difference in dsptime of the song + the amount of time it currently is 
         startUpTime = (float)AudioSettings.dspTime - dspSongTime;
         songPositionInBeats = 0;
-        audioSource.Play();
+        // audioSource.Play();
+
+        BattleTrackManager.current.playCurrentTrack();
+
+        //tell the track manager to play the current mix
         trackStarted = true;
     }
 

@@ -106,33 +106,6 @@ public class Track : GameItem
         }
 
 
-
-        // Dictionary<string, List<double>> messageData = (TrackLoader.parseMidi(midiFileName, bpm));
-
-
-        // kickBeats = messageData["kick"];
-        // snareBeats = messageData["snare"];
-        // hatBeats = messageData["hat"];
-        // percBeats = messageData["perc"];
-
-        // //TODO: so this is also going to need to read all the transitions midi data and set that as well
-
-        // for (int i = 0; i < trackTransitions.Length; i++)
-        // {
-
-        //     TransitionData t = trackTransitions[i];
-        //     Dictionary<string, List<double>> transitionData = (TrackLoader.parseMidi("transition-midi/" + t.transitionMidiName, bpm));
-        //     Debug.Log(transitionData["kick"].Count);
-        //     t.kickBeats = transitionData["kick"];
-        //     t.snareBeats = transitionData["snare"];
-        //     t.hatBeats = transitionData["hat"];
-        //     t.percBeats = transitionData["perc"];
-        //     trackTransitions[i] = t;
-        // }
-
-
-
-
     }
     public float parseBPM(string fileName)
     {

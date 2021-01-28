@@ -2209,7 +2209,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 262207967}
-  m_LocalRotation: {x: 0.12993138, y: 0.21949765, z: -0.029509014, w: 0.96647185}
+  m_LocalRotation: {x: 0.13050592, y: 0.19975054, z: -0.026854228, w: 0.9707455}
   m_LocalPosition: {x: -19.29, y: 0.30999994, z: -25.03}
   m_LocalScale: {x: 1.0000001, y: 1, z: 1}
   m_Children: []
@@ -6409,7 +6409,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 708335400}
-  m_LocalRotation: {x: 0.12993138, y: 0.21949765, z: -0.029509014, w: 0.96647185}
+  m_LocalRotation: {x: 0.13050592, y: 0.19975054, z: -0.026854228, w: 0.9707455}
   m_LocalPosition: {x: -19.29, y: 0.30999994, z: -25.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -9661,7 +9661,7 @@ MonoBehaviour:
   playerMaxHealth: 0
   enemyMaxHealth: 0
   playerTracks:
-  - {fileID: 11400000, guid: d8c9e3823a42a1c418d9b52ac468fbc0, type: 2}
+  - {fileID: 0}
   playerTurn: 1
   enemy: {fileID: 484811456055130513}
   indicators: {fileID: 1748981234}
@@ -9685,10 +9685,10 @@ MonoBehaviour:
   barsPerTurn: 2
   barsPerTransition: 1
   fuckupSounds:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 6a88a177f83e5fe468499a5525650d18, type: 3}
+  - {fileID: 8300000, guid: b93208eda0fd0db4f86dc65c9f60a37f, type: 3}
+  - {fileID: 8300000, guid: 979b4d0f237b9ce469892517515cd0c2, type: 3}
+  - {fileID: 8300000, guid: 7d941e1680ac4bd48a808f45d8b2e16e, type: 3}
   sp404Buff: 0
   currentStreak: 0
 --- !u!4 &1113073679
@@ -12207,7 +12207,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1379790092}
-  m_LocalRotation: {x: 0.10432586, y: 0.35545683, z: -0.039960824, w: 0.92799234}
+  m_LocalRotation: {x: -0.011349483, y: 0.68889034, z: 0.010788723, w: 0.7246964}
   m_LocalPosition: {x: -19.29, y: 0.30999994, z: -25.03}
   m_LocalScale: {x: 0.9999999, y: 1, z: 1}
   m_Children:
@@ -15398,16 +15398,9 @@ MonoBehaviour:
   currentBpm: 0
   playerTracks: []
   testPlayerTracks:
-  - {fileID: 11400000, guid: d8c9e3823a42a1c418d9b52ac468fbc0, type: 2}
-  - {fileID: 11400000, guid: 643fd89a0c3b6c8478d71ff0cf78d31a, type: 2}
-  - {fileID: 11400000, guid: 6db31f387b047a9448ebacd4829dce26, type: 2}
-  - {fileID: 11400000, guid: cc4afb9d054dd4d81b4a91a7d7484acb, type: 2}
-  - {fileID: 11400000, guid: 331a04bbcf465430ba329b3ea0f95501, type: 2}
-  - {fileID: 11400000, guid: 3e43ae6b2ca2247948f1f4c3cee659a5, type: 2}
   - {fileID: 11400000, guid: 70f75831ea503475f882c72d4818d139, type: 2}
-  - {fileID: 11400000, guid: 465167a6f36334317820a626ff6fefd4, type: 2}
   testEnemyTracks:
-  - {fileID: 11400000, guid: 6db31f387b047a9448ebacd4829dce26, type: 2}
+  - {fileID: 0}
   metronomeAudio: 0
   totalBeats: 0
   currentBar: 0

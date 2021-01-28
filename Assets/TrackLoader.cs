@@ -3,7 +3,13 @@ using System.Collections.Generic;
 using IronPython.Hosting;
 using UnityEngine;
 using System.IO;
+
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
+
+
+
 public static class TrackLoader
 {
 
@@ -41,9 +47,12 @@ public static class TrackLoader
                     //Debug.Log("");
                 }
                 //if the filename has the trackname in it we're going to load the audio clip
+
+#if UNITY_EDITOR
                 AudioClip c = (AudioClip)AssetDatabase.LoadAssetAtPath(path + "/" + f.Name, typeof(AudioClip));
 
                 audioClips.Add(c);
+#endif
             }
         }
         return audioClips.ToArray();

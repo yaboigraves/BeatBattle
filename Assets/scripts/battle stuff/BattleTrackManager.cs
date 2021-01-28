@@ -5,11 +5,20 @@ using System;
 
 public class BattleTrackManager : MonoBehaviour
 {
-    //this guy takes in a track and then manages all the playing of that track IN a battle
+
+    //gonna do some rewriting here 
+    /*
+        so we're going to need to track phases now, 
+        -mix1
+        -mix2
+        -transitions
+
+        //for now we're just gonna get the trackloading on mix 1 at all
 
 
-    //so there's going to need to be multiple audio sources here
-    //
+    */
+
+
 
     [Range(0.0f, 1.0f)]
     public float volume = 0.5f;
@@ -41,20 +50,14 @@ public class BattleTrackManager : MonoBehaviour
     private void Awake()
     {
         current = this;
-        //mix1AudioSource = GetComponent<AudioSource>();
         AudioClip audioClip;
         if (TrackManager.current == null)
         {
-            //initialize the indicator positions 
 
-            //TRACK REWRITE COMMENTOUT
-            //testPlayerTracks[0].kickBeats.indicatorPositions = Array.ConvertAll(testPlayerTracks[0].kickBeats.indicatorData.Split(' '), float.Parse);
-            //testPlayerTracks[0].snareBeats.indicatorPositions = Array.ConvertAll(testPlayerTracks[0].snareBeats.indicatorData.Split(' '), float.Parse);
-
-            //default the selected track to just the first track
             playerSelectedTrack = testPlayerTracks[0];
             currentTrack = playerSelectedTrack;
-            audioClip = testPlayerTracks[0].trackClip;
+
+            audioClip = testPlayerTracks[0].tracks[0].trackClip;
         }
         else
         {
@@ -67,7 +70,10 @@ public class BattleTrackManager : MonoBehaviour
         //print("audiosource" + audioSource.name);
 
         currentBpm = currentTrack.bpm;
+
+
         mix1AudioSource.clip = audioClip;
+
 
         //commented out to test timescale shit 
         //beatDeltaTime = (1 / currentBpm) * 60;
@@ -118,7 +124,7 @@ public class BattleTrackManager : MonoBehaviour
         currentTrack = newTrack;
         //3.replace the audiosource's clip
 
-        mix1AudioSource.clip = currentTrack.trackClip;
+        mix1AudioSource.clip = currentTrack.tracks[0].trackClip;
         //4.we need to modify the speed of the indicators (they all look at this variable for their speed)
         currentBpm = newTrack.bpm;
         //5.we need to setup the new indicators 
@@ -152,6 +158,12 @@ public class BattleTrackManager : MonoBehaviour
     public void setPlayerSelectedTrack(Track newTrack)
     {
         playerSelectedTrack = newTrack;
+    }
+
+    public void playCurrentTrack()
+    {
+
+        mix1AudioSource.Play();
     }
 
 

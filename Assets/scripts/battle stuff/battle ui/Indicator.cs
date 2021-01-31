@@ -93,15 +93,15 @@ public class Indicator : MonoBehaviour
     {
         activated = BattleManager.current.battleStarted;
 
-        float lerpStatus = TrackTimeManager.current.songPositionInBeats / beatOfThisNote;
+        float lerpStatus = TrackTimeManager.songPositionInBeats / beatOfThisNote;
         //main travel lerp
         if (activated && lerpStatus < 1)
         {
-            transform.position = Vector3.Lerp(start, end, TrackTimeManager.current.songPositionInBeats / beatOfThisNote) + transform.parent.position;
+            transform.position = Vector3.Lerp(start, end, TrackTimeManager.songPositionInBeats / beatOfThisNote) + transform.parent.position;
         }
         else if (activated && lerpStatus >= 1)
         {
-            finalLerpStatus = TrackTimeManager.current.songPositionInBeats - beatOfThisNote;
+            finalLerpStatus = TrackTimeManager.songPositionInBeats - beatOfThisNote;
             //so now what we're going to do is lerp for one more unit over one more bar
 
             transform.position = Vector3.Lerp(end, end - new Vector3(0, end.y + 1, 0), finalLerpStatus) + transform.parent.position;

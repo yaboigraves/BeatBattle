@@ -168,6 +168,10 @@ public class BattleManager : MonoBehaviour
 
             StartBattle();
         }
+
+
+        //tell the track time manager to update 
+        TrackTimeManager.ManualUpdate();
     }
 
     void StartBattle()

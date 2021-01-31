@@ -12207,7 +12207,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1379790092}
-  m_LocalRotation: {x: -0.011349483, y: 0.68889034, z: 0.010788723, w: 0.7246964}
+  m_LocalRotation: {x: 0.10356383, y: 0.37267175, z: -0.041896146, w: 0.9212139}
   m_LocalPosition: {x: -19.29, y: 0.30999994, z: -25.03}
   m_LocalScale: {x: 0.9999999, y: 1, z: 1}
   m_Children:
@@ -15347,7 +15347,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1831675817}
   - component: {fileID: 1831675818}
-  - component: {fileID: 1831675820}
   - component: {fileID: 1831675819}
   - component: {fileID: 1831675821}
   - component: {fileID: 1831675822}
@@ -15504,33 +15503,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1831675820
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1831675816}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f802c4707572e24689426956a304b80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  songBpm: 0
-  secPerBeat: 0
-  songPosition: 0
-  songPositionInBeats: 0
-  dspSongTime: 0
-  audioSource: {fileID: 1831675819}
-  debugDSPTIME: 0
-  currentPlayerBars: 0
-  trackStarted: 0
-  countingIn: 0
-  turnBeatCounter: 0
-  startUpTime: 0
-  currentTurnStartBeat: 0
-  dspTimeDifferenceFromStart: 0
-  currIndicatorContainer: {fileID: 0}
 --- !u!82 &1831675821
 AudioSource:
   m_ObjectHideFlags: 0

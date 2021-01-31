@@ -2,53 +2,62 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TrackTimeManager : MonoBehaviour
+
+//TODO:
+/*
+    so this is going to become a static class and just act as a helper instead of an actual object in the scene
+    all its going to do now is handle bpm tick events and other simple time based information
+*/
+
+
+
+public static class TrackTimeManager
 {
 
-    public static TrackTimeManager current;
+    // public static TrackTimeManager current;
     //Song beats per minute
     //This is determined by the song you're trying to sync up to
-    public float songBpm;
+    public static float songBpm;
 
     //The number of seconds for each song beat
-    public float secPerBeat;
+    public static float secPerBeat;
 
     //Current song position, in seconds
-    public float songPosition;
+    public static float songPosition;
 
     //Current song position, in beats
-    public float songPositionInBeats;
+    public static float songPositionInBeats;
 
     //How many seconds have passed since the song started
-    public float dspSongTime;
+    public static float dspSongTime;
 
-    //an AudioSource attached to this GameObject that will play the music.
-    public AudioSource audioSource;
+    // //an AudioSource attached to this GameObject that will play the music.
+    // public AudioSource audioSource;
 
-    public float debugDSPTIME;
+    public static float debugDSPTIME;
 
-    public float currentPlayerBars;
+    public static float currentPlayerBars;
 
-    public bool trackStarted = false;
+    public static bool trackStarted = false;
 
-    public bool countingIn = false;
+    public static bool countingIn = false;
 
-    public float turnBeatCounter;
+    public static float turnBeatCounter;
 
 
-    private void Awake()
-    {
-        current = this;
-    }
+    // private void Awake()
+    // {
+    //     current = this;
+    // }
 
     // Start is called before the first frame update
-    void Start()
-    {
-        audioSource = GetComponent<AudioSource>();
-        // secPerBeat = 60f / songBpm;
-    }
+    // void Start()
+    // {
+    //     audioSource = GetComponent<AudioSource>();
+    //     // secPerBeat = 60f / songBpm;
+    // }
 
-    public void SetSongData(Track track)
+    public static void SetSongData(Track track)
     {
         //audioSource.clip = track.trackClip;
         songBpm = track.bpm;
@@ -60,12 +69,13 @@ public class TrackTimeManager : MonoBehaviour
 
     // Update is called once per frame
 
-    public float startUpTime;
+    public static float startUpTime;
 
-    public float currentTurnStartBeat = 0;
+    public static float currentTurnStartBeat = 0;
 
-    //TODO: implement a way to modify the starting audio time (because its starting time since the )
-    void Update()
+
+
+    public static void ManualUpdate()
     {
 
         beatTick();
@@ -96,8 +106,8 @@ public class TrackTimeManager : MonoBehaviour
     }
 
 
-    float lastTick = 0;
-    public void beatTick()
+    static float lastTick = 0;
+    public static void beatTick()
     {
         if (lastTick + 1 < songPositionInBeats)
         {
@@ -114,27 +124,28 @@ public class TrackTimeManager : MonoBehaviour
     }
 
 
-    public float dspTimeDifferenceFromStart;
-    public void startTrackTimer()
+    public static float dspTimeDifferenceFromStart;
+    public static void startTrackTimer()
     {
         trackStarted = true;
 
         //TODO: so also need to take note of the current difference in dsp time
     }
 
-    public void stopTrackTimer()
+    public static void stopTrackTimer()
     {
         trackStarted = false;
     }
 
-    public void resetTrackTimer()
+    public static void resetTrackTimer()
     {
         songPosition = 0;
         songPositionInBeats = 0;
     }
 
 
-    public void beatWait(int numBeats)
+    //TODO: reimpliment the beat wait using updates from audiosettings.dsp time rather than a coroutine
+    public static void beatWait(int numBeats)
     {
         //dspTimeDifferenceFromStart = (float)AudioSettings.dspTime - dspSongTime;
 
@@ -146,7 +157,7 @@ public class TrackTimeManager : MonoBehaviour
         waitTimeOver = (float)AudioSettings.dspTime + 4 * secPerBeat;
 
 
-        StartCoroutine(beatWaitRoutine(numBeats));
+        // StartCoroutine(beatWaitRoutine(numBeats));
         // audioSource.Play();
         // trackStarted = true;
 
@@ -156,10 +167,10 @@ public class TrackTimeManager : MonoBehaviour
 
     //starts shit but waits 4 beats before resetting all the data back to 0
 
-    float waitTimeOver;
-    bool doingWait = false;
-    float waitTimeStart;
-    public IEnumerator beatWaitRoutine(int numBeats)
+    static float waitTimeOver;
+    static bool doingWait = false;
+    static float waitTimeStart;
+    public static IEnumerator beatWaitRoutine(int numBeats)
     {
 
         //so this needs to figure out basically jsut how much time needs to pass from now till 4 beats from now 
@@ -185,14 +196,14 @@ public class TrackTimeManager : MonoBehaviour
         trackStarted = true;
     }
 
-    public GameObject currIndicatorContainer;
-    Vector3 indicatorStartPos;
-    public void setCurrIndicatorContainer(GameObject indiContainer)
+    public static GameObject currIndicatorContainer;
+    static Vector3 indicatorStartPos;
+    public static void setCurrIndicatorContainer(GameObject indiContainer)
     {
         currIndicatorContainer = indiContainer;
     }
 
-    public void MoveIndicatorContainerForWait()
+    public static void MoveIndicatorContainerForWait()
     {
         float movePercent = (float)((AudioSettings.dspTime - waitTimeStart) / (waitTimeOver - waitTimeStart));
         //lerp the indicator container between its spawn position and 0 based on where audio time is between the waittimeover variable

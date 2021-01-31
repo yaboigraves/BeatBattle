@@ -13,7 +13,7 @@ public class BattleTrackManager : MonoBehaviour
         -mix2
         -transitions
 
-        //for now we're just gonna get the trackloading on mix 1 at all
+        going to just sledgehammer code this shit and get it all working using new system
 
 
     */
@@ -96,7 +96,7 @@ public class BattleTrackManager : MonoBehaviour
         BattleManager.current.battleStarted = true;
 
         //so from right here, going to start weaving in the track time manager
-        TrackTimeManager.current.startTrackTimer();
+        TrackTimeManager.startTrackTimer();
     }
 
     public void StopBattle()
@@ -107,7 +107,7 @@ public class BattleTrackManager : MonoBehaviour
 
     public void StartCountIn()
     {
-        TrackTimeManager.current.beatWait(4);
+        TrackTimeManager.beatWait(4);
         //need to go to the tracktime manager and have it wait 4 beats, then reset all the timing data and actually start the song
     }
 
@@ -134,9 +134,9 @@ public class BattleTrackManager : MonoBehaviour
 
         nextTurnStart = totalBeats + 5;
 
-        TrackTimeManager.current.SetSongData(currentTrack);
-        TrackTimeManager.current.stopTrackTimer();
-        TrackTimeManager.current.resetTrackTimer();
+        TrackTimeManager.SetSongData(currentTrack);
+        TrackTimeManager.stopTrackTimer();
+        TrackTimeManager.resetTrackTimer();
 
         // if (!doWait)
         // {

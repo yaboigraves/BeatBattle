@@ -36,7 +36,7 @@ public class IndicatorManager : MonoBehaviour
         //TIMESCALE STUFF
         //so the uniform timescale is 60bpm. therefore the timescale we want is whatever the bpm of the curre
 
-        Time.timeScale = newTrack.bpm / 60;
+        //Time.timeScale = newTrack.oldBPM / 60;
 
         //GameObject indicContainer = Instantiate(indicatorContainer, Vector3.zero, Quaternion.identity, transform);
         //TrackTimeManager.current.currIndicatorContainer = indicContainer;
@@ -51,9 +51,9 @@ public class IndicatorManager : MonoBehaviour
             spawnBar(i);
         }
 
-        for (int i = 0; i < track.kickBeats.Count; i++)
+        for (int i = 0; i < track.tracks[0].kickBeats.Count; i++)
         {
-            Vector3 kickPos = new Vector3(kickLane.transform.position.x, ((float)track.kickBeats[i]), 0);
+            Vector3 kickPos = new Vector3(kickLane.transform.position.x, ((float)track.tracks[0].kickBeats[i]), 0);
             //each unit is 1 bar 
             //therefore we need to start the next batck of indicators at wherever the loop ends
             //probablyh easiest for now just to bake the length of the loop into the track object 
@@ -61,23 +61,23 @@ public class IndicatorManager : MonoBehaviour
             indic.GetComponent<Indicator>().SetIndicatorType(BattleManager.current.playerTurn, newTrack.trackStats.trackVibe.ToString());
         }
 
-        for (int i = 0; i < track.snareBeats.Count; i++)
+        for (int i = 0; i < track.tracks[0].snareBeats.Count; i++)
         {
-            Vector3 kickPos = new Vector3(snareLane.transform.position.x, ((float)track.snareBeats[i]), 0);
+            Vector3 kickPos = new Vector3(snareLane.transform.position.x, ((float)track.tracks[0].snareBeats[i]), 0);
             GameObject indic = Instantiate(indicator, kickPos, Quaternion.identity, snareLane.transform);
             indic.GetComponent<Indicator>().SetIndicatorType(BattleManager.current.playerTurn, newTrack.trackStats.trackVibe.ToString());
         }
 
-        for (int i = 0; i < track.hatBeats.Count; i++)
+        for (int i = 0; i < track.tracks[0].hatBeats.Count; i++)
         {
-            Vector3 kickPos = new Vector3(hatLane.transform.position.x, ((float)track.hatBeats[i]), 0);
+            Vector3 kickPos = new Vector3(hatLane.transform.position.x, ((float)track.tracks[0].hatBeats[i]), 0);
             GameObject indic = Instantiate(indicator, kickPos, Quaternion.identity, hatLane.transform);
             indic.GetComponent<Indicator>().SetIndicatorType(BattleManager.current.playerTurn, newTrack.trackStats.trackVibe.ToString());
         }
 
-        for (int i = 0; i < track.percBeats.Count; i++)
+        for (int i = 0; i < track.tracks[0].percBeats.Count; i++)
         {
-            Vector3 kickPos = new Vector3(percLane.transform.position.x, ((float)track.percBeats[i]), 0);
+            Vector3 kickPos = new Vector3(percLane.transform.position.x, ((float)track.tracks[0].percBeats[i]), 0);
             GameObject indic = Instantiate(indicator, kickPos, Quaternion.identity, percLane.transform);
             indic.GetComponent<Indicator>().SetIndicatorType(BattleManager.current.playerTurn, newTrack.trackStats.trackVibe.ToString());
         }
@@ -85,6 +85,87 @@ public class IndicatorManager : MonoBehaviour
 
 
         //lastIndicatorContainer = indicContainer;
+    }
+
+
+    public void setupQuickMixIndicators(Queue<Track> trackQueue)
+    {
+        //assumes for now we're always playing the first transition variant
+
+        Track[] tracks = trackQueue.ToArray();
+
+
+        //tracks the number of tracks and transitions setup (12 bars)
+        //indicator counts as a half
+        int numBarsSetup = 0;
+
+
+        // while (trackQueue.Count > 0)
+        // {
+
+        //     Track track = trackQueue.Dequeue();
+        //     Debug.Log(BattleTrackManager.current.trackQueue.Count);
+        //     setupQuickMixTrack(track.tracks[0], numBarsSetup);
+
+        //     //TODO: this should probably be a value stored in the trackdata
+        //     numBarsSetup += 14;
+        //     setupQuickMixTrack(track.trackTransitions[0], numBarsSetup);
+        //     //transitions are pretty much always gonna be 4 beats
+        //     numBarsSetup += 3;
+        // }
+
+        foreach (Track track in tracks)
+        {
+            Debug.Log(BattleTrackManager.current.trackQueue.Count);
+            setupQuickMixTrack(track.tracks[0], numBarsSetup);
+            //TODO: this should probably be a value stored in the trackdata
+            numBarsSetup += 14;
+            setupQuickMixTrack(track.trackTransitions[0], numBarsSetup);
+            //transitions are pretty much always gonna be 4 beats
+            numBarsSetup += 3;
+        }
+
+    }
+
+    //initializes a single track with the given offset from 0
+    public void setupQuickMixTrack(TrackData track, int offset)
+    {
+        for (int i = 0; i <= barSpawnPosition; i++)
+        {
+            // GameObject _bar = Instantiate(bar, Vector3.up * (i) / 2, Quaternion.identity, barContainer.transform);
+            spawnBar(offset + i);
+        }
+
+        for (int i = 0; i < track.kickBeats.Count; i++)
+        {
+            Vector3 kickPos = new Vector3(kickLane.transform.position.x, ((float)track.kickBeats[i] + offset), 0);
+            //each unit is 1 bar 
+            //therefore we need to start the next batck of indicators at wherever the loop ends
+            //probablyh easiest for now just to bake the length of the loop into the track object 
+            GameObject indic = Instantiate(indicator, kickPos, Quaternion.identity, kickLane.transform);
+            indic.GetComponent<Indicator>().SetIndicatorType(BattleManager.current.playerTurn);
+        }
+
+        for (int i = 0; i < track.snareBeats.Count; i++)
+        {
+            Vector3 kickPos = new Vector3(snareLane.transform.position.x, ((float)track.snareBeats[i] + offset), 0);
+            GameObject indic = Instantiate(indicator, kickPos, Quaternion.identity, snareLane.transform);
+            indic.GetComponent<Indicator>().SetIndicatorType(BattleManager.current.playerTurn);
+        }
+
+        for (int i = 0; i < track.hatBeats.Count; i++)
+        {
+            Vector3 kickPos = new Vector3(hatLane.transform.position.x, ((float)track.hatBeats[i] + offset), 0);
+            GameObject indic = Instantiate(indicator, kickPos, Quaternion.identity, hatLane.transform);
+            indic.GetComponent<Indicator>().SetIndicatorType(BattleManager.current.playerTurn);
+        }
+
+        for (int i = 0; i < track.percBeats.Count; i++)
+        {
+            Vector3 kickPos = new Vector3(percLane.transform.position.x, ((float)track.percBeats[i] + offset), 0);
+            GameObject indic = Instantiate(indicator, kickPos, Quaternion.identity, percLane.transform);
+            indic.GetComponent<Indicator>().SetIndicatorType(BattleManager.current.playerTurn);
+        }
     }
 
     public void ClearIndicators()

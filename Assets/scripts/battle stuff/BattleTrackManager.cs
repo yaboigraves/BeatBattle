@@ -13,8 +13,6 @@ public class BattleTrackManager : MonoBehaviour
         -mix2
         -transitions
 
-        going to just sledgehammer code this shit and get it all working using new system
-
 
     */
 
@@ -24,8 +22,6 @@ public class BattleTrackManager : MonoBehaviour
     public float volume = 0.5f;
 
     public AudioSource mix1AudioSource, mix2AudioSource, transitionAudioSource;
-
-    public Queue<Track> mix1Queue, mix2Queue;
 
     public Track currentTrack;
     public static BattleTrackManager current;
@@ -47,6 +43,10 @@ public class BattleTrackManager : MonoBehaviour
     public float countInBeats = 4;
 
 
+    //=====================================
+
+    public Queue<Track> trackQueue = new Queue<Track>();
+
     private void Awake()
     {
         current = this;
@@ -54,37 +54,38 @@ public class BattleTrackManager : MonoBehaviour
         if (TrackManager.current == null)
         {
 
-            playerSelectedTrack = testPlayerTracks[0];
-            currentTrack = playerSelectedTrack;
+            // playerSelectedTrack = testPlayerTracks[0];
+            // currentTrack = playerSelectedTrack;
 
-            audioClip = testPlayerTracks[0].tracks[0].trackClip;
+            // audioClip = testPlayerTracks[0].tracks[0].trackClip;
         }
         else
         {
-            playerTracks = GameManager.current.player.GetComponent<PlayerInventory>().battleEquippedTracks;
-            currentTrack = playerTracks[0];
-            playerSelectedTrack = playerTracks[0];
-            audioClip = currentTrack.trackClip;
+            // playerTracks = GameManager.current.player.GetComponent<PlayerInventory>().battleEquippedTracks;
+            // currentTrack = playerTracks[0];
+            // playerSelectedTrack = playerTracks[0];
+            // audioClip = currentTrack.trackClip;
         }
 
         //print("audiosource" + audioSource.name);
 
-        currentBpm = currentTrack.bpm;
+        // currentBpm = currentTrack.bpm;
 
 
-        mix1AudioSource.clip = audioClip;
+        // mix1AudioSource.clip = audioClip;
 
 
         //commented out to test timescale shit 
         //beatDeltaTime = (1 / currentBpm) * 60;
 
         //uniform speed for timescale change
-        beatDeltaTime = 1;
+        // beatDeltaTime = 1;
     }
 
 
     private void Start()
     {
+
         paused = true;
     }
 
@@ -108,8 +109,31 @@ public class BattleTrackManager : MonoBehaviour
     public void StartCountIn()
     {
         TrackTimeManager.beatWait(4);
-        //need to go to the tracktime manager and have it wait 4 beats, then reset all the timing data and actually start the song
     }
+
+    public void StartQuickMixBattle()
+    {
+        //set the current track by dequeing from the queue
+        currentTrack = trackQueue.Dequeue();
+        //set the current bpm
+        currentBpm = currentTrack.tracks[0].bpm;
+
+        TrackTimeManager.SetSongData(currentTrack);
+
+        //set the audiosclip for mix1 
+        mix1AudioSource.clip = currentTrack.tracks[0].trackClip;
+
+        //set the audioclip for the transition 
+        transitionAudioSource.clip = currentTrack.trackTransitions[0].trackClip;
+
+        //set the audioclip for the next song by peeking the queue 
+        mix2AudioSource.clip = trackQueue.Peek().tracks[0].trackClip;
+
+        //wait time 
+        TrackTimeManager.beatWait(4);
+
+    }
+
 
 
     public int nextTurnStart;
@@ -126,7 +150,7 @@ public class BattleTrackManager : MonoBehaviour
 
         mix1AudioSource.clip = currentTrack.tracks[0].trackClip;
         //4.we need to modify the speed of the indicators (they all look at this variable for their speed)
-        currentBpm = newTrack.bpm;
+        currentBpm = newTrack.oldBPM;
         //5.we need to setup the new indicators 
         //BattleManager.current.setupTurnIndicators(newTrack);
         IndicatorManager.current.setupTurnIndicators(newTrack);
@@ -145,10 +169,19 @@ public class BattleTrackManager : MonoBehaviour
         // }
     }
 
+
     public void setupQuickMix()
     {
         //TODO: create 2 queues of quickmix tracks
         //TODO: init all the indicators for quickmix tracks
+
+        //for now just gonna setup up everything manually not necessarily dynamic at all
+        trackQueue.Enqueue(testPlayerTracks[0]);
+        trackQueue.Enqueue(testPlayerTracks[0]);
+        IndicatorManager.current.setupQuickMixIndicators(trackQueue);
+
+        //pass the queue to the indicator manager so it can setup the indicators
+        //for now we're assuming we're always going to play the first transitions
     }
 
 
@@ -167,12 +200,7 @@ public class BattleTrackManager : MonoBehaviour
     }
 
 
-    public enum BattlePhase
-    {
-        mix1,
-        mix2,
-        transition
-    };
+
     public float beatTransitionCounter = 0;
     public void checkForTransition()
     {
@@ -183,7 +211,7 @@ public class BattleTrackManager : MonoBehaviour
 
         //check the battles phase 
 
-        if (BattleManager.current.battlePhase.Equals(BattlePhase.mix1) || BattleManager.current.battlePhase.Equals(BattlePhase.mix2))
+        if (BattleManager.current.battlePhase == "mix1" || BattleManager.current.battlePhase == "mix2")
         {
             //so if we're in mix1 or mix2 and 4 * the bars per mixphase is less than or equal to the counter we're gonna go to a transition'
             if (beatTransitionCounter >= BattleManager.current.barsPerTurn * 4)

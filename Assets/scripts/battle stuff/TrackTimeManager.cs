@@ -5,8 +5,9 @@ using UnityEngine;
 
 //TODO:
 /*
-    so this is going to become a static class and just act as a helper instead of an actual object in the scene
-    all its going to do now is handle bpm tick events and other simple time based information
+   holy fuck this needs to get refactored lol
+
+   alot of cobweb code thats all its pretty functional could just be waaaaay cleaner
 */
 
 
@@ -47,11 +48,9 @@ public static class TrackTimeManager
     public static void SetSongData(Track track)
     {
         //audioSource.clip = track.trackClip;
-        songBpm = track.bpm;
+        songBpm = track.tracks[0].bpm;
         secPerBeat = 60f / songBpm;
         dspSongTime = (float)AudioSettings.dspTime;
-
-
     }
 
     // Update is called once per frame

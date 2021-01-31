@@ -49,7 +49,7 @@ public class LightWeightTimeManager : MonoBehaviour
     {
 
         songPosition = (float)(AudioSettings.dspTime - currentSongDSPStartTime);
-        songPositionInBeats = (songPosition / (60 / currentTrack.bpm));
+        songPositionInBeats = (songPosition / (60 / currentTrack.oldBPM));
 
         if (Mathf.Floor(songPositionInBeats) > lastBeat)
         {
@@ -150,9 +150,9 @@ public class LightWeightTimeManager : MonoBehaviour
         lastBeat = 0;
     }
 
-    
 
-    
+
+
 
 
 

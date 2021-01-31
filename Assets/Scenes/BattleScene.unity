@@ -9687,8 +9687,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b93208eda0fd0db4f86dc65c9f60a37f, type: 3}
   - {fileID: 8300000, guid: 979b4d0f237b9ce469892517515cd0c2, type: 3}
   - {fileID: 8300000, guid: 7d941e1680ac4bd48a808f45d8b2e16e, type: 3}
-  battlePhase: mix1
-  lastMix: 
+  battlePhase: transition
+  lastMix: mix2
   sp404Buff: 0
   currentStreak: 0
 --- !u!4 &1113073679
@@ -15418,7 +15418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24b9a3e492737db40accee1fe0ac89bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volume: 0.137
+  volume: 0.1
   mix1AudioSource: {fileID: 1831675819}
   mix2AudioSource: {fileID: 1831675821}
   transitionAudioSource: {fileID: 1831675822}
@@ -15465,7 +15465,7 @@ AudioSource:
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
-  Pan2D: 0
+  Pan2D: -0.84
   rolloffMode: 0
   BypassEffects: 0
   BypassListenerEffects: 0
@@ -15546,7 +15546,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1831675816}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
@@ -15657,7 +15657,7 @@ AudioSource:
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
-  Pan2D: 0
+  Pan2D: 0.33
   rolloffMode: 0
   BypassEffects: 0
   BypassListenerEffects: 0

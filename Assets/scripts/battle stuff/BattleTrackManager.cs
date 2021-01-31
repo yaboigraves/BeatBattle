@@ -138,6 +138,12 @@ public class BattleTrackManager : MonoBehaviour
 
     public void NextBattlePhase()
     {
+        Debug.Log("NEXT PHASE");
+
+        //note : so instead of actually playing the audio source this assumes that the audio source for the next phase 
+        //has alrerady been queued up
+
+
         //check what the current phase is 
 
         string currentPhase = BattleManager.current.battlePhase;
@@ -145,38 +151,41 @@ public class BattleTrackManager : MonoBehaviour
         switch (currentPhase)
         {
             case "mix1":
-                //turn on the transition audiosource turn off our audio source
-
-                //note: this needs to actually use playscheduled otherwise there will be weird delay
-                //https://docs.unity3d.com/ScriptReference/AudioSource.PlayScheduled.html
-                transitionAudioSource.Play();
+                //turn off the current audiop
                 mix1AudioSource.volume = 0.1f;
+
                 BattleManager.current.SetBattlePhase("transition");
-                TrackTimeManager.setBeatsBeforeNextPhase(3);
+                TrackTimeManager.setBeatsBeforeNextPhase(4);
+
+                //queue up the mix2 track
+                //needs to calculate the dsp time of the next play
+                //time + beats * beats/sec * 1000
+                mix2AudioSource.PlayScheduled(TrackTimeManager.GetDSPTimeForNextPlay(4));
 
                 break;
             case "mix2":
                 //turn on the transition audiosource turn off our audio source
-                transitionAudioSource.Play();
+                //transitionAudioSource.Play();
                 mix2AudioSource.Stop();
                 BattleManager.current.SetBattlePhase("transition");
-                TrackTimeManager.setBeatsBeforeNextPhase(3);
+                TrackTimeManager.setBeatsBeforeNextPhase(4);
                 break;
             case "transition":
                 //so this is where we need to have known the last active mix
+                transitionAudioSource.Stop();
                 if (BattleManager.current.lastMix == "mix1")
                 {
-                    mix2AudioSource.Play();
-                    transitionAudioSource.Stop();
                     BattleManager.current.SetBattlePhase("mix2");
                 }
                 else if (BattleManager.current.lastMix == "mix2")
                 {
-                    mix1AudioSource.Play();
-                    transitionAudioSource.Stop();
                     BattleManager.current.SetBattlePhase("mix1");
                 }
-                TrackTimeManager.setBeatsBeforeNextPhase(14);
+
+                //queue up the next transition
+                transitionAudioSource.PlayScheduled(TrackTimeManager.GetDSPTimeForNextPlay(32));
+
+                TrackTimeManager.setBeatsBeforeNextPhase(28);
                 break;
         }
     }
@@ -240,10 +249,16 @@ public class BattleTrackManager : MonoBehaviour
         playerSelectedTrack = newTrack;
     }
 
+    //this is essentially a start function
     public void playCurrentTrack()
     {
-
         mix1AudioSource.Play();
+        //here we're going to queue up the transition s o theres no possibly delay
+    }
+
+    public void ScheduleNextTrack()
+    {
+
     }
 
 

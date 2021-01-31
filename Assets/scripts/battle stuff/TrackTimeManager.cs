@@ -110,12 +110,13 @@ public static class TrackTimeManager
                 songPositionInBeats = 0;
                 // audioSource.Play();
 
-                BattleTrackManager.current.playCurrentTrack();
+                //BattleTrackManager.current.playCurrentTrack();
 
                 //tell the track manager to play the current mix
                 trackStarted = true;
                 countingIn = false;
                 Debug.Log("starting wait is over");
+                BattleTrackManager.current.NextBattlePhase();
             }
         }
     }
@@ -187,9 +188,9 @@ public static class TrackTimeManager
         //as this time progresses need to lerp the indicator container down 4 units 
         //so lerp(start,start -4, currentBeat/4)
         Debug.Log("wait is starting");
-        waitTimeStart = (float)AudioSettings.dspTime;
         waitTimeOver = (float)AudioSettings.dspTime + 4 * secPerBeat;
 
+        BattleTrackManager.current.mix1AudioSource.PlayScheduled(waitTimeOver);
 
         //so now this is going to need to essentialy trigger a boolean that is just checked in the manual update
 
@@ -241,6 +242,11 @@ public static class TrackTimeManager
         float movePercent = (float)((AudioSettings.dspTime - waitTimeStart) / (waitTimeOver - waitTimeStart));
         //lerp the indicator container between its spawn position and 0 based on where audio time is between the waittimeover variable
         //currIndicatorContainer.transform.position = Vector3.Lerp(new Vector3(0, 4, 0), new Vector3(0, 0, 0), movePercent);
+    }
+
+    public static float GetDSPTimeForNextPlay(int length)
+    {
+        return dspSongTime + (length * secPerBeat);
     }
 
 

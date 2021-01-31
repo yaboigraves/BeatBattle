@@ -44,19 +44,6 @@ public static class TrackTimeManager
 
     public static float turnBeatCounter;
 
-
-    // private void Awake()
-    // {
-    //     current = this;
-    // }
-
-    // Start is called before the first frame update
-    // void Start()
-    // {
-    //     audioSource = GetComponent<AudioSource>();
-    //     // secPerBeat = 60f / songBpm;
-    // }
-
     public static void SetSongData(Track track)
     {
         //audioSource.clip = track.trackClip;
@@ -98,10 +85,32 @@ public static class TrackTimeManager
             BattleUIManager.current.UpdateMetronome(((Mathf.FloorToInt(songPositionInBeats)) % 4), false);
         }
 
+        //this i think is deprecated, can probably get removed
         if (doingWait)
         {
 
             MoveIndicatorContainerForWait();
+        }
+
+
+
+        if (countingIn)
+        {
+
+            //time to end the count
+            if ((float)AudioSettings.dspTime > waitTimeOver)
+            {
+                startUpTime = (float)AudioSettings.dspTime - dspSongTime;
+                songPositionInBeats = 0;
+                // audioSource.Play();
+
+                BattleTrackManager.current.playCurrentTrack();
+
+                //tell the track manager to play the current mix
+                trackStarted = true;
+                countingIn = false;
+                Debug.Log("starting wait is over");
+            }
         }
     }
 
@@ -152,15 +161,14 @@ public static class TrackTimeManager
         //so we want to have 4 beats of time progress
         //as this time progresses need to lerp the indicator container down 4 units 
         //so lerp(start,start -4, currentBeat/4)
-
+        Debug.Log("wait is starting");
         waitTimeStart = (float)AudioSettings.dspTime;
         waitTimeOver = (float)AudioSettings.dspTime + 4 * secPerBeat;
 
 
-        // StartCoroutine(beatWaitRoutine(numBeats));
-        // audioSource.Play();
-        // trackStarted = true;
+        //so now this is going to need to essentialy trigger a boolean that is just checked in the manual update
 
+        countingIn = true;
     }
 
 

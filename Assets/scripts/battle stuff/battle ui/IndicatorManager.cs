@@ -119,10 +119,10 @@ public class IndicatorManager : MonoBehaviour
             Debug.Log(BattleTrackManager.current.trackQueue.Count);
             setupQuickMixTrack(track.tracks[0], numBarsSetup);
             //TODO: this should probably be a value stored in the trackdata
-            numBarsSetup += 14;
+            numBarsSetup += track.tracks[0].numBeats;
             setupQuickMixTrack(track.trackTransitions[0], numBarsSetup);
             //transitions are pretty much always gonna be 4 beats
-            numBarsSetup += 3;
+            numBarsSetup += track.trackTransitions[0].numBeats;
         }
 
     }

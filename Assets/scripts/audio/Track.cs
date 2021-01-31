@@ -166,4 +166,6 @@ public struct TrackData
     public List<double> kickBeats, snareBeats, hatBeats, percBeats;
     public float bpm;
 
+    public int numBeats;
+
 }

@@ -45,6 +45,8 @@ public static class TrackTimeManager
 
     public static float turnBeatCounter;
 
+    public static int beatsBeforeNextPhase;
+
     public static void SetSongData(Track track)
     {
         //audioSource.clip = track.trackClip;
@@ -53,7 +55,12 @@ public static class TrackTimeManager
         dspSongTime = (float)AudioSettings.dspTime;
     }
 
-    // Update is called once per frame
+    public static void setBeatsBeforeNextPhase(int beats)
+    {
+        beatsBeforeNextPhase = beats;
+    }
+
+
 
     public static float startUpTime;
 
@@ -122,11 +129,30 @@ public static class TrackTimeManager
             //call all the stuff we need to call for a beattick 
             BattleManager.current.VibeUpdate();
             BattleManager.current.UpdateGearPipeline();
+
+            if (BattleManager.current.battleType == BattleManager.BattleType.quickMix)
+            {
+                beatsBeforeNextPhase--;
+                if (beatsBeforeNextPhase <= 0)
+                {
+                    //we're moving to a new phase so we have to switch audioclips and possibly bpms
+                    BattleTrackManager.current.NextBattlePhase();
+                }
+            }
+            else if (BattleManager.current.battleType == BattleManager.BattleType.longMix)
+            {
+
+            }
+
             lastTick = songPositionInBeats;
+
+
 
             //spawn a bar
             IndicatorManager.current.spawnBar(songPositionInBeats + IndicatorManager.current.barSpawnPosition);
             BattleTrackManager.current.checkForTransition();
+
+
 
         }
     }

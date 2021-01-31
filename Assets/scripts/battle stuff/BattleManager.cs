@@ -74,7 +74,8 @@ public class BattleManager : MonoBehaviour
 
     //Important
     //mix1,mix2,transition
-    public string battlePhase = "mix1";
+    public string battlePhase = "mix1", lastMix = "";
+
 
 
     void Awake()
@@ -135,6 +136,15 @@ public class BattleManager : MonoBehaviour
 
         setupBattle();
         firstTurn = false;
+    }
+
+    public void SetBattlePhase(string newPhase)
+    {
+        if (newPhase == "transition")
+        {
+            lastMix = battlePhase;
+        }
+        battlePhase = newPhase;
     }
 
     void LoadGear()

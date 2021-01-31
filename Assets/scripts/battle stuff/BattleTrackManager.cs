@@ -129,9 +129,53 @@ public class BattleTrackManager : MonoBehaviour
         //set the audioclip for the next song by peeking the queue 
         mix2AudioSource.clip = trackQueue.Peek().tracks[0].trackClip;
 
+        TrackTimeManager.setBeatsBeforeNextPhase(currentTrack.tracks[0].numBeats);
+
         //wait time 
         TrackTimeManager.beatWait(4);
 
+    }
+
+    public void NextBattlePhase()
+    {
+        //check what the current phase is 
+
+        string currentPhase = BattleManager.current.battlePhase;
+
+        switch (currentPhase)
+        {
+            case "mix1":
+                //turn on the transition audiosource turn off our audio source
+                transitionAudioSource.Play();
+                mix1AudioSource.Stop();
+                BattleManager.current.SetBattlePhase("transition");
+                TrackTimeManager.setBeatsBeforeNextPhase(3);
+
+                break;
+            case "mix2":
+                //turn on the transition audiosource turn off our audio source
+                transitionAudioSource.Play();
+                mix2AudioSource.Stop();
+                BattleManager.current.SetBattlePhase("transition");
+                TrackTimeManager.setBeatsBeforeNextPhase(3);
+                break;
+            case "transition":
+                //so this is where we need to have known the last active mix
+                if (BattleManager.current.lastMix == "mix1")
+                {
+                    mix2AudioSource.Play();
+                    transitionAudioSource.Stop();
+                    BattleManager.current.SetBattlePhase("mix2");
+                }
+                else if (BattleManager.current.lastMix == "mix2")
+                {
+                    mix1AudioSource.Play();
+                    transitionAudioSource.Stop();
+                    BattleManager.current.SetBattlePhase("mix1");
+                }
+                TrackTimeManager.setBeatsBeforeNextPhase(14);
+                break;
+        }
     }
 
 

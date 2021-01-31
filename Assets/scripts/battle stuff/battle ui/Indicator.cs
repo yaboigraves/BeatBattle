@@ -53,7 +53,7 @@ public class Indicator : MonoBehaviour
         end = new Vector3(0, 0, transform.position.z);
     }
 
-    public void SetIndicatorType(bool attackOrDefend, string indicType)
+    public void SetIndicatorType(bool attackOrDefend, string indicType = "")
     {
         this.attackOrDefend = attackOrDefend;
 

@@ -37,16 +37,10 @@ public class BattleManager : MonoBehaviour
         quickMix
     };
 
-    public enum BattlePhase
-    {
-        mix1,
-        mix2,
-        transition
-    };
+
 
 
     public BattleType battleType;
-    public BattlePhase battlePhase, lastBattlePhase;
     public bool battleStarted;
     //maybe move these somewhere but honestly doesnt need to be in the player 
     public int playerHealth, enemyHealth, playerMaxHealth, enemyMaxHealth;
@@ -77,6 +71,11 @@ public class BattleManager : MonoBehaviour
     AudioSource soundFxAudioSource;
 
     public AudioClip[] fuckupSounds;
+
+    //Important
+    //mix1,mix2,transition
+    public string battlePhase = "mix1";
+
 
     void Awake()
     {
@@ -136,8 +135,6 @@ public class BattleManager : MonoBehaviour
 
         setupBattle();
         firstTurn = false;
-
-        //load all the spectators for the battle
     }
 
     void LoadGear()
@@ -179,7 +176,17 @@ public class BattleManager : MonoBehaviour
         battleStarted = true;
         playerTurn = true;
         //1 2 3 4 
-        BattleTrackManager.current.StartCountIn();
+
+        if (battleType == BattleType.quickMix)
+        {
+            BattleTrackManager.current.StartQuickMixBattle();
+        }
+        else if (battleType == BattleType.longMix)
+        {
+            //add later :)
+        }
+
+        //BattleTrackManager.current.StartCountIn();
     }
 
     //this should be passed to a battleUImanager object
@@ -329,39 +336,65 @@ public class BattleManager : MonoBehaviour
     //TODO: This is a little too unwieldy right now rewrite this at some point
     public void setupBattle()
     {
-        //playerTurn = !playerTurn;
-        //first we check who's turn it is
-        if (playerTurn)
-        {
-            //toggle the track selector 
 
-            BattleUIManager.current.ToggleTrackSelectorOn(false);
+        //rewrite starts here 
 
-            print("players turn");
-            //so we need to find which track the player has selected
-            //for now we just use the 0th position 
+        BattleUIManager.current.ToggleTrackSelectorOn(false);
 
-            //if we're in longmix mode set the battle track here 
-
-            if (battleType == BattleType.longMix)
-            {
-                BattleTrackManager.current.setBattleTrack(BattleTrackManager.current.playerSelectedTrack, firstTurn);
-
-            }
-            else if (battleType == BattleType.quickMix)
-            {
-
-            }
-        }
-        else
+        //check which type of mix it is 
+        if (battleType == BattleType.longMix)
         {
 
-            BattleUIManager.current.ToggleTrackSelectorOn(true);
-
-            print("enemies turn");
-            BattleTrackManager.current.setBattleTrack(BattleTrackManager.current.testEnemyTracks[0], firstTurn);
         }
+        else if (battleType == BattleType.quickMix)
+        {
+            print("loading quick mix");
+
+            //things to do for loading a quick mix 
+            //1.track manager needs to setup a queue of songs (for now the same song with a transition between them)
+
+            BattleTrackManager.current.setupQuickMix();
+
+            //2.once thats set up, the track manager tells the indicator manager to setup the whole que for now 
+            //3.wait for an input to start then we good
+
+
+        }
+
         BattleCameraController.current.trackSwitcher(playerTurn);
+
+
+        // if (playerTurn)
+        // {
+        //     //toggle the track selector 
+
+        //     BattleUIManager.current.ToggleTrackSelectorOn(false);
+
+        //     print("players turn");
+        //     //so we need to find which track the player has selected
+        //     //for now we just use the 0th position 
+
+        //     //if we're in longmix mode set the battle track here 
+
+        //     if (battleType == BattleType.longMix)
+        //     {
+        //         BattleTrackManager.current.setBattleTrack(BattleTrackManager.current.playerSelectedTrack, firstTurn);
+
+        //     }
+        //     else if (battleType == BattleType.quickMix)
+        //     {
+
+        //     }
+        // }
+        // else
+        // {
+
+        //     BattleUIManager.current.ToggleTrackSelectorOn(true);
+
+        //     print("enemies turn");
+        //     BattleTrackManager.current.setBattleTrack(BattleTrackManager.current.testEnemyTracks[0], firstTurn);
+        // }
+
     }
 
 

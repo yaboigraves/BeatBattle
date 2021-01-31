@@ -66,7 +66,7 @@ public class TrackManager : MonoBehaviour
 
         currTrack = newTrack;
 
-        currentBpm = newTrack.bpm;
+        currentBpm = newTrack.oldBPM;
 
         UIManager.current.updateCurrentTrack(newTrack);
 

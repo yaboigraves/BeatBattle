@@ -16,11 +16,11 @@ public class Track : GameItem
 
     public TrackData[] tracks;
 
-    public TransitionData[] trackTransitions;
+    public TrackData[] trackTransitions;
 
     [Header("")]
     public string artist;
-    public float bpm;
+    public float oldBPM;
     //need to take in the number of bars the loops take up
     public int numBars;
     public bool isBattleTrack;
@@ -28,7 +28,7 @@ public class Track : GameItem
     //public IndicatorData snareBeats;
     public TrackStats trackStats;
 
-    public List<double> kickBeats, snareBeats, hatBeats, percBeats;
+    // public List<double> kickBeats, snareBeats, hatBeats, percBeats;
 
 
     public void BuildTrack()
@@ -54,7 +54,7 @@ public class Track : GameItem
 
             //go through all the trackclips and create a track data for them
             TrackData[] tData = new TrackData[trackClips.Length];
-            TransitionData[] transData = new TransitionData[transitionClips.Length];
+            TrackData[] transData = new TrackData[transitionClips.Length];
 
 
 
@@ -67,7 +67,7 @@ public class Track : GameItem
 
             for (int i = 0; i < transitionClips.Length; i++)
             {
-                transData[i].transitionClip = transitionClips[i];
+                transData[i].trackClip = transitionClips[i];
                 transData[i].bpm = parseBPM(transitionClips[i].name);
 
             }
@@ -156,16 +156,8 @@ public struct TrackStats
     public int vibePerHit;
 }
 
-[Serializable]
 
-public struct TransitionData
-{
-    public AudioClip transitionClip;
-    public string transitionMidiName;
-    public List<double> kickBeats, snareBeats, hatBeats, percBeats;
-    public float bpm;
 
-}
 
 [Serializable]
 public struct TrackData

@@ -68,7 +68,7 @@ MonoBehaviour:
     hatBeats: []
     percBeats: []
     bpm: 87
-    numBeats: 28
+    numBeats: 27
   trackTransitions:
   - trackClip: {fileID: 8300000, guid: 22b066da3103f4071abc38ac39946618, type: 3}
     kickBeats:

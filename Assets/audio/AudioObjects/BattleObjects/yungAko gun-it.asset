@@ -70,6 +70,17 @@ MonoBehaviour:
     bpm: 87
     numBeats: 28
   trackTransitions:
+  - trackClip: {fileID: 8300000, guid: 23f12284ae5c148449583a111d04f3ce, type: 3}
+    kickBeats:
+    - 0
+    - 0.9895830859375
+    - 1.9895828359374998
+    - 2.9895825859375
+    snareBeats: []
+    hatBeats: []
+    percBeats: []
+    bpm: 87
+    numBeats: 4
   - trackClip: {fileID: 8300000, guid: 22b066da3103f4071abc38ac39946618, type: 3}
     kickBeats:
     - 0

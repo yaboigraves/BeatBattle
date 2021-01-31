@@ -15418,7 +15418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24b9a3e492737db40accee1fe0ac89bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volume: 0.1
+  volume: 0.169
   mix1AudioSource: {fileID: 1831675819}
   mix2AudioSource: {fileID: 1831675821}
   transitionAudioSource: {fileID: 1831675822}
@@ -15465,7 +15465,7 @@ AudioSource:
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
-  Pan2D: -0.84
+  Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
   BypassListenerEffects: 0
@@ -15657,7 +15657,7 @@ AudioSource:
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
-  Pan2D: 0.33
+  Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
   BypassListenerEffects: 0

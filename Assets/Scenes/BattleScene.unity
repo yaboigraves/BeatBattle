@@ -9687,7 +9687,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b93208eda0fd0db4f86dc65c9f60a37f, type: 3}
   - {fileID: 8300000, guid: 979b4d0f237b9ce469892517515cd0c2, type: 3}
   - {fileID: 8300000, guid: 7d941e1680ac4bd48a808f45d8b2e16e, type: 3}
-  battlePhase: 
+  battlePhase: mix1
+  lastMix: 
   sp404Buff: 0
   currentStreak: 0
 --- !u!4 &1113073679
@@ -9745,7 +9746,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.68
+  m_Volume: 0
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -15431,6 +15432,7 @@ MonoBehaviour:
   currentBpm: 0
   playerTracks: []
   testPlayerTracks:
+  - {fileID: 11400000, guid: 14473328dd14f08409c92c3a22f0dc83, type: 2}
   - {fileID: 11400000, guid: 70f75831ea503475f882c72d4818d139, type: 2}
   testEnemyTracks:
   - {fileID: 0}
@@ -15455,7 +15457,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 0.4
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -15551,7 +15553,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 0.4
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -15647,7 +15649,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 0.4
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

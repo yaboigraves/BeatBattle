@@ -146,8 +146,11 @@ public class BattleTrackManager : MonoBehaviour
         {
             case "mix1":
                 //turn on the transition audiosource turn off our audio source
+
+                //note: this needs to actually use playscheduled otherwise there will be weird delay
+                //https://docs.unity3d.com/ScriptReference/AudioSource.PlayScheduled.html
                 transitionAudioSource.Play();
-                mix1AudioSource.Stop();
+                mix1AudioSource.volume = 0.1f;
                 BattleManager.current.SetBattlePhase("transition");
                 TrackTimeManager.setBeatsBeforeNextPhase(3);
 

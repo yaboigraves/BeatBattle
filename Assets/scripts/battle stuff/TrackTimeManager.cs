@@ -190,7 +190,7 @@ public static class TrackTimeManager
         Debug.Log("wait is starting");
         waitTimeOver = (float)AudioSettings.dspTime + 4 * secPerBeat;
 
-        BattleTrackManager.current.mix1AudioSource.PlayScheduled(waitTimeOver);
+        // BattleTrackManager.current.mix1AudioSource.PlayScheduled(waitTimeOver);
 
         //so now this is going to need to essentialy trigger a boolean that is just checked in the manual update
 
@@ -246,7 +246,10 @@ public static class TrackTimeManager
 
     public static float GetDSPTimeForNextPlay(int length)
     {
-        return dspSongTime + (length * secPerBeat);
+        //so lets see if this works
+        float nexttime = (float)AudioSettings.dspTime + ((length) * secPerBeat);
+        Debug.Log("scheduling track to play at " + nexttime.ToString());
+        return nexttime;
     }
 
 

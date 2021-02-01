@@ -23,6 +23,8 @@ public class Indicator : MonoBehaviour
 
     float finalLerpStatus;
 
+    public bool isBar;
+
     private void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
@@ -40,7 +42,14 @@ public class Indicator : MonoBehaviour
         moveSpeed = 1;
 
         //startPos = transform.position;
-        beatOfThisNote = transform.position.y;
+        if (isBar)
+        {
+            beatOfThisNote = Mathf.Floor(transform.position.y);
+        }
+        else
+        {
+            beatOfThisNote = transform.position.y;
+        }
 
         if (beatOfThisNote == 0)
         {

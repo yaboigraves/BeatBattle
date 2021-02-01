@@ -102,6 +102,7 @@ MonoBehaviour:
   attackOrDefend: 0
   indicatorType: 
   sprite: {fileID: 0}
+  isBar: 1
 --- !u!61 &513803941817630648
 BoxCollider2D:
   m_ObjectHideFlags: 0

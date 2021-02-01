@@ -14,7 +14,7 @@ public class IndicatorManager : MonoBehaviour
     public GameObject bar;
     public static IndicatorManager current;
 
-    public float barSpawnPosition = 32;
+    public float barSpawnPosition = 64;
 
     void Awake()
     {
@@ -82,8 +82,6 @@ public class IndicatorManager : MonoBehaviour
             indic.GetComponent<Indicator>().SetIndicatorType(BattleManager.current.playerTurn, newTrack.trackStats.trackVibe.ToString());
         }
 
-
-
         //lastIndicatorContainer = indicContainer;
     }
 
@@ -114,6 +112,13 @@ public class IndicatorManager : MonoBehaviour
         //     numBarsSetup += 3;
         // }
 
+        for (int i = 0; i <= barSpawnPosition; i++)
+        {
+            // GameObject _bar = Instantiate(bar, Vector3.up * (i) / 2, Quaternion.identity, barContainer.transform);
+            spawnBar(i);
+        }
+
+
         foreach (Track track in tracks)
         {
             Debug.Log(BattleTrackManager.current.trackQueue.Count);
@@ -130,11 +135,6 @@ public class IndicatorManager : MonoBehaviour
     //initializes a single track with the given offset from 0
     public void setupQuickMixTrack(TrackData track, int offset)
     {
-        for (int i = 0; i <= barSpawnPosition; i++)
-        {
-            // GameObject _bar = Instantiate(bar, Vector3.up * (i) / 2, Quaternion.identity, barContainer.transform);
-            spawnBar(offset + i);
-        }
 
         for (int i = 0; i < track.kickBeats.Count; i++)
         {

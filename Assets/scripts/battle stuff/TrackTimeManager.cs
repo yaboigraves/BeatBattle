@@ -151,6 +151,7 @@ public static class TrackTimeManager
 
             //spawn a bar
             IndicatorManager.current.spawnBar(songPositionInBeats + IndicatorManager.current.barSpawnPosition);
+
             BattleTrackManager.current.checkForTransition();
 
 

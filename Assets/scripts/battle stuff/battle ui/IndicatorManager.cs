@@ -174,6 +174,7 @@ public class IndicatorManager : MonoBehaviour
 
             GameObject indic = Instantiate(indicator, kickPos, Quaternion.identity, kickLane.transform);
             indic.GetComponent<Indicator>().SetIndicatorType(BattleManager.current.playerTurn);
+            indic.GetComponent<Indicator>().SetIndicatorPosition(kickPos);
         }
 
         for (int i = 0; i < track.snareBeats.Count; i++)
@@ -190,8 +191,9 @@ public class IndicatorManager : MonoBehaviour
                 snareXPos = percLane.transform.position.x;
             }
             Vector3 kickPos = new Vector3(snareXPos, ((float)track.snareBeats[i] + offset), 0);
-            GameObject indic = Instantiate(indicator, kickPos, Quaternion.identity, snareLane.transform);
+            GameObject indic = Instantiate(indicator, Vector3.zero, Quaternion.identity, snareLane.transform);
             indic.GetComponent<Indicator>().SetIndicatorType(BattleManager.current.playerTurn);
+            indic.GetComponent<Indicator>().SetIndicatorPosition(kickPos);
         }
 
         for (int i = 0; i < track.hatBeats.Count; i++)

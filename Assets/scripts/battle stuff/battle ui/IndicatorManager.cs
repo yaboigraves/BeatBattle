@@ -118,37 +118,78 @@ public class IndicatorManager : MonoBehaviour
             spawnBar(i);
         }
 
+        int mixLane = 0;
 
         foreach (Track track in tracks)
         {
+            mixLane++;
             Debug.Log(BattleTrackManager.current.trackQueue.Count);
-            setupQuickMixTrack(track.tracks[0], numBarsSetup);
-            //TODO: this should probably be a value stored in the trackdata
+            setupQuickMixTrack(track.tracks[0], numBarsSetup, mixLane);
             numBarsSetup += track.tracks[0].numBeats;
-            setupQuickMixTrack(track.trackTransitions[0], numBarsSetup);
+
+            if (mixLane == 1)
+            {
+                mixLane = 2;
+            }
+            else
+            {
+                mixLane = 1;
+            }
+
+            setupQuickMixTrack(track.trackTransitions[0], numBarsSetup, mixLane);
             //transitions are pretty much always gonna be 4 beats
             numBarsSetup += track.trackTransitions[0].numBeats;
+
         }
 
     }
 
     //initializes a single track with the given offset from 0
-    public void setupQuickMixTrack(TrackData track, int offset)
+
+    /*
+        lane swapping notes
+        -so for now we're just going to take an additional argument for what mix this is being attached to
+        -we're just going to on mix2 move the kick and snare over to the hat perc lane
+    */
+    public void setupQuickMixTrack(TrackData track, int offset, int mixNum)
     {
 
         for (int i = 0; i < track.kickBeats.Count; i++)
         {
-            Vector3 kickPos = new Vector3(kickLane.transform.position.x, ((float)track.kickBeats[i] + offset), 0);
+            float kickXPos;
+
+            if (mixNum == 1)
+            {
+                kickXPos = kickLane.transform.position.x;
+            }
+            else
+            {
+                kickXPos = hatLane.transform.position.x;
+            }
+
+            Vector3 kickPos = new Vector3(kickXPos, ((float)track.kickBeats[i] + offset), 0);
             //each unit is 1 bar 
             //therefore we need to start the next batck of indicators at wherever the loop ends
             //probablyh easiest for now just to bake the length of the loop into the track object 
+
             GameObject indic = Instantiate(indicator, kickPos, Quaternion.identity, kickLane.transform);
             indic.GetComponent<Indicator>().SetIndicatorType(BattleManager.current.playerTurn);
         }
 
         for (int i = 0; i < track.snareBeats.Count; i++)
         {
-            Vector3 kickPos = new Vector3(snareLane.transform.position.x, ((float)track.snareBeats[i] + offset), 0);
+
+            float snareXPos;
+
+            if (mixNum == 1)
+            {
+                snareXPos = snareLane.transform.position.x;
+            }
+            else
+            {
+                snareXPos = percLane.transform.position.x;
+            }
+            Vector3 kickPos = new Vector3(snareXPos, ((float)track.snareBeats[i] + offset), 0);
             GameObject indic = Instantiate(indicator, kickPos, Quaternion.identity, snareLane.transform);
             indic.GetComponent<Indicator>().SetIndicatorType(BattleManager.current.playerTurn);
         }

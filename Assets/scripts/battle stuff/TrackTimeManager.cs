@@ -47,10 +47,10 @@ public static class TrackTimeManager
 
     public static int beatsBeforeNextPhase;
 
-    public static void SetSongData(Track track)
+    public static void SetTrackData(TrackData track)
     {
         //audioSource.clip = track.trackClip;
-        songBpm = track.tracks[0].bpm;
+        songBpm = track.bpm;
         secPerBeat = 60f / songBpm;
         dspSongTime = (float)AudioSettings.dspTime;
     }

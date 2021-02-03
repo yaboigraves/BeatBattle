@@ -28,6 +28,9 @@ public class Track : GameItem
     //public IndicatorData snareBeats;
     public TrackStats trackStats;
 
+    //these are set when a track is queued up
+    public TrackData randomTrackData, randomTransitionData;
+
     // public List<double> kickBeats, snareBeats, hatBeats, percBeats;
 
 
@@ -63,12 +66,17 @@ public class Track : GameItem
             {
                 tData[i].trackClip = trackClips[i];
                 tData[i].bpm = parseBPM(trackClips[i].name);
+
+                //if we know the length in seconds convert it to a length in minutes 
+                //the number of beats per minute * minutes
+                tData[i].numBeats = Mathf.RoundToInt(tData[i].bpm * (tData[i].trackClip.length / 60));
             }
 
             for (int i = 0; i < transitionClips.Length; i++)
             {
                 transData[i].trackClip = transitionClips[i];
                 transData[i].bpm = parseBPM(transitionClips[i].name);
+                transData[i].numBeats = Mathf.RoundToInt(transData[i].bpm * (transData[i].trackClip.length / 60));
 
             }
 

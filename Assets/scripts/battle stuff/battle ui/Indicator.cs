@@ -44,6 +44,7 @@ public class Indicator : MonoBehaviour
         //startPos = transform.position;
         if (isBar)
         {
+            //account for delay
             beatOfThisNote = Mathf.Floor(transform.position.y);
         }
         else
@@ -60,6 +61,12 @@ public class Indicator : MonoBehaviour
         start = new Vector3(0, beatOfThisNote, transform.position.z);
         //end is 99 because we want to go 1 unit below the pad
         end = new Vector3(0, 0, transform.position.z);
+    }
+
+    //TODO: so this should just initialize the info for where the indicator should be etc rather than scraping it from transform info
+    public void SetIndicatorPosition()
+    {
+
     }
 
     public void SetIndicatorType(bool attackOrDefend, string indicType = "")

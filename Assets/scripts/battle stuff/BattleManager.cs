@@ -76,8 +76,6 @@ public class BattleManager : MonoBehaviour
     //mix1,mix2,transition
     public string battlePhase = "mix1", lastMix = "";
 
-
-
     void Awake()
     {
         current = this;
@@ -367,8 +365,6 @@ public class BattleManager : MonoBehaviour
 
             //2.once thats set up, the track manager tells the indicator manager to setup the whole que for now 
             //3.wait for an input to start then we good
-
-
         }
 
         BattleCameraController.current.trackSwitcher(playerTurn);

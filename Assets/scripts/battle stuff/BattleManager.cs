@@ -37,9 +37,6 @@ public class BattleManager : MonoBehaviour
         quickMix
     };
 
-
-
-
     public BattleType battleType;
     public bool battleStarted;
     //maybe move these somewhere but honestly doesnt need to be in the player 
@@ -64,6 +61,10 @@ public class BattleManager : MonoBehaviour
     //int maxVibe = 50, minVibe = -50;
 
     public float barsPerTurn = 2, barsPerTransition = 1;
+
+
+    //quickmix new variables
+    public int numQuickMixTracks = 6;
 
     //list of delegates for the gear effects
     List<GearEffects.GearEffect> equippedGearEffects = new List<GearEffects.GearEffect>();

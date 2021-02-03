@@ -1,20 +1,11 @@
-﻿using System.Collections;
+﻿
 using System.Collections.Generic;
 using UnityEngine;
-using System;
+
 
 public class BattleTrackManager : MonoBehaviour
 {
 
-    //gonna do some rewriting here 
-    /*
-        so we're going to need to track phases now, 
-        -mix1
-        -mix2
-        -transitions
-
-
-    */
 
 
 
@@ -22,14 +13,10 @@ public class BattleTrackManager : MonoBehaviour
     public float volume = 0.5f;
 
     public AudioSource mix1AudioSource, mix2AudioSource, transitionAudioSource;
-
-    public Track currentTrack;
+    public Track currentTrack, nextTrack;
     public static BattleTrackManager current;
-    public float bpmTimer, beatDeltaTime;
-    public int beat;
+
     public bool paused;
-    public int battleBarsPerTurn = 4;
-    public int battleTurn;
     public float currentBpm;
     public Track[] playerTracks;
     public Track[] testPlayerTracks;
@@ -37,7 +24,6 @@ public class BattleTrackManager : MonoBehaviour
     //if this is enabled play a sound when the metronome ticks
     public bool metronomeAudio;
     public int totalBeats;
-    public int currentBar;
     public Track playerSelectedTrack;
     //used by the track time manager to hopefully setup bar waits between tracks coming out
     public float countInBeats = 4;
@@ -46,6 +32,8 @@ public class BattleTrackManager : MonoBehaviour
     //=====================================
 
     public Queue<Track> trackQueue = new Queue<Track>();
+
+
 
     private void Awake()
     {
@@ -114,88 +102,96 @@ public class BattleTrackManager : MonoBehaviour
     public void StartQuickMixBattle()
     {
         //set the current track by dequeing from the queue
-        currentTrack = trackQueue.Dequeue();
+        currentTrack = trackQueue.Peek();
         //set the current bpm
-        currentBpm = currentTrack.tracks[0].bpm;
-
-        TrackTimeManager.SetSongData(currentTrack);
+        currentBpm = currentTrack.randomTrackData.bpm;
+        TrackTimeManager.SetTrackData(currentTrack.randomTrackData);
 
         //set the audiosclip for mix1 
-        mix1AudioSource.clip = currentTrack.tracks[0].trackClip;
+        mix1AudioSource.clip = currentTrack.randomTrackData.trackClip;
 
         //set the audioclip for the transition 
-        transitionAudioSource.clip = currentTrack.trackTransitions[0].trackClip;
+        transitionAudioSource.clip = currentTrack.randomTrackData.trackClip;
 
-        //set the audioclip for the next song by peeking the queue 
-        mix2AudioSource.clip = trackQueue.Peek().tracks[0].trackClip;
+        //queue up the first track and then the transition audio
 
-        TrackTimeManager.setBeatsBeforeNextPhase(currentTrack.tracks[0].numBeats);
+        BattleTrackManager.current.mix1AudioSource.PlayScheduled((float)AudioSettings.dspTime + (4 * (60f / currentTrack.randomTrackData.bpm)));
 
+        //TODO: double check this is working bc this might need a 4+ in front if 
+        // TrackTimeManager.setBeatsBeforeNextPhase(4);
         //wait time 
         TrackTimeManager.beatWait(4);
-
-
-        //so rather than trying to dynamically queue up all the times on the fly just schedule all of them here
-
-
-        BattleTrackManager.current.mix1AudioSource.PlayScheduled((float)AudioSettings.dspTime + 4 * (60f / 87f));
-        BattleTrackManager.current.transitionAudioSource.PlayScheduled((float)AudioSettings.dspTime + 32 * (60f / 87f));
-        BattleTrackManager.current.mix2AudioSource.PlayScheduled((float)AudioSettings.dspTime + 36 * (60f / 87f));
-
-
     }
+
+    //so this function is going to need to be called at the end of any phase to queue up the next track and set the phase data
 
     public void NextBattlePhase()
     {
         Debug.Log("NEXT PHASE");
 
-        //note : so instead of actually playing the audio source this assumes that the audio source for the next phase 
-        //has alrerady been queued up
-
-
-        //check what the current phase is 
+        //so this needs to also setup dynamic audio file playing on transitions, as well as 
+        //managing the audio sources
 
         string currentPhase = BattleManager.current.battlePhase;
 
+
+
+        //TODO: left off here need to reapproach this to fix bugs
         switch (currentPhase)
         {
             case "mix1":
-                //turn off the current audiop
-                //mix1AudioSource.Stop();
 
+                mix1AudioSource.Stop();
+
+                //transition started, going into mix2 next
                 BattleManager.current.SetBattlePhase("transition");
-                TrackTimeManager.setBeatsBeforeNextPhase(4);
 
-                //queue up the mix2 track
-                //needs to calculate the dsp time of the next play
-                //time + beats * beats/sec * 1000
+                TrackTimeManager.setBeatsBeforeNextPhase(currentTrack.randomTransitionData.numBeats);
 
-                //mix2AudioSource.PlayScheduled(TrackTimeManager.GetDSPTimeForNextPlay(4));
-
+                //we dont need to dequeue anything because we're still on the current track
+                //need to schedule the next audio to come in
+                mix2AudioSource.PlayScheduled((float)AudioSettings.dspTime + currentTrack.randomTransitionData.numBeats * (60f / currentTrack.randomTrackData.bpm));
                 break;
+
             case "mix2":
-                //turn on the transition audiosource turn off our audio source
-                //transitionAudioSource.Play();
-                //mix2AudioSource.Stop();
+                mix2AudioSource.Stop();
+
+                //transition started, going into mix2 next
                 BattleManager.current.SetBattlePhase("transition");
-                TrackTimeManager.setBeatsBeforeNextPhase(4);
+
+                //we dont need to dequeue anything because we're still on the current track
+                //need to schedule the next audio to come in
+                TrackTimeManager.setBeatsBeforeNextPhase(currentTrack.randomTransitionData.numBeats);
+
+
+                mix1AudioSource.PlayScheduled((float)AudioSettings.dspTime + currentTrack.randomTransitionData.numBeats * (60f / currentTrack.randomTrackData.bpm));
                 break;
+
             case "transition":
-                //so this is where we need to have known the last active mix
-                //transitionAudioSource.Stop();
+
+                currentTrack = trackQueue.Dequeue();
+                nextTrack = trackQueue.Peek();
+
                 if (BattleManager.current.lastMix == "mix1")
                 {
                     BattleManager.current.SetBattlePhase("mix2");
+                    mix1AudioSource.clip = nextTrack.randomTrackData.trackClip;
                 }
                 else if (BattleManager.current.lastMix == "mix2")
                 {
                     BattleManager.current.SetBattlePhase("mix1");
+                    mix2AudioSource.clip = nextTrack.randomTrackData.trackClip;
                 }
 
-                //queue up the next transition
-                //transitionAudioSource.PlayScheduled(TrackTimeManager.GetDSPTimeForNextPlay(28));
+                transitionAudioSource.Stop();
 
-                TrackTimeManager.setBeatsBeforeNextPhase(28);
+                //dunno why this has to be -1?
+                TrackTimeManager.setBeatsBeforeNextPhase(currentTrack.randomTrackData.numBeats);
+                //so if we're leaving transition and the current phase is set the transition audio (outro only for now)
+                transitionAudioSource.clip = currentTrack.randomTransitionData.trackClip;
+                //schedule the transition to play
+                transitionAudioSource.PlayScheduled((float)AudioSettings.dspTime + currentTrack.randomTrackData.numBeats * (60f / currentTrack.randomTrackData.bpm));
+
                 break;
         }
     }
@@ -224,7 +220,7 @@ public class BattleTrackManager : MonoBehaviour
 
         nextTurnStart = totalBeats + 5;
 
-        TrackTimeManager.SetSongData(currentTrack);
+        //TrackTimeManager.SetTrackData(currentTrack);
         TrackTimeManager.stopTrackTimer();
         TrackTimeManager.resetTrackTimer();
 
@@ -238,16 +234,19 @@ public class BattleTrackManager : MonoBehaviour
 
     public void setupQuickMix()
     {
-        //TODO: create 2 queues of quickmix tracks
-        //TODO: init all the indicators for quickmix tracks
+        //ok so we need some way of indicating in each track which transition and which track are going to be played
+        //therefor the tracks are going to need two integer indexes for each which are randomly set here
 
-        //for now just gonna setup up everything manually not necessarily dynamic at all
-        trackQueue.Enqueue(testPlayerTracks[0]);
-        trackQueue.Enqueue(testPlayerTracks[0]);
+        for (int i = 0; i < BattleManager.current.numQuickMixTracks; i++)
+        {
+            Track t = testPlayerTracks[Random.Range(0, testPlayerTracks.Length)];
+
+            t.randomTrackData = t.tracks[Random.Range(0, t.tracks.Length)];
+            t.randomTransitionData = t.trackTransitions[Random.Range(0, t.trackTransitions.Length)];
+            trackQueue.Enqueue(t);
+        }
+
         IndicatorManager.current.setupQuickMixIndicators(trackQueue);
-
-        //pass the queue to the indicator manager so it can setup the indicators
-        //for now we're assuming we're always going to play the first transitions
     }
 
 

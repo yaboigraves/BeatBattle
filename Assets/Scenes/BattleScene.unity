@@ -9830,6 +9830,7 @@ MonoBehaviour:
   vibe: 0
   barsPerTurn: 2
   barsPerTransition: 1
+  numQuickMixTracks: 4
   fuckupSounds:
   - {fileID: 8300000, guid: 6a88a177f83e5fe468499a5525650d18, type: 3}
   - {fileID: 8300000, guid: b93208eda0fd0db4f86dc65c9f60a37f, type: 3}
@@ -15571,24 +15572,34 @@ MonoBehaviour:
   mix2AudioSource: {fileID: 1831675821}
   transitionAudioSource: {fileID: 1831675822}
   currentTrack: {fileID: 0}
-  bpmTimer: 0
-  beatDeltaTime: 0
-  beat: 0
+  nextTrack: {fileID: 0}
   paused: 0
-  battleBarsPerTurn: 5
-  battleTurn: 0
   currentBpm: 0
   playerTracks: []
   testPlayerTracks:
   - {fileID: 11400000, guid: 14473328dd14f08409c92c3a22f0dc83, type: 2}
-  - {fileID: 11400000, guid: 70f75831ea503475f882c72d4818d139, type: 2}
   testEnemyTracks:
   - {fileID: 0}
   metronomeAudio: 0
   totalBeats: 0
-  currentBar: 0
   playerSelectedTrack: {fileID: 0}
   countInBeats: 4
+  currentTrackData:
+    trackClip: {fileID: 0}
+    kickBeats: []
+    snareBeats: []
+    hatBeats: []
+    percBeats: []
+    bpm: 0
+    numBeats: 0
+  nextTrackData:
+    trackClip: {fileID: 0}
+    kickBeats: []
+    snareBeats: []
+    hatBeats: []
+    percBeats: []
+    bpm: 0
+    numBeats: 0
   nextTurnStart: 0
   beatTransitionCounter: 0
 --- !u!82 &1831675819

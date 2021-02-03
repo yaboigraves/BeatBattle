@@ -10,8 +10,8 @@ public class Indicator : MonoBehaviour
     // public Transform bars, indicators;
     bool activated;
     public float beatOfThisNote;
-    Vector3 start;
-    Vector3 end;
+    public Vector3 start;
+    public Vector3 end;
 
     //so there are a couple different types of indicators
     //no type means its just a normal indicator (either defense or attack)
@@ -33,6 +33,7 @@ public class Indicator : MonoBehaviour
     void Start()
     {
 
+
         bpm = BattleTrackManager.current.currentBpm;
 
         //commented this to experiment with timescale rather than calculating movespeed 
@@ -41,11 +42,15 @@ public class Indicator : MonoBehaviour
         //uniform move speed of 60bpm 
         moveSpeed = 1;
 
+
+
         //startPos = transform.position;
         if (isBar)
         {
             //account for delay
             beatOfThisNote = Mathf.Floor(transform.position.y);
+            start = transform.position;
+            end = Vector2.zero;
         }
         else
         {
@@ -58,15 +63,26 @@ public class Indicator : MonoBehaviour
             beatOfThisNote = 0.01f;
         }
 
-        start = new Vector3(0, beatOfThisNote, transform.position.z);
-        //end is 99 because we want to go 1 unit below the pad
-        end = new Vector3(0, 0, transform.position.z);
+        // start = new Vector3(transform.position.x, beatOfThisNote, transform.position.z);
+        // //end is 99 because we want to go 1 unit below the pad
+        // end = new Vector3(transform.position.x, 0, transform.position.z);
+
+
     }
 
     //TODO: so this should just initialize the info for where the indicator should be etc rather than scraping it from transform info
-    public void SetIndicatorPosition()
+    public void SetIndicatorPosition(Vector3 start)
     {
-
+        transform.position = start;
+        this.start = start - transform.parent.position;
+        this.end = new Vector3(start.x - transform.parent.position.x, 0, start.z - transform.parent.position.z);
+        // if (mixNum == 2)
+        // {
+        //     print(start);
+        //     start = start + new Vector3(4, 0, 0);
+        //     end = end + new Vector3(4, 0, 0);
+        // }
+        //start = new Vector3(transform.position.x, beatOfThisNote, transform.position.z);
     }
 
     public void SetIndicatorType(bool attackOrDefend, string indicType = "")

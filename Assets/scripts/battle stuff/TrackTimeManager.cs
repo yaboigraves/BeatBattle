@@ -47,6 +47,8 @@ public static class TrackTimeManager
 
     public static int beatsBeforeNextPhase;
 
+    public static double battleDSPStartTime;
+
     public static void SetTrackData(TrackData track)
     {
         //audioSource.clip = track.trackClip;
@@ -164,6 +166,7 @@ public static class TrackTimeManager
     public static void startTrackTimer()
     {
         trackStarted = true;
+        battleDSPStartTime = AudioSettings.dspTime;
 
         //TODO: so also need to take note of the current difference in dsp time
     }
@@ -251,6 +254,23 @@ public static class TrackTimeManager
         float nexttime = (float)AudioSettings.dspTime + ((length) * secPerBeat);
         Debug.Log("scheduling track to play at " + nexttime.ToString());
         return nexttime;
+    }
+
+
+
+    public static double calculatePlaySchedule(int numBeatsBefore, float bpm)
+    {
+        //so we're going to look at what the current beat is
+        //round down?
+        double nextBeat = numBeatsBefore + songPositionInBeats;
+
+        //so the time that the the thing needs to get scheduled for is
+        //start time + the num seconds from the beats
+
+
+        Debug.Log("playing next track at" + nextBeat);
+
+        return battleDSPStartTime + (numBeatsBefore * 60 / bpm);
     }
 
 

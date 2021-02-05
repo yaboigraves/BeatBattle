@@ -326,8 +326,8 @@ public class BattleUIManager : MonoBehaviour
     {
         //look at the current time in beats and see if we're within the range of a whole number 
 
-        float nearestBeat = Mathf.Round(TrackTimeManager.songPositionInBeats);
-        if (Mathf.Abs(TrackTimeManager.songPositionInBeats - nearestBeat) < inputOnBeatRange)
+        float nearestBeat = Mathf.Round((float)TrackTimeManager.songPositionInBeats);
+        if (Mathf.Abs((float)TrackTimeManager.songPositionInBeats - nearestBeat) < inputOnBeatRange)
         {
             //print("good hit on beat");
             return true;

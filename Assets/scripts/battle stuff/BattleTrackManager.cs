@@ -115,7 +115,12 @@ public class BattleTrackManager : MonoBehaviour
 
         //queue up the first track and then the transition audio
 
-        BattleTrackManager.current.mix1AudioSource.PlayScheduled((float)AudioSettings.dspTime + (4 * (60f / currentTrack.randomTrackData.bpm)));
+        mix1AudioSource.PlayScheduled(AudioSettings.dspTime + (4 * (60d / currentTrack.randomTrackData.bpm)));
+        transitionAudioSource.PlayScheduled(AudioSettings.dspTime + (32 * (60d / currentTrack.randomTrackData.bpm)));
+        mix2AudioSource.PlayScheduled(AudioSettings.dspTime + (36 * (60d / currentTrack.randomTrackData.bpm)));
+
+
+        //mix2AudioSource.PlayScheduled((float)AudioSettings.dspTime + 10 + currentTrack.randomTransitionData.numBeats * (60f / currentTrack.randomTransitionData.bpm));
 
         //TODO: double check this is working bc this might need a 4+ in front if 
         // TrackTimeManager.setBeatsBeforeNextPhase(4);
@@ -146,11 +151,16 @@ public class BattleTrackManager : MonoBehaviour
                 //transition started, going into mix2 next
                 BattleManager.current.SetBattlePhase("transition");
 
-                TrackTimeManager.setBeatsBeforeNextPhase(currentTrack.randomTransitionData.numBeats);
+
+                int numBeats = currentTrack.randomTransitionData.numBeats;
+                TrackTimeManager.setBeatsBeforeNextPhase(numBeats);
 
                 //we dont need to dequeue anything because we're still on the current track
                 //need to schedule the next audio to come in
-                mix2AudioSource.PlayScheduled((float)AudioSettings.dspTime + currentTrack.randomTransitionData.numBeats * (60f / currentTrack.randomTrackData.bpm));
+
+                //dont try and calculate this on the fly
+                //write a function to find the scheduling time accounting for delay
+                // mix2AudioSource.PlayScheduled(TrackTimeManager.calculatePlaySchedule(numBeats, currentTrack.randomTransitionData.numBeats));
                 break;
 
             case "mix2":
@@ -161,10 +171,11 @@ public class BattleTrackManager : MonoBehaviour
 
                 //we dont need to dequeue anything because we're still on the current track
                 //need to schedule the next audio to come in
+
                 TrackTimeManager.setBeatsBeforeNextPhase(currentTrack.randomTransitionData.numBeats);
 
 
-                mix1AudioSource.PlayScheduled((float)AudioSettings.dspTime + currentTrack.randomTransitionData.numBeats * (60f / currentTrack.randomTrackData.bpm));
+                // mix1AudioSource.PlayScheduled(TrackTimeManager.calculatePlaySchedule(currentTrack.randomTransitionData.numBeats, currentTrack.randomTransitionData.bpm));
                 break;
 
             case "transition":
@@ -190,7 +201,7 @@ public class BattleTrackManager : MonoBehaviour
                 //so if we're leaving transition and the current phase is set the transition audio (outro only for now)
                 transitionAudioSource.clip = currentTrack.randomTransitionData.trackClip;
                 //schedule the transition to play
-                transitionAudioSource.PlayScheduled((float)AudioSettings.dspTime + currentTrack.randomTrackData.numBeats * (60f / currentTrack.randomTrackData.bpm));
+                // transitionAudioSource.PlayScheduled(TrackTimeManager.calculatePlaySchedule(currentTrack.randomTrackData.numBeats, currentTrack.randomTrackData.bpm));
 
                 break;
         }

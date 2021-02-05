@@ -24,13 +24,13 @@ public static class TrackTimeManager
     public static float secPerBeat;
 
     //Current song position, in seconds
-    public static float songPosition;
+    public static double songPosition;
 
     //Current song position, in beats
-    public static float songPositionInBeats;
+    public static double songPositionInBeats;
 
     //How many seconds have passed since the song started
-    public static float dspSongTime;
+    public static double dspSongTime;
 
     // //an AudioSource attached to this GameObject that will play the music.
     // public AudioSource audioSource;
@@ -54,7 +54,7 @@ public static class TrackTimeManager
         //audioSource.clip = track.trackClip;
         songBpm = track.bpm;
         secPerBeat = 60f / songBpm;
-        dspSongTime = (float)AudioSettings.dspTime;
+        dspSongTime = AudioSettings.dspTime;
     }
 
     public static void setBeatsBeforeNextPhase(int beats)
@@ -64,7 +64,7 @@ public static class TrackTimeManager
 
 
 
-    public static float startUpTime;
+    public static double startUpTime;
 
     public static float currentTurnStartBeat = 0;
 
@@ -88,9 +88,9 @@ public static class TrackTimeManager
 
         if (trackStarted)
         {
-            songPosition = (float)(AudioSettings.dspTime - startUpTime - (dspSongTime));
+            songPosition = (AudioSettings.dspTime - startUpTime - (dspSongTime));
             songPositionInBeats = (songPosition / secPerBeat);
-            BattleUIManager.current.UpdateMetronome(((Mathf.FloorToInt(songPositionInBeats)) % 4), false);
+            BattleUIManager.current.UpdateMetronome(((Mathf.FloorToInt((float)songPositionInBeats)) % 4), false);
         }
 
         //this i think is deprecated, can probably get removed
@@ -106,9 +106,9 @@ public static class TrackTimeManager
         {
 
             //time to end the count
-            if ((float)AudioSettings.dspTime > waitTimeOver)
+            if (AudioSettings.dspTime > waitTimeOver)
             {
-                startUpTime = (float)AudioSettings.dspTime - dspSongTime;
+                startUpTime = AudioSettings.dspTime - dspSongTime;
                 songPositionInBeats = 0;
                 // audioSource.Play();
 
@@ -124,7 +124,8 @@ public static class TrackTimeManager
     }
 
 
-    static float lastTick = 0;
+    static double lastTick = 0;
+
     public static void beatTick()
     {
         if (lastTick + 1 < songPositionInBeats)
@@ -152,11 +153,9 @@ public static class TrackTimeManager
 
 
             //spawn a bar
-            IndicatorManager.current.spawnBar(songPositionInBeats + IndicatorManager.current.barSpawnPosition);
+            IndicatorManager.current.spawnBar((float)songPositionInBeats + IndicatorManager.current.barSpawnPosition);
 
             BattleTrackManager.current.checkForTransition();
-
-
 
         }
     }
@@ -214,7 +213,7 @@ public static class TrackTimeManager
         //so this needs to figure out basically jsut how much time needs to pass from now till 4 beats from now 
         //first lets figure out when NOW IS 
 
-        float songCurrentBeatPosition = songPositionInBeats;
+        double songCurrentBeatPosition = songPositionInBeats;
         doingWait = true;
 
 
@@ -224,7 +223,7 @@ public static class TrackTimeManager
         //yield return null;
 
         //startup time is the difference in dsptime of the song + the amount of time it currently is 
-        startUpTime = (float)AudioSettings.dspTime - dspSongTime;
+        startUpTime = AudioSettings.dspTime - dspSongTime;
         songPositionInBeats = 0;
         // audioSource.Play();
 
@@ -274,7 +273,51 @@ public static class TrackTimeManager
     }
 
 
-    //notes 
-    //we can now just use the songPositionInBeats variable to set the position of indicatoes = to that rather than translating them 
-    //this will yield perfect syncing of the track time and the indicators
+
+    //so every manual update instead of trying to do consistent calculations for updates
+    //just going to maintain a queueu of events that need to be taken off the queue at dsp times 
+
+    //this way, every trigger is based on a time on the dsp timer and not some kind of stored or dynamic 
+    //calculated bs
+
+    public static Queue<TrackEvent> eventQueue = new Queue<TrackEvent>();
+
+    public static void AddEvent(string eventName, double eventTime)
+    {
+        eventQueue.Enqueue(new TrackEvent(eventName, eventTime));
+    }
+
+    //this will get called in the manual update as often as possible
+    public static void CheckQueue()
+    {
+        TrackEvent nextEvent = eventQueue.Peek();
+
+        if (nextEvent.time >= AudioSettings.dspTime)
+        {
+            //dequeu the event 
+            nextEvent = eventQueue.Dequeue();
+            //process the event
+            if (nextEvent.eventName == "nextPhase")
+            {
+                //call the next phase code to run
+            }
+        }
+    }
+
+
+
+
+
+}
+
+public class TrackEvent
+{
+    public string eventName;
+    public double time;
+
+    public TrackEvent(string eventName, double time)
+    {
+        this.eventName = eventName;
+        this.time = time;
+    }
 }

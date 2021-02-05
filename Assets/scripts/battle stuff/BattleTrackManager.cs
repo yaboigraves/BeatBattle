@@ -132,6 +132,7 @@ public class BattleTrackManager : MonoBehaviour
 
     public void NextBattlePhase()
     {
+
         Debug.Log("NEXT PHASE");
 
         //so this needs to also setup dynamic audio file playing on transitions, as well as 

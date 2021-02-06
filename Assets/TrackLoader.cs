@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using IronPython.Hosting;
 using UnityEngine;
 using System.IO;
+using System.Text.RegularExpressions;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -80,18 +81,28 @@ public static class TrackLoader
             if (f.Name.Contains(trackName))
             {
 
+
                 //Debug.Log("trying to create python file execution");
                 //extract the bpm from the fname
                 string bpm = f.Name.Split('_')[2];
+                Debug.Log(bpm);
 
+                //remove the file extension 
 
                 if (bpm.Contains("."))
                 {
-                    bpm = bpm.Remove(bpm.IndexOf('.'), 4);
+                    bpm = bpm.Substring(0, bpm.LastIndexOf('.'));
+
+
                 }
 
+                //check if theres another one
 
-                //Debug.Log(bpm);
+
+
+
+
+                Debug.Log(bpm);
 
                 midiData.Add(parseMidi(f.Name, float.Parse(bpm), path));
             }
@@ -99,6 +110,8 @@ public static class TrackLoader
 
         return midiData.ToArray();
     }
+
+
 
 
 

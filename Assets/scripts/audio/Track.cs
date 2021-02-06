@@ -123,18 +123,20 @@ public class Track : GameItem
 
         string bpm = fileName.Split('_')[2];
 
-        if (bpm.Contains("."))
-        {
-            bpm = bpm.Remove(bpm.IndexOf('.'), 4);
-        }
+        // if (bpm.Contains("."))
+        // {
+        //     bpm = bpm.Remove(bpm.IndexOf('.'), 4);
+        // }
 
         if (bpm.Contains("bpm"))
         {
             bpm = bpm.Remove(bpm.IndexOf('b'), 3);
         }
 
-        // Debug.Log("PARSING BPM : " + bpm);
+        Debug.Log("PARSING BPM : " + bpm);
         // Debug.Log(fileName);
+
+
         return float.Parse(bpm);
     }
 }

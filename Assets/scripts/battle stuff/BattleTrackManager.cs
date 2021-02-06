@@ -173,6 +173,7 @@ public class BattleTrackManager : MonoBehaviour
                 TrackTimeManager.AddEvent("nextPhase", nextPhaseTime);
 
                 mix2AudioSource.PlayScheduled((AudioSettings.dspTime) + nextPhaseTime);
+                mix2AudioSource.SetScheduledEndTime((AudioSettings.dspTime) + nextPhaseTime + mix2AudioSource.clip.length);
 
                 break;
 
@@ -186,6 +187,7 @@ public class BattleTrackManager : MonoBehaviour
                 TrackTimeManager.AddEvent("nextPhase", nextPhaseTime);
 
                 mix1AudioSource.PlayScheduled((AudioSettings.dspTime) + nextPhaseTime);
+                mix1AudioSource.SetScheduledEndTime(AudioSettings.dspTime + nextPhaseTime + mix1AudioSource.clip.length);
 
 
                 break;
@@ -226,7 +228,6 @@ public class BattleTrackManager : MonoBehaviour
                 }
 
                 nextPhaseTime = currentTrack.randomTrackData.numBeats * (60 / currentTrack.randomTrackData.bpm);
-                double transitionEndTime = nextPhaseTime + (currentTrack.randomTransitionData.numBeats * (60 / currentTrack.randomTransitionData.bpm));
                 TrackTimeManager.AddEvent("nextPhase", nextPhaseTime);
 
                 //load the audio source for the transition
@@ -236,8 +237,7 @@ public class BattleTrackManager : MonoBehaviour
 
                 Debug.Log("SCHEDULING TRANSITION AUDIO TO PLAY AT " + nextPhaseTime);
                 transitionAudioSource.PlayScheduled(AudioSettings.dspTime + nextPhaseTime);
-                //schedule the audio source to stop
-                //transitionAudioSource.SetScheduledEndTime(transitionEndTime);
+                transitionAudioSource.SetScheduledEndTime(AudioSettings.dspTime + nextPhaseTime + transitionAudioSource.clip.length);
                 break;
         }
     }

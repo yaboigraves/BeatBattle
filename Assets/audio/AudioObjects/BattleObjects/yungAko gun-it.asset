@@ -81,15 +81,6 @@ MonoBehaviour:
     percBeats: []
     bpm: 87
     numBeats: 4
-  - trackClip: {fileID: 8300000, guid: 22b066da3103f4071abc38ac39946618, type: 3}
-    kickBeats:
-    - 0
-    snareBeats:
-    - 0.9895830859375
-    hatBeats: []
-    percBeats: []
-    bpm: 87
-    numBeats: 4
   artist: 
   oldBPM: 0
   numBars: 0

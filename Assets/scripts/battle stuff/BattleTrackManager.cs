@@ -195,18 +195,17 @@ public class BattleTrackManager : MonoBehaviour
 
             //TRANSITION MOVING INTO MIX1 OR MIX2
             case "transition":
-
-
-
                 currentTrack = trackQueue.Dequeue();
+
+                //update the bpm
+                TrackTimeManager.SetTrackData(currentTrack.randomTrackData);
+
                 Debug.Log("Current Track Dequeued As : " + currentTrack.name);
 
                 if (trackQueue.Count > 0)
                 {
                     nextTrack = trackQueue.Peek();
                 }
-
-
 
                 //we're assuming at this point that the audio source is stopped
                 if (BattleManager.current.lastMix == "mix1")
@@ -219,12 +218,13 @@ public class BattleTrackManager : MonoBehaviour
                 }
                 else if (BattleManager.current.lastMix == "mix2")
                 {
-
                     Debug.Log("NEXT PHASE : TRANSITION -> MIX1");
                     //Debug.Break();
 
                     BattleManager.current.SetBattlePhase("mix1");
                     mix2AudioSource.clip = nextTrack.randomTrackData.trackClip;
+
+
                 }
 
                 nextPhaseTime = currentTrack.randomTrackData.numBeats * (60 / currentTrack.randomTrackData.bpm);
@@ -285,7 +285,15 @@ public class BattleTrackManager : MonoBehaviour
 
         for (int i = 0; i < BattleManager.current.numQuickMixTracks; i++)
         {
+
+
+            //to ensure no duplicates for now just testing
+            //TODO: remove this lol
             Track t = testPlayerTracks[Random.Range(0, testPlayerTracks.Length)];
+
+
+
+
 
             t.randomTrackData = t.tracks[Random.Range(0, t.tracks.Length)];
             t.randomTransitionData = t.trackTransitions[Random.Range(0, t.trackTransitions.Length)];

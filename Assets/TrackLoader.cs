@@ -92,8 +92,6 @@ public static class TrackLoader
                 if (bpm.Contains("."))
                 {
                     bpm = bpm.Substring(0, bpm.LastIndexOf('.'));
-
-
                 }
 
                 //check if theres another one

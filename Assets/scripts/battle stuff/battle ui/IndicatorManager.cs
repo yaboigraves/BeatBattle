@@ -98,34 +98,20 @@ public class IndicatorManager : MonoBehaviour
         int numBarsSetup = 0;
 
 
-        // while (trackQueue.Count > 0)
-        // {
-
-        //     Track track = trackQueue.Dequeue();
-        //     Debug.Log(BattleTrackManager.current.trackQueue.Count);
-        //     setupQuickMixTrack(track.tracks[0], numBarsSetup);
-
-        //     //TODO: this should probably be a value stored in the trackdata
-        //     numBarsSetup += 14;
-        //     setupQuickMixTrack(track.trackTransitions[0], numBarsSetup);
-        //     //transitions are pretty much always gonna be 4 beats
-        //     numBarsSetup += 3;
-        // }
 
         for (int i = 0; i <= barSpawnPosition; i++)
         {
-            // GameObject _bar = Instantiate(bar, Vector3.up * (i) / 2, Quaternion.identity, barContainer.transform);
             spawnBar(i);
         }
 
         int mixLane = 0;
 
-        foreach (Track track in tracks)
+        for (int i = 0; i < tracks.Length; i++)
         {
             mixLane++;
-            Debug.Log(BattleTrackManager.current.trackQueue.Count);
-            setupQuickMixTrack(track.tracks[0], numBarsSetup, mixLane);
-            numBarsSetup += track.tracks[0].numBeats;
+            //Debug.Log(BattleTrackManager.current.trackQueue.Count);
+            setupQuickMixTrack(tracks[i].randomTrackData, numBarsSetup, mixLane);
+            numBarsSetup += tracks[i].randomTrackData.numBeats;
 
             if (mixLane == 1)
             {
@@ -136,10 +122,14 @@ public class IndicatorManager : MonoBehaviour
                 mixLane = 1;
             }
 
-            setupQuickMixTrack(track.trackTransitions[0], numBarsSetup, mixLane);
-            //transitions are pretty much always gonna be 4 beats
-            numBarsSetup += track.trackTransitions[0].numBeats;
+            //dont make the last transition
 
+            if (i < tracks.Length - 1)
+            {
+                setupQuickMixTrack(tracks[i].randomTransitionData, numBarsSetup, mixLane);
+                //transitions are pretty much always gonna be 4 beats
+                numBarsSetup += tracks[i].randomTransitionData.numBeats;
+            }
         }
 
     }

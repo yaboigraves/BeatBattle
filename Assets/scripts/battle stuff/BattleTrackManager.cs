@@ -114,10 +114,12 @@ public class BattleTrackManager : MonoBehaviour
         transitionAudioSource.clip = currentTrack.randomTrackData.trackClip;
 
         //queue up the first track and then the transition audio
+        double startTime = AudioSettings.dspTime + (4 * (60d / currentTrack.randomTrackData.bpm));
+        mix1AudioSource.PlayScheduled(startTime);
+        mix1AudioSource.SetScheduledEndTime(startTime + mix1AudioSource.clip.length);
 
-        mix1AudioSource.PlayScheduled(AudioSettings.dspTime + (4 * (60d / currentTrack.randomTrackData.bpm)));
-        transitionAudioSource.PlayScheduled(AudioSettings.dspTime + (32 * (60d / currentTrack.randomTrackData.bpm)));
-        mix2AudioSource.PlayScheduled(AudioSettings.dspTime + (36 * (60d / currentTrack.randomTrackData.bpm)));
+        //transitionAudioSource.PlayScheduled(AudioSettings.dspTime + (32 * (60d / currentTrack.randomTrackData.bpm)));
+        //mix2AudioSource.PlayScheduled(AudioSettings.dspTime + (36 * (60d / currentTrack.randomTrackData.bpm)));
 
 
         //mix2AudioSource.PlayScheduled((float)AudioSettings.dspTime + 10 + currentTrack.randomTransitionData.numBeats * (60f / currentTrack.randomTransitionData.bpm));
@@ -125,85 +127,117 @@ public class BattleTrackManager : MonoBehaviour
         //TODO: double check this is working bc this might need a 4+ in front if 
         // TrackTimeManager.setBeatsBeforeNextPhase(4);
         //wait time 
+
+
         TrackTimeManager.beatWait(4);
+        TrackTimeManager.AddEvent("nextPhase", 4 * (60 / currentTrack.randomTrackData.bpm));
+
     }
 
     //so this function is going to need to be called at the end of any phase to queue up the next track and set the phase data
 
     public void NextBattlePhase()
     {
+        if (trackQueue.Count <= 0)
+        {
+            Debug.Log("END OF TRACK QUEUE");
+            Debug.Break();
+        }
 
         Debug.Log("NEXT PHASE");
+
+
 
         //so this needs to also setup dynamic audio file playing on transitions, as well as 
         //managing the audio sources
 
         string currentPhase = BattleManager.current.battlePhase;
 
-
+        double nextPhaseTime;
 
         //TODO: left off here need to reapproach this to fix bugs
         switch (currentPhase)
         {
+
+
+            //MIX1 MOVING INTO TRANSITION
             case "mix1":
-
-                mix1AudioSource.Stop();
+                Debug.Log("NEXT PHASE : MIX1 -> TRANSITION");
+                //Debug.Break();
 
                 //transition started, going into mix2 next
                 BattleManager.current.SetBattlePhase("transition");
 
+                //so we're in the transition now, need to queue up mix2's audio to play
+                nextPhaseTime = currentTrack.randomTransitionData.numBeats * (60 / currentTrack.randomTransitionData.bpm);
+                TrackTimeManager.AddEvent("nextPhase", nextPhaseTime);
 
-                int numBeats = currentTrack.randomTransitionData.numBeats;
-                TrackTimeManager.setBeatsBeforeNextPhase(numBeats);
+                mix2AudioSource.PlayScheduled((AudioSettings.dspTime) + nextPhaseTime);
 
-                //we dont need to dequeue anything because we're still on the current track
-                //need to schedule the next audio to come in
-
-                //dont try and calculate this on the fly
-                //write a function to find the scheduling time accounting for delay
-                // mix2AudioSource.PlayScheduled(TrackTimeManager.calculatePlaySchedule(numBeats, currentTrack.randomTransitionData.numBeats));
                 break;
 
+            //MIX2 MOVING INTO TRANSITION 
             case "mix2":
-                mix2AudioSource.Stop();
+                Debug.Log("NEXT PHASE : MIX1 -> TRANSITION");
 
-                //transition started, going into mix2 next
                 BattleManager.current.SetBattlePhase("transition");
 
-                //we dont need to dequeue anything because we're still on the current track
-                //need to schedule the next audio to come in
+                nextPhaseTime = currentTrack.randomTransitionData.numBeats * (60 / currentTrack.randomTransitionData.bpm);
+                TrackTimeManager.AddEvent("nextPhase", nextPhaseTime);
 
-                TrackTimeManager.setBeatsBeforeNextPhase(currentTrack.randomTransitionData.numBeats);
+                mix1AudioSource.PlayScheduled((AudioSettings.dspTime) + nextPhaseTime);
 
 
-                // mix1AudioSource.PlayScheduled(TrackTimeManager.calculatePlaySchedule(currentTrack.randomTransitionData.numBeats, currentTrack.randomTransitionData.bpm));
                 break;
 
+
+            //TRANSITION MOVING INTO MIX1 OR MIX2
             case "transition":
 
-                currentTrack = trackQueue.Dequeue();
-                nextTrack = trackQueue.Peek();
 
+
+                currentTrack = trackQueue.Dequeue();
+                Debug.Log("Current Track Dequeued As : " + currentTrack.name);
+
+                if (trackQueue.Count > 0)
+                {
+                    nextTrack = trackQueue.Peek();
+                }
+
+
+
+                //we're assuming at this point that the audio source is stopped
                 if (BattleManager.current.lastMix == "mix1")
                 {
+                    Debug.Log("NEXT PHASE : TRANSITION -> MIX2");
+                    //Debug.Break();
+
                     BattleManager.current.SetBattlePhase("mix2");
                     mix1AudioSource.clip = nextTrack.randomTrackData.trackClip;
                 }
                 else if (BattleManager.current.lastMix == "mix2")
                 {
+
+                    Debug.Log("NEXT PHASE : TRANSITION -> MIX1");
+                    //Debug.Break();
+
                     BattleManager.current.SetBattlePhase("mix1");
                     mix2AudioSource.clip = nextTrack.randomTrackData.trackClip;
                 }
 
-                transitionAudioSource.Stop();
+                nextPhaseTime = currentTrack.randomTrackData.numBeats * (60 / currentTrack.randomTrackData.bpm);
+                double transitionEndTime = nextPhaseTime + (currentTrack.randomTransitionData.numBeats * (60 / currentTrack.randomTransitionData.bpm));
+                TrackTimeManager.AddEvent("nextPhase", nextPhaseTime);
 
-                //dunno why this has to be -1?
-                TrackTimeManager.setBeatsBeforeNextPhase(currentTrack.randomTrackData.numBeats);
-                //so if we're leaving transition and the current phase is set the transition audio (outro only for now)
+                //load the audio source for the transition
                 transitionAudioSource.clip = currentTrack.randomTransitionData.trackClip;
-                //schedule the transition to play
-                // transitionAudioSource.PlayScheduled(TrackTimeManager.calculatePlaySchedule(currentTrack.randomTrackData.numBeats, currentTrack.randomTrackData.bpm));
 
+                //schedule said audio source to play 
+
+                Debug.Log("SCHEDULING TRANSITION AUDIO TO PLAY AT " + nextPhaseTime);
+                transitionAudioSource.PlayScheduled(AudioSettings.dspTime + nextPhaseTime);
+                //schedule the audio source to stop
+                //transitionAudioSource.SetScheduledEndTime(transitionEndTime);
                 break;
         }
     }

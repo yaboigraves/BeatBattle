@@ -72,7 +72,8 @@ public static class TrackTimeManager
 
     public static void ManualUpdate()
     {
-
+        //look at the event queue and see if anything in there needs to be processed
+        CheckQueue();
         beatTick();
         debugDSPTIME = (float)AudioSettings.dspTime;
 
@@ -118,7 +119,7 @@ public static class TrackTimeManager
                 trackStarted = true;
                 countingIn = false;
                 Debug.Log("starting wait is over");
-                BattleTrackManager.current.NextBattlePhase();
+                //BattleTrackManager.current.NextBattlePhase();
             }
         }
     }
@@ -140,7 +141,7 @@ public static class TrackTimeManager
                 if (beatsBeforeNextPhase <= 0)
                 {
                     //we're moving to a new phase so we have to switch audioclips and possibly bpms
-                    BattleTrackManager.current.NextBattlePhase();
+                    //BattleTrackManager.current.NextBattlePhase();
                 }
             }
             else if (BattleManager.current.battleType == BattleManager.BattleType.longMix)
@@ -191,7 +192,7 @@ public static class TrackTimeManager
         //as this time progresses need to lerp the indicator container down 4 units 
         //so lerp(start,start -4, currentBeat/4)
         Debug.Log("wait is starting");
-        waitTimeOver = (float)AudioSettings.dspTime + 4 * secPerBeat;
+        waitTimeOver = AudioSettings.dspTime + 4 * secPerBeat;
 
         // BattleTrackManager.current.mix1AudioSource.PlayScheduled(waitTimeOver);
 
@@ -204,7 +205,7 @@ public static class TrackTimeManager
 
     //starts shit but waits 4 beats before resetting all the data back to 0
 
-    static float waitTimeOver;
+    static double waitTimeOver;
     static bool doingWait = false;
     static float waitTimeStart;
     public static IEnumerator beatWaitRoutine(int numBeats)
@@ -227,7 +228,7 @@ public static class TrackTimeManager
         songPositionInBeats = 0;
         // audioSource.Play();
 
-        BattleTrackManager.current.playCurrentTrack();
+        //BattleTrackManager.current.playCurrentTrack();
 
         //tell the track manager to play the current mix
         trackStarted = true;
@@ -284,23 +285,33 @@ public static class TrackTimeManager
 
     public static void AddEvent(string eventName, double eventTime)
     {
-        eventQueue.Enqueue(new TrackEvent(eventName, eventTime));
+        Debug.Log(eventName + " queued for " + (AudioSettings.dspTime + eventTime));
+        eventQueue.Enqueue(new TrackEvent(eventName, AudioSettings.dspTime + eventTime));
     }
 
     //this will get called in the manual update as often as possible
     public static void CheckQueue()
     {
+        if (eventQueue.Count <= 0) { return; }
+
         TrackEvent nextEvent = eventQueue.Peek();
 
-        if (nextEvent.time >= AudioSettings.dspTime)
+        if (nextEvent.time <= AudioSettings.dspTime)
         {
+            Debug.Log("EVENT TRIGGERED at - " + nextEvent.time + " DSP TIME IS - " + AudioSettings.dspTime);
+
+
             //dequeu the event 
             nextEvent = eventQueue.Dequeue();
+
             //process the event
             if (nextEvent.eventName == "nextPhase")
             {
                 //call the next phase code to run
+                BattleTrackManager.current.NextBattlePhase();
+
             }
+
         }
     }
 

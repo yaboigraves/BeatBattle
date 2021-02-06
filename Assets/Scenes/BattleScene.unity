@@ -2209,7 +2209,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 262207967}
-  m_LocalRotation: {x: 0.1305802, y: 0.19704592, z: -0.026490625, w: 0.9712981}
+  m_LocalRotation: {x: 0.13053975, y: 0.1985246, z: -0.026689421, w: 0.970997}
   m_LocalPosition: {x: -19.29, y: 0.30999994, z: -25.03}
   m_LocalScale: {x: 1.0000001, y: 1, z: 1}
   m_Children: []
@@ -6410,7 +6410,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 708335400}
-  m_LocalRotation: {x: 0.1305802, y: 0.19704592, z: -0.026490625, w: 0.9712981}
+  m_LocalRotation: {x: 0.13053975, y: 0.1985246, z: -0.026689421, w: 0.970997}
   m_LocalPosition: {x: -19.29, y: 0.30999994, z: -25.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -9830,7 +9830,7 @@ MonoBehaviour:
   vibe: 0
   barsPerTurn: 2
   barsPerTransition: 1
-  numQuickMixTracks: 4
+  numQuickMixTracks: 2
   fuckupSounds:
   - {fileID: 8300000, guid: 6a88a177f83e5fe468499a5525650d18, type: 3}
   - {fileID: 8300000, guid: b93208eda0fd0db4f86dc65c9f60a37f, type: 3}
@@ -12356,7 +12356,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1379790092}
-  m_LocalRotation: {x: -0.011349483, y: 0.68889034, z: 0.010788723, w: 0.7246964}
+  m_LocalRotation: {x: 0.10351525, y: 0.3737379, z: -0.042016003, w: 0.92078185}
   m_LocalPosition: {x: -19.29, y: 0.30999994, z: -25.03}
   m_LocalScale: {x: 0.9999999, y: 1, z: 1}
   m_Children:
@@ -15584,22 +15584,6 @@ MonoBehaviour:
   totalBeats: 0
   playerSelectedTrack: {fileID: 0}
   countInBeats: 4
-  currentTrackData:
-    trackClip: {fileID: 0}
-    kickBeats: []
-    snareBeats: []
-    hatBeats: []
-    percBeats: []
-    bpm: 0
-    numBeats: 0
-  nextTrackData:
-    trackClip: {fileID: 0}
-    kickBeats: []
-    snareBeats: []
-    hatBeats: []
-    percBeats: []
-    bpm: 0
-    numBeats: 0
   nextTurnStart: 0
   beatTransitionCounter: 0
 --- !u!82 &1831675819

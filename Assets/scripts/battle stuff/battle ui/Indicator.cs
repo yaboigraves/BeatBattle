@@ -129,6 +129,10 @@ public class Indicator : MonoBehaviour
         //main travel lerp
         if (activated && lerpStatus < 1)
         {
+
+            //TODO: so this cant be dependent on the song position in beats because it can change on the fly now, going to need an alternate way to calculate this/ probably going to need to use dsp time 
+            //all the indicators essentially need to speed up while maintaining their same position on a bpm switchup
+
             transform.position = Vector3.Lerp(start, end, (float)TrackTimeManager.songPositionInBeats / beatOfThisNote) + transform.parent.position;
         }
         else if (activated && lerpStatus >= 1)

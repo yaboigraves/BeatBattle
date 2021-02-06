@@ -111,7 +111,7 @@ public class BattleTrackManager : MonoBehaviour
         mix1AudioSource.clip = currentTrack.randomTrackData.trackClip;
 
         //set the audioclip for the transition 
-        transitionAudioSource.clip = currentTrack.randomTrackData.trackClip;
+        transitionAudioSource.clip = currentTrack.randomTransitionData.trackClip;
 
         //queue up the first track and then the transition audio
         double startTime = AudioSettings.dspTime + (4 * (60d / currentTrack.randomTrackData.bpm));
@@ -168,8 +168,11 @@ public class BattleTrackManager : MonoBehaviour
                 //transition started, going into mix2 next
                 BattleManager.current.SetBattlePhase("transition");
 
+                //so the bpm could switchup here, set the bpm to the next tracks transitions bpm
+                TrackTimeManager.SetTrackData(nextTrack.randomTransitionData);
+
                 //so we're in the transition now, need to queue up mix2's audio to play
-                nextPhaseTime = currentTrack.randomTransitionData.numBeats * (60 / currentTrack.randomTransitionData.bpm);
+                nextPhaseTime = nextTrack.randomTransitionData.numBeats * (60 / currentTrack.randomTransitionData.bpm);
                 TrackTimeManager.AddEvent("nextPhase", nextPhaseTime);
 
                 mix2AudioSource.PlayScheduled((AudioSettings.dspTime) + nextPhaseTime);
@@ -183,7 +186,10 @@ public class BattleTrackManager : MonoBehaviour
 
                 BattleManager.current.SetBattlePhase("transition");
 
-                nextPhaseTime = currentTrack.randomTransitionData.numBeats * (60 / currentTrack.randomTransitionData.bpm);
+                //so the bpm could switchup here, set the bpm to the next tracks transitions bpm
+                TrackTimeManager.SetTrackData(nextTrack.randomTransitionData);
+
+                nextPhaseTime = nextTrack.randomTransitionData.numBeats * (60 / currentTrack.randomTransitionData.bpm);
                 TrackTimeManager.AddEvent("nextPhase", nextPhaseTime);
 
                 mix1AudioSource.PlayScheduled((AudioSettings.dspTime) + nextPhaseTime);
@@ -230,12 +236,11 @@ public class BattleTrackManager : MonoBehaviour
                 nextPhaseTime = currentTrack.randomTrackData.numBeats * (60 / currentTrack.randomTrackData.bpm);
                 TrackTimeManager.AddEvent("nextPhase", nextPhaseTime);
 
-                //load the audio source for the transition
-                transitionAudioSource.clip = currentTrack.randomTransitionData.trackClip;
+                //load the audio source for the next transition
+                transitionAudioSource.clip = nextTrack.randomTransitionData.trackClip;
 
                 //schedule said audio source to play 
-
-                Debug.Log("SCHEDULING TRANSITION AUDIO TO PLAY AT " + nextPhaseTime);
+                Debug.Log("SCHEDULING TRANSITION AUDIO TO PLAY AT " + (AudioSettings.dspTime + nextPhaseTime));
                 transitionAudioSource.PlayScheduled(AudioSettings.dspTime + nextPhaseTime);
                 transitionAudioSource.SetScheduledEndTime(AudioSettings.dspTime + nextPhaseTime + transitionAudioSource.clip.length);
                 break;
@@ -270,11 +275,6 @@ public class BattleTrackManager : MonoBehaviour
         TrackTimeManager.stopTrackTimer();
         TrackTimeManager.resetTrackTimer();
 
-        // if (!doWait)
-        // {
-        //     // StartCoroutine(barWait());
-        //     TrackTimeManager.current.beatWait(4);
-        // }
     }
 
 
@@ -286,13 +286,9 @@ public class BattleTrackManager : MonoBehaviour
         for (int i = 0; i < BattleManager.current.numQuickMixTracks; i++)
         {
 
-
             //to ensure no duplicates for now just testing
             //TODO: remove this lol
             Track t = testPlayerTracks[Random.Range(0, testPlayerTracks.Length)];
-
-
-
 
 
             t.randomTrackData = t.tracks[Random.Range(0, t.tracks.Length)];

@@ -38,13 +38,11 @@ public class BattleTrackManager : MonoBehaviour
     private void Awake()
     {
         current = this;
-        AudioClip audioClip;
         if (TrackManager.current == null)
         {
 
             // playerSelectedTrack = testPlayerTracks[0];
             // currentTrack = playerSelectedTrack;
-
             // audioClip = testPlayerTracks[0].tracks[0].trackClip;
         }
         else
@@ -55,19 +53,7 @@ public class BattleTrackManager : MonoBehaviour
             // audioClip = currentTrack.trackClip;
         }
 
-        //print("audiosource" + audioSource.name);
 
-        // currentBpm = currentTrack.bpm;
-
-
-        // mix1AudioSource.clip = audioClip;
-
-
-        //commented out to test timescale shit 
-        //beatDeltaTime = (1 / currentBpm) * 60;
-
-        //uniform speed for timescale change
-        // beatDeltaTime = 1;
     }
 
 
@@ -246,31 +232,6 @@ public class BattleTrackManager : MonoBehaviour
     public int nextTurnStart;
 
     //this is for setting the battle track for the longmix mode
-    public void setBattleTrack(Track newTrack, bool doWait)
-    {
-        //couple things need to happen here
-        //1. we turn off the current track audio
-        mix1AudioSource.Stop();
-        //2.we load in the new track as the current track
-        currentTrack = newTrack;
-        //3.replace the audiosource's clip
-
-        mix1AudioSource.clip = currentTrack.tracks[0].trackClip;
-        //4.we need to modify the speed of the indicators (they all look at this variable for their speed)
-        currentBpm = newTrack.oldBPM;
-        //5.we need to setup the new indicators 
-        //BattleManager.current.setupTurnIndicators(newTrack);
-        IndicatorManager.current.setupTurnIndicators(newTrack);
-        //6.play the new track AFTER 4 BARS OF WAITING if a wait is requested
-
-        nextTurnStart = totalBeats + 5;
-
-        //TrackTimeManager.SetTrackData(currentTrack);
-        TrackTimeManager.stopTrackTimer();
-        TrackTimeManager.resetTrackTimer();
-
-    }
-
 
     public void setupQuickMix()
     {
@@ -294,7 +255,6 @@ public class BattleTrackManager : MonoBehaviour
     }
 
 
-
     //so we need a centralized place for the time passage to be managed from
 
     public void setPlayerSelectedTrack(Track newTrack)
@@ -303,21 +263,6 @@ public class BattleTrackManager : MonoBehaviour
     }
 
     //this is essentially a start function
-    public void playCurrentTrack()
-    {
-        mix1AudioSource.Play();
-        //here we're going to queue up the transition s o theres no possibly delay
-    }
-
-    public void ScheduleNextTrack()
-    {
-
-    }
-
-
-
-    public float beatTransitionCounter = 0;
-
 
     private void Update()
     {

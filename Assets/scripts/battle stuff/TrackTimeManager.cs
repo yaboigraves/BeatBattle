@@ -81,15 +81,6 @@ public static class TrackTimeManager
         beatTick();
         debugDSPTIME = (float)AudioSettings.dspTime;
 
-        //update ui with data 
-
-        // if (songPositionInBeats >= 16)
-        // {
-        //     //turn change 
-        //     // currentTurnStartBeat = songPositionInBeats;
-        //     //BattleManager.current.changeTurn();
-        //     BattleCameraController.current.CameraSwitchup();
-        // }
 
         if (trackStarted)
         {
@@ -104,7 +95,6 @@ public static class TrackTimeManager
 
             MoveIndicatorContainerForWait();
         }
-
 
 
         if (countingIn)
@@ -133,6 +123,8 @@ public static class TrackTimeManager
 
     static double lastTick = 0;
 
+
+    //TODO: rewrite this to work more closely with audioSettings dsp time
     public static void beatTick()
     {
         if (lastTick + 1 < songPositionInBeats)
@@ -158,10 +150,8 @@ public static class TrackTimeManager
             lastTick = songPositionInBeats;
 
 
-
             //spawn a bar
             //IndicatorManager.current.spawnBar((float)songPositionInBeats + IndicatorManager.current.barSpawnPosition);
-
         }
     }
 
@@ -253,38 +243,6 @@ public static class TrackTimeManager
         //currIndicatorContainer.transform.position = Vector3.Lerp(new Vector3(0, 4, 0), new Vector3(0, 0, 0), movePercent);
     }
 
-    public static float GetDSPTimeForNextPlay(int length)
-    {
-        //so lets see if this works
-        float nexttime = (float)AudioSettings.dspTime + ((length) * secPerBeat);
-        Debug.Log("scheduling track to play at " + nexttime.ToString());
-        return nexttime;
-    }
-
-
-
-    public static double calculatePlaySchedule(int numBeatsBefore, float bpm)
-    {
-        //so we're going to look at what the current beat is
-        //round down?
-        double nextBeat = numBeatsBefore + songPositionInBeats;
-
-        //so the time that the the thing needs to get scheduled for is
-        //start time + the num seconds from the beats
-
-
-        Debug.Log("playing next track at" + nextBeat);
-
-        return battleDSPStartTime + (numBeatsBefore * 60 / bpm);
-    }
-
-
-
-    //so every manual update instead of trying to do consistent calculations for updates
-    //just going to maintain a queueu of events that need to be taken off the queue at dsp times 
-
-    //this way, every trigger is based on a time on the dsp timer and not some kind of stored or dynamic 
-    //calculated bs
 
     public static Queue<TrackEvent> eventQueue = new Queue<TrackEvent>();
 

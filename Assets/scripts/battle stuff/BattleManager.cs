@@ -180,9 +180,14 @@ public class BattleManager : MonoBehaviour
         TrackTimeManager.ManualUpdate();
     }
 
+    public void SetBattleStarted(bool start)
+    {
+        battleStarted = start;
+    }
+
     void StartBattle()
     {
-        battleStarted = true;
+        // battleStarted = true;
         playerTurn = true;
         //1 2 3 4 
 

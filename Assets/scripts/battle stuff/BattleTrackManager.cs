@@ -138,6 +138,7 @@ public class BattleTrackManager : MonoBehaviour
 
     public void NextBattlePhase()
     {
+        BattleManager.current.SetBattleStarted(true);
         if (trackQueue.Count <= 0)
         {
             Debug.Log("END OF TRACK QUEUE");
@@ -229,8 +230,6 @@ public class BattleTrackManager : MonoBehaviour
 
                     BattleManager.current.SetBattlePhase("mix1");
                     mix2AudioSource.clip = nextTrack.randomTrackData.trackClip;
-
-
                 }
 
                 nextPhaseTime = currentTrack.randomTrackData.numBeats * (60 / currentTrack.randomTrackData.bpm);

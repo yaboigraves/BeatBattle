@@ -219,7 +219,7 @@ public static class TrackTimeManager
 
 
         yield return new WaitUntil(() => AudioSettings.dspTime > waitTimeOver);
-
+        BattleManager.current.SetBattleStarted(true);
         doingWait = false;
         //yield return null;
 
@@ -232,6 +232,7 @@ public static class TrackTimeManager
 
         //tell the track manager to play the current mix
         trackStarted = true;
+
     }
 
     public static GameObject currIndicatorContainer;

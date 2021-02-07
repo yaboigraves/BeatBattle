@@ -160,17 +160,17 @@ public class PlayerInventory : MonoBehaviour
             }
         }
 
-        foreach (Track t in playerTracks)
-        {
-            if (t.itemName == name)
-            {
-                //equp the track
-                EquipTrack(t, true);
-                //also need to update the ui with the toggle
-                UIManager.current.LoadTrack(t);
-                return;
-            }
-        }
+        // foreach (Track t in playerTracks)
+        // {
+        //     if (t.itemName == name)
+        //     {
+        //         //equp the track
+        //         EquipTrack(t, true);
+        //         //also need to update the ui with the toggle
+        //         UIManager.current.LoadTrack(t);
+        //         return;
+        //     }
+        // }
     }
     public float pickupWaitTime;
 

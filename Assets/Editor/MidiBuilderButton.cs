@@ -12,9 +12,9 @@ public class MidiBuilderButton : Editor
 
         Track track = (Track)target;
 
-        if (GUILayout.Button("Build MIDI Data"))
+        if (GUILayout.Button("Build Track Data"))
         {
-            track.BuildMidi();
+            track.BuildTrack();
         }
     }
 }

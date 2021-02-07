@@ -2,190 +2,241 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TrackTimeManager : MonoBehaviour
+
+//TODO:
+/*
+   holy fuck this needs to get refactored lol
+
+   alot of cobweb code thats all its pretty functional could just be waaaaay cleaner
+*/
+
+
+
+public static class TrackTimeManager
 {
 
-    public static TrackTimeManager current;
+    // public static TrackTimeManager current;
     //Song beats per minute
     //This is determined by the song you're trying to sync up to
-    public float songBpm;
+    public static float songBpm;
 
     //The number of seconds for each song beat
-    public float secPerBeat;
+    public static float secPerBeat;
 
     //Current song position, in seconds
-    public float songPosition;
+    public static double songPosition;
 
     //Current song position, in beats
-    public float songPositionInBeats;
+    public static double songPositionInBeats;
 
     //How many seconds have passed since the song started
-    public float dspSongTime;
+    public static double dspSongTime;
 
-    //an AudioSource attached to this GameObject that will play the music.
-    public AudioSource audioSource;
+    // //an AudioSource attached to this GameObject that will play the music.
+    // public AudioSource audioSource;
 
-    public float debugDSPTIME;
+    public static float debugDSPTIME;
 
-    public float currentPlayerBars;
+    public static float currentPlayerBars;
 
-    public bool trackStarted = false;
+    public static bool trackStarted = false;
 
-    public bool countingIn = false;
+    public static bool countingIn = false;
 
-    public float turnBeatCounter;
+    public static float turnBeatCounter;
+
+    public static int beatsBeforeNextPhase;
+
+    public static double battleDSPStartTime;
+
+    public static double deltaDSPTime, lastDSPTime;
 
 
-    private void Awake()
+    public static void SetTrackData(TrackData track)
     {
-        current = this;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        audioSource = GetComponent<AudioSource>();
-        // secPerBeat = 60f / songBpm;
-    }
-
-    public void SetSongData(Track track)
-    {
-        audioSource.clip = track.trackClip;
+        //audioSource.clip = track.trackClip;
         songBpm = track.bpm;
         secPerBeat = 60f / songBpm;
-        dspSongTime = (float)AudioSettings.dspTime;
+        dspSongTime = AudioSettings.dspTime;
     }
 
-    // Update is called once per frame
-
-    public float startUpTime;
-
-    public float currentTurnStartBeat = 0;
-
-    //TODO: implement a way to modify the starting audio time (because its starting time since the )
-    void Update()
+    public static void setBeatsBeforeNextPhase(int beats)
     {
+        beatsBeforeNextPhase = beats;
+    }
 
+
+
+    public static double startUpTime;
+
+    public static float currentTurnStartBeat = 0;
+
+
+
+    public static void ManualUpdate()
+    {
+        deltaDSPTime = AudioSettings.dspTime - lastDSPTime;
+        //look at the event queue and see if anything in there needs to be processed
+        CheckQueue();
         beatTick();
         debugDSPTIME = (float)AudioSettings.dspTime;
 
-        //update ui with data 
-
-        // if (songPositionInBeats >= 16)
-        // {
-        //     //turn change 
-        //     // currentTurnStartBeat = songPositionInBeats;
-        //     //BattleManager.current.changeTurn();
-        //     BattleCameraController.current.CameraSwitchup();
-        // }
 
         if (trackStarted)
         {
-            songPosition = (float)(AudioSettings.dspTime - startUpTime - (dspSongTime));
+            songPosition = (AudioSettings.dspTime - startUpTime - (dspSongTime));
             songPositionInBeats = (songPosition / secPerBeat);
-            BattleUIManager.current.UpdateMetronome(((Mathf.FloorToInt(songPositionInBeats)) % 4), false);
+            BattleUIManager.current.UpdateMetronome(((Mathf.FloorToInt((float)songPositionInBeats)) % 4), false);
         }
 
+        //this i think is deprecated, can probably get removed
         if (doingWait)
         {
 
             MoveIndicatorContainerForWait();
         }
+
+
+        if (countingIn)
+        {
+
+            //time to end the count
+            if (AudioSettings.dspTime > waitTimeOver)
+            {
+                startUpTime = AudioSettings.dspTime - dspSongTime;
+                songPositionInBeats = 0;
+                // audioSource.Play();
+
+                //BattleTrackManager.current.playCurrentTrack();
+
+                //tell the track manager to play the current mix
+                trackStarted = true;
+                countingIn = false;
+                Debug.Log("starting wait is over");
+                //BattleTrackManager.current.NextBattlePhase();
+            }
+        }
+
+        lastDSPTime = AudioSettings.dspTime;
     }
 
 
-    float lastTick = 0;
-    public void beatTick()
+    static double lastTick = 0;
+
+
+    //TODO: rewrite this to work more closely with audioSettings dsp time
+    public static void beatTick()
     {
         if (lastTick + 1 < songPositionInBeats)
         {
             //call all the stuff we need to call for a beattick 
             BattleManager.current.VibeUpdate();
             BattleManager.current.UpdateGearPipeline();
+
+            if (BattleManager.current.battleType == BattleManager.BattleType.quickMix)
+            {
+                beatsBeforeNextPhase--;
+                if (beatsBeforeNextPhase <= 0)
+                {
+                    //we're moving to a new phase so we have to switch audioclips and possibly bpms
+                    //BattleTrackManager.current.NextBattlePhase();
+                }
+            }
+            else if (BattleManager.current.battleType == BattleManager.BattleType.longMix)
+            {
+
+            }
+
             lastTick = songPositionInBeats;
 
+
             //spawn a bar
-            IndicatorManager.current.spawnBar(songPositionInBeats + IndicatorManager.current.barSpawnPosition);
-
-
+            //IndicatorManager.current.spawnBar((float)songPositionInBeats + IndicatorManager.current.barSpawnPosition);
         }
     }
 
 
-    public float dspTimeDifferenceFromStart;
-    public void startTrackTimer()
+    public static float dspTimeDifferenceFromStart;
+    public static void startTrackTimer()
     {
         trackStarted = true;
+        battleDSPStartTime = AudioSettings.dspTime;
 
         //TODO: so also need to take note of the current difference in dsp time
     }
 
-    public void stopTrackTimer()
+    public static void stopTrackTimer()
     {
         trackStarted = false;
     }
 
-    public void resetTrackTimer()
+    public static void resetTrackTimer()
     {
         songPosition = 0;
         songPositionInBeats = 0;
     }
 
 
-    public void beatWait(int numBeats)
+    //TODO: reimpliment the beat wait using updates from audiosettings.dsp time rather than a coroutine
+    public static void beatWait(int numBeats)
     {
         //dspTimeDifferenceFromStart = (float)AudioSettings.dspTime - dspSongTime;
 
         //so we want to have 4 beats of time progress
         //as this time progresses need to lerp the indicator container down 4 units 
         //so lerp(start,start -4, currentBeat/4)
+        Debug.Log("wait is starting");
+        waitTimeOver = AudioSettings.dspTime + 4 * secPerBeat;
 
-        waitTimeStart = (float)AudioSettings.dspTime;
-        waitTimeOver = (float)AudioSettings.dspTime + 4 * secPerBeat;
+        // BattleTrackManager.current.mix1AudioSource.PlayScheduled(waitTimeOver);
 
+        //so now this is going to need to essentialy trigger a boolean that is just checked in the manual update
 
-        StartCoroutine(beatWaitRoutine(numBeats));
-        // audioSource.Play();
-        // trackStarted = true;
+        countingIn = true;
     }
 
 
 
     //starts shit but waits 4 beats before resetting all the data back to 0
 
-    float waitTimeOver;
-    bool doingWait = false;
-    float waitTimeStart;
-    public IEnumerator beatWaitRoutine(int numBeats)
+    static double waitTimeOver;
+    static bool doingWait = false;
+    static float waitTimeStart;
+    public static IEnumerator beatWaitRoutine(int numBeats)
     {
 
         //so this needs to figure out basically jsut how much time needs to pass from now till 4 beats from now 
         //first lets figure out when NOW IS 
 
-        float songCurrentBeatPosition = songPositionInBeats;
+        double songCurrentBeatPosition = songPositionInBeats;
         doingWait = true;
 
 
         yield return new WaitUntil(() => AudioSettings.dspTime > waitTimeOver);
-
+        BattleManager.current.SetBattleStarted(true);
         doingWait = false;
         //yield return null;
 
         //startup time is the difference in dsptime of the song + the amount of time it currently is 
-        startUpTime = (float)AudioSettings.dspTime - dspSongTime;
+        startUpTime = AudioSettings.dspTime - dspSongTime;
         songPositionInBeats = 0;
-        audioSource.Play();
+        // audioSource.Play();
+
+        //BattleTrackManager.current.playCurrentTrack();
+
+        //tell the track manager to play the current mix
         trackStarted = true;
+
     }
 
-    public GameObject currIndicatorContainer;
-    Vector3 indicatorStartPos;
-    public void setCurrIndicatorContainer(GameObject indiContainer)
+    public static GameObject currIndicatorContainer;
+    static Vector3 indicatorStartPos;
+    public static void setCurrIndicatorContainer(GameObject indiContainer)
     {
         currIndicatorContainer = indiContainer;
     }
 
-    public void MoveIndicatorContainerForWait()
+    public static void MoveIndicatorContainerForWait()
     {
         float movePercent = (float)((AudioSettings.dspTime - waitTimeStart) / (waitTimeOver - waitTimeStart));
         //lerp the indicator container between its spawn position and 0 based on where audio time is between the waittimeover variable
@@ -193,7 +244,57 @@ public class TrackTimeManager : MonoBehaviour
     }
 
 
-    //notes 
-    //we can now just use the songPositionInBeats variable to set the position of indicatoes = to that rather than translating them 
-    //this will yield perfect syncing of the track time and the indicators
+    public static Queue<TrackEvent> eventQueue = new Queue<TrackEvent>();
+
+    public static void AddEvent(string eventName, double eventTime)
+    {
+        Debug.Log(eventName + " queued for " + (AudioSettings.dspTime + eventTime));
+        eventQueue.Enqueue(new TrackEvent(eventName, AudioSettings.dspTime + eventTime));
+    }
+
+    //this will get called in the manual update as often as possible
+    public static void CheckQueue()
+    {
+        if (eventQueue.Count <= 0) { return; }
+
+        TrackEvent nextEvent = eventQueue.Peek();
+
+        if (nextEvent.time <= AudioSettings.dspTime)
+        {
+            Debug.Log("EVENT TRIGGERED at - " + nextEvent.time + " DSP TIME IS - " + AudioSettings.dspTime);
+
+
+            //dequeu the event 
+            nextEvent = eventQueue.Dequeue();
+
+            //process the event
+            if (nextEvent.eventName == "nextPhase")
+            {
+                //call the next phase code to run
+                BattleTrackManager.current.NextBattlePhase();
+            }
+
+            if (nextEvent.eventName == "bpmSwitch")
+            {
+                SetTrackData(BattleTrackManager.current.nextTrack.randomTrackData);
+            }
+        }
+    }
+
+
+
+
+
+}
+
+public class TrackEvent
+{
+    public string eventName;
+    public double time;
+
+    public TrackEvent(string eventName, double time)
+    {
+        this.eventName = eventName;
+        this.time = time;
+    }
 }

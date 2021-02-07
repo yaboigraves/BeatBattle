@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d29d3d57d0edae4c9066abd17179e95, type: 3}
+  m_Name: tompaabeats-hibby
+  m_EditorClassIdentifier: 
+  itemName: tompaabeats-hibby
+  cost: 1
+  description: This is the default item description. Cool.
+  unique: 0
+  itemIcon: {fileID: 0}
+  trackName: hibby
+  trackClip: {fileID: 8300000, guid: 68794962b17fb4915988aa4c630a5dd4, type: 3}
+  tracks:
+  - trackClip: {fileID: 8300000, guid: 50650f0ac831b5949bb58cd708b49cc0, type: 3}
+    kickBeats: []
+    snareBeats: []
+    hatBeats: []
+    percBeats: []
+    bpm: 0
+  trackTransitions: []
+  artist: Tompaa Beats
+  bpm: 87
+  numBars: 0
+  isBattleTrack: 1
+  trackStats:
+    trackVibe: 0
+    mixType: 0
+    vibePerHit: 0
+  kickBeats:
+  - 0
+  - 1.7499995625
+  - 1.9999995
+  - 3.499999125
+  - 3.999999
+  - 5.999998499999999
+  - 6.2499984375
+  - 7.999998
+  - 9.749997562499999
+  - 9.999997500000001
+  - 11.499997125
+  - 11.999996999999999
+  snareBeats:
+  - 0.9479164296875
+  - 2.9479159296875
+  - 4.9479154296875
+  - 6.947914929687499
+  - 8.9479144296875
+  - 10.9479139296875
+  - 12.9479134296875
+  hatBeats: []
+  percBeats: []

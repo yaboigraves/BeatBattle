@@ -8,10 +8,10 @@ public class Indicator : MonoBehaviour
     public float bpm;
     public float moveSpeed;
     // public Transform bars, indicators;
-    bool activated;
+    public bool activated;
     public float beatOfThisNote;
-    Vector3 start;
-    Vector3 end;
+    public Vector3 start;
+    public Vector3 end;
 
     //so there are a couple different types of indicators
     //no type means its just a normal indicator (either defense or attack)
@@ -21,7 +21,10 @@ public class Indicator : MonoBehaviour
 
     public SpriteRenderer sprite;
 
-    float finalLerpStatus;
+    public double lerpStatus, finalLerpStatus;
+
+    public bool isBar;
+
 
     private void Awake()
     {
@@ -31,6 +34,7 @@ public class Indicator : MonoBehaviour
     void Start()
     {
 
+
         bpm = BattleTrackManager.current.currentBpm;
 
         //commented this to experiment with timescale rather than calculating movespeed 
@@ -39,8 +43,20 @@ public class Indicator : MonoBehaviour
         //uniform move speed of 60bpm 
         moveSpeed = 1;
 
+
+
         //startPos = transform.position;
-        beatOfThisNote = transform.position.y;
+        if (isBar)
+        {
+            //account for delay
+            beatOfThisNote = Mathf.Floor(transform.position.y);
+            start = transform.position;
+            end = Vector2.zero;
+        }
+        else
+        {
+            beatOfThisNote = transform.position.y;
+        }
 
         if (beatOfThisNote == 0)
         {
@@ -48,12 +64,29 @@ public class Indicator : MonoBehaviour
             beatOfThisNote = 0.01f;
         }
 
-        start = new Vector3(0, beatOfThisNote, transform.position.z);
-        //end is 99 because we want to go 1 unit below the pad
-        end = new Vector3(0, 0, transform.position.z);
+        // start = new Vector3(transform.position.x, beatOfThisNote, transform.position.z);
+        // //end is 99 because we want to go 1 unit below the pad
+        // end = new Vector3(transform.position.x, 0, transform.position.z);
+
+
     }
 
-    public void SetIndicatorType(bool attackOrDefend, string indicType)
+    //TODO: so this should just initialize the info for where the indicator should be etc rather than scraping it from transform info
+    public void SetIndicatorPosition(Vector3 start)
+    {
+        transform.position = start;
+        this.start = start - transform.parent.position;
+        this.end = new Vector3(start.x - transform.parent.position.x, 0, start.z - transform.parent.position.z);
+        // if (mixNum == 2)
+        // {
+        //     print(start);
+        //     start = start + new Vector3(4, 0, 0);
+        //     end = end + new Vector3(4, 0, 0);
+        // }
+        //start = new Vector3(transform.position.x, beatOfThisNote, transform.position.z);
+    }
+
+    public void SetIndicatorType(bool attackOrDefend, string indicType = "")
     {
         this.attackOrDefend = attackOrDefend;
 
@@ -93,19 +126,42 @@ public class Indicator : MonoBehaviour
     {
         activated = BattleManager.current.battleStarted;
 
-        float lerpStatus = TrackTimeManager.current.songPositionInBeats / beatOfThisNote;
-        //main travel lerp
-        if (activated && lerpStatus < 1)
-        {
-            transform.position = Vector3.Lerp(start, end, TrackTimeManager.current.songPositionInBeats / beatOfThisNote) + transform.parent.position;
-        }
-        else if (activated && lerpStatus >= 1)
-        {
-            finalLerpStatus = TrackTimeManager.current.songPositionInBeats - beatOfThisNote;
-            //so now what we're going to do is lerp for one more unit over one more bar
 
-            transform.position = Vector3.Lerp(end, end - new Vector3(0, end.y + 1, 0), finalLerpStatus) + transform.parent.position;
+
+        if (activated && lerpStatus < beatOfThisNote)
+        {
+
+
+            /*
+                so the lerp status is more so going to be like a bucket filling process
+                as time passes the bucket is filled by some amount which varies depending on bpm
+                
+                60bpm 
+                1 beat per second 
+
+                8 beats away  
+
+                0/8 lerp 
+                every second we move 1 unit through the lerp 
+                
+                lerp += deltaTime(audio dsp deltatime not time.delta time) * bps 
+
+            */
+
+            lerpStatus += (TrackTimeManager.deltaDSPTime * (TrackTimeManager.songBpm / 60));
+
+            //TODO: so this cant be dependent on the song position in beats because it can change on the fly now, going to need an alternate way to calculate this/ probably going to need to use dsp time 
+            //all the indicators essentially need to speed up while maintaining their same position on a bpm switchup
+
+            transform.position = Vector3.Lerp(start, end, (float)lerpStatus / beatOfThisNote) + transform.parent.position;
         }
+        // else if (activated && lerpStatus >= beatOfThisNote)
+        // {
+        //     finalLerpStatus = TrackTimeManager.songPositionInBeats - beatOfThisNote;
+        //     //so now what we're going to do is lerp for one more unit over one more bar
+
+        //     transform.position = Vector3.Lerp(end, end - new Vector3(0, end.y + 1, 0), (float)finalLerpStatus) + transform.parent.position;
+        // }
 
 
         //once we reach the destination we're just going to lerp to one unit below over one more bar

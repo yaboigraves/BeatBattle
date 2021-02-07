@@ -74,27 +74,27 @@ public class CircularBattleManager : MonoBehaviour
         //do this multiple times
         for (int j = 0; j <= 2; j++)
         {
-            for (int i = 0; i < testTrack.kickBeats.Count; i++)
+            for (int i = 0; i < testTrack.tracks[0].kickBeats.Count; i++)
             {
-                Vector3 kickPos = new Vector3(((float)-testTrack.kickBeats[i] - (j * 15)), 0, 0);
+                Vector3 kickPos = new Vector3(((float)-testTrack.tracks[0].kickBeats[i] - (j * 15)), 0, 0);
 
                 //each unit is 1 bar 
                 //therefore we need to start the next batck of indicators at wherever the loop ends
                 //probablyh easiest for now just to bake the length of the loop into the track object 
                 GameObject indic = Instantiate(indicator, kickPos + leftIndicatorLane.transform.position, Quaternion.identity, leftIndicatorLane);
 
-                indic.GetComponent<CircularIndicator>().SetIndicInfo(new Vector3(-1, 0, 0), (float)testTrack.kickBeats[i] + (16 * j));
+                indic.GetComponent<CircularIndicator>().SetIndicInfo(new Vector3(-1, 0, 0), (float)testTrack.tracks[0].kickBeats[i] + (16 * j));
                 indic.GetComponent<CircularIndicator>().SetIndicatorType(true, "Heady");
                 //check who's turn it is 
             }
-            for (int i = 0; i < testTrack.snareBeats.Count; i++)
+            for (int i = 0; i < testTrack.tracks[0].snareBeats.Count; i++)
             {
-                Vector3 snarePos = new Vector3((float)testTrack.snareBeats[i] + (j * 15), 0, 0);
+                Vector3 snarePos = new Vector3((float)testTrack.tracks[0].snareBeats[i] + (j * 15), 0, 0);
                 //each unit is 1 bar 
                 //therefore we need to start the next batck of indicators at wherever the loop ends
                 //probablyh easiest for now just to bake the length of the loop into the track object 
                 GameObject indic = Instantiate(indicator, snarePos + rightIndicatorLane.transform.position, Quaternion.identity, rightIndicatorLane);
-                indic.GetComponent<CircularIndicator>().SetIndicInfo(new Vector3(1, 0, 0), (float)testTrack.snareBeats[i] + (16 * j));
+                indic.GetComponent<CircularIndicator>().SetIndicInfo(new Vector3(1, 0, 0), (float)testTrack.tracks[0].snareBeats[i] + (16 * j));
                 indic.GetComponent<CircularIndicator>().SetIndicatorType(true, "Heady");
 
             }

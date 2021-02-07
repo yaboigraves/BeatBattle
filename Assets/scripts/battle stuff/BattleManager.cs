@@ -5,8 +5,39 @@ using UnityEngine.SceneManagement;
 
 public class BattleManager : MonoBehaviour
 {
+    /*
+        --battle rewrite notes--
+        
+        okie dokie so yea time to do this shit i suppose
+        so first thing to do is add two different battle modes
+        longmix mode (probably for bosses)
+        quickmix mode (the mashup mode )
+
+        longmix mode 
+            -one long track initiated
+                *no dynamic track instantiation or bpm switchups
+
+        quickmix mode
+            -8/16 beats of a song will be initiated followed by a transition
+            -following the transition another 8/16 beats will be instantiated (rest will be dynamic after that)
+
+            -instead of trying to dynamically use the same audio source setup 3 audio channels in the track manager
+                -mix1 (left track)
+                -transitions
+                -mix2 (right track)
+
+
+    */
 
     public static BattleManager current;
+
+    public enum BattleType
+    {
+        longMix,
+        quickMix
+    };
+
+    public BattleType battleType;
     public bool battleStarted;
     //maybe move these somewhere but honestly doesnt need to be in the player 
     public int playerHealth, enemyHealth, playerMaxHealth, enemyMaxHealth;
@@ -29,8 +60,11 @@ public class BattleManager : MonoBehaviour
     public int vibe = 0;
     //int maxVibe = 50, minVibe = -50;
 
-    public float barsPerTurn = 2;
+    public float barsPerTurn = 2, barsPerTransition = 1;
 
+
+    //quickmix new variables
+    public int numQuickMixTracks = 6;
 
     //list of delegates for the gear effects
     List<GearEffects.GearEffect> equippedGearEffects = new List<GearEffects.GearEffect>();
@@ -39,6 +73,9 @@ public class BattleManager : MonoBehaviour
 
     public AudioClip[] fuckupSounds;
 
+    //Important
+    //mix1,mix2,transition
+    public string battlePhase = "mix1", lastMix = "";
 
     void Awake()
     {
@@ -72,7 +109,6 @@ public class BattleManager : MonoBehaviour
             setPlayerEnemyHealth(10, 10, testEnemy.GetComponent<Enemy>().health, testEnemy.GetComponent<Enemy>().maxHealth);
 
             //turn on the testing gear effects
-
             BattleUIManager.current.CreateGearIcons(new List<Gear>() { testGear });
             equippedGearEffects.Add(GearEffects.sp404);
 
@@ -83,6 +119,7 @@ public class BattleManager : MonoBehaviour
             }
             LoadItems(testItems);
         }
+        //non test mode
         else
         {
             //print(enemy);
@@ -94,10 +131,19 @@ public class BattleManager : MonoBehaviour
             LoadGear();
             LoadItems(GameManager.current.player.inventory.items);
         }
+
+
         setupBattle();
         firstTurn = false;
+    }
 
-        //load all the spectators for the battle
+    public void SetBattlePhase(string newPhase)
+    {
+        if (newPhase == "transition")
+        {
+            lastMix = battlePhase;
+        }
+        battlePhase = newPhase;
     }
 
     void LoadGear()
@@ -115,9 +161,6 @@ public class BattleManager : MonoBehaviour
     }
 
 
-    GameObject lastIndicatorContainer;
-
-
     // Update is called once per frame
     void Update()
     {
@@ -125,17 +168,33 @@ public class BattleManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && !battleStarted)
         {
             //wait till after the countdown to set this
-
             StartBattle();
         }
+
+        //tell the track time manager to update 
+        TrackTimeManager.ManualUpdate();
+    }
+
+    public void SetBattleStarted(bool start)
+    {
+        battleStarted = start;
     }
 
     void StartBattle()
     {
-        battleStarted = true;
+        // battleStarted = true;
         playerTurn = true;
         //1 2 3 4 
-        BattleTrackManager.current.StartCountIn();
+
+        if (battleType == BattleType.quickMix)
+        {
+            BattleTrackManager.current.StartQuickMixBattle();
+        }
+        else if (battleType == BattleType.longMix)
+        {
+            //add later :)
+        }
+
     }
 
     //this should be passed to a battleUImanager object
@@ -285,33 +344,28 @@ public class BattleManager : MonoBehaviour
     //TODO: This is a little too unwieldy right now rewrite this at some point
     public void setupBattle()
     {
-        //playerTurn = !playerTurn;
-        //first we check who's turn it is
-        if (playerTurn)
-        {
-            //toggle the track selector 
 
-            BattleUIManager.current.ToggleTrackSelectorOn(false);
+        //rewrite starts here 
 
-            print("players turn");
-            //so we need to find which track the player has selected
-            //for now we just use the 0th position 
-            BattleTrackManager.current.setBattleTrack(BattleTrackManager.current.playerSelectedTrack, firstTurn);
-            //IndicatorManager.current.changeIndicatorColors(new Color(255, 0, 0, 1));
+        BattleUIManager.current.ToggleTrackSelectorOn(false);
 
-            //indicatorContainer.GetComponent<Indicator>().UpdateColor(new Color(255, 0, 0));
-        }
-        else
+        //check which type of mix it is 
+        if (battleType == BattleType.longMix)
         {
 
-            BattleUIManager.current.ToggleTrackSelectorOn(true);
-
-            print("enemies turn");
-            BattleTrackManager.current.setBattleTrack(BattleTrackManager.current.testEnemyTracks[0], firstTurn);
-            //IndicatorManager.current.changeIndicatorColors(new Color(0, 0, 255, 1));
-            //indicatorContainer.GetComponent<Indicator>().UpdateColor(new Color(0, 255, 0));
         }
+        else if (battleType == BattleType.quickMix)
+        {
+            print("loading quick mix");
 
+            //things to do for loading a quick mix 
+            //1.track manager needs to setup a queue of songs (for now the same song with a transition between them)
+
+            BattleTrackManager.current.setupQuickMix();
+
+            //2.once thats set up, the track manager tells the indicator manager to setup the whole que for now 
+            //3.wait for an input to start then we good
+        }
 
         BattleCameraController.current.trackSwitcher(playerTurn);
     }
@@ -382,6 +436,5 @@ public class BattleManager : MonoBehaviour
 
         soundFxAudioSource.PlayOneShot(fuckupSounds[Random.Range(0, fuckupSounds.Length - 1)], soundFxAudioSource.volume);
     }
-
 
 }

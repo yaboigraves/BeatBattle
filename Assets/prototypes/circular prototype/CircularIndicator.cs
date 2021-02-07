@@ -35,7 +35,7 @@ public class CircularIndicator : MonoBehaviour
         }
         else
         {
-            bpm = CircularBattleManager.current.testTrack.bpm;
+            bpm = CircularBattleManager.current.testTrack.oldBPM;
         }
 
         //commented this to experiment with timescale rather than calculating movespeed 

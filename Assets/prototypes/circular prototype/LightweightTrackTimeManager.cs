@@ -27,7 +27,7 @@ public class LightweightTrackTimeManager : MonoBehaviour
     public void SetSongData(Track track)
     {
         audioSource.clip = track.trackClip;
-        songBpm = track.bpm;
+        songBpm = track.oldBPM;
         secPerBeat = 60f / songBpm;
         dspSongTime = (float)AudioSettings.dspTime;
     }
@@ -38,7 +38,8 @@ public class LightweightTrackTimeManager : MonoBehaviour
         isCounting = true;
     }
 
-    public void StopCount(){
+    public void StopCount()
+    {
         isCounting = false;
     }
 

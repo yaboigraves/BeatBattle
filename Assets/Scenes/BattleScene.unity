@@ -3386,7 +3386,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 0.7}
   m_EdgeRadius: 0
 --- !u!50 &413254362
 Rigidbody2D:
@@ -12120,7 +12120,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 0.7}
   m_EdgeRadius: 0
 --- !u!50 &1359379916
 Rigidbody2D:
@@ -12356,7 +12356,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1379790092}
-  m_LocalRotation: {x: 0.10345648, y: 0.37502348, z: -0.04216053, w: 0.92025906}
+  m_LocalRotation: {x: -0.011349483, y: 0.68889034, z: 0.010788723, w: 0.7246964}
   m_LocalPosition: {x: -19.29, y: 0.30999994, z: -25.03}
   m_LocalScale: {x: 0.9999999, y: 1, z: 1}
   m_Children:
@@ -14644,7 +14644,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 0.7}
   m_EdgeRadius: 0
 --- !u!50 &1641879190
 Rigidbody2D:
@@ -15086,7 +15086,7 @@ MonoBehaviour:
   hatLane: {fileID: 2134501057}
   percLane: {fileID: 1745976192}
   bar: {fileID: 4022209699254601298, guid: 673ee1dec8558d741879f957480091f6, type: 3}
-  barSpawnPosition: 32
+  barSpawnPosition: 128
 --- !u!1 &1755230505
 GameObject:
   m_ObjectHideFlags: 0
@@ -15578,7 +15578,6 @@ MonoBehaviour:
   playerTracks: []
   testPlayerTracks:
   - {fileID: 11400000, guid: 3644dac3d4b580e4f86dd4dc39166b8b, type: 2}
-  - {fileID: 11400000, guid: 14473328dd14f08409c92c3a22f0dc83, type: 2}
   testEnemyTracks:
   - {fileID: 0}
   metronomeAudio: 0
@@ -17715,7 +17714,7 @@ PrefabInstance:
     - target: {fileID: 7462329366701169840, guid: d59824d27951a2c4b9739be5b0e2d9f3,
         type: 3}
       propertyPath: m_Size.y
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 7462329366701169842, guid: d59824d27951a2c4b9739be5b0e2d9f3,
         type: 3}

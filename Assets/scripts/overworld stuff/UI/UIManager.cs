@@ -275,7 +275,7 @@ public class UIManager : MonoBehaviour
     public void UpdateTrackInventory(Track newTrack)
     {
         GameObject newTrackUI = Instantiate(inventoryTrackUIPrefab, inventoryTrackContainer.transform);
-        newTrackUI.GetComponentInChildren<TextMeshProUGUI>().text = newTrack.itemName;
+        //newTrackUI.GetComponentInChildren<TextMeshProUGUI>().text = newTrack.itemName;
         newTrackUI.GetComponent<InventoryTrack>().track = newTrack;
     }
 

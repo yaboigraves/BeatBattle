@@ -14,7 +14,7 @@ public class IndicatorManager : MonoBehaviour
     public GameObject bar;
     public static IndicatorManager current;
 
-    public float barSpawnPosition = 64;
+    public float barSpawnPosition = 128;
 
     void Awake()
     {
@@ -105,11 +105,11 @@ public class IndicatorManager : MonoBehaviour
             spawnBar(i);
         }
 
-        int mixLane = 0;
+        int mixLane = 1;
 
         for (int i = 0; i < tracks.Length; i++)
         {
-            mixLane++;
+
             //Debug.Log(BattleTrackManager.current.trackQueue.Count);
             setupQuickMixTrack(tracks[i].randomTrackData, numBarsSetup, mixLane);
             numBarsSetup += tracks[i].randomTrackData.numBeats;
@@ -118,7 +118,7 @@ public class IndicatorManager : MonoBehaviour
             {
                 mixLane = 2;
             }
-            else
+            else if (mixLane == 2)
             {
                 mixLane = 1;
             }

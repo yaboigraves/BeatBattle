@@ -161,9 +161,6 @@ public class BattleManager : MonoBehaviour
     }
 
 
-    GameObject lastIndicatorContainer;
-
-
     // Update is called once per frame
     void Update()
     {
@@ -171,10 +168,8 @@ public class BattleManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && !battleStarted)
         {
             //wait till after the countdown to set this
-
             StartBattle();
         }
-
 
         //tell the track time manager to update 
         TrackTimeManager.ManualUpdate();
@@ -200,7 +195,6 @@ public class BattleManager : MonoBehaviour
             //add later :)
         }
 
-        //BattleTrackManager.current.StartCountIn();
     }
 
     //this should be passed to a battleUImanager object
@@ -374,39 +368,6 @@ public class BattleManager : MonoBehaviour
         }
 
         BattleCameraController.current.trackSwitcher(playerTurn);
-
-
-        // if (playerTurn)
-        // {
-        //     //toggle the track selector 
-
-        //     BattleUIManager.current.ToggleTrackSelectorOn(false);
-
-        //     print("players turn");
-        //     //so we need to find which track the player has selected
-        //     //for now we just use the 0th position 
-
-        //     //if we're in longmix mode set the battle track here 
-
-        //     if (battleType == BattleType.longMix)
-        //     {
-        //         BattleTrackManager.current.setBattleTrack(BattleTrackManager.current.playerSelectedTrack, firstTurn);
-
-        //     }
-        //     else if (battleType == BattleType.quickMix)
-        //     {
-
-        //     }
-        // }
-        // else
-        // {
-
-        //     BattleUIManager.current.ToggleTrackSelectorOn(true);
-
-        //     print("enemies turn");
-        //     BattleTrackManager.current.setBattleTrack(BattleTrackManager.current.testEnemyTracks[0], firstTurn);
-        // }
-
     }
 
 
@@ -475,32 +436,5 @@ public class BattleManager : MonoBehaviour
 
         soundFxAudioSource.PlayOneShot(fuckupSounds[Random.Range(0, fuckupSounds.Length - 1)], soundFxAudioSource.volume);
     }
-
-    public void DoTransition(string newPhase)
-    {
-        /*
-        
-        TODO:definitly going to need to create a queue of track objects that are going to be played for both mixes
-        TODO:definitly going to need to package the track objects with a list of possible transitions
-
-        so the phases we can possibly go into are 
-            -mix1
-                -start playing mix1's new track
-
-                -fade the transition track out
-                
-            -mix2
-                -start playing mix2s new track
-                -fade the transition out 
-
-            -transition
-                -store what the last tracked we played before the transition was in lastBattlePhase
-                -fade out the last midis track
-                -play a transition from the last track
-        */
-
-
-    }
-
 
 }

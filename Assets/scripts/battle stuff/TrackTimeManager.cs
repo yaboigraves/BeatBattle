@@ -160,9 +160,7 @@ public static class TrackTimeManager
 
 
             //spawn a bar
-            IndicatorManager.current.spawnBar((float)songPositionInBeats + IndicatorManager.current.barSpawnPosition);
-
-            BattleTrackManager.current.checkForTransition();
+            //IndicatorManager.current.spawnBar((float)songPositionInBeats + IndicatorManager.current.barSpawnPosition);
 
         }
     }
@@ -316,9 +314,12 @@ public static class TrackTimeManager
             {
                 //call the next phase code to run
                 BattleTrackManager.current.NextBattlePhase();
-
             }
 
+            if (nextEvent.eventName == "bpmSwitch")
+            {
+                SetTrackData(BattleTrackManager.current.nextTrack.randomTrackData);
+            }
         }
     }
 

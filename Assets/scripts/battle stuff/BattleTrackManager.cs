@@ -156,29 +156,27 @@ public class BattleTrackManager : MonoBehaviour
 
         double nextPhaseTime;
 
-        //TODO: left off here need to reapproach this to fix bugs
         switch (currentPhase)
         {
-
 
             //MIX1 MOVING INTO TRANSITION
             case "mix1":
                 Debug.Log("NEXT PHASE : MIX1 -> TRANSITION");
                 //Debug.Break();
-
                 //transition started, going into mix2 next
                 BattleManager.current.SetBattlePhase("transition");
-
                 //so the bpm could switchup here, set the bpm to the next tracks transitions bpm
+
+                //TODO: this probably needs to be scheduled
                 TrackTimeManager.SetTrackData(nextTrack.randomTransitionData);
 
                 //so we're in the transition now, need to queue up mix2's audio to play
                 nextPhaseTime = nextTrack.randomTransitionData.numBeats * (60 / currentTrack.randomTransitionData.bpm);
                 TrackTimeManager.AddEvent("nextPhase", nextPhaseTime);
+                TrackTimeManager.AddEvent("bpmSwitch", nextPhaseTime);
 
                 mix2AudioSource.PlayScheduled((AudioSettings.dspTime) + nextPhaseTime);
                 mix2AudioSource.SetScheduledEndTime((AudioSettings.dspTime) + nextPhaseTime + mix2AudioSource.clip.length);
-
                 break;
 
             //MIX2 MOVING INTO TRANSITION 
@@ -188,15 +186,14 @@ public class BattleTrackManager : MonoBehaviour
                 BattleManager.current.SetBattlePhase("transition");
 
                 //so the bpm could switchup here, set the bpm to the next tracks transitions bpm
-                TrackTimeManager.SetTrackData(nextTrack.randomTransitionData);
+                //TrackTimeManager.SetTrackData(nextTrack.randomTransitionData);
 
                 nextPhaseTime = nextTrack.randomTransitionData.numBeats * (60 / currentTrack.randomTransitionData.bpm);
                 TrackTimeManager.AddEvent("nextPhase", nextPhaseTime);
+                TrackTimeManager.AddEvent("bpmSwitch", nextPhaseTime);
 
                 mix1AudioSource.PlayScheduled((AudioSettings.dspTime) + nextPhaseTime);
                 mix1AudioSource.SetScheduledEndTime(AudioSettings.dspTime + nextPhaseTime + mix1AudioSource.clip.length);
-
-
                 break;
 
 
@@ -205,7 +202,7 @@ public class BattleTrackManager : MonoBehaviour
                 currentTrack = trackQueue.Dequeue();
 
                 //update the bpm
-                TrackTimeManager.SetTrackData(currentTrack.randomTrackData);
+                //TrackTimeManager.SetTrackData(currentTrack.randomTrackData);
 
                 Debug.Log("Current Track Dequeued As : " + currentTrack.name);
 
@@ -245,8 +242,6 @@ public class BattleTrackManager : MonoBehaviour
                 break;
         }
     }
-
-
 
     public int nextTurnStart;
 
@@ -322,35 +317,7 @@ public class BattleTrackManager : MonoBehaviour
 
 
     public float beatTransitionCounter = 0;
-    public void checkForTransition()
-    {
-        //TODO: this function needs to check if its time to trigger a transition or trigger another mix 
-        //after a transition
 
-        beatTransitionCounter++;
-
-        //check the battles phase 
-
-        if (BattleManager.current.battlePhase == "mix1" || BattleManager.current.battlePhase == "mix2")
-        {
-            //so if we're in mix1 or mix2 and 4 * the bars per mixphase is less than or equal to the counter we're gonna go to a transition'
-            if (beatTransitionCounter >= BattleManager.current.barsPerTurn * 4)
-            {
-                //reset the transition counter 
-
-                beatTransitionCounter = 0;
-                //trigger a transition in the battle manager
-
-            }
-        }
-        else
-        {
-            //we're in a transition
-            //so do the same check and then look at what the last battle phase is to see if we need to do a transition
-
-
-        }
-    }
 
     private void Update()
     {

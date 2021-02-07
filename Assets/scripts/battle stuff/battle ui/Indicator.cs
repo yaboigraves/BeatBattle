@@ -8,7 +8,7 @@ public class Indicator : MonoBehaviour
     public float bpm;
     public float moveSpeed;
     // public Transform bars, indicators;
-    bool activated;
+    public bool activated;
     public float beatOfThisNote;
     public Vector3 start;
     public Vector3 end;
@@ -21,9 +21,12 @@ public class Indicator : MonoBehaviour
 
     public SpriteRenderer sprite;
 
-    double finalLerpStatus;
+    public double lerpStatus, finalLerpStatus;
 
     public bool isBar;
+
+
+    double lastDSPTime, deltaDSPTime;
 
     private void Awake()
     {
@@ -33,6 +36,7 @@ public class Indicator : MonoBehaviour
     void Start()
     {
 
+        lastDSPTime = AudioSettings.dspTime;
 
         bpm = BattleTrackManager.current.currentBpm;
 
@@ -125,28 +129,48 @@ public class Indicator : MonoBehaviour
     {
         activated = BattleManager.current.battleStarted;
 
-        double lerpStatus = TrackTimeManager.songPositionInBeats / beatOfThisNote;
-        //main travel lerp
-        if (activated && lerpStatus < 1)
+        deltaDSPTime = AudioSettings.dspTime - lastDSPTime;
+
+        if (activated && lerpStatus < beatOfThisNote)
         {
+
+
+            /*
+                so the lerp status is more so going to be like a bucket filling process
+                as time passes the bucket is filled by some amount which varies depending on bpm
+                
+                60bpm 
+                1 beat per second 
+
+                8 beats away  
+
+                0/8 lerp 
+                every second we move 1 unit through the lerp 
+                
+                lerp += deltaTime(audio dsp deltatime not time.delta time) * bps 
+
+            */
+            lerpStatus += (deltaDSPTime * (TrackTimeManager.songBpm / 60));
 
             //TODO: so this cant be dependent on the song position in beats because it can change on the fly now, going to need an alternate way to calculate this/ probably going to need to use dsp time 
             //all the indicators essentially need to speed up while maintaining their same position on a bpm switchup
 
-            transform.position = Vector3.Lerp(start, end, (float)TrackTimeManager.songPositionInBeats / beatOfThisNote) + transform.parent.position;
-        }
-        else if (activated && lerpStatus >= 1)
-        {
-            finalLerpStatus = TrackTimeManager.songPositionInBeats - beatOfThisNote;
-            //so now what we're going to do is lerp for one more unit over one more bar
 
-            transform.position = Vector3.Lerp(end, end - new Vector3(0, end.y + 1, 0), (float)finalLerpStatus) + transform.parent.position;
+
+            transform.position = Vector3.Lerp(start, end, (float)lerpStatus / beatOfThisNote) + transform.parent.position;
         }
+        // else if (activated && lerpStatus >= beatOfThisNote)
+        // {
+        //     finalLerpStatus = TrackTimeManager.songPositionInBeats - beatOfThisNote;
+        //     //so now what we're going to do is lerp for one more unit over one more bar
+
+        //     transform.position = Vector3.Lerp(end, end - new Vector3(0, end.y + 1, 0), (float)finalLerpStatus) + transform.parent.position;
+        // }
 
 
         //once we reach the destination we're just going to lerp to one unit below over one more bar
 
-
+        lastDSPTime = AudioSettings.dspTime;
     }
 
 }

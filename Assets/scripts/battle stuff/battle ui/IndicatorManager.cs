@@ -86,6 +86,7 @@ public class IndicatorManager : MonoBehaviour
     }
 
 
+    //TODO: bugfix this, for some reason the transitions are setting up from the next track
     public void setupQuickMixIndicators(Queue<Track> trackQueue)
     {
         //assumes for now we're always playing the first transition variant
@@ -126,7 +127,7 @@ public class IndicatorManager : MonoBehaviour
 
             if (i < tracks.Length - 1)
             {
-                setupQuickMixTrack(tracks[i].randomTransitionData, numBarsSetup, mixLane);
+                setupQuickMixTrack(tracks[i + 1].randomTransitionData, numBarsSetup, mixLane);
                 //transitions are pretty much always gonna be 4 beats
                 numBarsSetup += tracks[i].randomTransitionData.numBeats;
             }

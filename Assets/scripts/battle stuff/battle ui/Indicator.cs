@@ -26,8 +26,6 @@ public class Indicator : MonoBehaviour
     public bool isBar;
 
 
-    double lastDSPTime, deltaDSPTime;
-
     private void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
@@ -36,7 +34,6 @@ public class Indicator : MonoBehaviour
     void Start()
     {
 
-        lastDSPTime = AudioSettings.dspTime;
 
         bpm = BattleTrackManager.current.currentBpm;
 
@@ -129,7 +126,7 @@ public class Indicator : MonoBehaviour
     {
         activated = BattleManager.current.battleStarted;
 
-        deltaDSPTime = AudioSettings.dspTime - lastDSPTime;
+
 
         if (activated && lerpStatus < beatOfThisNote)
         {
@@ -150,12 +147,11 @@ public class Indicator : MonoBehaviour
                 lerp += deltaTime(audio dsp deltatime not time.delta time) * bps 
 
             */
-            lerpStatus += (deltaDSPTime * (TrackTimeManager.songBpm / 60));
+
+            lerpStatus += (TrackTimeManager.deltaDSPTime * (TrackTimeManager.songBpm / 60));
 
             //TODO: so this cant be dependent on the song position in beats because it can change on the fly now, going to need an alternate way to calculate this/ probably going to need to use dsp time 
             //all the indicators essentially need to speed up while maintaining their same position on a bpm switchup
-
-
 
             transform.position = Vector3.Lerp(start, end, (float)lerpStatus / beatOfThisNote) + transform.parent.position;
         }
@@ -170,7 +166,7 @@ public class Indicator : MonoBehaviour
 
         //once we reach the destination we're just going to lerp to one unit below over one more bar
 
-        lastDSPTime = AudioSettings.dspTime;
+
     }
 
 }

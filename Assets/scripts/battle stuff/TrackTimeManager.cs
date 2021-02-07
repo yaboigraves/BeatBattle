@@ -49,6 +49,9 @@ public static class TrackTimeManager
 
     public static double battleDSPStartTime;
 
+    public static double deltaDSPTime, lastDSPTime;
+
+
     public static void SetTrackData(TrackData track)
     {
         //audioSource.clip = track.trackClip;
@@ -72,6 +75,7 @@ public static class TrackTimeManager
 
     public static void ManualUpdate()
     {
+        deltaDSPTime = AudioSettings.dspTime - lastDSPTime;
         //look at the event queue and see if anything in there needs to be processed
         CheckQueue();
         beatTick();
@@ -122,6 +126,8 @@ public static class TrackTimeManager
                 //BattleTrackManager.current.NextBattlePhase();
             }
         }
+
+        lastDSPTime = AudioSettings.dspTime;
     }
 
 

@@ -148,6 +148,7 @@ public class Indicator : MonoBehaviour
 
             */
 
+
             lerpStatus += (TrackTimeManager.deltaDSPTime * (TrackTimeManager.songBpm / 60));
 
             //TODO: so this cant be dependent on the song position in beats because it can change on the fly now, going to need an alternate way to calculate this/ probably going to need to use dsp time 

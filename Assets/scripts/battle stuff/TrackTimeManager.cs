@@ -86,9 +86,7 @@ public static class TrackTimeManager
         //construct an array of dsptimes from 0 where beats change
         foreach (Track t in trackArray)
         {
-
             //loop numbeats times
-
             for (int i = 0; i < t.randomTrackData.numBeats; i++)
             {
                 //so the time of each beat is i * the seconds per beat
@@ -123,15 +121,24 @@ public static class TrackTimeManager
         if (trackStarted)
         {
             beatTick();
+
             songPosition = (AudioSettings.dspTime - startUpTime - (dspSongTime));
+
+            //so this is going to need to be calculated a little more dynamically now
+            //we're going to need to fill the bucket with delta times essentially, assuming rounding error isnt too bad
+
+            //if this can be accurate constantly we're good
+
+            //TODO: recalcualte this to be dynamic depending on bpm
             songPositionInBeats = (songPosition / secPerBeat);
+
+
             BattleUIManager.current.UpdateMetronome(((Mathf.FloorToInt((float)songPositionInBeats)) % 4), false);
         }
 
         //this i think is deprecated, can probably get removed
         if (doingWait)
         {
-
             MoveIndicatorContainerForWait();
         }
 

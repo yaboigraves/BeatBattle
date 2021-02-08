@@ -252,6 +252,7 @@ public class BattleTrackManager : MonoBehaviour
         }
 
         IndicatorManager.current.setupQuickMixIndicators(trackQueue);
+        Debug.Log(TrackTimeManager.CalculateTrackBeatTimeLine(trackQueue));
     }
 
 

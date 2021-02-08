@@ -2209,7 +2209,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 262207967}
-  m_LocalRotation: {x: 0.1305802, y: 0.19704592, z: -0.026490625, w: 0.9712981}
+  m_LocalRotation: {x: 0.1305721, y: 0.19734327, z: -0.026530603, w: 0.9712377}
   m_LocalPosition: {x: -19.29, y: 0.30999994, z: -25.03}
   m_LocalScale: {x: 1.0000001, y: 1, z: 1}
   m_Children: []
@@ -6410,7 +6410,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 708335400}
-  m_LocalRotation: {x: 0.1305802, y: 0.19704592, z: -0.026490625, w: 0.9712981}
+  m_LocalRotation: {x: 0.1305721, y: 0.19734327, z: -0.026530603, w: 0.9712377}
   m_LocalPosition: {x: -19.29, y: 0.30999994, z: -25.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -15578,6 +15578,7 @@ MonoBehaviour:
   playerTracks: []
   testPlayerTracks:
   - {fileID: 11400000, guid: 3644dac3d4b580e4f86dd4dc39166b8b, type: 2}
+  - {fileID: 11400000, guid: 14473328dd14f08409c92c3a22f0dc83, type: 2}
   testEnemyTracks:
   - {fileID: 0}
   metronomeAudio: 0
@@ -15585,7 +15586,6 @@ MonoBehaviour:
   playerSelectedTrack: {fileID: 0}
   countInBeats: 4
   nextTurnStart: 0
-  beatTransitionCounter: 0
 --- !u!82 &1831675819
 AudioSource:
   m_ObjectHideFlags: 0

@@ -154,7 +154,7 @@ public class BattleTrackManager : MonoBehaviour
                 //so the bpm could switchup here, set the bpm to the next tracks transitions bpm
 
                 //TODO: this probably needs to be scheduled
-                TrackTimeManager.SetTrackData(nextTrack.randomTransitionData);
+                //TrackTimeManager.SetTrackData(nextTrack.randomTransitionData);
 
                 //so we're in the transition now, need to queue up mix2's audio to play
                 nextPhaseTime = nextTrack.randomTransitionData.numBeats * (60 / currentTrack.randomTransitionData.bpm);
@@ -252,6 +252,7 @@ public class BattleTrackManager : MonoBehaviour
         }
 
         IndicatorManager.current.setupQuickMixIndicators(trackQueue);
+        Debug.Log(TrackTimeManager.CalculateTrackBeatTimeLine(trackQueue));
     }
 
 

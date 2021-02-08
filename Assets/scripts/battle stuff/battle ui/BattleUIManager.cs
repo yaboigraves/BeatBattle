@@ -135,7 +135,7 @@ public class BattleUIManager : MonoBehaviour
 
     public void UpdateMetronome(int currentBeat, bool playAudio)
     {
-        metronomeText.text = (currentBeat + 1).ToString();
+        metronomeText.text = Mathf.Floor((float)TrackTimeManager.songPositionInBeats).ToString();
         if (playAudio)
         {
             audioSource.clip = metronomeCounts[currentBeat];

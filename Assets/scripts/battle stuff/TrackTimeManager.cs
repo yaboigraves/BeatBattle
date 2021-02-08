@@ -5,9 +5,15 @@ using UnityEngine;
 
 //TODO:
 /*
-   holy fuck this needs to get refactored lol
+    so a better way to manage beat ticks would be to preplan out a list of times when the beat switches
+    essentially mark each point that a new beat comes 
+    during each phase we can track the beat by measuring the last positions time difference to the next marked position
 
-   alot of cobweb code thats all its pretty functional could just be waaaaay cleaner
+    -this array would need to be constructed when the track queue is constructed
+    -essentially as long as we know the bpm info we know exactly when stuff should be triggered
+    this will make bpm measurements easier too, and bpm switchups should work fine?
+    we'll see...
+
 */
 
 
@@ -51,6 +57,11 @@ public static class TrackTimeManager
 
     public static double deltaDSPTime, lastDSPTime;
 
+    public static double[] beatTimeLine;
+
+    public static int nextBeatIndex = 1;
+
+
 
     public static void SetTrackData(TrackData track)
     {
@@ -63,6 +74,33 @@ public static class TrackTimeManager
     public static void setBeatsBeforeNextPhase(int beats)
     {
         beatsBeforeNextPhase = beats;
+    }
+
+    public static double[] CalculateTrackBeatTimeLine(Queue<Track> trackQueue)
+    {
+        List<double> beatTimeLine = new List<double>();
+
+        int numBeats = 0;
+
+        Track[] trackArray = trackQueue.ToArray();
+        //construct an array of dsptimes from 0 where beats change
+        foreach (Track t in trackArray)
+        {
+
+            //loop numbeats times
+
+            for (int i = 0; i < t.randomTrackData.numBeats; i++)
+            {
+                //so the time of each beat is i * the seconds per beat
+                beatTimeLine.Add(numBeats + (i * (60 / t.randomTrackData.bpm)));
+            }
+
+            numBeats += t.randomTrackData.numBeats;
+        }
+
+
+        TrackTimeManager.beatTimeLine = beatTimeLine.ToArray();
+        return beatTimeLine.ToArray();
     }
 
 
@@ -78,12 +116,13 @@ public static class TrackTimeManager
         deltaDSPTime = AudioSettings.dspTime - lastDSPTime;
         //look at the event queue and see if anything in there needs to be processed
         CheckQueue();
-        beatTick();
+
         debugDSPTIME = (float)AudioSettings.dspTime;
 
 
         if (trackStarted)
         {
+            beatTick();
             songPosition = (AudioSettings.dspTime - startUpTime - (dspSongTime));
             songPositionInBeats = (songPosition / secPerBeat);
             BattleUIManager.current.UpdateMetronome(((Mathf.FloorToInt((float)songPositionInBeats)) % 4), false);
@@ -127,7 +166,13 @@ public static class TrackTimeManager
     //TODO: rewrite this to work more closely with audioSettings dsp time
     public static void beatTick()
     {
-        if (lastTick + 1 < songPositionInBeats)
+        if (nextBeatIndex >= beatTimeLine.Length)
+        {
+            return;
+        }
+
+
+        if (AudioSettings.dspTime > battleDSPStartTime + beatTimeLine[nextBeatIndex])
         {
             //call all the stuff we need to call for a beattick 
             BattleManager.current.VibeUpdate();
@@ -147,7 +192,8 @@ public static class TrackTimeManager
 
             }
 
-            lastTick = songPositionInBeats;
+            // lastTick = songPositionInBeats;
+            nextBeatIndex++;
 
 
             //spawn a bar

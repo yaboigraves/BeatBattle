@@ -63,6 +63,7 @@ public static class TrackTimeManager
 
 
 
+
     public static void SetTrackData(TrackData track)
     {
         //audioSource.clip = track.trackClip;
@@ -78,6 +79,7 @@ public static class TrackTimeManager
         beatsBeforeNextPhase = beats;
     }
 
+    //TODO: this doesnt factor in transitions at all, causing a bunch of problems. fix 
     public static double[] CalculateTrackBeatTimeLine(Queue<Track> trackQueue)
     {
         List<double> beatTimeLine = new List<double>();
@@ -139,9 +141,18 @@ public static class TrackTimeManager
 
             //we can use the beatTimeLine for this 
 
+            //last whole beat + percentage we are through the current beat
+            //convert the seconds from the last wholebeat into beats
 
-            songPositionInBeats = (songPosition / secPerBeat);
+            int lastWholebeat = nextBeatIndex - 1;
 
+            double lastBeatTime = AudioSettings.dspTime - beatTimeLine[lastWholebeat];
+            double nextBeatTime = lastBeatTime + beatTimeLine[nextBeatIndex];
+
+            double beatPercentage = (AudioSettings.dspTime - lastBeatTime) / nextBeatTime;
+
+            songPositionInBeats = lastWholebeat + beatPercentage;
+            //Debug.Log(songPositionInBeats);
 
         }
 
@@ -197,7 +208,7 @@ public static class TrackTimeManager
             BattleManager.current.VibeUpdate();
             BattleManager.current.UpdateGearPipeline();
 
-            BattleUIManager.current.UpdateMetronome(((Mathf.FloorToInt((float)songPositionInBeats)) % 4), false);
+            BattleUIManager.current.UpdateMetronome(((Mathf.FloorToInt((float)songPositionInBeats))), false);
 
 
             if (BattleManager.current.battleType == BattleManager.BattleType.quickMix)
@@ -215,6 +226,7 @@ public static class TrackTimeManager
             }
 
             nextBeatIndex++;
+
 
             Debug.Log("beat tick, next beat shoould be " + (startUpTime + beatTimeLine[nextBeatIndex]));
 

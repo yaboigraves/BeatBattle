@@ -68,7 +68,9 @@ public static class TrackTimeManager
         //audioSource.clip = track.trackClip;
         songBpm = track.bpm;
         secPerBeat = 60f / songBpm;
-        dspSongTime = AudioSettings.dspTime;
+
+        //check this out it may be a cause of alot of fuckups
+        // dspSongTime = AudioSettings.dspTime;
     }
 
     public static void setBeatsBeforeNextPhase(int beats)
@@ -97,7 +99,9 @@ public static class TrackTimeManager
         }
 
 
+
         TrackTimeManager.beatTimeLine = beatTimeLine.ToArray();
+
         return beatTimeLine.ToArray();
     }
 
@@ -121,8 +125,10 @@ public static class TrackTimeManager
         if (trackStarted)
         {
             beatTick();
-
             songPosition = (AudioSettings.dspTime - startUpTime - (dspSongTime));
+
+
+
 
             //so this is going to need to be calculated a little more dynamically now
             //we're going to need to fill the bucket with delta times essentially, assuming rounding error isnt too bad
@@ -130,10 +136,13 @@ public static class TrackTimeManager
             //if this can be accurate constantly we're good
 
             //TODO: recalcualte this to be dynamic depending on bpm
+
+            //we can use the beatTimeLine for this 
+
+
             songPositionInBeats = (songPosition / secPerBeat);
 
 
-            BattleUIManager.current.UpdateMetronome(((Mathf.FloorToInt((float)songPositionInBeats)) % 4), false);
         }
 
         //this i think is deprecated, can probably get removed
@@ -167,7 +176,7 @@ public static class TrackTimeManager
     }
 
 
-    static double lastTick = 0;
+
 
 
     //TODO: rewrite this to work more closely with audioSettings dsp time
@@ -179,11 +188,17 @@ public static class TrackTimeManager
         }
 
 
-        if (AudioSettings.dspTime > battleDSPStartTime + beatTimeLine[nextBeatIndex])
+
+        if (AudioSettings.dspTime > startUpTime + beatTimeLine[nextBeatIndex])
         {
+
+
             //call all the stuff we need to call for a beattick 
             BattleManager.current.VibeUpdate();
             BattleManager.current.UpdateGearPipeline();
+
+            BattleUIManager.current.UpdateMetronome(((Mathf.FloorToInt((float)songPositionInBeats)) % 4), false);
+
 
             if (BattleManager.current.battleType == BattleManager.BattleType.quickMix)
             {
@@ -199,8 +214,9 @@ public static class TrackTimeManager
 
             }
 
-            // lastTick = songPositionInBeats;
             nextBeatIndex++;
+
+            Debug.Log("beat tick, next beat shoould be " + (startUpTime + beatTimeLine[nextBeatIndex]));
 
 
             //spawn a bar
@@ -279,6 +295,7 @@ public static class TrackTimeManager
 
         //tell the track manager to play the current mix
         trackStarted = true;
+        dspSongTime = AudioSettings.dspTime; dspSongTime = AudioSettings.dspTime;
 
     }
 
@@ -329,7 +346,10 @@ public static class TrackTimeManager
 
             if (nextEvent.eventName == "bpmSwitch")
             {
+                Debug.Log("SWAPPING BPM");
+                // Debug.Break();
                 SetTrackData(BattleTrackManager.current.nextTrack.randomTrackData);
+
             }
         }
     }

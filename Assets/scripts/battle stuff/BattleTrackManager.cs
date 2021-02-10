@@ -233,7 +233,7 @@ public class BattleTrackManager : MonoBehaviour
     public int nextTurnStart;
 
     //this is for setting the battle track for the longmix mode
-
+    public double[] beatTimesArray;
     public void setupQuickMix()
     {
         //ok so we need some way of indicating in each track which transition and which track are going to be played
@@ -253,7 +253,7 @@ public class BattleTrackManager : MonoBehaviour
         }
 
         IndicatorManager.current.setupQuickMixIndicators(trackQueue);
-        Debug.Log(TrackTimeManager.CalculateTrackBeatTimeLine(trackQueue));
+        beatTimesArray = TrackTimeManager.CalculateTrackBeatTimeLine(trackQueue);
     }
 
 

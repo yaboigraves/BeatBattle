@@ -61,9 +61,6 @@ public static class TrackTimeManager
 
     public static int nextBeatIndex = 1;
 
-
-
-
     public static void SetTrackData(TrackData track)
     {
         //audioSource.clip = track.trackClip;
@@ -79,7 +76,6 @@ public static class TrackTimeManager
         beatsBeforeNextPhase = beats;
     }
 
-    //TODO: this doesnt factor in transitions at all, causing a bunch of problems. fix 
     public static double[] CalculateTrackBeatTimeLine(Queue<Track> trackQueue)
     {
         List<double> beatTimeLine = new List<double>();
@@ -87,17 +83,42 @@ public static class TrackTimeManager
         int numBeats = 0;
 
         Track[] trackArray = trackQueue.ToArray();
-        //construct an array of dsptimes from 0 where beats change
+
+
+        double beatTime = 0;
+        beatTimeLine.Add(beatTime);
+
+        //instead of using i as a marker for where the beat should be use time 
         foreach (Track t in trackArray)
         {
-            //loop numbeats times
             for (int i = 0; i < t.randomTrackData.numBeats; i++)
             {
+
+                // double offsetTime = numBeats * (60 / t.randomTrackData.bpm);
                 //so the time of each beat is i * the seconds per beat
-                beatTimeLine.Add(numBeats + (i * (60 / t.randomTrackData.bpm)));
+                // beatTimeLine.Add(offsetTime + ( * (60 / t.randomTrackData.bpm)));
+
+                double timePerBeat = 60 / t.randomTrackData.bpm;
+                beatTimeLine.Add(beatTime + timePerBeat);
+
+                beatTime += timePerBeat;
+
             }
 
-            numBeats += t.randomTrackData.numBeats;
+
+            //loop through the transition
+            for (int i = 0; i < t.randomTransitionData.numBeats; i++)
+            {
+                // double offsetTime = numBeats * (60 / t.randomTransitionData.bpm);
+
+                // beatTimeLine.Add(offsetTime + (i * (60 / t.randomTransitionData.bpm)));
+
+                double timePerBeat = 60 / t.randomTransitionData.bpm;
+                beatTimeLine.Add(beatTime + timePerBeat);
+                beatTime += timePerBeat;
+            }
+            // numBeats += t.randomTransitionData.numBeats;
+
         }
 
 

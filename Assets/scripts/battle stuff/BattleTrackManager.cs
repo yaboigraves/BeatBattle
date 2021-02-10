@@ -159,7 +159,7 @@ public class BattleTrackManager : MonoBehaviour
                 //so we're in the transition now, need to queue up mix2's audio to play
                 nextPhaseTime = nextTrack.randomTransitionData.numBeats * (60 / currentTrack.randomTransitionData.bpm);
                 TrackTimeManager.AddEvent("nextPhase", nextPhaseTime);
-                TrackTimeManager.AddEvent("bpmSwitch", nextPhaseTime);
+                // TrackTimeManager.AddEvent("bpmSwitch", nextPhaseTime);
 
                 mix2AudioSource.PlayScheduled((AudioSettings.dspTime) + nextPhaseTime);
                 mix2AudioSource.SetScheduledEndTime((AudioSettings.dspTime) + nextPhaseTime + mix2AudioSource.clip.length);
@@ -176,7 +176,7 @@ public class BattleTrackManager : MonoBehaviour
 
                 nextPhaseTime = nextTrack.randomTransitionData.numBeats * (60 / currentTrack.randomTransitionData.bpm);
                 TrackTimeManager.AddEvent("nextPhase", nextPhaseTime);
-                TrackTimeManager.AddEvent("bpmSwitch", nextPhaseTime);
+                // TrackTimeManager.AddEvent("bpmSwitch", nextPhaseTime);
 
                 mix1AudioSource.PlayScheduled((AudioSettings.dspTime) + nextPhaseTime);
                 mix1AudioSource.SetScheduledEndTime(AudioSettings.dspTime + nextPhaseTime + mix1AudioSource.clip.length);
@@ -217,6 +217,7 @@ public class BattleTrackManager : MonoBehaviour
 
                 nextPhaseTime = currentTrack.randomTrackData.numBeats * (60 / currentTrack.randomTrackData.bpm);
                 TrackTimeManager.AddEvent("nextPhase", nextPhaseTime);
+                TrackTimeManager.AddEvent("bpmSwitch", nextPhaseTime);
 
                 //load the audio source for the next transition
                 transitionAudioSource.clip = nextTrack.randomTransitionData.trackClip;
@@ -232,7 +233,7 @@ public class BattleTrackManager : MonoBehaviour
     public int nextTurnStart;
 
     //this is for setting the battle track for the longmix mode
-
+    public double[] beatTimesArray;
     public void setupQuickMix()
     {
         //ok so we need some way of indicating in each track which transition and which track are going to be played
@@ -252,7 +253,7 @@ public class BattleTrackManager : MonoBehaviour
         }
 
         IndicatorManager.current.setupQuickMixIndicators(trackQueue);
-        Debug.Log(TrackTimeManager.CalculateTrackBeatTimeLine(trackQueue));
+        beatTimesArray = TrackTimeManager.CalculateTrackBeatTimeLine(trackQueue);
     }
 
 

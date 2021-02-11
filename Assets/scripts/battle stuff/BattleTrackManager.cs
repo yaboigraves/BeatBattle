@@ -157,7 +157,10 @@ public class BattleTrackManager : MonoBehaviour
                 //TrackTimeManager.SetTrackData(nextTrack.randomTransitionData);
 
                 //so we're in the transition now, need to queue up mix2's audio to play
-                nextPhaseTime = nextTrack.randomTransitionData.numBeats * (60 / currentTrack.randomTransitionData.bpm);
+                //nextPhaseTime = nextTrack.randomTransitionData.numBeats * (60 / currentTrack.randomTransitionData.bpm);
+                nextPhaseTime = nextTrack.randomTransitionData.trackClip.length;
+
+
                 TrackTimeManager.AddEvent("nextPhase", nextPhaseTime);
                 // TrackTimeManager.AddEvent("bpmSwitch", nextPhaseTime);
 
@@ -174,7 +177,10 @@ public class BattleTrackManager : MonoBehaviour
                 //so the bpm could switchup here, set the bpm to the next tracks transitions bpm
                 //TrackTimeManager.SetTrackData(nextTrack.randomTransitionData);
 
-                nextPhaseTime = nextTrack.randomTransitionData.numBeats * (60 / currentTrack.randomTransitionData.bpm);
+                //nextPhaseTime = nextTrack.randomTransitionData.numBeats * (60 / currentTrack.randomTransitionData.bpm);
+                nextPhaseTime = nextTrack.randomTransitionData.trackClip.length;
+
+
                 TrackTimeManager.AddEvent("nextPhase", nextPhaseTime);
                 // TrackTimeManager.AddEvent("bpmSwitch", nextPhaseTime);
 
@@ -215,7 +221,11 @@ public class BattleTrackManager : MonoBehaviour
                     mix2AudioSource.clip = nextTrack.randomTrackData.trackClip;
                 }
 
-                nextPhaseTime = currentTrack.randomTrackData.numBeats * (60 / currentTrack.randomTrackData.bpm);
+                //nextPhaseTime = currentTrack.randomTrackData.numBeats * (60 / currentTrack.randomTrackData.bpm);
+
+                //experimenting with using length instead
+                nextPhaseTime = currentTrack.randomTrackData.trackClip.length;
+
                 TrackTimeManager.AddEvent("nextPhase", nextPhaseTime);
                 TrackTimeManager.AddEvent("bpmSwitch", nextPhaseTime);
 

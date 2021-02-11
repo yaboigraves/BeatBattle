@@ -102,15 +102,12 @@ public static class TrackTimeManager
                 beatTimeLine.Add(beatTime + timePerBeat);
 
                 beatTime += timePerBeat;
-
             }
-
 
             //loop through the transition
             for (int i = 0; i < t.randomTransitionData.numBeats; i++)
             {
                 // double offsetTime = numBeats * (60 / t.randomTransitionData.bpm);
-
                 // beatTimeLine.Add(offsetTime + (i * (60 / t.randomTransitionData.bpm)));
 
                 double timePerBeat = 60 / t.randomTransitionData.bpm;
@@ -118,23 +115,14 @@ public static class TrackTimeManager
                 beatTime += timePerBeat;
             }
             // numBeats += t.randomTransitionData.numBeats;
-
         }
 
-
-
         TrackTimeManager.beatTimeLine = beatTimeLine.ToArray();
-
         return beatTimeLine.ToArray();
     }
 
-
-
     public static double startUpTime;
-
     public static float currentTurnStartBeat = 0;
-
-
 
     public static void ManualUpdate()
     {
@@ -149,9 +137,6 @@ public static class TrackTimeManager
         {
             beatTick();
             songPosition = (AudioSettings.dspTime - startUpTime - (dspSongTime));
-
-
-
 
             //so this is going to need to be calculated a little more dynamically now
             //we're going to need to fill the bucket with delta times essentially, assuming rounding error isnt too bad
@@ -379,9 +364,9 @@ public static class TrackTimeManager
 
             if (nextEvent.eventName == "bpmSwitch")
             {
-                Debug.Log("SWAPPING BPM");
-                // Debug.Break();
-                SetTrackData(BattleTrackManager.current.nextTrack.randomTrackData);
+                Debug.Log("SWAPPING BPM to " + BattleTrackManager.current.nextTrack.randomTransitionData.bpm);
+                Debug.Break();
+                SetTrackData(BattleTrackManager.current.nextTrack.randomTransitionData);
 
             }
         }

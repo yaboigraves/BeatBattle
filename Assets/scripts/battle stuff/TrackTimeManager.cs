@@ -2,25 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-//TODO:
-/*
-    so a better way to manage beat ticks would be to preplan out a list of times when the beat switches
-    essentially mark each point that a new beat comes 
-    during each phase we can track the beat by measuring the last positions time difference to the next marked position
-
-    -this array would need to be constructed when the track queue is constructed
-    -essentially as long as we know the bpm info we know exactly when stuff should be triggered
-    this will make bpm measurements easier too, and bpm switchups should work fine?
-    we'll see...
-
-*/
-
-
-
 public static class TrackTimeManager
 {
-
     // public static TrackTimeManager current;
     //Song beats per minute
     //This is determined by the song you're trying to sync up to
@@ -43,13 +26,9 @@ public static class TrackTimeManager
 
     public static float debugDSPTIME;
 
-    public static float currentPlayerBars;
-
     public static bool trackStarted = false;
 
     public static bool countingIn = false;
-
-    public static float turnBeatCounter;
 
     public static int beatsBeforeNextPhase;
 
@@ -71,16 +50,9 @@ public static class TrackTimeManager
         // dspSongTime = AudioSettings.dspTime;
     }
 
-    public static void setBeatsBeforeNextPhase(int beats)
-    {
-        beatsBeforeNextPhase = beats;
-    }
-
     public static double[] CalculateTrackBeatTimeLine(Queue<Track> trackQueue)
     {
         List<double> beatTimeLine = new List<double>();
-
-        int numBeats = 0;
 
         Track[] trackArray = trackQueue.ToArray();
 
@@ -122,7 +94,6 @@ public static class TrackTimeManager
     }
 
     public static double startUpTime;
-    public static float currentTurnStartBeat = 0;
 
     public static double songBeatMarker;
 
@@ -130,8 +101,6 @@ public static class TrackTimeManager
     {
         songBeatMarker += newBeats;
     }
-
-    public static double lastTrackEndTime;
 
     public static void ManualUpdate()
     {
@@ -141,45 +110,10 @@ public static class TrackTimeManager
 
         debugDSPTIME = (float)AudioSettings.dspTime;
 
-
         if (trackStarted)
         {
             beatTick();
             songPosition = (AudioSettings.dspTime - startUpTime - (dspSongTime));
-
-            //so this is going to need to be calculated a little more dynamically now
-            //we're going to need to fill the bucket with delta times essentially, assuming rounding error isnt too bad
-
-            //if this can be accurate constantly we're good
-
-            //TODO: recalcualte this to be dynamic depending on bpm
-
-            //we can use the beatTimeLine for this 
-
-            //last whole beat + percentage we are through the current beat
-            //convert the seconds from the last wholebeat into beats
-
-            // int lastWholebeat = nextBeatIndex - 1;
-
-            // double lastBeatTime = AudioSettings.dspTime - beatTimeLine[lastWholebeat];
-            // double nextBeatTime = lastBeatTime + beatTimeLine[nextBeatIndex];
-
-            // double beatPercentage = (AudioSettings.dspTime - lastBeatTime) / nextBeatTime;
-
-            // songPositionInBeats = lastWholebeat + beatPercentage;
-            // Debug.Log(songPositionInBeats);
-
-            //going to experiment with using the position that the audio clip has been played to conduct this
-            //probably better and will scale nicer too
-
-            //going to need to keep an active marker for the last time an audio track was transitioned
-            //^ this is def a cause for desync so keep that in mind
-            //for now going to assume that the whole track played from start to finish
-
-
-            // AudioClip trackclip = BattleTrackManager.current.currentTrack.randomTrackData.trackClip;
-            // double currentTrackTimeElapsed = (double)BattleTrackManager.current.currentAudioSource.time;
-            // songPositionInBeats = (currentTrackTimeElapsed * (60 / BattleTrackManager.current.currentTrack.randomTrackData.bpm));
 
             double currentClipTime = (double)BattleTrackManager.current.currentAudioSource.timeSamples / BattleTrackManager.current.currentAudioSource.clip.frequency;
             //Debug.Log(currentClipTime);
@@ -217,11 +151,7 @@ public static class TrackTimeManager
         lastDSPTime = AudioSettings.dspTime;
     }
 
-
-
-
-
-    //TODO: rewrite this to work more closely with audioSettings dsp time
+    static int lastBeat = -1;
     public static void beatTick()
     {
         if (nextBeatIndex >= beatTimeLine.Length)
@@ -229,25 +159,14 @@ public static class TrackTimeManager
             return;
         }
 
-
-        //so the beat time line is causing desyncs for some reason, probably due to some delay accumulating
-        //going to use the audio time of the current sample instead and do a lookahead
-
-
-
-        if (AudioSettings.dspTime > startUpTime + beatTimeLine[nextBeatIndex])
+        if (songPositionInBeats > lastBeat + 1)
         {
 
-
+            int beat = Mathf.RoundToInt((float)songPositionInBeats);
             //call all the stuff we need to call for a beattick 
             BattleManager.current.VibeUpdate();
             BattleManager.current.UpdateGearPipeline();
-
-            BattleUIManager.current.UpdateMetronome(songPositionInBeats, false);
-
-
-            //BattleUIManager.current.UpdateMetronome(songPositionInBeats, false);
-
+            BattleUIManager.current.UpdateMetronome((beat % 4) + 1, false);
 
             if (BattleManager.current.battleType == BattleManager.BattleType.quickMix)
             {
@@ -265,13 +184,10 @@ public static class TrackTimeManager
 
             nextBeatIndex++;
 
-
-            //Debug.Log("beat tick, next beat shoould be " + (startUpTime + beatTimeLine[nextBeatIndex]));
-
-
-            //spawn a bar
             //IndicatorManager.current.spawnBar((float)songPositionInBeats + IndicatorManager.current.barSpawnPosition);
 
+
+            lastBeat = beat;
         }
     }
 
@@ -316,7 +232,6 @@ public static class TrackTimeManager
     }
 
 
-
     //starts shit but waits 4 beats before resetting all the data back to 0
 
     static double waitTimeOver;
@@ -348,13 +263,6 @@ public static class TrackTimeManager
         trackStarted = true;
         dspSongTime = AudioSettings.dspTime; dspSongTime = AudioSettings.dspTime;
 
-    }
-
-    public static GameObject currIndicatorContainer;
-    static Vector3 indicatorStartPos;
-    public static void setCurrIndicatorContainer(GameObject indiContainer)
-    {
-        currIndicatorContainer = indiContainer;
     }
 
     public static void MoveIndicatorContainerForWait()
@@ -404,11 +312,6 @@ public static class TrackTimeManager
             }
         }
     }
-
-
-
-
-
 }
 
 public class TrackEvent

@@ -19,8 +19,52 @@ MonoBehaviour:
   itemIcon: {fileID: 0}
   trackName: improvise
   trackClip: {fileID: 0}
-  tracks: []
-  trackTransitions: []
+  tracks:
+  - trackClip: {fileID: 8300000, guid: 494df18b186623a4186105abae4b7ba5, type: 3}
+    kickBeats:
+    - 0
+    - 2.5000004249999996
+    - 4.00000068
+    - 4.500000765
+    - 6.500001105
+    - 8.00000136
+    - 10.500001785
+    - 12.00000204
+    - 12.500002125
+    - 14.500002465000001
+    - 16.00000272
+    - 18.500003144999997
+    - 20.000003399999997
+    - 20.500003485
+    - 22.500003825
+    snareBeats:
+    - 1.00000017
+    - 3.00000051
+    - 5.000000849999999
+    - 7.00000119
+    - 9.00000153
+    - 11.00000187
+    - 13.00000221
+    - 15.00000255
+    - 17.00000289
+    - 19.00000323
+    - 21.00000357
+    - 23.00000391
+    hatBeats: []
+    percBeats: []
+    bpm: 102.7
+    numBeats: 24
+  trackTransitions:
+  - trackClip: {fileID: 8300000, guid: b9c0fd5be52f4b54fa7cac00b0ac08a9, type: 3}
+    kickBeats:
+    - 0
+    - 0.9999994999999999
+    - 2.9999985
+    snareBeats: []
+    hatBeats: []
+    percBeats: []
+    bpm: 102.7
+    numBeats: 4
   artist: 
   oldBPM: 0
   numBars: 0

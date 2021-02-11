@@ -9830,7 +9830,7 @@ MonoBehaviour:
   vibe: 0
   barsPerTurn: 2
   barsPerTransition: 1
-  numQuickMixTracks: 4
+  numQuickMixTracks: 8
   fuckupSounds:
   - {fileID: 8300000, guid: 6a88a177f83e5fe468499a5525650d18, type: 3}
   - {fileID: 8300000, guid: b93208eda0fd0db4f86dc65c9f60a37f, type: 3}
@@ -15578,6 +15578,7 @@ MonoBehaviour:
   playerTracks: []
   testPlayerTracks:
   - {fileID: 11400000, guid: 14473328dd14f08409c92c3a22f0dc83, type: 2}
+  - {fileID: 11400000, guid: 3644dac3d4b580e4f86dd4dc39166b8b, type: 2}
   testEnemyTracks:
   - {fileID: 0}
   metronomeAudio: 0

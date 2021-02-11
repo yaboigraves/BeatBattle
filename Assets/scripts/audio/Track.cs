@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+
 [CreateAssetMenu(fileName = "New Track", menuName = "Tracks/Track")]
 
-[Serializable]
+[System.Serializable]
 public class Track : GameItem
 {
 
@@ -114,6 +115,8 @@ public class Track : GameItem
         }
 
 
+
+        UnityEditor.EditorUtility.SetDirty(this);
     }
     public float parseBPM(string fileName)
     {

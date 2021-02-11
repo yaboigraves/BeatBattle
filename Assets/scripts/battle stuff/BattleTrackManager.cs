@@ -33,6 +33,8 @@ public class BattleTrackManager : MonoBehaviour
 
     public Queue<Track> trackQueue = new Queue<Track>();
 
+    public AudioSource currentAudioSource;
+
 
 
     private void Awake()
@@ -104,6 +106,7 @@ public class BattleTrackManager : MonoBehaviour
         mix1AudioSource.PlayScheduled(startTime);
         mix1AudioSource.SetScheduledEndTime(startTime + mix1AudioSource.clip.length);
 
+        currentAudioSource = mix1AudioSource;
         //transitionAudioSource.PlayScheduled(AudioSettings.dspTime + (32 * (60d / currentTrack.randomTrackData.bpm)));
         //mix2AudioSource.PlayScheduled(AudioSettings.dspTime + (36 * (60d / currentTrack.randomTrackData.bpm)));
 
@@ -148,6 +151,7 @@ public class BattleTrackManager : MonoBehaviour
             //MIX1 MOVING INTO TRANSITION
             case "mix1":
                 Debug.Log("NEXT PHASE : MIX1 -> TRANSITION");
+                TrackTimeManager.setBeatMarker(currentTrack.randomTrackData.numBeats);
                 //Debug.Break();
                 //transition started, going into mix2 next
                 BattleManager.current.SetBattlePhase("transition");
@@ -166,11 +170,15 @@ public class BattleTrackManager : MonoBehaviour
 
                 mix2AudioSource.PlayScheduled((AudioSettings.dspTime) + nextPhaseTime);
                 mix2AudioSource.SetScheduledEndTime((AudioSettings.dspTime) + nextPhaseTime + mix2AudioSource.clip.length);
+
+                currentAudioSource = transitionAudioSource;
                 break;
 
             //MIX2 MOVING INTO TRANSITION 
             case "mix2":
                 Debug.Log("NEXT PHASE : MIX1 -> TRANSITION");
+
+                TrackTimeManager.setBeatMarker(currentTrack.randomTrackData.numBeats);
 
                 BattleManager.current.SetBattlePhase("transition");
 
@@ -186,12 +194,19 @@ public class BattleTrackManager : MonoBehaviour
 
                 mix1AudioSource.PlayScheduled((AudioSettings.dspTime) + nextPhaseTime);
                 mix1AudioSource.SetScheduledEndTime(AudioSettings.dspTime + nextPhaseTime + mix1AudioSource.clip.length);
+
+                currentAudioSource = transitionAudioSource;
+
+
                 break;
 
 
             //TRANSITION MOVING INTO MIX1 OR MIX2
             case "transition":
+                TrackTimeManager.setBeatMarker(currentTrack.randomTransitionData.numBeats);
+
                 currentTrack = trackQueue.Dequeue();
+
 
                 //update the bpm
                 //TrackTimeManager.SetTrackData(currentTrack.randomTrackData);
@@ -211,6 +226,8 @@ public class BattleTrackManager : MonoBehaviour
 
                     BattleManager.current.SetBattlePhase("mix2");
                     mix1AudioSource.clip = nextTrack.randomTrackData.trackClip;
+
+                    currentAudioSource = mix2AudioSource;
                 }
                 else if (BattleManager.current.lastMix == "mix2")
                 {
@@ -219,7 +236,10 @@ public class BattleTrackManager : MonoBehaviour
 
                     BattleManager.current.SetBattlePhase("mix1");
                     mix2AudioSource.clip = nextTrack.randomTrackData.trackClip;
+
+                    currentAudioSource = mix1AudioSource;
                 }
+
 
                 //nextPhaseTime = currentTrack.randomTrackData.numBeats * (60 / currentTrack.randomTrackData.bpm);
 

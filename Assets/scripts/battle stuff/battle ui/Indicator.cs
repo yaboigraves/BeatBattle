@@ -147,14 +147,15 @@ public class Indicator : MonoBehaviour
                 lerp += deltaTime(audio dsp deltatime not time.delta time) * bps 
 
             */
+            //rewrite this using songposition in beats
 
-
-            lerpStatus += (TrackTimeManager.deltaDSPTime * (TrackTimeManager.songBpm / 60));
+            // lerpStatus += (TrackTimeManager.deltaDSPTime * (TrackTimeManager.songBpm / 60));
+            lerpStatus = TrackTimeManager.songPositionInBeats / beatOfThisNote;
 
             //TODO: so this cant be dependent on the song position in beats because it can change on the fly now, going to need an alternate way to calculate this/ probably going to need to use dsp time 
             //all the indicators essentially need to speed up while maintaining their same position on a bpm switchup
 
-            transform.position = Vector3.Lerp(start, end, (float)lerpStatus / beatOfThisNote) + transform.parent.position;
+            transform.position = Vector3.Lerp(start, end, (float)lerpStatus) + transform.parent.position;
         }
         // else if (activated && lerpStatus >= beatOfThisNote)
         // {

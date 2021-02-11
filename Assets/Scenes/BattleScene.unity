@@ -9830,7 +9830,7 @@ MonoBehaviour:
   vibe: 0
   barsPerTurn: 2
   barsPerTransition: 1
-  numQuickMixTracks: 4
+  numQuickMixTracks: 8
   fuckupSounds:
   - {fileID: 8300000, guid: 6a88a177f83e5fe468499a5525650d18, type: 3}
   - {fileID: 8300000, guid: b93208eda0fd0db4f86dc65c9f60a37f, type: 3}
@@ -12356,7 +12356,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1379790092}
-  m_LocalRotation: {x: -0.011349483, y: 0.68889034, z: 0.010788723, w: 0.7246964}
+  m_LocalRotation: {x: 0.10233198, y: 0.39868847, z: -0.04482097, w: 0.91025645}
   m_LocalPosition: {x: -19.29, y: 0.30999994, z: -25.03}
   m_LocalScale: {x: 0.9999999, y: 1, z: 1}
   m_Children:

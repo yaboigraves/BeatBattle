@@ -124,6 +124,15 @@ public static class TrackTimeManager
     public static double startUpTime;
     public static float currentTurnStartBeat = 0;
 
+    public static double songBeatMarker;
+
+    public static void setBeatMarker(int newBeats)
+    {
+        songBeatMarker += newBeats;
+    }
+
+    public static double lastTrackEndTime;
+
     public static void ManualUpdate()
     {
         deltaDSPTime = AudioSettings.dspTime - lastDSPTime;
@@ -150,16 +159,32 @@ public static class TrackTimeManager
             //last whole beat + percentage we are through the current beat
             //convert the seconds from the last wholebeat into beats
 
-            int lastWholebeat = nextBeatIndex - 1;
+            // int lastWholebeat = nextBeatIndex - 1;
 
-            double lastBeatTime = AudioSettings.dspTime - beatTimeLine[lastWholebeat];
-            double nextBeatTime = lastBeatTime + beatTimeLine[nextBeatIndex];
+            // double lastBeatTime = AudioSettings.dspTime - beatTimeLine[lastWholebeat];
+            // double nextBeatTime = lastBeatTime + beatTimeLine[nextBeatIndex];
 
-            double beatPercentage = (AudioSettings.dspTime - lastBeatTime) / nextBeatTime;
+            // double beatPercentage = (AudioSettings.dspTime - lastBeatTime) / nextBeatTime;
 
-            songPositionInBeats = lastWholebeat + beatPercentage;
-            //Debug.Log(songPositionInBeats);
+            // songPositionInBeats = lastWholebeat + beatPercentage;
+            // Debug.Log(songPositionInBeats);
 
+            //going to experiment with using the position that the audio clip has been played to conduct this
+            //probably better and will scale nicer too
+
+            //going to need to keep an active marker for the last time an audio track was transitioned
+            //^ this is def a cause for desync so keep that in mind
+            //for now going to assume that the whole track played from start to finish
+
+
+            // AudioClip trackclip = BattleTrackManager.current.currentTrack.randomTrackData.trackClip;
+            // double currentTrackTimeElapsed = (double)BattleTrackManager.current.currentAudioSource.time;
+            // songPositionInBeats = (currentTrackTimeElapsed * (60 / BattleTrackManager.current.currentTrack.randomTrackData.bpm));
+
+            double currentClipTime = (double)BattleTrackManager.current.currentAudioSource.timeSamples / BattleTrackManager.current.currentAudioSource.clip.frequency;
+            //Debug.Log(currentClipTime);
+            songPositionInBeats = (songBeatMarker - 4) + (currentClipTime * (songBpm / 60d));
+            //BattleUIManager.current.UpdateMetronome(songPositionInBeats, false);
         }
 
         //this i think is deprecated, can probably get removed
@@ -205,6 +230,10 @@ public static class TrackTimeManager
         }
 
 
+        //so the beat time line is causing desyncs for some reason, probably due to some delay accumulating
+        //going to use the audio time of the current sample instead and do a lookahead
+
+
 
         if (AudioSettings.dspTime > startUpTime + beatTimeLine[nextBeatIndex])
         {
@@ -214,7 +243,10 @@ public static class TrackTimeManager
             BattleManager.current.VibeUpdate();
             BattleManager.current.UpdateGearPipeline();
 
-            BattleUIManager.current.UpdateMetronome(((Mathf.FloorToInt((float)songPositionInBeats))), false);
+            BattleUIManager.current.UpdateMetronome(songPositionInBeats, false);
+
+
+            //BattleUIManager.current.UpdateMetronome(songPositionInBeats, false);
 
 
             if (BattleManager.current.battleType == BattleManager.BattleType.quickMix)
@@ -234,11 +266,12 @@ public static class TrackTimeManager
             nextBeatIndex++;
 
 
-            Debug.Log("beat tick, next beat shoould be " + (startUpTime + beatTimeLine[nextBeatIndex]));
+            //Debug.Log("beat tick, next beat shoould be " + (startUpTime + beatTimeLine[nextBeatIndex]));
 
 
             //spawn a bar
             //IndicatorManager.current.spawnBar((float)songPositionInBeats + IndicatorManager.current.barSpawnPosition);
+
         }
     }
 
@@ -365,7 +398,7 @@ public static class TrackTimeManager
             if (nextEvent.eventName == "bpmSwitch")
             {
                 Debug.Log("SWAPPING BPM to " + BattleTrackManager.current.nextTrack.randomTransitionData.bpm);
-                Debug.Break();
+                //Debug.Break();
                 SetTrackData(BattleTrackManager.current.nextTrack.randomTransitionData);
 
             }

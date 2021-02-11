@@ -133,15 +133,15 @@ public class BattleUIManager : MonoBehaviour
         enemyHealthSlider.value = newHealth;
     }
 
-    public void UpdateMetronome(int currentBeat, bool playAudio)
+    public void UpdateMetronome(double currentBeat, bool playAudio)
     {
-        metronomeText.text = TrackTimeManager.songPositionInBeats.ToString();
+        metronomeText.text = currentBeat.ToString();
 
-        if (playAudio)
-        {
-            audioSource.clip = metronomeCounts[currentBeat];
-            audioSource.Play();
-        }
+        // if (playAudio)
+        // {
+        //     audioSource.clip = metronomeCounts[currentBeat];
+        //     audioSource.Play();
+        // }
     }
 
     public void EndBattleSequence(bool playerWon)

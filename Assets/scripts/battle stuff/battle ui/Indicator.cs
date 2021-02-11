@@ -25,25 +25,15 @@ public class Indicator : MonoBehaviour
 
     public bool isBar;
 
-
     private void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
-
     }
     void Start()
     {
-
-
         bpm = BattleTrackManager.current.currentBpm;
 
-        //commented this to experiment with timescale rather than calculating movespeed 
-        //moveSpeed = bpm / 60;
-
-        //uniform move speed of 60bpm 
         moveSpeed = 1;
-
-
 
         //startPos = transform.position;
         if (isBar)
@@ -63,12 +53,6 @@ public class Indicator : MonoBehaviour
             Debug.LogWarning("INDICATOR POSITION 0 DETECTED, DONT DO THIS SET IT TO 0.1");
             beatOfThisNote = 0.01f;
         }
-
-        // start = new Vector3(transform.position.x, beatOfThisNote, transform.position.z);
-        // //end is 99 because we want to go 1 unit below the pad
-        // end = new Vector3(transform.position.x, 0, transform.position.z);
-
-
     }
 
     //TODO: so this should just initialize the info for where the indicator should be etc rather than scraping it from transform info
@@ -126,37 +110,14 @@ public class Indicator : MonoBehaviour
     {
         activated = BattleManager.current.battleStarted;
 
-
-
         if (activated && lerpStatus < beatOfThisNote)
         {
 
-
-            /*
-                so the lerp status is more so going to be like a bucket filling process
-                as time passes the bucket is filled by some amount which varies depending on bpm
-                
-                60bpm 
-                1 beat per second 
-
-                8 beats away  
-
-                0/8 lerp 
-                every second we move 1 unit through the lerp 
-                
-                lerp += deltaTime(audio dsp deltatime not time.delta time) * bps 
-
-            */
-            //rewrite this using songposition in beats
-
-            // lerpStatus += (TrackTimeManager.deltaDSPTime * (TrackTimeManager.songBpm / 60));
             lerpStatus = TrackTimeManager.songPositionInBeats / beatOfThisNote;
-
-            //TODO: so this cant be dependent on the song position in beats because it can change on the fly now, going to need an alternate way to calculate this/ probably going to need to use dsp time 
-            //all the indicators essentially need to speed up while maintaining their same position on a bpm switchup
-
             transform.position = Vector3.Lerp(start, end, (float)lerpStatus) + transform.parent.position;
         }
+
+        //TODO: reipliment this
         // else if (activated && lerpStatus >= beatOfThisNote)
         // {
         //     finalLerpStatus = TrackTimeManager.songPositionInBeats - beatOfThisNote;

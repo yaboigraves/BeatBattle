@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: NedToonShader
+  m_Name: floor shader
   m_Shader: {fileID: -6465566751694194690, guid: 3c9ecd11227bc9041ba8f0add6888fc2,
     type: 3}
   m_ShaderKeywords: MAIN_LIGHT_CALCULATE_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE _SHADOWS_SOFT
@@ -30,7 +30,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_e560f243bd184af4bf94c84476f3ab95:
-        m_Texture: {fileID: 2800000, guid: 38364bc64512740d0b216e64ebe57dd9, type: 3}
+        m_Texture: {fileID: 2800000, guid: 85ac55597b97403c82fc6601a93cf241, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -55,7 +55,7 @@ Material:
     - Vector1_504d8e5c0ef34b9f9ac2ddacf5a2127c: 1
     - Vector1_5d58c3f5e68d474f8aa60176f12ccbcb: 2
     - Vector1_5f79042ff4c149748e8f86bea856676c: 1
-    - Vector1_68470f22e1704ef0a5430f1d1650d879: 0.0012
+    - Vector1_68470f22e1704ef0a5430f1d1650d879: 0.001
     - Vector1_6a31d5a4968b4ad2891a30587884deed: 1
     - Vector1_87039377d5124a979ffff28d863d8031: 1
     - Vector1_9d0d9eed624d40f993f5f0919a3dc3c6: 5

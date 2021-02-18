@@ -48,16 +48,16 @@ Material:
     m_Floats:
     - ADDITIONAL_LIGHT_CALCULATE_SHADOWS: 1
     - MAIN_LIGHT_CALCULATE_SHADOWS: 1
-    - Vector1_039e1cc4f54b4746860d982a6436ea93: 100
+    - Vector1_039e1cc4f54b4746860d982a6436ea93: 2
     - Vector1_105d94dfdc5b40d398181bcc6447e96b: 1
-    - Vector1_1da26dc7cd0c41ac8c65879ca5a841df: 1
-    - Vector1_321e6878afa44fa2938c26fdd2590266: 1
-    - Vector1_504d8e5c0ef34b9f9ac2ddacf5a2127c: 1
+    - Vector1_1da26dc7cd0c41ac8c65879ca5a841df: 3
+    - Vector1_321e6878afa44fa2938c26fdd2590266: 0.3
+    - Vector1_504d8e5c0ef34b9f9ac2ddacf5a2127c: 0.5
     - Vector1_5d58c3f5e68d474f8aa60176f12ccbcb: 2
-    - Vector1_5f79042ff4c149748e8f86bea856676c: 1
-    - Vector1_68470f22e1704ef0a5430f1d1650d879: 0.001
+    - Vector1_5f79042ff4c149748e8f86bea856676c: 10
+    - Vector1_68470f22e1704ef0a5430f1d1650d879: 0.0006
     - Vector1_6a31d5a4968b4ad2891a30587884deed: 1
-    - Vector1_87039377d5124a979ffff28d863d8031: 1
+    - Vector1_87039377d5124a979ffff28d863d8031: 0.3
     - Vector1_9d0d9eed624d40f993f5f0919a3dc3c6: 5
     - Vector1_a4f39b8d510e439293f55a5489ffa917: 1
     - Vector1_c3e6027f51d24145b9449e26f6170521: 10

@@ -226,14 +226,22 @@ public class BattleTrackManager : MonoBehaviour
         //ok so we need some way of indicating in each track which transition and which track are going to be played
         //therefor the tracks are going to need two integer indexes for each which are randomly set here
 
-        for (int i = 0; i < BattleManager.current.numQuickMixTracks; i++)
+        // for (int i = 0; i < BattleManager.current.numQuickMixTracks; i++)
+        // {
+
+        //     //to ensure no duplicates for now just testing
+        //     //TODO: remove this lol
+        //     Track t = testPlayerTracks[Random.Range(0, testPlayerTracks.Length)];
+
+
+        //     t.randomTrackData = t.tracks[Random.Range(0, t.tracks.Length)];
+        //     t.randomTransitionData = t.trackTransitions[Random.Range(0, t.trackTransitions.Length)];
+        //     trackQueue.Enqueue(t);
+        // }
+
+        for (int i = 0; i < testPlayerTracks.Length; i++)
         {
-
-            //to ensure no duplicates for now just testing
-            //TODO: remove this lol
-            Track t = testPlayerTracks[Random.Range(0, testPlayerTracks.Length)];
-
-
+            Track t = testPlayerTracks[i];
             t.randomTrackData = t.tracks[Random.Range(0, t.tracks.Length)];
             t.randomTransitionData = t.trackTransitions[Random.Range(0, t.trackTransitions.Length)];
             trackQueue.Enqueue(t);

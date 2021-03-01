@@ -1,4 +1,3 @@
-
 #ifndef CUSTOM_LIGHTING_INCLUDED
 #define CUSTOM_LIGHTING_INCLUDED
 
@@ -9,7 +8,7 @@ void CalculateMainLight_float(float3 WorldPos, out float3 Direction, out float3 
     DistanceAtten = 1;
     ShadowAtten = 1;
 #else
-#ifdef SHADOWS_SCREEN
+#if SHADOWS_SCREEN
     half4 clipPos = TransformWorldToHClip(WorldPos);
     half4 shadowCoord = ComputeScreenPos(clipPos);
 #else

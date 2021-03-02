@@ -479,12 +479,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1221108149}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2a20a4d3e7b0de4a9948691765f0651, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ce4262b5105bdb4a848a6bd3b2a7d14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  music: event:/music/music
+  fmodPaths:
+  - event:/music/music1
+  - event:/music/music2
+  - event:/music/music3
 --- !u!114 &1221108153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -520,6 +523,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 920b2bf00bfb32140b07724c9e508f22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1221108155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1221108149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2a20a4d3e7b0de4a9948691765f0651, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  music: event:/music/music1
+  maxBeatsPerLoop: 12
+  beatsPerLoop: 0
 --- !u!1 &1328814934 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 881023034, guid: 35794f01adbfc7141b06bdcef0916d25,

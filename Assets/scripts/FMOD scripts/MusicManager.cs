@@ -5,6 +5,11 @@ using System.Runtime.InteropServices;
 using FMODUnity;
 using System;
 
+//TESTING GOALS 
+//1. get a track to loop 2 times before randomly moving to another track within the timeline
+
+
+
 public class MusicManager : MonoBehaviour
 {
     public static MusicManager current;
@@ -21,7 +26,6 @@ public class MusicManager : MonoBehaviour
         public FMOD.StringWrapper lastMarker = new FMOD.StringWrapper();
     }
 
-
     public TimelineInfo timelineInfo = null;
 
     private GCHandle timelineHandle;
@@ -32,12 +36,24 @@ public class MusicManager : MonoBehaviour
 
     public FMOD.Studio.EventInstance musicPlayEvent;
 
+    // public FMOD.Studio.PARAMETER_DESCRIPTION testParam;
+
+
+    //my variables after here
+
+    public int maxBeatsPerLoop = 8, beatsPerLoop = 0;
 
     private void Awake()
     {
         current = this;
 
         musicPlayEvent = RuntimeManager.CreateInstance(music);
+
+        //ok so using the current event we can just set parameters based on trhe transitions
+
+        //musicPlayEvent.setParameterByName("testParam", 1.0f);
+
+
         musicPlayEvent.start();
     }
 
@@ -61,6 +77,21 @@ public class MusicManager : MonoBehaviour
         musicPlayEvent.getTimelinePosition(out timelineInfo.currentPosition);
     }
 
+
+    public void beatTrigger()
+    {
+        //do stuff every beat
+
+        beatsPerLoop++;
+        if (beatsPerLoop >= maxBeatsPerLoop)
+        {
+            musicPlayEvent.setParameterByName("testParam", 1.0f);
+
+        }
+    }
+
+
+
     [AOT.MonoPInvokeCallback(typeof(FMOD.Studio.EVENT_CALLBACK))]
     static FMOD.RESULT BeatEventCallback(FMOD.Studio.EVENT_CALLBACK_TYPE type, IntPtr instancePtr, IntPtr parameterPtr)
     {
@@ -78,6 +109,8 @@ public class MusicManager : MonoBehaviour
             GCHandle timelineHandle = GCHandle.FromIntPtr(timelineInfoPtr);
             TimelineInfo timelineInfo = (TimelineInfo)timelineHandle.Target;
 
+
+
             switch (type)
             {
                 case FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT:
@@ -86,6 +119,13 @@ public class MusicManager : MonoBehaviour
                         timelineInfo.currentBeat = parameter.beat;
                         timelineInfo.currentBar = parameter.bar;
                         timelineInfo.currentTempo = parameter.tempo;
+
+                        //check to see if its transition time
+                        current.beatTrigger();
+
+
+
+
                     }
                     break;
                 case FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER:

@@ -123,7 +123,7 @@ public class InputHandler : MonoBehaviour
         if (Input.GetButtonDown("Jump") && player.playerRoot.onGround && !playerMovementLocked)
         {
             // rb.velocity = new Vector3(rb.velocity.x, jumpVelocity, rb.velocity.z);
-            playerMove.jump();
+            //playerMove.jump();
 
         }
 

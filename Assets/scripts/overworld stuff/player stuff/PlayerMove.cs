@@ -5,7 +5,12 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
     Rigidbody rb;
-    public float speed;
+
+    [Range(0f, 100f)]
+    public float maxAcceleration = 10f;
+
+    [Range(0f, 100f)]
+    public float maxSpeed;
     float horizontalIn;
     float verticalIn;
     public float jumpVelocity;
@@ -17,9 +22,10 @@ public class PlayerMove : MonoBehaviour
     public float canMoveRayRange = 0.5f;
 
     public bool canMove;
-
+    Vector3 velocity;
     Player player;
     Vector3 deltaPos;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -35,7 +41,7 @@ public class PlayerMove : MonoBehaviour
 
         deltaPos = deltaPos.normalized;
 
-        deltaPos *= (speed * Time.fixedDeltaTime);
+        deltaPos *= (maxSpeed * Time.fixedDeltaTime);
 
         //check if this movement would collide us with a wall or something
         //probably need some kind of layer solution for this, certain objects will block movement
@@ -71,43 +77,62 @@ public class PlayerMove : MonoBehaviour
         deltaPos = Vector3.zero;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
 
+        Vector2 playerInput;
+        playerInput.x = Input.GetAxis("Horizontal");
+        playerInput.y = Input.GetAxis("Vertical");
+        playerInput = Vector2.ClampMagnitude(playerInput, 1f);
 
-        Move(deltaPos);
+        Vector3 desiredVelocity =
+            new Vector3(playerInput.x, 0f, playerInput.y) * maxSpeed;
+
+        float maxSpeedChange = maxAcceleration * Time.deltaTime;
+        velocity.x =
+            Mathf.MoveTowards(velocity.x, desiredVelocity.x, maxSpeedChange);
+        velocity.z =
+            Mathf.MoveTowards(velocity.z, desiredVelocity.z, maxSpeedChange);
+
+        Vector3 displacement = velocity * Time.deltaTime;
+        transform.localPosition += displacement;
+
+
+
+
+        // Move(deltaPos);
 
         //better jump code
-        if (rb.velocity.y < 0)
-        {
-            //rb.velocity += new Vector3(rb.velocity.x, Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime, rb.velocity.z);
-            gravityScale = fallMultiplier;
-        }
-        else if (rb.velocity.y > 0 && !Input.GetButton("Jump"))
-        {
-            //rb.velocity += new Vector3(rb.velocity.x, Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime, rb.velocity.z);
-            gravityScale = lowJumpMultiplier;
-        }
-        else
-        {
-            gravityScale = 1;
-        }
+        // if (rb.velocity.y < 0)
+        // {
+        //     //rb.velocity += new Vector3(rb.velocity.x, Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime, rb.velocity.z);
+        //     gravityScale = fallMultiplier;
+        // }
+        // else if (rb.velocity.y > 0 && !Input.GetButton("Jump"))
+        // {
+        //     //rb.velocity += new Vector3(rb.velocity.x, Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime, rb.velocity.z);
+        //     gravityScale = lowJumpMultiplier;
+        // }
+        // else
+        // {
+        //     gravityScale = 1;
+        // }
 
-        //custom gravity
-        Vector3 gravity = globalGravity * gravityScale * Vector3.up;
-        rb.AddForce(gravity, ForceMode.Acceleration);
+        // //custom gravity
+        // Vector3 gravity = globalGravity * gravityScale * Vector3.up;
+        // rb.AddForce(gravity, ForceMode.Acceleration);
     }
 
 
 
-    public void jump()
-    {
-        rb.AddForce(new Vector3(rb.velocity.x, jumpVelocity, rb.velocity.z), ForceMode.Impulse);
-        player.CreateDust();
+    // public void jump()
+    // {
+    //     rb.AddForce(new Vector3(rb.velocity.x, jumpVelocity, rb.velocity.z), ForceMode.Impulse);
+    //     player.CreateDust();
 
-        //also tell the homie to jump
-        player.homie.jump(new Vector3(rb.velocity.x, jumpVelocity, rb.velocity.z));
-    }
+    //     //also tell the homie to jump
+    //     player.homie.jump(new Vector3(rb.velocity.x, jumpVelocity, rb.velocity.z));
+    // }
 
 
 

@@ -28,7 +28,7 @@ public class Player : Entity
         GameManager.current.setManagerReferences(this);
         //testing this to see how it works, may remove later 
         DontDestroyOnLoad(this.gameObject);
-        rb.useGravity = false;
+        //rb.useGravity = false;
 
         //look for a playerspawner tag and go there
         Transform playerSpawnPoint = GameObject.FindGameObjectWithTag("playerSpawn").transform;
@@ -37,7 +37,7 @@ public class Player : Entity
 
         inventory = GetComponent<PlayerInventory>();
 
-        LoadHomie();
+        //LoadHomie();
     }
 
     public void LoadHomie()

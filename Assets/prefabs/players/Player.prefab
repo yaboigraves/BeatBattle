@@ -5713,7 +5713,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1325764953741290771
 Transform:
   m_ObjectHideFlags: 0
@@ -6409,7 +6409,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 8796179302061234381}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 1
   m_Height: 3
   m_Direction: 1
@@ -6426,15 +6426,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e33f2abeade6a948b882d928bd48d8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxAcceleration: 28
-  maxSpeed: 0.27
-  jumpVelocity: 8
-  fallMultiplier: 3
-  lowJumpMultiplier: 2.5
-  gravityScale: 1
-  globalGravity: -9.81
-  canMoveRayRange: 0.5
-  canMove: 0
+  maxSpeed: 7
+  maxAcceleration: 100
+  maxAirAcceleration: 3
+  jumpHeight: 2
+  maxAirJumps: 0
+  maxGroundAngle: 33
 --- !u!1001 &107852678600366526
 PrefabInstance:
   m_ObjectHideFlags: 0

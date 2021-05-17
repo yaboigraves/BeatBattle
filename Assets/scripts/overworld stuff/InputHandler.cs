@@ -103,7 +103,7 @@ public class InputHandler : MonoBehaviour
             //print("sending a move");
             Vector3 deltaPos = new Vector3(horizontalIn, 0, verticalIn);
             //player.Move(deltaPos);
-            playerMove.inputMoveCommand(deltaPos);
+            //playerMove.inputMoveCommand(deltaPos);
 
             //check for flips
             //TODO: fix this so its uniform
@@ -193,7 +193,7 @@ public class InputHandler : MonoBehaviour
         horizontalIn = 0;
         verticalIn = 0;
 
-        playerMove.ResetDeltaPos();
+        //playerMove.ResetDeltaPos();
     }
 
     public void LockPlayerMovement(bool lockMove)

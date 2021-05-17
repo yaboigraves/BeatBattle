@@ -35,6 +35,19 @@ public class PlayerMove : MonoBehaviour
 
     float minGroundDotProduct;
 
+    int stepsSinceLastGrounded, stepsSinceLastJump;
+
+    [SerializeField, Range(0f, 100f)]
+    float maxSnapSpeed = 100f;
+
+    //this is for checking for a snap
+
+    [SerializeField, Min(0f)]
+    float probeDistance = 1f;
+
+    [SerializeField]
+    LayerMask probeMask = -1;
+
     void OnValidate()
     {
         minGroundDotProduct = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad);
@@ -80,11 +93,48 @@ public class PlayerMove : MonoBehaviour
         contactNormal = Vector3.zero;
     }
 
+    bool SnapToGround()
+    {
+        if (stepsSinceLastGrounded > 1 || stepsSinceLastJump <= 2)
+        {
+            return false;
+        }
+
+        float speed = velocity.magnitude;
+        if (speed > maxSnapSpeed)
+        {
+            return false;
+        }
+
+        if (!Physics.Raycast(body.position, Vector3.down, out RaycastHit hit, probeDistance, probeMask))
+        {
+            return false;
+        }
+        if (hit.normal.y < minGroundDotProduct)
+        {
+            return false;
+        }
+
+        groundContactCount = 1;
+        contactNormal = hit.normal;
+
+        float dot = Vector3.Dot(velocity, hit.normal);
+        if (dot > 0f)
+        {
+            velocity = (velocity - hit.normal * dot).normalized * speed;
+        }
+
+        return true;
+    }
+
     void UpdateState()
     {
+        stepsSinceLastGrounded += 1;
+        stepsSinceLastJump += 1;
         velocity = body.velocity;
-        if (OnGround)
+        if (OnGround || SnapToGround())
         {
+            stepsSinceLastGrounded = 0;
             jumpPhase = 0;
             if (groundContactCount > 1)
             {
@@ -120,6 +170,8 @@ public class PlayerMove : MonoBehaviour
     {
         if (OnGround || jumpPhase < maxAirJumps)
         {
+            stepsSinceLastJump = 0;
+
             jumpPhase += 1;
             float jumpSpeed = Mathf.Sqrt(-2f * Physics.gravity.y * jumpHeight);
             float alignedSpeed = Vector3.Dot(velocity, contactNormal);

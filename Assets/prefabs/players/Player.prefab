@@ -6429,9 +6429,14 @@ MonoBehaviour:
   maxSpeed: 7
   maxAcceleration: 100
   maxAirAcceleration: 3
-  jumpHeight: 2
+  jumpHeight: 1
   maxAirJumps: 0
-  maxGroundAngle: 33
+  maxGroundAngle: 30
+  maxSnapSpeed: 100
+  probeDistance: 1
+  probeMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1001 &107852678600366526
 PrefabInstance:
   m_ObjectHideFlags: 0

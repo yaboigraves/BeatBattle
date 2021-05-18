@@ -95,7 +95,7 @@ public class Player : Entity
     public void flip(float rotation)
     {
         // StartCoroutine(LerpToRotation(rotation, 0.1f, 0.1f));
-        StartCoroutine(LerpToScale(rotation, 0.1f, 0.1f));
+        //StartCoroutine(LerpToScale(rotation, 0.1f, 0.1f));
         CreateDust();
     }
 

@@ -15,11 +15,11 @@ public class PlayerCamera : MonoBehaviour
         //TODO: game manager tells the camera manager this
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
 
-        CameraManager.current.transferCamera(myCamera);
+        //CameraManager.current.transferCamera(myCamera);
 
         if (playerTransform != null)
         {
-            CameraManager.current.setCameraFollow(playerTransform);
+            //CameraManager.current.setCameraFollow(playerTransform);
         }
         else
         {

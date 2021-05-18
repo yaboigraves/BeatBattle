@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     public static GameManager current;
     public Player player;
     InputHandler input;
+
+
     private void Awake()
     {
         if (current != null)
@@ -28,7 +30,12 @@ public class GameManager : MonoBehaviour
                 //IMPORTANT: this needs to be done because the player object referenced in the inputhandler needs
                 //to actually be the INSTANCE of the prefab object NOT the prefab itself
                 //all this does is replace the referenced prefab with this particular INSTANCE of the prefab
-                playerObj = Instantiate(playerObj);
+                //playerObj = Instantiate(playerObj);
+
+                //tell the orbit camera heres the player
+
+
+
                 //move the player to a spawner if one exists
                 Transform spawnPos = GameObject.FindGameObjectWithTag("playerSpawn").transform;
 
@@ -56,7 +63,7 @@ public class GameManager : MonoBehaviour
         this.player = player;
         UIManager.current.player = player;
         SceneManage.current.player = player;
-        CameraManager.current.setCameraFollow(player.transform);
+        //CameraManager.current.setCameraFollow(player.transform);
 
     }
 

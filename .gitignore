@@ -58,3 +58,11 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+#audio stuff
+*.wav
+*.mp3
+
+#models
+*.blend
+*.obj
+*.fbx

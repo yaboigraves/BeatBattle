@@ -320,6 +320,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 8495102063570293041, guid: 35794f01adbfc7141b06bdcef0916d25,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8495102063570293041, guid: 35794f01adbfc7141b06bdcef0916d25,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35794f01adbfc7141b06bdcef0916d25, type: 3}
 --- !u!43 &565778708
@@ -493,6 +503,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4019409559458616241, guid: 1126f1d63148b8f4a83f1b70ea8a0cfb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4540519303715527884, guid: 1126f1d63148b8f4a83f1b70ea8a0cfb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5275175590444449026, guid: 1126f1d63148b8f4a83f1b70ea8a0cfb,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6092002489857706678, guid: 1126f1d63148b8f4a83f1b70ea8a0cfb,
+        type: 3}
+      propertyPath: maxSpeed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6092002489857706678, guid: 1126f1d63148b8f4a83f1b70ea8a0cfb,
+        type: 3}
+      propertyPath: playerInputSpace
+      value: 
+      objectReference: {fileID: 757331959}
     - target: {fileID: 8796179302061234377, guid: 1126f1d63148b8f4a83f1b70ea8a0cfb,
         type: 3}
       propertyPath: m_RootOrder
@@ -561,7 +596,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh21756
+  m_Name: pb_Mesh21764
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -852,6 +887,14 @@ MonoBehaviour:
   distance: 7.6
   focusRadius: 1
   focusCentering: 0.5
+  rotationSpeed: 55
+  minVerticalAngle: 17.9
+  maxVerticalAngle: 60
+  alignDelay: 1
+  alignSmoothRange: 45
+  obstructionMask:
+    serializedVersion: 2
+    m_Bits: 467457
 --- !u!1 &920289047
 GameObject:
   m_ObjectHideFlags: 0

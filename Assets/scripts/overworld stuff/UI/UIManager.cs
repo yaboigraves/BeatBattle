@@ -549,7 +549,7 @@ public class UIManager : MonoBehaviour
     public Slider volumeSlider;
     public void UpdateVolumeSlider()
     {
-        TrackManager.current.UpdateTrackVolume(volumeSlider.value);
+        //TrackManager.current.UpdateTrackVolume(volumeSlider.value);
     }
 
 

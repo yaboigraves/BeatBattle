@@ -50,6 +50,9 @@ public class PlayerMove : MonoBehaviour
     [SerializeField]
     LayerMask probeMask = -1, stairsMask = -1;
 
+    [SerializeField]
+    Transform playerInputSpace = default;
+
     void OnValidate()
     {
         minGroundDotProduct = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad);
@@ -74,8 +77,19 @@ public class PlayerMove : MonoBehaviour
         playerInput.y = Input.GetAxis("Vertical");
         playerInput = Vector2.ClampMagnitude(playerInput, 1f);
 
-        desiredVelocity =
-            new Vector3(playerInput.x, 0f, playerInput.y) * maxSpeed;
+        if (playerInputSpace)
+        {
+            desiredVelocity = playerInputSpace.TransformDirection(
+            playerInput.x, 0f, playerInput.y
+        ) * maxSpeed;
+        }
+        else
+        {
+            desiredVelocity =
+                 new Vector3(playerInput.x, 0f, playerInput.y) * maxSpeed;
+        }
+
+
 
         desiredJump |= Input.GetButtonDown("Jump");
     }

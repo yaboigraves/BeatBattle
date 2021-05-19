@@ -163,13 +163,13 @@ public class InputHandler : MonoBehaviour
                 //talk to the homie
                 if (!player.inDialogue)
                 {
-                    GameManager.current.player.TalkToHomie();
-                    player.inDialogue = true;
-                    ResetInputAxis();
+                    //GameManager.current.player.TalkToHomie();
+                    //player.inDialogue = true;
+                    //ResetInputAxis();
                 }
                 else
                 {
-                    UIManager.current.NPCNextTalk();
+                    // UIManager.current.NPCNextTalk();
                 }
             }
         }

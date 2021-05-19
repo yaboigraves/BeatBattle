@@ -338,7 +338,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-29128
+  m_Name: pb_Mesh21804
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -890,11 +890,14 @@ MonoBehaviour:
   rotationSpeed: 55
   minVerticalAngle: 17.9
   maxVerticalAngle: 60
+  minHorizontalAngle: -89
+  maxHorizontalAngle: 89
   alignDelay: 1
   alignSmoothRange: 45
   obstructionMask:
     serializedVersion: 2
     m_Bits: 467457
+  cameraRotationEnabled: 0
 --- !u!1 &920289047
 GameObject:
   m_ObjectHideFlags: 0
@@ -5607,7 +5610,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-85844
+  m_Name: pb_Mesh21782
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6291,7 +6294,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh21726
+  m_Name: pb_Mesh21748
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

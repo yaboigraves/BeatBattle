@@ -20,7 +20,7 @@ public class OrbitCamera : MonoBehaviour
     float rotationSpeed = 90f;
 
     [SerializeField, Range(-89f, 89f)]
-    float minVerticalAngle = -45f, maxVerticalAngle = 45f;
+    float minVerticalAngle = -45f, maxVerticalAngle = 45f, minHorizontalAngle = -45f, maxHorizontalAngle = 45f;
 
     [SerializeField, Min(0f)]
     float alignDelay = 5f;
@@ -35,9 +35,11 @@ public class OrbitCamera : MonoBehaviour
 
     Vector3 focusPoint, previousFocusPoint;
 
-    Vector2 orbitAngles = new Vector2(45f, 0f);
+    Vector2 orbitAngles = new Vector2(33f, 0f);
 
     float lastManualRotationTime;
+
+    public bool cameraRotationEnabled = false;
 
     Vector3 CameraHalfExtends
     {
@@ -72,7 +74,7 @@ public class OrbitCamera : MonoBehaviour
     {
         UpdateFocusPoint();
         Quaternion lookRotation;
-        if (ManualRotation() || AutomaticRotation())
+        if ((ManualRotation() || AutomaticRotation()) && cameraRotationEnabled)
         {
             ConstrainAngles();
             lookRotation = Quaternion.Euler(orbitAngles);
@@ -81,6 +83,8 @@ public class OrbitCamera : MonoBehaviour
         {
             lookRotation = transform.localRotation;
         }
+
+
 
         Vector3 lookDirection = lookRotation * Vector3.forward;
         Vector3 lookPosition = focusPoint - lookDirection * distance;
@@ -183,14 +187,17 @@ public class OrbitCamera : MonoBehaviour
         orbitAngles.x =
             Mathf.Clamp(orbitAngles.x, minVerticalAngle, maxVerticalAngle);
 
-        if (orbitAngles.y < 0f)
-        {
-            orbitAngles.y += 360f;
-        }
-        else if (orbitAngles.y >= 360f)
-        {
-            orbitAngles.y -= 360f;
-        }
+        orbitAngles.y =
+           Mathf.Clamp(orbitAngles.y, minHorizontalAngle, maxHorizontalAngle);
+
+        // if (orbitAngles.y < 0f)
+        // {
+        //     orbitAngles.y += 360f;
+        // }
+        // else if (orbitAngles.y >= 360f)
+        // {
+        //     orbitAngles.y -= 360f;
+        // }
     }
 
     static float GetAngle(Vector2 direction)

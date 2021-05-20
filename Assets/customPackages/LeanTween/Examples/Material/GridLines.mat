@@ -83,7 +83,7 @@ Material:
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Shininess: 0.7
-    - _Smoothness: 0.7
+    - _Smoothness: 0.53
     - _SmoothnessSource: 1
     - _SpecSource: 0
     - _SpecularHighlights: 0
@@ -91,7 +91,7 @@ Material:
     - _Surface: 0
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 0.7}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 0.53}
     - _Color: {r: 0.05513528, g: 0.2159617, b: 0.5566038, a: 1}
     - _Emission: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0.043500464, g: 0.057396468, b: 0.29066423, a: 1}

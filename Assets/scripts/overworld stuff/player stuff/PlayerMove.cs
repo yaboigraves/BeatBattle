@@ -104,6 +104,7 @@ public class PlayerMove : MonoBehaviour
         Vector3 gravity = CustomGravity.GetGravity(body.position, out upAxis);
         UpdateState();
         AdjustVelocity();
+        CheckSleep();
 
         if (desiredJump)
         {
@@ -116,6 +117,14 @@ public class PlayerMove : MonoBehaviour
 
         body.velocity = velocity;
         ClearState();
+    }
+
+    void CheckSleep()
+    {
+        if (body.velocity.sqrMagnitude < 0.0001f)
+        {
+            body.Sleep();
+        }
     }
 
     void ClearState()

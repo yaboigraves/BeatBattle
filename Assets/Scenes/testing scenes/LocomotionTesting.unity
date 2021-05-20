@@ -350,7 +350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fed64f657ec0e44880b4b0e8f32dcb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floatToSleep: 1
+  floatToSleep: 0
 --- !u!43 &565778708
 Mesh:
   m_ObjectHideFlags: 0
@@ -541,6 +541,11 @@ PrefabInstance:
         type: 3}
       propertyPath: maxSpeed
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6092002489857706678, guid: 1126f1d63148b8f4a83f1b70ea8a0cfb,
+        type: 3}
+      propertyPath: jumpHeight
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6092002489857706678, guid: 1126f1d63148b8f4a83f1b70ea8a0cfb,
         type: 3}
@@ -951,7 +956,7 @@ MonoBehaviour:
   alignSmoothRange: 45
   obstructionMask:
     serializedVersion: 2
-    m_Bits: 467457
+    m_Bits: 0
   cameraRotationEnabled: 0
 --- !u!43 &892046651
 Mesh:
@@ -7546,6 +7551,49 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1731453500
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1731453502}
+  - component: {fileID: 1731453501}
+  m_Layer: 0
+  m_Name: DefaultGravitySource
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1731453501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731453500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2779ef9280ff6d4db3bd9a47950d798, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1731453502
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731453500}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1925412962 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3195855955633630875, guid: 1126f1d63148b8f4a83f1b70ea8a0cfb,

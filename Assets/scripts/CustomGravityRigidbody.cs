@@ -27,7 +27,7 @@ public class CustomGravityRigidbody : MonoBehaviour
                 return;
             }
 
-            if (body.velocity.sqrMagnitude < 0.0001f)
+            if (body.velocity.sqrMagnitude < 0.001f)
             {
                 floatDelay += Time.deltaTime;
                 if (floatDelay >= 1f)

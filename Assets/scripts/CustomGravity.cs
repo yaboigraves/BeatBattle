@@ -1,14 +1,28 @@
 using UnityEngine;
 using System.Collections.Generic;
+
 public static class CustomGravity
 {
+
     static List<GravitySource> sources = new List<GravitySource>();
 
+    public static void Register(GravitySource source)
+    {
+        Debug.Assert(
+            !sources.Contains(source),
+            "Duplicate registration of gravity source!", source
+        );
+        sources.Add(source);
+    }
 
-    // public static Vector3 GetUpAxis(Vector3 position)
-    // {
-    //     return -Physics.gravity.normalized;
-    // }
+    public static void Unregister(GravitySource source)
+    {
+        Debug.Assert(
+            sources.Contains(source),
+            "Unregistration of unknown gravity source!", source
+        );
+        sources.Remove(source);
+    }
 
     public static Vector3 GetGravity(Vector3 position)
     {
@@ -40,24 +54,4 @@ public static class CustomGravity
         }
         return -g.normalized;
     }
-
-    public static void Register(GravitySource source)
-    {
-        Debug.Assert(
-    !sources.Contains(source),
-    "Duplicate registration of gravity source!", source
-);
-        sources.Add(source);
-    }
-
-    public static void Unregister(GravitySource source)
-    {
-        Debug.Assert(
-    sources.Contains(source),
-    "Unregistration of unknown gravity source!", source
-);
-        sources.Remove(source);
-    }
-
-
 }

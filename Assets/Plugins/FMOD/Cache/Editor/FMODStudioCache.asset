@@ -413,6 +413,50 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 56888
+--- !u!114 &-4616149434453526043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: FMOD/beatBattleFmod/Build/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 637566996473738459
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 806
+  Exists: 1
+--- !u!114 &-4583148978333179976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/CuntyTrack
+  m_EditorClassIdentifier: 
+  Path: event:/CuntyTrack
+  guid: 5710f4e755c53040ad85519d32cb203e
+  Banks:
+  - {fileID: 3063274398547493314}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 73846
 --- !u!114 &-4451159155774460582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -795,16 +839,16 @@ MonoBehaviour:
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   EditorBanks:
-  - {fileID: 4195380456641426732}
-  - {fileID: -7001551546469823334}
-  - {fileID: -8907651951893237044}
+  - {fileID: -4616149434453526043}
+  - {fileID: 3063274398547493314}
+  - {fileID: 7141657133338161675}
   EditorEvents:
-  - {fileID: 4272151025912302895}
+  - {fileID: -4583148978333179976}
   EditorParameters: []
   MasterBanks:
-  - {fileID: -8907651951893237044}
+  - {fileID: 7141657133338161675}
   StringsBanks:
-  - {fileID: 4195380456641426732}
+  - {fileID: -4616149434453526043}
   stringsBankWriteTime: 637566996473738459
   cacheVersion: 6
 --- !u!114 &89815951418690271
@@ -1084,6 +1128,25 @@ MonoBehaviour:
   ID:
     data1: 0
     data2: 0
+  Exists: 1
+--- !u!114 &3063274398547493314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/background music.bank
+  m_EditorClassIdentifier: 
+  Path: FMOD/beatBattleFmod/Build/Desktop/background music.bank
+  Name: background music
+  StudioPath: bank:/background music
+  lastModified: 637566996473798297
+  LoadResult: 0
+  FileSizes: []
   Exists: 1
 --- !u!114 &3969317554058726098
 MonoBehaviour:
@@ -1438,6 +1501,25 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 917
+--- !u!114 &7141657133338161675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: FMOD/beatBattleFmod/Build/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 637566996473738459
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
 --- !u!114 &7218785087740647752
 MonoBehaviour:
   m_ObjectHideFlags: 0

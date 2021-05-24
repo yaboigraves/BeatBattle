@@ -2,6 +2,7 @@
 
 public class PlayerMove : MonoBehaviour
 {
+    Player player;
 
     [SerializeField]
     Transform playerInputSpace = default;
@@ -65,6 +66,7 @@ public class PlayerMove : MonoBehaviour
         body = GetComponent<Rigidbody>();
         body.useGravity = false;
         OnValidate();
+        player = GetComponent<Player>();
     }
 
     void Update()
@@ -261,6 +263,8 @@ public class PlayerMove : MonoBehaviour
             return;
         }
 
+
+        player.footDust.Play();
         stepsSinceLastJump = 0;
         jumpPhase += 1;
         float jumpSpeed = Mathf.Sqrt(2f * gravity.magnitude * jumpHeight);

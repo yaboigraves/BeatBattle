@@ -1,9 +1,7 @@
 {
     "name": "FMODUnityEditor",
     "references": [
-        "FMODUnity",
-        "Unity.Timeline.Editor",
-        "Unity.Timeline"
+        "FMODUnity"
     ],
     "includePlatforms": [
         "Editor"

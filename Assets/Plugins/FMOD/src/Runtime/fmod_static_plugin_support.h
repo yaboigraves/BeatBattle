@@ -11,7 +11,7 @@ struct FMOD_DSP_DESCRIPTION;
 
 typedef unsigned int (DEFAULT_CALL *RegisterDSPFunction)(FMOD_SYSTEM *, const FMOD_DSP_DESCRIPTION *, void *);
 
-static RegisterDSPFunction sRegisterDSP = NULL;
+static RegisterDSPFunction sRegisterDSP = nullptr;
 
 #if FMOD_LINKAGE_STATIC
 

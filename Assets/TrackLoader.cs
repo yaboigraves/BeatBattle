@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using IronPython.Hosting;
+// using IronPython.Hosting;
 using UnityEngine;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -102,7 +102,8 @@ public static class TrackLoader
 
                 Debug.Log(bpm);
 
-                midiData.Add(parseMidi(f.Name, float.Parse(bpm), path));
+                //TODO : Readd once compatible
+                //midiData.Add(parseMidi(f.Name, float.Parse(bpm), path));
             }
         }
 
@@ -112,57 +113,58 @@ public static class TrackLoader
 
 
 
+    //TODO: reappreoach/reimpliment
 
-    public static Dictionary<string, List<System.Double>> parseMidi(string filename, float bpm, string prePath)
-    {
-        var engine = Python.CreateEngine();
-
-
-
-        ICollection<string> searchPaths = engine.GetSearchPaths();
-
-        //Path to the folder of greeter.py
-        searchPaths.Add(Application.dataPath);
-        //Path to the Python standard library
-        //searchPaths.Add(Application.dataPath + @"\Plugins\Lib\");
-        searchPaths.Add(Application.dataPath + @"/Plugins/Lib/");
-        engine.SetSearchPaths(searchPaths);
+    // public static Dictionary<string, List<System.Double>> parseMidi(string filename, float bpm, string prePath)
+    // {
+    //     var engine = Python.CreateEngine();
 
 
 
-        //dynamic py = engine.ExecuteFile(Application.dataPath + @"\scripts\audio\midis\MidiParser.py");
-        dynamic py = engine.ExecuteFile(Application.dataPath + @"/audio/Midi/MidiParser.py");
-        dynamic midiParser = py.MidiParser();
+    //     ICollection<string> searchPaths = engine.GetSearchPaths();
 
-        //Debug.Log(Application.dataPath + prePath + filename);
-        //return (midiParser.parse(Application.dataPath + @"\midis\" + filename, bpm.ToString()));
-        return (midiParser.parse(Application.dataPath + prePath + "/" + filename, bpm.ToString()));
-    }
-
-    public static Dictionary<string, List<System.Double>> parseQuickMixTrack(string trackName, float bpm)
-    {
-
-
-        var engine = Python.CreateEngine();
-
-        ICollection<string> searchPaths = engine.GetSearchPaths();
-
-        //Path to the folder of greeter.py
-        searchPaths.Add(Application.dataPath);
-        //Path to the Python standard library
-        //searchPaths.Add(Application.dataPath + @"\Plugins\Lib\");
-        searchPaths.Add(Application.dataPath + @"/Plugins/Lib/");
-        engine.SetSearchPaths(searchPaths);
+    //     //Path to the folder of greeter.py
+    //     searchPaths.Add(Application.dataPath);
+    //     //Path to the Python standard library
+    //     //searchPaths.Add(Application.dataPath + @"\Plugins\Lib\");
+    //     searchPaths.Add(Application.dataPath + @"/Plugins/Lib/");
+    //     engine.SetSearchPaths(searchPaths);
 
 
 
-        //dynamic py = engine.ExecuteFile(Application.dataPath + @"\scripts\audio\midis\MidiParser.py");
-        dynamic py = engine.ExecuteFile(Application.dataPath + @"/scripts/audio/midis/MidiParser.py");
-        dynamic midiParser = py.MidiParser();
+    //     //dynamic py = engine.ExecuteFile(Application.dataPath + @"\scripts\audio\midis\MidiParser.py");
+    //     dynamic py = engine.ExecuteFile(Application.dataPath + @"/audio/Midi/MidiParser.py");
+    //     dynamic midiParser = py.MidiParser();
 
-        //return (midiParser.parse(Application.dataPath + @"\midis\" + filename, bpm.ToString()));
-        return (midiParser.parse(Application.dataPath + @"/midis/" + trackName, bpm.ToString()));
-    }
+    //     //Debug.Log(Application.dataPath + prePath + filename);
+    //     //return (midiParser.parse(Application.dataPath + @"\midis\" + filename, bpm.ToString()));
+    //     return (midiParser.parse(Application.dataPath + prePath + "/" + filename, bpm.ToString()));
+    // }
+
+    // public static Dictionary<string, List<System.Double>> parseQuickMixTrack(string trackName, float bpm)
+    // {
+
+
+    //     var engine = Python.CreateEngine();
+
+    //     ICollection<string> searchPaths = engine.GetSearchPaths();
+
+    //     //Path to the folder of greeter.py
+    //     searchPaths.Add(Application.dataPath);
+    //     //Path to the Python standard library
+    //     //searchPaths.Add(Application.dataPath + @"\Plugins\Lib\");
+    //     searchPaths.Add(Application.dataPath + @"/Plugins/Lib/");
+    //     engine.SetSearchPaths(searchPaths);
+
+
+
+    //     //dynamic py = engine.ExecuteFile(Application.dataPath + @"\scripts\audio\midis\MidiParser.py");
+    //     dynamic py = engine.ExecuteFile(Application.dataPath + @"/scripts/audio/midis/MidiParser.py");
+    //     dynamic midiParser = py.MidiParser();
+
+    //     //return (midiParser.parse(Application.dataPath + @"\midis\" + filename, bpm.ToString()));
+    //     return (midiParser.parse(Application.dataPath + @"/midis/" + trackName, bpm.ToString()));
+    // }
 
     public static Dictionary<string, List<System.Double>> parseLongMixTrack(string trackName)
     {

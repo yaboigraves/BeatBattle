@@ -27,7 +27,7 @@ public class Player : Entity
         rb = GetComponent<Rigidbody>();
         GameManager.current.setManagerReferences(this);
         //testing this to see how it works, may remove later 
-        DontDestroyOnLoad(this.gameObject);
+        //DontDestroyOnLoad(this.gameObject);
         //rb.useGravity = false;
 
         //look for a playerspawner tag and go there

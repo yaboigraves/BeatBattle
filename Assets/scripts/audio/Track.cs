@@ -116,7 +116,7 @@ public class Track : GameItem
 
 
 
-        UnityEditor.EditorUtility.SetDirty(this);
+        //UnityEditor.EditorUtility.SetDirty(this);
     }
     public float parseBPM(string fileName)
     {

@@ -149,15 +149,6 @@ namespace FMODUnity
         public string SourceBankPathUnformatted; // Kept as to not break existing projects
 
         [SerializeField]
-        public int BankRefreshCooldown = 5;
-
-        [SerializeField]
-        public bool ShowBankRefreshWindow = true;
-
-        public const int BankRefreshPrompt = -1;
-        public const int BankRefreshManual = -2;
-
-        [SerializeField]
         public bool AutomaticEventLoading;
 
         [SerializeField]
@@ -286,59 +277,27 @@ namespace FMODUnity
         [SerializeField]
         public bool StopEventsOutsideMaxDistance = false;
 
-        [SerializeField]
+		[SerializeField]
         public bool BoltUnitOptionsBuildPending = false;
 
         // This holds all known platforms, but only those that have settings are shown in the UI.
         // It is populated at load time from the Platform objects in the settings asset.
-        // It is serializable to facilitate undo support.
-        [SerializeField]
-        private List<Platform> Platforms = new List<Platform>();
+        private Dictionary<string, Platform> Platforms = new Dictionary<string, Platform>();
 
         public Platform FindPlatform(string identifier)
         {
-            foreach (Platform platform in Platforms)
-            {
-                if (platform.Identifier == identifier)
-                {
-                    return platform;
-                }
-            }
+            Platform platform;
+            Platforms.TryGetValue(identifier, out platform);
 
-            return null;
-        }
-
-        public bool PlatformExists(string identifier)
-        {
-            return FindPlatform(identifier) != null;
+            return platform;
         }
 
         public void ForEachPlatform(Action<Platform> action)
         {
-            foreach (Platform platform in Platforms)
+            foreach (Platform platform in Platforms.Values)
             {
                 action(platform);
             }
-        }
-
-        public IEnumerable<Platform> EnumeratePlatforms()
-        {
-            return Platforms;
-        }
-
-        private void AddPlatform(Platform platform)
-        {
-            if (PlatformExists(platform.Identifier))
-            {
-                throw new ArgumentException(string.Format("Duplicate platform identifier: {0}", platform.Identifier));
-            }
-
-            Platforms.Add(platform);
-        }
-
-        public void RemovePlatform(string identifier)
-        {
-            Platforms.RemoveAll(p => p.Identifier == identifier);
         }
 
 #if UNITY_EDITOR
@@ -362,17 +321,14 @@ namespace FMODUnity
 
 #if UNITY_EDITOR
         // Adds a new platform group to the set of platforms.
-        public PlatformGroup AddPlatformGroup(string displayName, int sortOrder)
+        public void AddPlatformGroup(string displayName)
         {
             PlatformGroup group = PlatformGroup.Create(displayName, Legacy.Platform.None);
-            group.DisplaySortOrder = sortOrder;
 
-            AddPlatform(group);
+            Platforms.Add(group.Identifier, group);
             AssetDatabase.AddObjectToAsset(group, this);
 
             LinkPlatform(group);
-
-            return group;
         }
 #endif
 
@@ -467,7 +423,7 @@ namespace FMODUnity
 
             foreach (PlatformTemplate template in platformTemplates)
             {
-                if (!PlatformExists(template.Identifier))
+                if (!Platforms.ContainsKey(template.Identifier))
                 {
                     newPlatforms.Add(template.CreateInstance());
                 }
@@ -512,7 +468,7 @@ namespace FMODUnity
             // Create a map for migrating legacy settings
             var platformMap = new Dictionary<Legacy.Platform, Platform>();
 
-            foreach (Platform platform in Platforms.Concat(newPlatforms))
+            foreach (Platform platform in Platforms.Values.Concat(newPlatforms))
             {
                 if (platform.LegacyIdentifier != Legacy.Platform.None)
                 {
@@ -646,7 +602,7 @@ namespace FMODUnity
             // Add all of the new platforms to the set of known platforms
             foreach (Platform platform in newPlatforms)
             {
-                AddPlatform(platform);
+                Platforms.Add(platform.Identifier, platform);
             }
 
             UpdateMigratedPlatforms();
@@ -666,7 +622,18 @@ namespace FMODUnity
                 }
             }
         }
+#endif
 
+        // Links the given platform to its parent, if it has one.
+        private void LinkPlatformToParent(Platform platform)
+        {
+            if (!string.IsNullOrEmpty(platform.ParentIdentifier))
+            {
+                platform.Parent = FindPlatform(platform.ParentIdentifier);
+            }
+        }
+
+#if UNITY_EDITOR
         // The platform that implements the current Unity build target.
         public Platform CurrentEditorPlatform
         {
@@ -683,15 +650,6 @@ namespace FMODUnity
             }
         }
 #endif
-
-        // Links the given platform to its parent, if it has one.
-        private void LinkPlatformToParent(Platform platform)
-        {
-            if (!string.IsNullOrEmpty(platform.ParentIdentifier))
-            {
-                SetPlatformParent(platform, FindPlatform(platform.ParentIdentifier));
-            }
-        }
 
         // The highest-priority platform that matches the current environment.
         public Platform FindCurrentPlatform()
@@ -745,49 +703,28 @@ namespace FMODUnity
         }
 
 #if UNITY_EDITOR
-        public void SetPlatformParent(Platform platform, Platform newParent)
+        // Removes a platform from the inheritance hierarchy and clears its properties, thus hiding
+        // it in the UI. Also destroys the platform if it is a group.
+        public void RemovePlatformProperties(Platform platform)
         {
-            Platform oldParent = FindPlatform(platform.ParentIdentifier);
-
-            if (oldParent != null)
+            while (platform.Children.Count > 0)
             {
-                oldParent.ChildIdentifiers.Remove(platform.Identifier);
+                platform.Children[platform.Children.Count - 1].Parent = platform.Parent;
             }
 
-            if (newParent != null)
+            if (platform is PlatformGroup)
             {
-                platform.ParentIdentifier = newParent.Identifier;
+                PlatformGroup group = platform as PlatformGroup;
 
-                newParent.ChildIdentifiers.Add(platform.Identifier);
-                SortPlatformChildren(newParent);
+                group.Parent = null;
+                Platforms.Remove(group.Identifier);
+                DestroyImmediate(group, true);
             }
             else
             {
-                platform.ParentIdentifier = null;
+                platform.ClearProperties();
+                platform.Parent = defaultPlatform;
             }
-        }
-
-        public void SetPlatformSortOrder(Platform platform, float sortOrder)
-        {
-            if (platform.DisplaySortOrder != sortOrder)
-            {
-                platform.DisplaySortOrder = sortOrder;
-
-                if (platform.Parent != null)
-                {
-                    SortPlatformChildren(platform.Parent);
-                }
-            }
-        }
-
-        public void SortPlatformChildren(Platform platform)
-        {
-            platform.ChildIdentifiers.Sort((a, b) => {
-                Platform platformA = FindPlatform(a);
-                Platform platformB = FindPlatform(b);
-
-                return platformA.DisplaySortOrder.CompareTo(platformB.DisplaySortOrder);
-            });
         }
 
         // Ensures that the given platform has valid properties.
@@ -798,11 +735,6 @@ namespace FMODUnity
                 Debug.LogFormat("[FMOD] Cannot find properties for platform {0}, creating default properties", platform.Identifier);
                 AddPlatformProperties(platform);
             }
-        }
-#else
-        public void SetPlatformParent(Platform platform, Platform newParent)
-        {
-            platform.Parent = newParent;
         }
 #endif
 
@@ -839,8 +771,8 @@ namespace FMODUnity
         {
             PopulatePlatformsFromAsset();
 
-            defaultPlatform = Platforms.FirstOrDefault(platform => platform is PlatformDefault);
-            playInEditorPlatform = Platforms.FirstOrDefault(platform => platform is PlatformPlayInEditor);
+            defaultPlatform = Platforms.Values.FirstOrDefault(platform => platform is PlatformDefault);
+            playInEditorPlatform = Platforms.Values.FirstOrDefault(platform => platform is PlatformPlayInEditor);
 
 #if UNITY_EDITOR
             if (SwitchSettingsMigration == false)
@@ -885,8 +817,6 @@ namespace FMODUnity
 
         private void PopulatePlatformsFromAsset()
         {
-            Platforms.Clear();
-
 #if UNITY_EDITOR
             string assetPath = AssetDatabase.GetAssetPath(this);
             UnityEngine.Object[] assets = AssetDatabase.LoadAllAssetsAtPath(assetPath);
@@ -906,7 +836,7 @@ namespace FMODUnity
 
                     if (newPlatform.Active && !existingPlatform.Active)
                     {
-                        RemovePlatform(existingPlatform.Identifier);
+                        Platforms.Remove(existingPlatform.Identifier);
 
                         platformToDestroy = existingPlatform;
                         existingPlatform = null;
@@ -925,7 +855,7 @@ namespace FMODUnity
                 if (existingPlatform == null)
                 {
                     newPlatform.EnsurePropertiesAreValid();
-                    AddPlatform(newPlatform);
+                    Platforms.Add(newPlatform.Identifier, newPlatform);
                 }
             }
 
@@ -1034,9 +964,6 @@ namespace FMODUnity
 
         private static void PreprocessStaticPlugins(Platform platform, BuildTarget target)
         {
-            // Ensure we don't have leftover temporary changes from a previous build.
-            CleanTemporaryChanges();
-
             BuildTargetGroup buildTargetGroup = BuildPipeline.GetBuildTargetGroup(target);
             ScriptingImplementation scriptingBackend = PlayerSettings.GetScriptingBackend(buildTargetGroup);
 
@@ -1049,11 +976,14 @@ namespace FMODUnity
 
                 if (platform.SupportsAdditionalCPP(target))
                 {
+                    // Ensure we don't have leftover temporary files in the Assets directory.
+                    CleanTemporaryFiles();
+
                     // Generate code to a file outside the Assets directory and use IL2CPP arguments
                     // to include it in the build.
                     Debug.LogFormat("FMOD: Generating static plugin registration code in {0}", RegisterStaticPluginsTempFilePath);
                     CodeGeneration.GenerateStaticPluginRegistration(RegisterStaticPluginsTempFilePath, platform, reportError);
-                    AddIl2CppArgs();
+                    UpdateIl2CppArgs();
                 }
                 else
                 {
@@ -1117,52 +1047,23 @@ namespace FMODUnity
 
         private const string Il2CppCommand_AdditionalCpp = "--additional-cpp";
 
-        private static IEnumerable<string> AdditionalIl2CppFiles()
+        private static void UpdateIl2CppArgs()
         {
-            yield return RegisterStaticPluginsTempFilePath;
-            yield return Application.dataPath + "/Plugins/FMOD/src/Runtime/" + StaticPluginsSupportHeader;
-        }
+            string[] filePaths = {
+                RegisterStaticPluginsTempFilePath,
+                Application.dataPath + "/Plugins/FMOD/src/Runtime/" + StaticPluginsSupportHeader,
+            };
 
-        private static void AddIl2CppArgs()
-        {
-            string arguments = PlayerSettings.GetAdditionalIl2CppArgs();
-
-            foreach (string path in AdditionalIl2CppFiles())
-            {
-                string newArgument = string.Format("{0}=\"{1}\"", Il2CppCommand_AdditionalCpp, path);
-
-                Debug.LogFormat("FMOD: Adding Il2CPP argument '{0}'", newArgument);
-
-                if (string.IsNullOrEmpty(arguments))
-                {
-                    arguments = newArgument;
-                }
-                else
-                {
-                    arguments += " " + newArgument;
-                }
-            }
-
-            PlayerSettings.SetAdditionalIl2CppArgs(arguments);
-        }
-
-        [InitializeOnLoadMethod]
-        private static void CleanTemporaryChanges()
-        {
-            CleanIl2CppArgs();
-            CleanTemporaryFiles();
-        }
-
-        private static void CleanIl2CppArgs()
-        {
             string arguments = PlayerSettings.GetAdditionalIl2CppArgs();
             string newArguments = arguments;
 
-            foreach (string path in AdditionalIl2CppFiles())
+            foreach (string path in filePaths)
             {
                 // Match on basename only in case the temp file location has moved
-                string basename = Regex.Escape(Path.GetFileName(path));
-                Regex regex = new Regex(Il2CppCommand_AdditionalCpp + "=\"[^\"]*" + basename + "\"");
+                string basename = Path.GetFileName(path);
+                Regex regex = new Regex(Il2CppCommand_AdditionalCpp + "=\"([^\"]*" + basename + ")\"");
+
+                bool pathFound = false;
 
                 for (int startIndex = 0; startIndex < newArguments.Length; )
                 {
@@ -1173,23 +1074,48 @@ namespace FMODUnity
                         break;
                     }
 
-                    Debug.LogFormat("FMOD: Removing Il2CPP argument '{0}'", match.Value);
-
-                    int matchStart = match.Index;
                     int matchEnd = match.Index + match.Length;
 
-                    // Consume an adjacent space if there is one
-                    if (matchStart > 0 && newArguments[matchStart - 1] == ' ')
+                    if (!pathFound && match.Groups[1].Value == path)
                     {
-                        --matchStart;
+                        pathFound = true;
+                        startIndex = matchEnd;
                     }
-                    else if (matchEnd < newArguments.Length && newArguments[matchEnd] == ' ')
+                    else
                     {
-                        ++matchEnd;
-                    }
+                        Debug.LogFormat("FMOD: Removing Il2CPP argument '{0}'", match.Value);
 
-                    newArguments = newArguments.Substring(0, matchStart) + newArguments.Substring(matchEnd);
-                    startIndex = matchStart;
+                        int matchStart = match.Index;
+
+                        // Consume an adjacent space if there is one
+                        if (matchStart > 0 && newArguments[matchStart - 1] == ' ')
+                        {
+                            --matchStart;
+                        }
+                        else if (matchEnd < newArguments.Length && newArguments[matchEnd] == ' ')
+                        {
+                            ++matchEnd;
+                        }
+
+                        newArguments = newArguments.Substring(0, matchStart) + newArguments.Substring(matchEnd);
+                        startIndex = matchStart;
+                    }
+                }
+
+                if (!pathFound)
+                {
+                    string newArgument = string.Format("{0}=\"{1}\"", Il2CppCommand_AdditionalCpp, path);
+
+                    Debug.LogFormat("FMOD: Adding Il2CPP argument '{0}'", newArgument);
+
+                    if (string.IsNullOrEmpty(newArguments))
+                    {
+                        newArguments = newArgument;
+                    }
+                    else
+                    {
+                        newArguments += " " + newArgument;
+                    }
                 }
             }
 
@@ -1199,6 +1125,7 @@ namespace FMODUnity
             }
         }
 
+        [InitializeOnLoadMethod]
         private static void CleanTemporaryFiles()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode)
@@ -1242,7 +1169,7 @@ namespace FMODUnity
 
             public void OnPostprocessBuild(BuildReport report)
             {
-                Settings.CleanTemporaryChanges();
+                Settings.CleanTemporaryFiles();
             }
         }
 #else
@@ -1265,7 +1192,7 @@ namespace FMODUnity
 
             public void OnPostprocessBuild(BuildTarget target, string path)
             {
-                Settings.CleanTemporaryChanges();
+                Settings.CleanTemporaryFiles();
             }
         }
 #endif
@@ -1429,8 +1356,6 @@ namespace FMODUnity
                     return "Stadia";
                 case Platform.Switch:
                     return "Switch";
-                case Platform.WebGL:
-                    return "WebGL";
             }
             return "Unknown";
         }
@@ -1480,7 +1405,6 @@ namespace FMODUnity
                 case Platform.Linux:
                 case Platform.Mac:
                 case Platform.UWP:
-                case Platform.WebGL:
                     return Platform.Desktop;
                 case Platform.MobileHigh:
                 case Platform.MobileLow:

@@ -1,6 +1,6 @@
 /* ======================================================================================== */
 /* FMOD Core API - C# wrapper.                                                              */
-/* Copyright (c), Firelight Technologies Pty, Ltd. 2004-2021.                               */
+/* Copyright (c), Firelight Technologies Pty, Ltd. 2004-2020.                               */
 /*                                                                                          */
 /* For more detail visit:                                                                   */
 /* https://fmod.com/resources/documentation-api?version=2.0&page=core-api.html              */
@@ -19,7 +19,7 @@ namespace FMOD
     */
     public partial class VERSION
     {
-        public const int    number = 0x00020108;
+        public const int    number = 0x00020107;
 #if !UNITY_2017_4_OR_NEWER
         public const string dll    = "fmod";
 #endif
@@ -498,7 +498,6 @@ namespace FMOD
         RECORDLISTCHANGED      = 0x00001000,
         BUFFEREDNOMIX          = 0x00002000,
         DEVICEREINITIALIZE     = 0x00004000,
-        OUTPUTUNDERRUN         = 0x00008000,
         ALL                    = 0xFFFFFFFF,
     }
 

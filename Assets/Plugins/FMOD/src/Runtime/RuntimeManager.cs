@@ -142,7 +142,6 @@ namespace FMODUnity
         }
 
         Dictionary<string, LoadedBank> loadedBanks = new Dictionary<string, LoadedBank>();
-        List<string> sampleLoadRequests = new List<string>();
 
         // Explicit comparer to avoid issues on platforms that don't support JIT compilation
         class GuidComparer : IEqualityComparer<Guid>
@@ -446,8 +445,7 @@ retry:
                         attachedInstances[i].transform == null // destroyed game object
                         )
                     {
-                        attachedInstances[i] = attachedInstances[attachedInstances.Count - 1];
-                        attachedInstances.RemoveAt(attachedInstances.Count - 1);
+                        attachedInstances.RemoveAt(i);
                         i--;
                         continue;
                     }
@@ -589,8 +587,7 @@ retry:
             {
                 if (manager.attachedInstances[i].instance.handle == instance.handle)
                 {
-                    manager.attachedInstances[i] = manager.attachedInstances[manager.attachedInstances.Count - 1];
-                    manager.attachedInstances.RemoveAt(manager.attachedInstances.Count - 1);
+                    manager.attachedInstances.RemoveAt(i);
                     return;
                 }
             }
@@ -767,33 +764,6 @@ retry:
             else
             {
                 throw new BankLoadException(bankPath, loadResult);
-            }
-
-            ExecuteSampleLoadRequestsIfReady();
-        }
-
-        void ExecuteSampleLoadRequestsIfReady()
-        {
-            if (sampleLoadRequests.Count > 0)
-            {
-                foreach (string bankName in sampleLoadRequests)
-                {
-                    if (!loadedBanks.ContainsKey(bankName))
-                    {
-                        // Not ready
-                        return;
-                    }
-                }
-
-                // All requested banks are loaded, so we can now load sample data
-                foreach (string bankName in sampleLoadRequests)
-                {
-                    LoadedBank loadedBank = loadedBanks[bankName];
-                    CheckInitResult(loadedBank.Bank.loadSampleData(),
-                        string.Format("Loading sample data for bank: {0}", bankName));
-                }
-
-                sampleLoadRequests.Clear();
             }
         }
 
@@ -979,56 +949,46 @@ retry:
         {
             if (fmodSettings.ImportType == ImportType.StreamingAssets)
             {
-                if (fmodSettings.AutomaticSampleLoading)
-                {
-                    sampleLoadRequests.AddRange(BanksToLoad(fmodSettings));
-                }
-
+                // Always load strings bank
                 try
                 {
-                    foreach (string bankName in BanksToLoad(fmodSettings))
+                    switch (fmodSettings.BankLoadType)
                     {
-                        LoadBank(bankName);
-                    }
+                        case BankLoadType.All:
+                            foreach (string masterBankFileName in fmodSettings.MasterBanks)
+                            {
+                                LoadBank(masterBankFileName + ".strings", fmodSettings.AutomaticSampleLoading);
+                                LoadBank(masterBankFileName, fmodSettings.AutomaticSampleLoading);
+                            }
 
-                    WaitForAllLoads();
+                            foreach (var bank in fmodSettings.Banks)
+                            {
+                                LoadBank(bank, fmodSettings.AutomaticSampleLoading);
+                            }
+
+                            WaitForAllLoads();
+                            break;
+                        case BankLoadType.Specified:
+                            foreach (var bank in fmodSettings.BanksToLoad)
+                            {
+                                if (!string.IsNullOrEmpty(bank))
+                                {
+                                    LoadBank(bank, fmodSettings.AutomaticSampleLoading);
+                                }
+                            }
+
+                            WaitForAllLoads();
+                            break;
+                        case BankLoadType.None:
+                            break;
+                        default:
+                            break;
+                    }
                 }
                 catch (BankLoadException e)
                 {
                     UnityEngine.Debug.LogException(e);
                 }
-            }
-        }
-
-        private IEnumerable<string> BanksToLoad(Settings fmodSettings)
-        {
-            switch (fmodSettings.BankLoadType)
-            {
-                case BankLoadType.All:
-                    foreach (string masterBankFileName in fmodSettings.MasterBanks)
-                    {
-                        yield return masterBankFileName + ".strings";
-                        yield return masterBankFileName;
-                    }
-
-                    foreach (var bank in fmodSettings.Banks)
-                    {
-                        yield return bank;
-                    }
-                    break;
-                case BankLoadType.Specified:
-                    foreach (var bank in fmodSettings.BanksToLoad)
-                    {
-                        if (!string.IsNullOrEmpty(bank))
-                        {
-                            yield return bank;
-                        }
-                    }
-                    break;
-                case BankLoadType.None:
-                    break;
-                default:
-                    break;
             }
         }
 
@@ -1042,7 +1002,6 @@ retry:
                 {
                     loadedBank.Bank.unload();
                     Instance.loadedBanks.Remove(bankName);
-                    Instance.sampleLoadRequests.Remove(bankName);
                     return;
                 }
                 Instance.loadedBanks[bankName] = loadedBank;
@@ -1223,18 +1182,18 @@ retry:
 
         public static void SetListenerLocation(int listenerIndex, Transform transform, GameObject attenuationObject = null)
         {
-            SetListenerLocation3D(listenerIndex, transform, null, attenuationObject);
+            SetListenerLocation3D(0, transform, null, attenuationObject);
         }
 
         private static void SetListenerLocation3D(int listenerIndex, Transform transform, Rigidbody rigidBody = null, GameObject attenuationObject = null)
         {
             if (attenuationObject)
             {
-                Instance.studioSystem.setListenerAttributes(listenerIndex, RuntimeUtils.To3DAttributes(transform, rigidBody), RuntimeUtils.ToFMODVector(attenuationObject.transform.position));
+                Instance.studioSystem.setListenerAttributes(0, RuntimeUtils.To3DAttributes(transform, rigidBody), RuntimeUtils.ToFMODVector(attenuationObject.transform.position));
             }
             else
             {
-                Instance.studioSystem.setListenerAttributes(listenerIndex, RuntimeUtils.To3DAttributes(transform, rigidBody));
+                Instance.studioSystem.setListenerAttributes(0, RuntimeUtils.To3DAttributes(transform, rigidBody));
             }
         }
 
@@ -1242,11 +1201,11 @@ retry:
         {
             if (attenuationObject)
             {
-                Instance.studioSystem.setListenerAttributes(listenerIndex, RuntimeUtils.To3DAttributes(transform, rigidBody), RuntimeUtils.ToFMODVector(attenuationObject.transform.position));
+                Instance.studioSystem.setListenerAttributes(0, RuntimeUtils.To3DAttributes(transform, rigidBody), RuntimeUtils.ToFMODVector(attenuationObject.transform.position));
             }
             else
             {
-                Instance.studioSystem.setListenerAttributes(listenerIndex, RuntimeUtils.To3DAttributes(transform, rigidBody));
+                Instance.studioSystem.setListenerAttributes(0, RuntimeUtils.To3DAttributes(transform, rigidBody));
             }
         }
 

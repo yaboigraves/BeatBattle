@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
         else
         {
             current = this;
-            DontDestroyOnLoad(this.gameObject);
+            //DontDestroyOnLoad(this.gameObject);
 
             if (player == null)
             {

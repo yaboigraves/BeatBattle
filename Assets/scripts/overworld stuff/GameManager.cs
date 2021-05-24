@@ -63,6 +63,7 @@ public class GameManager : MonoBehaviour
         this.player = player;
         UIManager.current.player = player;
         SceneManage.current.player = player;
+        InputHandler.current.player = player;
         //CameraManager.current.setCameraFollow(player.transform);
 
     }

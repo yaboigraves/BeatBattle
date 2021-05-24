@@ -37,7 +37,7 @@ public class InputHandler : MonoBehaviour
 
     void Start()
     {
-        player = GameManager.current.playerObj.GetComponentInChildren<Player>();
+        //player = GameManager.current.playerObj.GetComponentInChildren<Player>();
 
         playerMove = player.gameObject.GetComponent<PlayerMove>();
         if (player == null)
@@ -65,7 +65,9 @@ public class InputHandler : MonoBehaviour
             //clear the list of any missing game objects or fucked up references
             player.clearObjectsInRange();
 
+            Debug.Log("Trying to handle an E input");
 
+            Debug.Log(player.interactRange.objectsInRange.Count);
             if (player.inDialogue)
             {
                 //go to the next dialogue 
@@ -87,11 +89,13 @@ public class InputHandler : MonoBehaviour
             }
             else if (player.interactRange.objectsInRange.Count > 0)
             {
+                Debug.Log("entering conversation");
                 player.interactRange.objectsInRange[0].GetComponent<IInteractable>().Interact();
 
                 if (player.interactRange.objectsInRange.Count > 0 && player.interactRange.objectsInRange[0].GetComponent<NPC>() != null)
                 {
                     player.enterDialogue();
+                    Debug.Log("entering conversation");
                     ResetInputAxis();
                 }
             }

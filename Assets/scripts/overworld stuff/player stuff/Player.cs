@@ -22,6 +22,10 @@ public class Player : Entity
     public Homie homie;
     public Cinemachine.CinemachineVirtualCamera pickupItemCam;
 
+    private void Awake()
+    {
+        interactRange = GetComponentInChildren<InteractRange>();
+    }
     void Start()
     {
         rb = GetComponent<Rigidbody>();

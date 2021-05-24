@@ -39,7 +39,8 @@ public class NPC : Entity, IInteractable
         // }
 
         //check if we have a cutscene to load 
-        if (cutsceneDirector.playableAsset != null)
+        //TODO: reiplimnent this
+        if (cutsceneDirector != null && cutsceneDirector.playableAsset != null)
         {
             CutsceneManager.current.SetCutscene(cutsceneDirector);
         }

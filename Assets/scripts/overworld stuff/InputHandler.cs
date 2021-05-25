@@ -21,6 +21,8 @@ public class InputHandler : MonoBehaviour
 
     public bool inPickupCutscene;
 
+
+
     void Awake()
     {
         if (current == null)
@@ -205,6 +207,7 @@ public class InputHandler : MonoBehaviour
         //reset the input axis
         ResetInputAxis();
         playerMovementLocked = lockMove;
+        playerMove.LockPlayerMovement(lockMove);
     }
 
     public void TogglePickupCutscene(bool toggle)

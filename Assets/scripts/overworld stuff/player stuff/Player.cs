@@ -26,6 +26,7 @@ public class Player : Entity
     {
         interactRange = GetComponentInChildren<InteractRange>();
     }
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -40,7 +41,6 @@ public class Player : Entity
         battleRangeChecker = GetComponentInChildren<BattleRangeChecker>();
 
         inventory = GetComponent<PlayerInventory>();
-
         //LoadHomie();
     }
 
@@ -60,6 +60,7 @@ public class Player : Entity
     {
         inDialogue = true;
         InputHandler.current.LockPlayerMovement(true);
+
     }
 
     public void leaveDialogue()

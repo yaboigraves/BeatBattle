@@ -55,6 +55,10 @@ public class PlayerMove : MonoBehaviour
 
     int stepsSinceLastGrounded, stepsSinceLastJump;
 
+    Vector2 playerInput;
+
+    bool movementLocked = false;
+
     void OnValidate()
     {
         minGroundDotProduct = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad);
@@ -69,12 +73,30 @@ public class PlayerMove : MonoBehaviour
         player = GetComponent<Player>();
     }
 
-    void Update()
+
+    void HandlePlayerInput()
     {
-        Vector2 playerInput;
         playerInput.x = Input.GetAxis("Horizontal");
         playerInput.y = Input.GetAxis("Vertical");
         playerInput = Vector2.ClampMagnitude(playerInput, 1f);
+    }
+
+    public void LockPlayerMovement(bool toggle)
+    {
+        //reset the input
+        playerInput = Vector2.zero;
+
+        movementLocked = toggle;
+    }
+
+    void Update()
+    {
+
+        if (!movementLocked)
+        {
+            HandlePlayerInput();
+        }
+
 
         if (playerInputSpace)
         {

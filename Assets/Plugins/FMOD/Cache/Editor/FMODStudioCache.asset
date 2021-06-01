@@ -428,11 +428,11 @@ MonoBehaviour:
   Path: FMOD/beatBattleFmod/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637566996473738459
+  lastModified: 637580920103527833
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 806
+    Value: 888
   Exists: 1
 --- !u!114 &-4583148978333179976
 MonoBehaviour:
@@ -450,13 +450,13 @@ MonoBehaviour:
   guid: 5710f4e755c53040ad85519d32cb203e
   Banks:
   - {fileID: 3063274398547493314}
-  IsStream: 1
+  IsStream: 0
   Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
-  Length: 73846
+  Length: 2582
 --- !u!114 &-4451159155774460582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -842,14 +842,16 @@ MonoBehaviour:
   - {fileID: -4616149434453526043}
   - {fileID: 3063274398547493314}
   - {fileID: 7141657133338161675}
+  - {fileID: 9150210328211626965}
   EditorEvents:
   - {fileID: -4583148978333179976}
+  - {fileID: 6246160849033841909}
   EditorParameters: []
   MasterBanks:
   - {fileID: 7141657133338161675}
   StringsBanks:
   - {fileID: -4616149434453526043}
-  stringsBankWriteTime: 637566996473738459
+  stringsBankWriteTime: 637580920103527833
   cacheVersion: 6
 --- !u!114 &89815951418690271
 MonoBehaviour:
@@ -1144,7 +1146,7 @@ MonoBehaviour:
   Path: FMOD/beatBattleFmod/Build/Desktop/background music.bank
   Name: background music
   StudioPath: bank:/background music
-  lastModified: 637566996473798297
+  lastModified: 637580920103467993
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -1435,6 +1437,29 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 74880
+--- !u!114 &6246160849033841909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/test
+  m_EditorClassIdentifier: 
+  Path: event:/test
+  guid: b6477cdc63eb1c4f8c52559799c30fb1
+  Banks:
+  - {fileID: 9150210328211626965}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
 --- !u!114 &6481829813107574588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1516,7 +1541,7 @@ MonoBehaviour:
   Path: FMOD/beatBattleFmod/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 637566996473738459
+  lastModified: 637580920103507894
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -1711,6 +1736,25 @@ MonoBehaviour:
   ID:
     data1: 0
     data2: 0
+  Exists: 1
+--- !u!114 &9150210328211626965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Test.bank
+  m_EditorClassIdentifier: 
+  Path: FMOD/beatBattleFmod/Build/Desktop/Test.bank
+  Name: Test
+  StudioPath: bank:/Test
+  lastModified: 637580920103547776
+  LoadResult: 0
+  FileSizes: []
   Exists: 1
 --- !u!114 &9216613452410911549
 MonoBehaviour:

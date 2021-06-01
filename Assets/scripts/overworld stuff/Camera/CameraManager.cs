@@ -29,7 +29,7 @@ public class CameraManager : MonoBehaviour
     {
         if (currentCamera == null)
         {
-            currentCamera = GameObject.FindGameObjectWithTag("PlayerCamera").GetComponent<CinemachineVirtualCamera>();
+            //currentCamera = GameObject.FindGameObjectWithTag("PlayerCamera").GetComponent<CinemachineVirtualCamera>();
         }
     }
 

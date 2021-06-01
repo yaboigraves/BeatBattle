@@ -255,6 +255,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &489769370674789787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -408,7 +409,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8edfcdf5d0b5b77478d981ec4f13f49f, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -463,8 +464,8 @@ MonoBehaviour:
   - {fileID: 5806393490126907904}
   - {fileID: 5806393490654080223}
   m_Bounds:
-    m_Center: {x: -0.32422972, y: 0.60255885, z: 0}
-    m_Extent: {x: 3.2835557, y: 2.450001, z: 0}
+    m_Center: {x: -0.32422948, y: 0.6025585, z: 0}
+    m_Extent: {x: 3.2835555, y: 2.4500005, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!210 &2877744299044497259
@@ -537,14 +538,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6b3fff8c3a2e2d94dba1766390f9d4bc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2671b5d07b7ddce41aa92c93616537f9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -667,6 +668,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 969daf2b71ab69c4d87229c7a1e81111, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteContainer: {fileID: 0}
+  facingDirection: 1
   talkToNode: TemplateNPC
   scriptToLoad: {fileID: 2480198943629176163, guid: bd72797f7ea2902499271570d0bae267,
     type: 3}
@@ -675,6 +678,7 @@ MonoBehaviour:
   goodbyeText: Peace Peace Dawg.
   cutscene: {fileID: 0}
   battleEnemy: {fileID: 0}
+  cutsceneDirector: {fileID: 0}
 --- !u!136 &8112608968773516748
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -979,9 +983,6 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_outlineColor:
-    serializedVersion: 2
-    rgba: 4278190080
   m_fontSize: 3
   m_fontSizeBase: 3
   m_fontWeight: 400
@@ -992,7 +993,6 @@ MonoBehaviour:
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
-  m_isAlignmentEnumConverted: 1
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -1002,10 +1002,8 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: -1
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
-  m_isTextTruncated: 0
   m_enableKerning: 1
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
@@ -1013,30 +1011,17 @@ MonoBehaviour:
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
-  m_ignoreCulling: 1
   m_horizontalMapping: 0
   m_verticalMapping: 0
   m_uvLineOffset: 0
   m_geometrySortingOrder: 0
   m_IsTextObjectScaleStatic: 0
   m_VertexBufferAutoSizeReduction: 1
-  m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
   m_margin: {x: 0, y: 0, z: 0, w: 0}
-  m_textInfo:
-    textComponent: {fileID: 4637512762501247719}
-    characterCount: 8
-    spriteCount: 0
-    spaceCount: 1
-    wordCount: 2
-    linkCount: 0
-    lineCount: 1
-    pageCount: 1
-    materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_spriteAnimator: {fileID: 0}
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}

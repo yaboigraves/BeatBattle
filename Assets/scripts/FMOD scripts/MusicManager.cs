@@ -40,18 +40,12 @@ public class MusicManager : MonoBehaviour
 
 
     //my variables after here
-
-    public int maxBeatsPerLoop = 8, beatsPerLoop = 0;
-
     private void Awake()
     {
         current = this;
 
         musicPlayEvent = RuntimeManager.CreateInstance(music);
 
-        //ok so using the current event we can just set parameters based on trhe transitions
-
-        //musicPlayEvent.setParameterByName("testParam", 1.0f);
 
 
         musicPlayEvent.start();
@@ -82,12 +76,6 @@ public class MusicManager : MonoBehaviour
     {
         //do stuff every beat
 
-        beatsPerLoop++;
-        if (beatsPerLoop >= maxBeatsPerLoop)
-        {
-            musicPlayEvent.setParameterByName("testParam", 1.0f);
-
-        }
     }
 
 
@@ -154,3 +142,5 @@ public class MusicManager : MonoBehaviour
     }
 
 }
+
+

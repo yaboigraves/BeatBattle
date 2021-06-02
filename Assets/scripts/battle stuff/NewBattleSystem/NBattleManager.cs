@@ -30,9 +30,17 @@ public class NBattleManager : MonoBehaviour
     public BattleState currentState = BattleState.Prebattle;
 
     public bool interludeRequested = false;
+
+    private void Awake()
+    {
+
+    }
+
+
     void Start()
     {
         //so first things first, we have to set the state to pre-battle
+        StartCoroutine(MinigameManager.current.LoadMinigames());
     }
 
     // Update is called once per frame

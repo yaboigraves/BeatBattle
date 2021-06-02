@@ -11,4 +11,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Managers.unity
     guid: e05f86e4a17ac47469581bf36ac5e09f
+  - enabled: 1
+    path: Assets/Scenes/NewBattleSystem/BaseBattleScene.unity
+    guid: e19c7eb5f66f4c54c9ad5bc21e3e2f8f
+  - enabled: 1
+    path: Assets/scripts/battle stuff/NewBattleSystem/Minigame1.unity
+    guid: 65537b00fd37cf441bdd1464f230cd30
+  - enabled: 1
+    path: Assets/scripts/battle stuff/NewBattleSystem/Minigame2.unity
+    guid: ae725f4eafc74bb4ea96b229d58e9cc5
   m_configObjects: {}

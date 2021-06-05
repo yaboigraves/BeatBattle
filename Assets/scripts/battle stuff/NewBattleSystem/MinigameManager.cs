@@ -34,9 +34,32 @@ public class MinigameManager : MonoBehaviour
         foreach (string sceneName in minigameSceneNames)
         {
             sceneLoads[0] = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-            sceneLoads[0].allowSceneActivation = false;
+            //sceneLoads[0].allowSceneActivation = false;
+        }
+
+        while (CheckScenesLoaded(sceneLoads))
+        {
+            yield return null;
+        }
+
+        Debug.Log("done loading");
+
+        NBattleManager.current.InitQueue();
+    }
+
+    bool CheckScenesLoaded(AsyncOperation[] ops)
+    {
+        foreach (AsyncOperation a in ops)
+        {
+            if (!a.isDone)
+            {
+                return false;
+            }
         }
 
 
+        return true;
     }
 }
+
+

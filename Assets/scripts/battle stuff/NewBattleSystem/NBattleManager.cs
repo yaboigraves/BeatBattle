@@ -63,6 +63,8 @@ public class NBattleManager : MonoBehaviour
             }
             turnQueue.Add(turn);
         }
+
+        NBattleUIManager.current.InitTurnQueue(turnQueue);
     }
 
 
@@ -116,6 +118,9 @@ public class NBattleManager : MonoBehaviour
             Debug.Log("currentTurn name : " + currentTurn.minigameSceneName);
             Debug.Log("player turn? : " + currentTurn.playerOrEnemy);
             turnQueue.RemoveAt(0);
+
+            //update the ui, 
+            NBattleUIManager.current.UpdateTurnQueue();
         }
 
 

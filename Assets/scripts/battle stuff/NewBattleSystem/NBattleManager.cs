@@ -77,7 +77,6 @@ public class NBattleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         UpdateState();
     }
 
@@ -108,7 +107,6 @@ public class NBattleManager : MonoBehaviour
     //depending on battle phase we start a different persons turn
     public void ChangeTurn()
     {
-
         if (turnQueue.Count > 0)
         {
             //debug log the new turn

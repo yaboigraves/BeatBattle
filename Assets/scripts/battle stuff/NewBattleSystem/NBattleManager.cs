@@ -34,7 +34,6 @@ using UnityEngine;
 
 public class NBattleManager : MonoBehaviour
 {
-
     public static NBattleManager current;
     public delegate void WaitCallback();
 
@@ -42,9 +41,13 @@ public class NBattleManager : MonoBehaviour
 
     public bool interludeRequested = false;
 
-    public List<BattleTurn> turnQueue;
+    public List<BattleAction> turnQueue;
 
     public Sample[] playerSet;
+
+    public NEnemy[] enemies;
+
+
 
     private void Awake()
     {
@@ -58,32 +61,29 @@ public class NBattleManager : MonoBehaviour
     public void InitQueue()
     {
         Debug.Log("Initializing the turnQueue");
-        turnQueue = new List<BattleTurn>();
+        turnQueue = new List<BattleAction>();
 
         //so rather than building these randomly build them from the players set
 
-
-
         for (int i = 0; i < playerSet.Length; i++)
         {
-            BattleTurn turn = new BattleTurn();
+            PlayerBattleAction turn = new PlayerBattleAction();
+            Sample s = Instantiate(playerSet[i]);
             turn.minigameSceneName = playerSet[i].sampleName;
-            turn.damage = Random.Range(1, 4);
-            // if (i % 2 == 0)
-            // {
-            //     turn.playerOrEnemy = false;
-            // }
-            // else
-            // {
-            //     turn.playerOrEnemy = true;
-            // }
             turn.playerOrEnemy = true;
-            turn.sample = playerSet[i];
+            turn.sample = s;
             turnQueue.Add(turn);
+
+            //do an enemy turn for this player turn
+            EnemyBattleAction enemyTurn = new EnemyBattleAction();
+            enemyTurn.playerOrEnemy = false;
+            enemyTurn.dmg = enemies[0].attack;
+            turnQueue.Add(enemyTurn);
+
         }
 
         calculateQueueModifiers();
-        NBattleUIManager.current.InitTurnQueue(turnQueue);
+
     }
 
     //so once all the samples get added we then go through and calculate how all the samples will modify one another
@@ -95,11 +95,17 @@ public class NBattleManager : MonoBehaviour
         //go through each of the samples in the queue, and call their function, store the result, and then do it again for the next modifier
         Debug.Log(turnQueue.Count);
 
-
-        for (int i = 0; i < turnQueue.Count; i++)
+        //+= 2 to skip the enemy turns
+        for (int i = 0; i < turnQueue.Count; i += 2)
         {
-            turnQueue = SampleEffects.processSampleEffect(turnQueue[i].sample, turnQueue);
+            PlayerBattleAction a = (PlayerBattleAction)turnQueue[i];
+            if (a.sample.functionName != "")
+            {
+                turnQueue = SampleEffects.processSampleEffect(turnQueue, i);
+            }
         }
+
+        NBattleUIManager.current.InitTurnQueue(turnQueue);
     }
 
 
@@ -145,12 +151,12 @@ public class NBattleManager : MonoBehaviour
         if (turnQueue.Count > 0)
         {
             //debug log the new turn
-            BattleTurn currentTurn = turnQueue[0];
+            BattleAction currentTurn = turnQueue[0];
 
-            Debug.Log("currentTurn damg : " + currentTurn.damage);
-            Debug.Log("currentTurn name : " + currentTurn.minigameSceneName);
-            Debug.Log("player turn? : " + currentTurn.playerOrEnemy);
-            turnQueue.RemoveAt(0);
+            // Debug.Log("currentTurn damg : " + currentTurn.sample.numericValue);
+            // Debug.Log("currentTurn name : " + currentTurn.minigameSceneName);
+            // Debug.Log("player turn? : " + currentTurn.playerOrEnemy);
+            // turnQueue.RemoveAt(0);
 
             //update the ui, 
             NBattleUIManager.current.UpdateTurnQueue();
@@ -194,15 +200,28 @@ public enum BattleState
 
 
 
-
-
 //so these are going to need to have a scriptable object loaded with them
 //load these around the samples put in the array
 
-public class BattleTurn
+
+//TODO: Refactor to be base battleturn, stuff with both enemy and player, 
+public class BattleAction
+{
+    public bool playerOrEnemy;
+
+}
+
+public class PlayerBattleAction : BattleAction
 {
     public string minigameSceneName;
-    public bool playerOrEnemy;
-    public int damage;
     public Sample sample;
+}
+
+public class EnemyBattleAction : BattleAction
+{
+    //dmg range?
+
+    //tODO: make it so the enemy actually effects this
+
+    public int dmg = 1;
 }

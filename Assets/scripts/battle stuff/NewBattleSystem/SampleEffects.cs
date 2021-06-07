@@ -4,36 +4,47 @@ using UnityEngine;
 
 public static class SampleEffects
 {
-    public delegate List<BattleTurn> SampleEffect(List<BattleTurn> turnQueue);
+
+    //  LEFT -> RIGHT ALWAYS ME BOI
+
+
+    public delegate List<BattleAction> SampleEffect(List<BattleAction> turnQueue, int index);
     public static Dictionary<string, SampleEffect> sampleEffects = new Dictionary<string, SampleEffect>
     {
-        {"dmgBuff",dmgBuff},
-        {"heal",heal}
+        {"dmgBuff",dmgBuff}
     };
 
-
-    public static List<BattleTurn> processSampleEffect(Sample s, List<BattleTurn> turnQueue)
+    public static List<BattleAction> processSampleEffect(List<BattleAction> turnQueue, int index)
     {
         //look at the effect of the sample and call that function on the queue
         //repeat etc
 
-        return sampleEffects[s.functionName](turnQueue);
-
-
+        return sampleEffects[((PlayerBattleAction)turnQueue[index]).sample.functionName](turnQueue, index);
     }
 
-
-
-    public static List<BattleTurn> dmgBuff(List<BattleTurn> turnQueue)
+    public static List<BattleAction> dmgBuff(List<BattleAction> turnQueue, int index)
     {
         Debug.Log("dmgBuff Effect applying");
+
+        //apply lEFT TO RIGHT
+
+        //so left and right elements are a spaced out by 2 now
+
+        //check for left element
+        if (index < turnQueue.Count - 2)
+        {
+            ((PlayerBattleAction)turnQueue[index - 2]).sample.numericValue += 3;
+
+        }
+        //check for right element
+        if (index > 0)
+        {
+            ((PlayerBattleAction)turnQueue[index + 2]).sample.numericValue += 3;
+        }
+
         return turnQueue;
     }
 
-    public static List<BattleTurn> heal(List<BattleTurn> turnQueue)
-    {
-        Debug.Log("heal effect applying");
-        return turnQueue;
-    }
+
 
 }

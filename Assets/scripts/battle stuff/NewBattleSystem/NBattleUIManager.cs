@@ -12,6 +12,8 @@ public class NBattleUIManager : MonoBehaviour
 
     public List<Transform> turnOrderQueue;
 
+    //ENEMY PROTOTYPE SHIT
+
 
     private void Awake()
     {
@@ -19,16 +21,26 @@ public class NBattleUIManager : MonoBehaviour
 
     }
 
-    public void InitTurnQueue(List<BattleTurn> turnQueue)
+    public void InitTurnQueue(List<BattleAction> turnQueue)
     {
+
+
         turnOrderQueue = new List<Transform>();
         for (int i = 0; i < turnQueue.Count; i++)
         {
             GameObject turnInfo = Instantiate(turnInfoPrefab);
             turnInfo.transform.SetParent(turnQueuePanel);
-            turnInfo.transform.position = new Vector3(700 - (i * 200), 75, 0);
+            turnInfo.transform.position = new Vector3(Screen.width / 2 + (i * 200), 75, 0);
 
-            turnInfo.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = turnQueue[i].damage.ToString();
+            if (turnQueue[i].playerOrEnemy == true)
+            {
+                turnInfo.GetComponent<TurnInfo>().SetInfo(((PlayerBattleAction)turnQueue[i]).sample.sampleName, ((PlayerBattleAction)turnQueue[i]).sample.numericValue.ToString());
+            }
+            else
+            {
+                turnInfo.GetComponent<TurnInfo>().SetInfo("Enemy Attack", ((EnemyBattleAction)turnQueue[i]).dmg.ToString());
+
+            }
 
             if (turnQueue[i].playerOrEnemy)
             {

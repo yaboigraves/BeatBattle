@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Heal
   m_EditorClassIdentifier: 
   sampleName: HealSample
-  functionName: heal
+  functionName: 
+  numericValue: 3
+  sampleType: 1

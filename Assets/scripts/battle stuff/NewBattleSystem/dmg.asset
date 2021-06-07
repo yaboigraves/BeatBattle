@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42f95ac523a0ae848958369a4945143b, type: 3}
-  m_Name: DmgBuff
+  m_Name: dmg
   m_EditorClassIdentifier: 
-  sampleName: DmgBuffSample
-  functionName: dmgBuff
-  numericValue: 1
+  sampleName: dmg
+  functionName: 
+  numericValue: 5
   heals: 0

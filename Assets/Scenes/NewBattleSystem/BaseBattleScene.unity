@@ -297,6 +297,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 0
   interludeRequested: 0
+  playerSet:
+  - {fileID: 11400000, guid: 4063dc22b3cfb52499fdd92162ac5463, type: 2}
+  - {fileID: 11400000, guid: 6cb059902c5abc24fa422bbe394a36cf, type: 2}
 --- !u!4 &1320745404
 Transform:
   m_ObjectHideFlags: 0
@@ -588,6 +591,7 @@ MonoBehaviour:
   turnQueuePanel: {fileID: 1218566947}
   turnInfoPrefab: {fileID: 422850920202929913, guid: f0f7c39719df16442b29ec5ebd83a012,
     type: 3}
+  turnOrderQueue: []
 --- !u!114 &1999401593
 MonoBehaviour:
   m_ObjectHideFlags: 0

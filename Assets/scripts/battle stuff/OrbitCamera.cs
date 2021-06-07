@@ -35,7 +35,7 @@ public class OrbitCamera : MonoBehaviour
 
     Vector3 focusPoint, previousFocusPoint;
 
-    Vector2 orbitAngles = new Vector2(20f, 0f);
+    Vector2 orbitAngles = new Vector2(10f, 0f);
 
     float lastManualRotationTime;
 
@@ -139,7 +139,7 @@ public class OrbitCamera : MonoBehaviour
             lookPosition = rectPosition - rectOffset;
         }
 
-        transform.SetPositionAndRotation(lookPosition, lookRotation);
+        transform.SetPositionAndRotation(lookPosition + transform.up * 2.75f, lookRotation);
     }
 
     void UpdateFocusPoint()

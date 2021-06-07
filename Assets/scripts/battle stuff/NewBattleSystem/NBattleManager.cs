@@ -22,6 +22,16 @@ using UnityEngine;
 //beat should change for each minigame, play about 20 seconds each 
 //one cycle should probably be about 40 seconds
 
+
+
+//so we need some basic sample abilities 
+//first setup an infrastucture like the gear pipeline where we can just make sample scriptable objects
+//these scriptable objects need the basic info for the sample, as well as some way to find its function that it applies to the quue
+//the queue needs to be expanded so that we can iterate through it and calculate the effects of all the modifiers in the queue
+//basic UI for demonstrating this
+//finally, create a basic menu for organizing a set based on a premade set of samples
+
+
 public class NBattleManager : MonoBehaviour
 {
 
@@ -33,6 +43,8 @@ public class NBattleManager : MonoBehaviour
     public bool interludeRequested = false;
 
     public List<BattleTurn> turnQueue;
+
+    public Sample[] playerSet;
 
     private void Awake()
     {
@@ -48,23 +60,46 @@ public class NBattleManager : MonoBehaviour
         Debug.Log("Initializing the turnQueue");
         turnQueue = new List<BattleTurn>();
 
-        for (int i = 1; i <= 4; i++)
+        //so rather than building these randomly build them from the players set
+
+
+
+        for (int i = 0; i < playerSet.Length; i++)
         {
             BattleTurn turn = new BattleTurn();
-            turn.minigameSceneName = "ass";
+            turn.minigameSceneName = playerSet[i].sampleName;
             turn.damage = Random.Range(1, 4);
-            if (i % 2 == 0)
-            {
-                turn.playerOrEnemy = false;
-            }
-            else
-            {
-                turn.playerOrEnemy = true;
-            }
+            // if (i % 2 == 0)
+            // {
+            //     turn.playerOrEnemy = false;
+            // }
+            // else
+            // {
+            //     turn.playerOrEnemy = true;
+            // }
+            turn.playerOrEnemy = true;
+            turn.sample = playerSet[i];
             turnQueue.Add(turn);
         }
 
+        calculateQueueModifiers();
         NBattleUIManager.current.InitTurnQueue(turnQueue);
+    }
+
+    //so once all the samples get added we then go through and calculate how all the samples will modify one another
+    //basically each modifier needs the whole state of the queue, so we modify the state by handing it off to 
+    //the sample one at a time right->left
+
+    public void calculateQueueModifiers()
+    {
+        //go through each of the samples in the queue, and call their function, store the result, and then do it again for the next modifier
+        Debug.Log(turnQueue.Count);
+
+
+        for (int i = 0; i < turnQueue.Count; i++)
+        {
+            turnQueue = SampleEffects.processSampleEffect(turnQueue[i].sample, turnQueue);
+        }
     }
 
 
@@ -160,17 +195,14 @@ public enum BattleState
 
 
 
-//TODO: probably move this to another file but yea
-//so battleturns represent each object in the queue of minigames that you build
-//you can move stuff around the queue at runtime in interlude phases
-//we start you with a default queue of turns but you can customize these as much as you want into "sets" 
 
+//so these are going to need to have a scriptable object loaded with them
+//load these around the samples put in the array
 
-//these fields will get fleshed out later but yea basically this should be a modular component that is effected
-//by its context within the queue 
 public class BattleTurn
 {
     public string minigameSceneName;
     public bool playerOrEnemy;
     public int damage;
+    public Sample sample;
 }

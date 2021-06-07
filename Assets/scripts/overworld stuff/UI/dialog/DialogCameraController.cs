@@ -83,7 +83,7 @@ public class DialogCameraController : MonoBehaviour
             if (currentCamera == null)
             {
                 //lower the priortiy 
-                CameraManager.current.currentCamera.Priority = 0;
+                //CameraManager.current.currentCamera.Priority = 0;
 
                 currentCamera = cameraPositions[paramaters[0]];
                 currentCamera.Priority = 15;

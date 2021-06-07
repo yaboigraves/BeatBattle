@@ -148,7 +148,7 @@ public class UIManager : MonoBehaviour
         {
 
             //set the playercamera back top main priority
-            CameraManager.current.currentCamera.Priority = 15;
+            //CameraManager.current.currentCamera.Priority = 15;
 
             //unlock player movement
             InputHandler.current.LockPlayerMovement(false);

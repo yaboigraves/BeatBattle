@@ -37,11 +37,4 @@ public static class GearEffects
             BattleUIManager.current.ToggleUiIconBorder("sp404", true);
         }
     }
-
-
-
-
-
-
-
 }

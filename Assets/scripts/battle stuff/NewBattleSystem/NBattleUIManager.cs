@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 public class NBattleUIManager : MonoBehaviour
 {
-    public Transform turnQueuePanel;
+    public Transform turnQueuePanel, setCustomizationPanel, sampleRepoPanel;
     public GameObject turnInfoPrefab;
 
     public static NBattleUIManager current;
@@ -14,12 +14,42 @@ public class NBattleUIManager : MonoBehaviour
 
     public TextMeshProUGUI playerHealthText, enemyHealthText;
 
+    public GameObject sampleIconPrefab;
+
     //ENEMY PROTOTYPE SHIT
 
 
     private void Awake()
     {
         current = this;
+    }
+
+    private void Start()
+    {
+        //enable the set customizer panel
+        InitSampleLibraryPanel();
+        InitSetCustomizationPanel();
+
+    }
+
+
+    //so we need some kind of visualization for two things
+    //-some kind of ui for the set that provides slots between enemy actions where you build the set
+    //-some kind of ui for a repository of samples that you can plug in to the above ui slots
+
+    public void InitSampleLibraryPanel()
+    {
+        for (int i = 0; i < NBattleManager.current.playerSamples.Length; i++)
+        {
+            GameObject icon = Instantiate(sampleIconPrefab);
+            icon.transform.SetParent(sampleRepoPanel.transform, false);
+            Debug.Log("Eee");
+        }
+    }
+
+    //pull all the samples from the battle manager and load them into the panel
+    public void InitSetCustomizationPanel()
+    {
 
     }
 

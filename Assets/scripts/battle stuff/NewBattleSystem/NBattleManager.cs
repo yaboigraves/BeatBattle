@@ -43,7 +43,7 @@ public class NBattleManager : MonoBehaviour
 
     public List<BattleAction> turnQueue;
 
-    public Sample[] playerSet;
+    public Sample[] playerSet, playerSamples;
 
     public NEnemy[] enemies;
 

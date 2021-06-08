@@ -12,6 +12,8 @@ public class NBattleUIManager : MonoBehaviour
 
     public List<Transform> turnOrderQueue;
 
+    public TextMeshProUGUI playerHealthText, enemyHealthText;
+
     //ENEMY PROTOTYPE SHIT
 
 
@@ -58,17 +60,36 @@ public class NBattleUIManager : MonoBehaviour
 
     public void UpdateTurnQueue()
     {
-        Debug.Log("shift everything over");
-        //could just redraw this but naw we're gonna lerp it later so for now just move everything over one position
 
-        //shift all the positions over by one
-        for (int i = turnOrderQueue.Count - 1; i > 0; i--)
+        //TODO: rewrite this so that it shifts 2 elements over
+        // for (int i = turnOrderQueue.Count - 1; i > 0; i--)
+        // {
+        //     turnOrderQueue[i].transform.position = turnOrderQueue[i - 1].transform.position;
+        //     turnOrderQueue[i + 1].transform.position = turnOrderQueue[i].transform.position;
+        // }
+
+        for (int i = turnOrderQueue.Count - 1; i > 1; i -= 1)
         {
-            turnOrderQueue[i].transform.position = turnOrderQueue[i - 1].transform.position;
+            //so the 0 and 1 position dont move at all
+            // turnOrderQueue[i].transform.position = turnOrderQueue[i - 1].transform.position;
+
+            //so every iteration we move the player turn over 2 and the enemy turn over 2
+            turnOrderQueue[i].transform.position -= (Vector3.right * 200);
+
         }
 
         Destroy(turnOrderQueue[0].gameObject);
         turnOrderQueue.RemoveAt(0);
+        Destroy(turnOrderQueue[0].gameObject);
+        turnOrderQueue.RemoveAt(0);
+
+
+    }
+
+    public void UpdateHealth()
+    {
+        playerHealthText.text = NBattleManager.current.playerHealth.ToString();
+        enemyHealthText.text = NBattleManager.current.enemyHealth.ToString();
     }
 
 

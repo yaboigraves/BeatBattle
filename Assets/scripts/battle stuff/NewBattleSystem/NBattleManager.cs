@@ -48,6 +48,7 @@ public class NBattleManager : MonoBehaviour
     public NEnemy[] enemies;
 
 
+    public int playerHealth, enemyHealth;
 
     private void Awake()
     {
@@ -55,7 +56,18 @@ public class NBattleManager : MonoBehaviour
         current = this;
         //once all the minigames scenes are loaded, we can construct the queue of turns based on the players sets
         //for now we'll just construct a simple back and forth for 2 iterations
+    }
 
+    void Start()
+    {
+        //so first things first, we have to set the state to pre-battle
+        StartCoroutine(MinigameManager.current.LoadMinigames());
+
+        enemyHealth = enemies[0].hp;
+        playerHealth = 10;
+
+        //update health text
+        NBattleUIManager.current.UpdateHealth();
     }
 
     public void InitQueue()
@@ -109,11 +121,7 @@ public class NBattleManager : MonoBehaviour
     }
 
 
-    void Start()
-    {
-        //so first things first, we have to set the state to pre-battle
-        StartCoroutine(MinigameManager.current.LoadMinigames());
-    }
+
 
     // Update is called once per frame
     void Update()
@@ -148,18 +156,36 @@ public class NBattleManager : MonoBehaviour
     //depending on battle phase we start a different persons turn
     public void ChangeTurn()
     {
+
+
+
         if (turnQueue.Count > 0)
         {
-            //debug log the new turn
-            BattleAction currentTurn = turnQueue[0];
 
-            // Debug.Log("currentTurn damg : " + currentTurn.sample.numericValue);
-            // Debug.Log("currentTurn name : " + currentTurn.minigameSceneName);
-            // Debug.Log("player turn? : " + currentTurn.playerOrEnemy);
-            // turnQueue.RemoveAt(0);
+            if (((PlayerBattleAction)turnQueue[0]).sample.sampleType == SampleType.block)
+            {
+                //TODO: add block
+            }
 
+            //do the players damage and the enemies damage
+            playerHealth -= ((EnemyBattleAction)turnQueue[1]).dmg;
+
+            if (((PlayerBattleAction)turnQueue[0]).sample.sampleType == SampleType.damage)
+            {
+                enemyHealth -= ((PlayerBattleAction)turnQueue[0]).sample.numericValue;
+            }
+            else if (((PlayerBattleAction)turnQueue[0]).sample.sampleType == SampleType.heal)
+            {
+                playerHealth += ((PlayerBattleAction)turnQueue[0]).sample.numericValue;
+            }
+
+            NBattleUIManager.current.UpdateHealth();
             //update the ui, 
             NBattleUIManager.current.UpdateTurnQueue();
+
+            //remove the elements from the queue
+
+            turnQueue.RemoveRange(0, 2);
         }
 
 

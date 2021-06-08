@@ -74,7 +74,7 @@ public class NBattleUIManager : MonoBehaviour
             // turnOrderQueue[i].transform.position = turnOrderQueue[i - 1].transform.position;
 
             //so every iteration we move the player turn over 2 and the enemy turn over 2
-            turnOrderQueue[i].transform.position -= (Vector3.right * 200);
+            turnOrderQueue[i].transform.position -= (Vector3.right * 400);
 
         }
 

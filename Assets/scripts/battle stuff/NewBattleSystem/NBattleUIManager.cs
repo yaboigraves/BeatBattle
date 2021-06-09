@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 public class NBattleUIManager : MonoBehaviour
 {
-    public Transform turnQueuePanel, setCustomizationPanel, sampleRepoPanel;
+    public Transform turnQueuePanel, setCustomizationPanel, sampleRepoContent, sampleRepoPanel;
     public GameObject turnInfoPrefab;
 
     public static NBattleUIManager current;
@@ -17,6 +18,18 @@ public class NBattleUIManager : MonoBehaviour
     public GameObject sampleIconPrefab;
 
     //ENEMY PROTOTYPE SHIT
+    public EventSystem uiEventSystem;
+
+    GameObject[] sampleIconObjects;
+
+    public GameObject[] turnQueueIconObjects;
+
+
+    //so for the ui stuff for selecting samples we need to move the currently interactable section between
+    //the turn queue and the sample repo when you scroll through it
+
+    //when you select a player action the menu should appear, and then you can pick from the samples for that action
+
 
 
     private void Awake()
@@ -29,7 +42,6 @@ public class NBattleUIManager : MonoBehaviour
         //enable the set customizer panel
         InitSampleLibraryPanel();
         InitSetCustomizationPanel();
-
     }
 
 
@@ -39,12 +51,55 @@ public class NBattleUIManager : MonoBehaviour
 
     public void InitSampleLibraryPanel()
     {
+        sampleIconObjects = new GameObject[NBattleManager.current.playerSamples.Length];
         for (int i = 0; i < NBattleManager.current.playerSamples.Length; i++)
         {
             GameObject icon = Instantiate(sampleIconPrefab);
-            icon.transform.SetParent(sampleRepoPanel.transform, false);
-            Debug.Log("Eee");
+            icon.transform.SetParent(sampleRepoContent.transform, false);
+            icon.transform.GetComponentInChildren<TextMeshProUGUI>().text = NBattleManager.current.playerSamples[i].sampleName[0].ToString();
+
+            // if (i == 0)
+            // {
+            //     uiEventSystem.firstSelectedGameObject = icon;
+            // }
+
+            icon.GetComponent<Button>().onClick.AddListener(SetActionSample);
+            sampleIconObjects[i] = icon;
         }
+    }
+
+    public void SetActionSample()
+    {
+        Debug.Log("Setting action sample");
+        //turn off the sample library
+        //move the selection to the next action in the queue
+        ToggleTurnQueueObjects(true);
+        sampleRepoPanel.gameObject.SetActive(false);
+
+
+        //so we need to
+
+    }
+
+    void ToggleTurnQueueObjects(bool toggle)
+    {
+        foreach (GameObject o in turnQueueIconObjects)
+        {
+            o.GetComponent<Button>().interactable = toggle;
+        }
+    }
+
+    public void OpenSampleLibrary()
+    {
+        Debug.Log("opening sample library");
+
+        //set all of the turnqueue stuff as not interactable
+
+        ToggleTurnQueueObjects(false);
+
+        sampleRepoPanel.gameObject.SetActive(true);
+        uiEventSystem.SetSelectedGameObject(sampleIconObjects[0]);
+
     }
 
     //pull all the samples from the battle manager and load them into the panel
@@ -55,8 +110,6 @@ public class NBattleUIManager : MonoBehaviour
 
     public void InitTurnQueue(List<BattleAction> turnQueue)
     {
-
-
         turnOrderQueue = new List<Transform>();
         for (int i = 0; i < turnQueue.Count; i++)
         {

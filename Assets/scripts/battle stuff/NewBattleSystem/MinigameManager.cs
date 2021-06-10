@@ -44,7 +44,7 @@ public class MinigameManager : MonoBehaviour
 
         Debug.Log("done loading");
 
-        NBattleManager.current.InitQueue();
+        //NBattleManager.current.InitQueue();
     }
 
     bool CheckScenesLoaded(AsyncOperation[] ops)

@@ -70,6 +70,13 @@ public class NBattleManager : MonoBehaviour
         NBattleUIManager.current.UpdateHealth();
     }
 
+    public void InitQueue(Sample[] samples)
+    {
+        Debug.Log("Initializing the from the ui");
+        playerSet = samples;
+        InitQueue();
+    }
+
     public void InitQueue()
     {
         Debug.Log("Initializing the turnQueue");
@@ -212,6 +219,9 @@ public class NBattleManager : MonoBehaviour
         WaitCallback methodToCall = ChangeTurn;
         StartCoroutine(TimeManager.barWait(methodToCall));
     }
+
+
+
 }
 
 public enum BattleState

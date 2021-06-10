@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
+
 public class NBattleUIManager : MonoBehaviour
 {
     public Transform turnQueuePanel, setCustomizationPanel, sampleRepoContent, sampleRepoPanel;
@@ -24,12 +26,21 @@ public class NBattleUIManager : MonoBehaviour
 
     public GameObject[] turnQueueIconObjects;
 
+    ActionIcon[] actionIcons;
+
 
     //so for the ui stuff for selecting samples we need to move the currently interactable section between
     //the turn queue and the sample repo when you scroll through it
 
     //when you select a player action the menu should appear, and then you can pick from the samples for that action
 
+
+    //so once the sample repo is opened, we need to track what actual turnactionicon we're changing
+    //this can be done in the button onclick? probably
+
+    public GameObject currentlySelectedTurnAction;
+
+    public GameObject goButton;
 
 
     private void Awake()
@@ -42,8 +53,14 @@ public class NBattleUIManager : MonoBehaviour
         //enable the set customizer panel
         InitSampleLibraryPanel();
         InitSetCustomizationPanel();
+
     }
 
+    public void SetCurrentlySelectedTurnAction(GameObject action)
+    {
+        currentlySelectedTurnAction = action;
+        Debug.Log("set the action");
+    }
 
     //so we need some kind of visualization for two things
     //-some kind of ui for the set that provides slots between enemy actions where you build the set
@@ -63,12 +80,19 @@ public class NBattleUIManager : MonoBehaviour
             //     uiEventSystem.firstSelectedGameObject = icon;
             // }
 
-            icon.GetComponent<Button>().onClick.AddListener(SetActionSample);
+            Sample s = NBattleManager.current.playerSamples[i];
+
+            icon.GetComponent<SampleIcon>().sample = s;
+
+            icon.GetComponent<Button>().onClick.AddListener(delegate { SetActionSample(s); });
             sampleIconObjects[i] = icon;
+
+
         }
     }
 
-    public void SetActionSample()
+    //TODO: this needs to take an argument of whatever the actual sample object is, so we can pass it around
+    public void SetActionSample(Sample sample)
     {
         Debug.Log("Setting action sample");
         //turn off the sample library
@@ -76,9 +100,46 @@ public class NBattleUIManager : MonoBehaviour
         ToggleTurnQueueObjects(true);
         sampleRepoPanel.gameObject.SetActive(false);
 
+        //so we need to set both the queue ui to display what action was modified
 
-        //so we need to
+        //first take the current action and set it to whatever was selected
+        //take the currently selected icon
 
+
+        //set the action icon info of the selected object
+        currentlySelectedTurnAction.GetComponent<ActionIcon>().sample = sample;
+        currentlySelectedTurnAction.GetComponent<ActionIcon>().actionSet = true;
+
+        currentlySelectedTurnAction.transform.GetComponentInChildren<TextMeshProUGUI>().text = sample.sampleName;
+
+
+
+        //TODO: set this actually in the queue
+
+        //set the current selection in the event system to whatever we just set
+        uiEventSystem.SetSelectedGameObject(currentlySelectedTurnAction);
+        //unset the currently selected action
+        currentlySelectedTurnAction = null;
+
+        if (checkIfAllActionsSet())
+        {
+            //turn on the go button
+            goButton.SetActive(true);
+        }
+
+        //check and see if its time to enable the go button if the player has set all their samples
+    }
+
+    bool checkIfAllActionsSet()
+    {
+        foreach (ActionIcon i in actionIcons)
+        {
+            if (!i.actionSet)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     void ToggleTurnQueueObjects(bool toggle)
@@ -99,12 +160,20 @@ public class NBattleUIManager : MonoBehaviour
 
         sampleRepoPanel.gameObject.SetActive(true);
         uiEventSystem.SetSelectedGameObject(sampleIconObjects[0]);
-
     }
 
     //pull all the samples from the battle manager and load them into the panel
     public void InitSetCustomizationPanel()
     {
+
+        actionIcons = new ActionIcon[turnQueueIconObjects.Length];
+
+        //grab all the actionicons
+        for (int i = 0; i < turnQueueIconObjects.Length; i++)
+        {
+            actionIcons[i] = turnQueueIconObjects[i].GetComponent<ActionIcon>();
+        }
+
 
     }
 
@@ -173,6 +242,28 @@ public class NBattleUIManager : MonoBehaviour
     {
         playerHealthText.text = NBattleManager.current.playerHealth.ToString();
         enemyHealthText.text = NBattleManager.current.enemyHealth.ToString();
+    }
+
+    //go button
+    public void FinishSetSetup()
+    {
+        //turn off the set customization panel
+        goButton.SetActive(false);
+        setCustomizationPanel.gameObject.SetActive(false);
+
+        //turn on the rest of the battleui
+
+
+        //use the configuration of the set in the ui to then construct the actual turnQueue
+        //pass an array of samples to the battlemanager
+        Sample[] playerSet = new Sample[actionIcons.Length];
+
+        for (int i = 0; i < actionIcons.Length; i++)
+        {
+            playerSet[i] = actionIcons[i].sample;
+        }
+        NBattleManager.current.InitQueue(playerSet);
+
     }
 
 

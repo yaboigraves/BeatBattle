@@ -75,6 +75,11 @@ public class NBattleManager : MonoBehaviour
         Debug.Log("Initializing the from the ui");
         playerSet = samples;
         InitQueue();
+
+        //after the queue has been initialized, we can load the minigames requested
+        //send this off to the minigame manager to handle, probably want a coroutine so we cant start the battle till these load
+        // StartCoroutine(MinigameManager.current.LoadMinigames(turnQueue));
+
     }
 
     public void InitQueue()
@@ -138,7 +143,7 @@ public class NBattleManager : MonoBehaviour
 
     void UpdateState()
     {
-        if (currentState == BattleState.Prebattle && Input.GetKeyDown(KeyCode.Space))
+        if (currentState == BattleState.Prebattle && Input.GetKeyDown(KeyCode.Space) && MinigameManager.current.minigamesLoaded)
         {
             StartBattle();
         }

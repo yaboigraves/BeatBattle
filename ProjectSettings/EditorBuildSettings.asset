@@ -20,4 +20,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/scripts/battle stuff/NewBattleSystem/Minigame2.unity
     guid: ae725f4eafc74bb4ea96b229d58e9cc5
+  - enabled: 1
+    path: Assets/scripts/battle stuff/NewBattleSystem/minigameScenes/healMiniGame.unity
+    guid: a47e2b35035f9af4c8da9faab0da3001
+  - enabled: 1
+    path: Assets/scripts/battle stuff/NewBattleSystem/minigameScenes/dmgBuffMiniGame.unity
+    guid: 1925d59bf1e6bf74c9add880db708bb4
+  - enabled: 1
+    path: Assets/scripts/battle stuff/NewBattleSystem/minigameScenes/dmgMiniGame.unity
+    guid: c66e282f99113e440ab995b7b68ac367
   m_configObjects: {}

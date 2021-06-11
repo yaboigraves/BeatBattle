@@ -253,7 +253,6 @@ public class NBattleUIManager : MonoBehaviour
 
         //turn on the rest of the battleui
 
-
         //use the configuration of the set in the ui to then construct the actual turnQueue
         //pass an array of samples to the battlemanager
         Sample[] playerSet = new Sample[actionIcons.Length];
@@ -263,9 +262,5 @@ public class NBattleUIManager : MonoBehaviour
             playerSet[i] = actionIcons[i].sample;
         }
         NBattleManager.current.InitQueue(playerSet);
-
-
     }
-
-
 }

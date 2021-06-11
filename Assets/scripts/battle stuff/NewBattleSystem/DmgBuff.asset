@@ -15,4 +15,5 @@ MonoBehaviour:
   sampleName: DmgBuffSample
   functionName: dmgBuff
   numericValue: 1
-  heals: 0
+  sampleType: 0
+  miniGameSceneName: dmgBuffMiniGame

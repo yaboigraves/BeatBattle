@@ -20,6 +20,8 @@ public class Sample : ScriptableObject
 
     public SampleType sampleType;
 
+    public string miniGameSceneName;
+
 
 }
 

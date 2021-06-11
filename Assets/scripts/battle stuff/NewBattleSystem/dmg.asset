@@ -15,4 +15,5 @@ MonoBehaviour:
   sampleName: dmg
   functionName: 
   numericValue: 5
-  heals: 0
+  sampleType: 0
+  miniGameSceneName: dmgMiniGame

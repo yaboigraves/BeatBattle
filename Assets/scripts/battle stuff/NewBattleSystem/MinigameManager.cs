@@ -8,10 +8,24 @@ using UnityEngine.SceneManagement;
 //start with them set inactive, and then set them active when needed
 //only need to deload them at the end of a battle, we can just recycle these and reinit them when we have to
 
+
+//so minigames are just a ui loaded in from another scene
+//basically we need some way of presenting each minigame once its their time to come on
+//need some way of transitioning between these scenes with some kind of preview so you know what minigame is coming next
+
+//once a minigame loads it shoudl register with the manager
+//each minigame is basically just gonna need its own kind of custom script to manage it anyways, so make a bass minigame class
+
+
+
+
+
 public class MinigameManager : MonoBehaviour
 {
     public static MinigameManager current;
-    public string[] minigameSceneNames;
+    public List<string> miniGameSceneNames;
+
+    public bool minigamesLoaded = false;
 
     private void Awake()
     {
@@ -22,16 +36,14 @@ public class MinigameManager : MonoBehaviour
     //TODO: this needs to be done in a coroutine otherwise it wont work properly with async operations
     public IEnumerator LoadMinigames()
     {
-        //so this should look through all the players gear and the enemys gear and figure out what to load
-        //basically we're just gonna make a queue of minigames based on whatever the player has organized
-        //playerGame1 -> enemyGame -> playerGame2 -> enemyGame -> playerGame3 -> enemyGame -> playerGame1 -> .....
+        foreach (Sample s in NBattleManager.current.playerSamples)
+        {
+            miniGameSceneNames.Add(s.miniGameSceneName);
+        }
 
+        AsyncOperation[] sceneLoads = new AsyncOperation[miniGameSceneNames.Count];
 
-        //the order of these minigames can be changed dynamically, so if the player swaps stuff around this needs to be able to be changed hot
-
-        AsyncOperation[] sceneLoads = new AsyncOperation[minigameSceneNames.Length];
-
-        foreach (string sceneName in minigameSceneNames)
+        foreach (string sceneName in miniGameSceneNames)
         {
             sceneLoads[0] = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
             //sceneLoads[0].allowSceneActivation = false;
@@ -43,8 +55,10 @@ public class MinigameManager : MonoBehaviour
         }
 
         Debug.Log("done loading");
+        minigamesLoaded = true;
 
-        //NBattleManager.current.InitQueue();
+
+
     }
 
     bool CheckScenesLoaded(AsyncOperation[] ops)
@@ -60,6 +74,10 @@ public class MinigameManager : MonoBehaviour
 
         return true;
     }
+
+
 }
+
+
 
 

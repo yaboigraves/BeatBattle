@@ -264,6 +264,7 @@ public class NBattleUIManager : MonoBehaviour
         }
         NBattleManager.current.InitQueue(playerSet);
 
+
     }
 
 

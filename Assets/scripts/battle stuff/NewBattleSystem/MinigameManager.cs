@@ -27,6 +27,9 @@ public class MinigameManager : MonoBehaviour
 
     public bool minigamesLoaded = false;
 
+    //list of all the minigames currently loaded in the battle
+    public List<MiniGame> loadedMiniGames;
+
     private void Awake()
     {
         current = this;
@@ -73,6 +76,12 @@ public class MinigameManager : MonoBehaviour
 
 
         return true;
+    }
+
+    public void registerMinigame(MiniGame miniGame)
+    {
+        loadedMiniGames.Add(miniGame);
+        //we maybe need to pass some info to the minigame too
     }
 
 

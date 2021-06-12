@@ -22,6 +22,7 @@ public static class SampleEffects
         return sampleEffects[((PlayerBattleAction)turnQueue[index]).sample.functionName](turnQueue, index);
     }
 
+    //TODO: reimpliment this
     public static List<BattleAction> dmgBuff(List<BattleAction> turnQueue, int index)
     {
         Debug.Log("dmgBuff Effect applying");
@@ -30,14 +31,15 @@ public static class SampleEffects
 
         //so left and right elements are a spaced out by 2 now
 
-        //check for left element
-        if (index < turnQueue.Count - 2)
+        //check for a left element
+        if (index >= 2)
         {
             ((PlayerBattleAction)turnQueue[index - 2]).sample.numericValue += 3;
 
         }
-        //check for right element
-        if (index > 0)
+
+        //check for a right element
+        if (index <= turnQueue.Count - 3)
         {
             ((PlayerBattleAction)turnQueue[index + 2]).sample.numericValue += 3;
         }

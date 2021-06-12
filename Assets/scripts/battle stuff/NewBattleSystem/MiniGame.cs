@@ -1,10 +1,64 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 
 //so minigames def need a reference to their canvas for sure
+
+//what stuff does literally every minigame need
+
+//-canvas
+
+//-whate state its in
+//-staging (its coming up next so we should show this to the player somehow)
+//-active (minigame actively being run)
+//-inactive
+
+//later*
+//what modular effectors are currently active on it
+
+
+
+//so the basic flow for this is
+/*
+-minigame loads
+-should start with an inactive canvas
+-minigame chills until it gets staged when we then activate and initialize all its stuff
+-minigame gets run
+-after the minigame gets run we set it back inactive and reset all of its shit
+*/
+
+//NOTE: these need to be modular minigames IE there are effectors that can modify how the minigame plays
+//basic idea will be program in a bunch of small little permutations that are only activated when fighting a certain type of enemy
+
+
+
 public class MiniGame : MonoBehaviour
 {
 
+    public Canvas miniGameCanvas;
+    public MiniGameState state;
+
+    private void Awake()
+    {
+        miniGameCanvas.gameObject.SetActive(false);
+        state = MiniGameState.Inactive;
+    }
+
+    private void Start()
+    {
+        //register this minigame with the minigame manager
+        MinigameManager.current.registerMinigame(this);
+    }
+
+}
+
+
+public enum MiniGameState
+{
+    Inactive,
+    Staged,
+    Active
 }

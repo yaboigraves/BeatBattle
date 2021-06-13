@@ -60,8 +60,6 @@ public class MinigameManager : MonoBehaviour
         Debug.Log("done loading");
         minigamesLoaded = true;
 
-
-
     }
 
     bool CheckScenesLoaded(AsyncOperation[] ops)
@@ -73,7 +71,6 @@ public class MinigameManager : MonoBehaviour
                 return false;
             }
         }
-
 
         return true;
     }

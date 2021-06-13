@@ -38,6 +38,7 @@ using TMPro;
 public class MiniGame : MonoBehaviour
 {
 
+    public MiniGameSettings miniGameSettings;
     public Canvas miniGameCanvas;
     public MiniGameState state;
 
@@ -61,4 +62,13 @@ public enum MiniGameState
     Inactive,
     Staged,
     Active
+}
+
+//so this can just contain some base settings about like what the bpm is how many beats the minigame is going to be out for, etc
+
+[System.Serializable]
+public class MiniGameSettings
+{
+    public float bpm;
+    public int numBeats;
 }

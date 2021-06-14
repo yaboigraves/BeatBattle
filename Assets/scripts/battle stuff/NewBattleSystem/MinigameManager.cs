@@ -19,6 +19,8 @@ using UnityEngine.SceneManagement;
 
 
 
+//TODO: make it so the minigames launch at the beggining of the phase, not the end of the phase
+
 
 public class MinigameManager : MonoBehaviour
 {
@@ -29,6 +31,8 @@ public class MinigameManager : MonoBehaviour
 
     //list of all the minigames currently loaded in the battle
     public List<MiniGame> loadedMiniGames;
+
+    public MiniGame activeMiniGame;
 
     private void Awake()
     {
@@ -84,6 +88,12 @@ public class MinigameManager : MonoBehaviour
 
     public void ActivateMinigame(string sceneName)
     {
+        //turn off the active minigame if it exists
+        if (activeMiniGame != null)
+        {
+            activeMiniGame.miniGameCanvas.gameObject.SetActive(false);
+        }
+
         //look through the minigames loaded and set the one we're looking for active
 
         foreach (MiniGame game in loadedMiniGames)
@@ -95,6 +105,7 @@ public class MinigameManager : MonoBehaviour
 
                 game.miniGameCanvas.gameObject.SetActive(true);
                 //Debug.Log("setting the minigame canvas active");
+                activeMiniGame = game;
                 return;
 
             }

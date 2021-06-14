@@ -156,6 +156,7 @@ public class NBattleManager : MonoBehaviour
 
     void StartBattle()
     {
+
         //start the countin phase
         currentState = BattleState.Countin;
         //wait 1 bar then go into either player or enemy turn phase
@@ -168,23 +169,20 @@ public class NBattleManager : MonoBehaviour
     //depending on battle phase we start a different persons turn
     public void ChangeTurn()
     {
-
+        //turn off the active minigame canvas
         if (turnQueue.Count > 0)
         {
-
-
             //pull out and load the minigame
             MinigameManager.current.ActivateMinigame(((PlayerBattleAction)turnQueue[0]).sample.miniGameSceneName);
-
 
             if (((PlayerBattleAction)turnQueue[0]).sample.sampleType == SampleType.block)
             {
                 //TODO: add block
             }
 
-
-
             //TODO: this happens all after the minigame runs
+
+
 
             //do the players damage and the enemies damage
             playerHealth -= ((EnemyBattleAction)turnQueue[1]).dmg;

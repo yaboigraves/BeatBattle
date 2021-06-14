@@ -10,24 +10,15 @@ public class NBattleUIManager : MonoBehaviour
 {
     public Transform turnQueuePanel, setCustomizationPanel, sampleRepoContent, sampleRepoPanel;
     public GameObject turnInfoPrefab;
-
     public static NBattleUIManager current;
-
     public List<Transform> turnOrderQueue;
-
     public TextMeshProUGUI playerHealthText, enemyHealthText;
-
     public GameObject sampleIconPrefab;
-
     //ENEMY PROTOTYPE SHIT
     public EventSystem uiEventSystem;
-
     GameObject[] sampleIconObjects;
-
     public GameObject[] turnQueueIconObjects;
-
     ActionIcon[] actionIcons;
-
 
     //so for the ui stuff for selecting samples we need to move the currently interactable section between
     //the turn queue and the sample repo when you scroll through it
@@ -37,7 +28,6 @@ public class NBattleUIManager : MonoBehaviour
 
     //so once the sample repo is opened, we need to track what actual turnactionicon we're changing
     //this can be done in the button onclick? probably
-
     public GameObject currentlySelectedTurnAction;
 
     public GameObject goButton;

@@ -50,7 +50,6 @@ public class MiniGame : MonoBehaviour
 
     private void Start()
     {
-
         LoadStuff();
     }
 
@@ -64,7 +63,6 @@ public class MiniGame : MonoBehaviour
     }
 
 }
-
 
 public enum MiniGameState
 {
@@ -81,5 +79,4 @@ public class MiniGameSettings
     public float bpm;
     public int numBeats;
     public Sample minigameSample;
-
 }

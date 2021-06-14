@@ -57,7 +57,7 @@ public class MinigameManager : MonoBehaviour
             yield return null;
         }
 
-        Debug.Log("done loading");
+        //Debug.Log("done loading");
         minigamesLoaded = true;
 
     }
@@ -79,6 +79,26 @@ public class MinigameManager : MonoBehaviour
     {
         loadedMiniGames.Add(miniGame);
         //we maybe need to pass some info to the minigame too
+    }
+
+
+    public void ActivateMinigame(string sceneName)
+    {
+        //look through the minigames loaded and set the one we're looking for active
+
+        foreach (MiniGame game in loadedMiniGames)
+        {
+
+            if (game.miniGameSettings.minigameSample != null && game.miniGameSettings.minigameSample.miniGameSceneName == sceneName)
+            {
+                //activate the canvas
+
+                game.miniGameCanvas.gameObject.SetActive(true);
+                //Debug.Log("setting the minigame canvas active");
+                return;
+
+            }
+        }
     }
 
 

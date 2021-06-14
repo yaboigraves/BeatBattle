@@ -59,7 +59,7 @@ public class NBattleUIManager : MonoBehaviour
     public void SetCurrentlySelectedTurnAction(GameObject action)
     {
         currentlySelectedTurnAction = action;
-        Debug.Log("set the action");
+        //Debug.Log("set the action");
     }
 
     //so we need some kind of visualization for two things
@@ -94,7 +94,7 @@ public class NBattleUIManager : MonoBehaviour
     //TODO: this needs to take an argument of whatever the actual sample object is, so we can pass it around
     public void SetActionSample(Sample sample)
     {
-        Debug.Log("Setting action sample");
+        //Debug.Log("Setting action sample");
         //turn off the sample library
         //move the selection to the next action in the queue
         ToggleTurnQueueObjects(true);
@@ -152,7 +152,7 @@ public class NBattleUIManager : MonoBehaviour
 
     public void OpenSampleLibrary()
     {
-        Debug.Log("opening sample library");
+        //Debug.Log("opening sample library");
 
         //set all of the turnqueue stuff as not interactable
 

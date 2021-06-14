@@ -84,7 +84,7 @@ public class NBattleManager : MonoBehaviour
 
     public void InitQueue()
     {
-        Debug.Log("Initializing the turnQueue");
+        //Debug.Log("Initializing the turnQueue");
         turnQueue = new List<BattleAction>();
 
         //so rather than building these randomly build them from the players set
@@ -117,7 +117,7 @@ public class NBattleManager : MonoBehaviour
     public void calculateQueueModifiers()
     {
         //go through each of the samples in the queue, and call their function, store the result, and then do it again for the next modifier
-        Debug.Log(turnQueue.Count);
+        //Debug.Log(turnQueue.Count);
 
         //+= 2 to skip the enemy turns
         for (int i = 0; i < turnQueue.Count; i += 2)
@@ -169,15 +169,22 @@ public class NBattleManager : MonoBehaviour
     public void ChangeTurn()
     {
 
-
-
         if (turnQueue.Count > 0)
         {
+
+
+            //pull out and load the minigame
+            MinigameManager.current.ActivateMinigame(((PlayerBattleAction)turnQueue[0]).sample.miniGameSceneName);
+
 
             if (((PlayerBattleAction)turnQueue[0]).sample.sampleType == SampleType.block)
             {
                 //TODO: add block
             }
+
+
+
+            //TODO: this happens all after the minigame runs
 
             //do the players damage and the enemies damage
             playerHealth -= ((EnemyBattleAction)turnQueue[1]).dmg;
@@ -190,6 +197,7 @@ public class NBattleManager : MonoBehaviour
             {
                 playerHealth += ((PlayerBattleAction)turnQueue[0]).sample.numericValue;
             }
+
 
             NBattleUIManager.current.UpdateHealth();
             //update the ui, 

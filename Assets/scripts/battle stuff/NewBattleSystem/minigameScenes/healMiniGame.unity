@@ -488,6 +488,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61527abc35c6ea34f8d29fc07ddec150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  miniGameSettings:
+    bpm: 60
+    numBeats: 4
+    minigameSample: {fileID: 11400000, guid: 6cb059902c5abc24fa422bbe394a36cf, type: 2}
   miniGameCanvas: {fileID: 1906576240}
   state: 0
 --- !u!4 &1757227550
@@ -516,7 +520,6 @@ GameObject:
   - component: {fileID: 1906576240}
   - component: {fileID: 1906576239}
   - component: {fileID: 1906576238}
-  - component: {fileID: 1906576242}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -605,17 +608,3 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1906576242
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1906576237}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61527abc35c6ea34f8d29fc07ddec150, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  miniGameCanvas: {fileID: 0}
-  state: 0

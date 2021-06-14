@@ -324,8 +324,10 @@ MonoBehaviour:
   miniGameSettings:
     bpm: 60
     numBeats: 8
+    minigameSample: {fileID: 11400000, guid: 4063dc22b3cfb52499fdd92162ac5463, type: 2}
   miniGameCanvas: {fileID: 1062733474}
   state: 0
+  sceneName: 
   indicator: {fileID: 3199911432161153602, guid: 140c3adb30a212c4a88e0f6f3adc3916,
     type: 3}
   indicatorContainer: {fileID: 89989237}

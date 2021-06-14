@@ -25,7 +25,7 @@ public static class SampleEffects
     //TODO: reimpliment this
     public static List<BattleAction> dmgBuff(List<BattleAction> turnQueue, int index)
     {
-        Debug.Log("dmgBuff Effect applying");
+        //Debug.Log("dmgBuff Effect applying");
 
         //apply lEFT TO RIGHT
 

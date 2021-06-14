@@ -35,6 +35,7 @@ public class DamageMiniGame : MiniGame
 
     private void Start()
     {
+        base.LoadStuff();
         //load out some indicators
         //the distance between them can be statically set for now
         //actually we should have a ui panel for it that we use the size of it and divide it by like 8 to get that much space
@@ -81,20 +82,29 @@ public class DamageMiniGame : MiniGame
             {
                 ind.UpdateIndicator();
 
-                //check if we should delete the indicator
+                // //check if we should delete the indicator
                 // if (AudioSettings.dspTime - ind.endTime > hitToleranceTime)
                 // {
                 //     Debug.Log("bad");
-                //     Destroy(indicators[0].gameObject);
-                //     indicators.RemoveAt(0);
+                //     // Destroy(indicators[0].gameObject);
+                //     // indicators.RemoveAt(0);
                 // }
+            }
+
+
+            //check if the next indicators time has expired
+            if (AudioSettings.dspTime - (indicators[0].startTime + indicators[0].endTime) > hitToleranceTime)
+            {
+                Debug.Log("bad");
+                Destroy(indicators[0].gameObject);
+                indicators.RemoveAt(0);
             }
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && indicators.Count > 0)
         {
             //check and see if this is a good input
-            Debug.Log(Mathf.Abs((float)(AudioSettings.dspTime - (indicators[0].startTime + indicators[0].endTime))));
+            //Debug.Log(Mathf.Abs((float)(AudioSettings.dspTime - (indicators[0].startTime + indicators[0].endTime))));
 
             if (Mathf.Abs((float)(AudioSettings.dspTime - (indicators[0].startTime + indicators[0].endTime))) < hitToleranceTime)
             {
@@ -107,7 +117,7 @@ public class DamageMiniGame : MiniGame
             else
             {
                 //u fucked up
-                Debug.Log("bad");
+                //Debug.Log("bad");
                 Destroy(indicators[0].gameObject);
                 indicators.RemoveAt(0);
             }

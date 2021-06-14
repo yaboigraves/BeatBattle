@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 
 //so minigames def need a reference to their canvas for sure
@@ -44,12 +45,20 @@ public class MiniGame : MonoBehaviour
 
     private void Awake()
     {
-        miniGameCanvas.gameObject.SetActive(false);
-        state = MiniGameState.Inactive;
+
     }
 
     private void Start()
     {
+
+        LoadStuff();
+    }
+
+    public void LoadStuff()
+    {
+        Debug.Log(miniGameSettings.minigameSample.miniGameSceneName);
+        miniGameCanvas.gameObject.SetActive(false);
+        state = MiniGameState.Inactive;
         //register this minigame with the minigame manager
         MinigameManager.current.registerMinigame(this);
     }
@@ -71,4 +80,6 @@ public class MiniGameSettings
 {
     public float bpm;
     public int numBeats;
+    public Sample minigameSample;
+
 }

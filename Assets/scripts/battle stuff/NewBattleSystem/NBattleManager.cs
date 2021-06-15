@@ -32,6 +32,20 @@ using UnityEngine;
 //finally, create a basic menu for organizing a set based on a premade set of samples
 
 
+
+//6/14 notes
+/*
+ok so the basic thing is laid out, theres no audio however
+so lets build that in, we can start by using a standard loop that plays 
+idea should be that we just for now run through the set you setup on bpm with whatever audio is loaded
+minigames duration and speed is dictated by this so the audio and bpm shit needs to be coded in before doing any actual minigame programming
+so step 1 is to get the turn changes setup to transition based on the audio thats playing, time manager can handle this
+*need to refactor alot of this later so be ready to refine this system and lean more on the timemanager in the future
+
+
+so for now.... going to hard boil in audio settings but later we gotta figure out how its dynamic
+*/
+
 public class NBattleManager : MonoBehaviour
 {
     public static NBattleManager current;
@@ -46,7 +60,6 @@ public class NBattleManager : MonoBehaviour
     public Sample[] playerSet, playerSamples;
 
     public NEnemy[] enemies;
-
 
     public int playerHealth, enemyHealth;
 
@@ -157,12 +170,16 @@ public class NBattleManager : MonoBehaviour
     void StartBattle()
     {
 
+
         //start the countin phase
         currentState = BattleState.Countin;
         //wait 1 bar then go into either player or enemy turn phase
         //this should be handled by a seperate static class that helps dispatch waits based on the audiosettings.dsp time
         WaitCallback methodToCall = ChangeTurn;
         StartCoroutine(TimeManager.barWait(methodToCall));
+
+        //play the audio
+        NBattleAudioManager.current.StartSong();
     }
 
 
@@ -223,42 +240,6 @@ public class NBattleManager : MonoBehaviour
             //pull out and load the minigame
             MinigameManager.current.ActivateMinigame(((PlayerBattleAction)turnQueue[0]).sample.miniGameSceneName);
 
-
-
-
-
-            //moved this to the end turn function
-            // if (((PlayerBattleAction)turnQueue[0]).sample.sampleType == SampleType.block)
-            // {
-            //     //TODO: add block
-            // }
-
-            // //TODO: this happens all after the minigame runs
-
-
-            // //so these should happen at the end of the phase, not the beggining 
-
-            // //do the players damage and the enemies damage
-            // playerHealth -= ((EnemyBattleAction)turnQueue[1]).dmg;
-
-            // if (((PlayerBattleAction)turnQueue[0]).sample.sampleType == SampleType.damage)
-            // {
-            //     enemyHealth -= ((PlayerBattleAction)turnQueue[0]).sample.numericValue;
-            // }
-            // else if (((PlayerBattleAction)turnQueue[0]).sample.sampleType == SampleType.heal)
-            // {
-            //     playerHealth += ((PlayerBattleAction)turnQueue[0]).sample.numericValue;
-            // }
-
-
-            // NBattleUIManager.current.UpdateHealth();
-
-            // //update the ui, 
-            // NBattleUIManager.current.UpdateTurnQueue();
-
-            // //remove the elements from the queue
-
-            // turnQueue.RemoveRange(0, 2);
         }
 
 

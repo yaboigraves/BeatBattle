@@ -4,6 +4,11 @@ using UnityEngine;
 
 public static class TimeManager
 {
+    //so here we're going to need to get some bpm info sorted before we do anything
+
+    public static float currentSongBpm;
+
+    public static double battleStartTime;
 
     public static IEnumerator barWait(NBattleManager.WaitCallback methodToCall)
     {
@@ -12,12 +17,28 @@ public static class TimeManager
 
         //for now we're just hard coding for 4 seconds
         //TODO: make this dynamic based on bpm
-        double waitEnd = AudioSettings.dspTime + 4;
+
+        float barLength = (60 / currentSongBpm) * 4;
+
+        //so the bar length is the beat length * 4
+        //the beat length is the bpm/60
+
+        double waitEnd = AudioSettings.dspTime + barLength;
 
 
         yield return new WaitUntil(() => AudioSettings.dspTime >= waitEnd);
 
         methodToCall();
+    }
+
+    public static void SetCurrentSongInfo(float bpm)
+    {
+        currentSongBpm = bpm;
+    }
+
+    public static void SetBattleStart()
+    {
+        battleStartTime = AudioSettings.dspTime;
     }
 
 }

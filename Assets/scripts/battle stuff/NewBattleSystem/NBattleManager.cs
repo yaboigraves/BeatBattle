@@ -166,44 +166,99 @@ public class NBattleManager : MonoBehaviour
     }
 
 
+    //so yea this basically handles damamge and shit
+    public void EndTurn()
+    {
+
+        if (((PlayerBattleAction)turnQueue[0]).sample.sampleType == SampleType.block)
+        {
+            //TODO: add block
+        }
+
+        //TODO: this happens all after the minigame runs
+
+
+        //so these should happen at the end of the phase, not the beggining 
+
+        //do the players damage and the enemies damage
+        playerHealth -= ((EnemyBattleAction)turnQueue[1]).dmg;
+
+        if (((PlayerBattleAction)turnQueue[0]).sample.sampleType == SampleType.damage)
+        {
+            enemyHealth -= ((PlayerBattleAction)turnQueue[0]).sample.numericValue;
+        }
+        else if (((PlayerBattleAction)turnQueue[0]).sample.sampleType == SampleType.heal)
+        {
+            playerHealth += ((PlayerBattleAction)turnQueue[0]).sample.numericValue;
+        }
+
+
+        NBattleUIManager.current.UpdateHealth();
+
+        //update the ui, 
+        NBattleUIManager.current.UpdateTurnQueue();
+
+        //remove the elements from the queue
+
+        turnQueue.RemoveRange(0, 2);
+    }
+
+
     //depending on battle phase we start a different persons turn
     public void ChangeTurn()
     {
+
+
+        Debug.Log("turn changing");
         //turn off the active minigame canvas
+
+        //if there was a turn previously running, end it
+        if (currentState != BattleState.Prebattle && currentState != BattleState.Countin)
+        {
+            EndTurn();
+        }
+
         if (turnQueue.Count > 0)
         {
             //pull out and load the minigame
             MinigameManager.current.ActivateMinigame(((PlayerBattleAction)turnQueue[0]).sample.miniGameSceneName);
 
-            if (((PlayerBattleAction)turnQueue[0]).sample.sampleType == SampleType.block)
-            {
-                //TODO: add block
-            }
-
-            //TODO: this happens all after the minigame runs
 
 
 
-            //do the players damage and the enemies damage
-            playerHealth -= ((EnemyBattleAction)turnQueue[1]).dmg;
 
-            if (((PlayerBattleAction)turnQueue[0]).sample.sampleType == SampleType.damage)
-            {
-                enemyHealth -= ((PlayerBattleAction)turnQueue[0]).sample.numericValue;
-            }
-            else if (((PlayerBattleAction)turnQueue[0]).sample.sampleType == SampleType.heal)
-            {
-                playerHealth += ((PlayerBattleAction)turnQueue[0]).sample.numericValue;
-            }
+            //moved this to the end turn function
+            // if (((PlayerBattleAction)turnQueue[0]).sample.sampleType == SampleType.block)
+            // {
+            //     //TODO: add block
+            // }
+
+            // //TODO: this happens all after the minigame runs
 
 
-            NBattleUIManager.current.UpdateHealth();
-            //update the ui, 
-            NBattleUIManager.current.UpdateTurnQueue();
+            // //so these should happen at the end of the phase, not the beggining 
 
-            //remove the elements from the queue
+            // //do the players damage and the enemies damage
+            // playerHealth -= ((EnemyBattleAction)turnQueue[1]).dmg;
 
-            turnQueue.RemoveRange(0, 2);
+            // if (((PlayerBattleAction)turnQueue[0]).sample.sampleType == SampleType.damage)
+            // {
+            //     enemyHealth -= ((PlayerBattleAction)turnQueue[0]).sample.numericValue;
+            // }
+            // else if (((PlayerBattleAction)turnQueue[0]).sample.sampleType == SampleType.heal)
+            // {
+            //     playerHealth += ((PlayerBattleAction)turnQueue[0]).sample.numericValue;
+            // }
+
+
+            // NBattleUIManager.current.UpdateHealth();
+
+            // //update the ui, 
+            // NBattleUIManager.current.UpdateTurnQueue();
+
+            // //remove the elements from the queue
+
+            // turnQueue.RemoveRange(0, 2);
         }
 
 

@@ -62,17 +62,31 @@ public class DamageMiniGame : MiniGame
         }
     }
 
+    public override void StartMiniGame()
+    {
+        base.StartMiniGame();
+
+        SetIndicatorTimes();
+
+
+    }
+
+    void SetIndicatorTimes()
+    {
+        foreach (NIndicator n in indicators)
+        {
+            n.SetStartTime(AudioSettings.dspTime);
+        }
+    }
+
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A) && state == MiniGameState.Inactive)
+        if (Input.GetKeyDown(KeyCode.Z) && state == MiniGameState.Inactive)
         {
 
             state = MiniGameState.Active;
             //tell all the indicators that now is the time to start
-            foreach (NIndicator n in indicators)
-            {
-                n.SetStartTime(AudioSettings.dspTime);
-            }
+            SetIndicatorTimes();
         }
 
         if (state == MiniGameState.Active && indicators.Count > 0)

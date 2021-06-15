@@ -176,7 +176,7 @@ public class NBattleManager : MonoBehaviour
         //wait 1 bar then go into either player or enemy turn phase
         //this should be handled by a seperate static class that helps dispatch waits based on the audiosettings.dsp time
         WaitCallback methodToCall = ChangeTurn;
-        StartCoroutine(TimeManager.barWait(methodToCall));
+        StartCoroutine(TimeManager.barWait(methodToCall, 2));
 
         //play the audio
         NBattleAudioManager.current.StartSong();
@@ -264,7 +264,7 @@ public class NBattleManager : MonoBehaviour
 
         //after the turn is changed, wait however many bars and then do it all again woo
         WaitCallback methodToCall = ChangeTurn;
-        StartCoroutine(TimeManager.barWait(methodToCall));
+        StartCoroutine(TimeManager.barWait(methodToCall, 2));
     }
 
 

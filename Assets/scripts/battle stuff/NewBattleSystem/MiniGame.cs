@@ -62,6 +62,11 @@ public class MiniGame : MonoBehaviour
         MinigameManager.current.registerMinigame(this);
     }
 
+    public virtual void StartMiniGame()
+    {
+        state = MiniGameState.Active;
+    }
+
 }
 
 public enum MiniGameState

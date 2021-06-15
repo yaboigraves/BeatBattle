@@ -106,6 +106,7 @@ public class MinigameManager : MonoBehaviour
                 game.miniGameCanvas.gameObject.SetActive(true);
                 //Debug.Log("setting the minigame canvas active");
                 activeMiniGame = game;
+                activeMiniGame.StartMiniGame();
                 return;
 
             }

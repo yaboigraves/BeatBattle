@@ -31,7 +31,9 @@ public class NIndicator : MonoBehaviour
     public void SetStartTime(double startTime)
     {
         this.startTime = startTime;
-        this.endTime = (double)beatOfNote;
+
+        //so this just needs to be multiplied by the timeperbeat
+        this.endTime = (double)beatOfNote * TimeManager.GetTimePerBeat();
 
         // Debug.Log(startTime);
         // Debug.Log(endTime);

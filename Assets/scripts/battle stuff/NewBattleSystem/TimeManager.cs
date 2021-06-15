@@ -10,7 +10,9 @@ public static class TimeManager
 
     public static double battleStartTime;
 
-    public static IEnumerator barWait(NBattleManager.WaitCallback methodToCall)
+
+
+    public static IEnumerator barWait(NBattleManager.WaitCallback methodToCall, int numBars = 1)
     {
         //start the wait based on the current dspTime 
         double waitStart = AudioSettings.dspTime;
@@ -18,7 +20,7 @@ public static class TimeManager
         //for now we're just hard coding for 4 seconds
         //TODO: make this dynamic based on bpm
 
-        float barLength = (60 / currentSongBpm) * 4;
+        float barLength = (60 / currentSongBpm) * 4 * numBars;
 
         //so the bar length is the beat length * 4
         //the beat length is the bpm/60
@@ -39,6 +41,11 @@ public static class TimeManager
     public static void SetBattleStart()
     {
         battleStartTime = AudioSettings.dspTime;
+    }
+
+    public static float GetTimePerBeat()
+    {
+        return 60.0f / currentSongBpm;
     }
 
 }

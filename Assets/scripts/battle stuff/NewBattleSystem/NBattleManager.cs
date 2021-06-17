@@ -130,10 +130,13 @@ public class NBattleManager : MonoBehaviour
         savedTurnQueue = new List<BattleAction>();
         savedTurnQueue.AddRange(turnQueue);
 
-        Debug.Log(savedTurnQueue.Count);
+        //Debug.Log(savedTurnQueue.Count);
 
 
         calculateQueueModifiers();
+        //MinigameManager.current.PreloadMiniGame(((PlayerBattleAction)turnQueue[0]).sample.miniGameSceneName);
+        NBattleUIManager.current.InitTurnQueue(turnQueue);
+
 
     }
 
@@ -156,7 +159,7 @@ public class NBattleManager : MonoBehaviour
             }
         }
 
-        NBattleUIManager.current.InitTurnQueue(turnQueue);
+
     }
 
 
@@ -242,7 +245,7 @@ public class NBattleManager : MonoBehaviour
 
 
 
-        Debug.Log("turn changing");
+        //Debug.Log("turn changing");
         //turn off the active minigame canvas
 
         //if there was a turn previously running, end it
@@ -269,8 +272,16 @@ public class NBattleManager : MonoBehaviour
 
         if (turnQueue.Count > 0)
         {
+            MinigameManager.current.PreloadMiniGame(((PlayerBattleAction)turnQueue[0]).sample.miniGameSceneName);
+
+
+            //TODO: this organizatio needs to be refactored
             //pull out and load the minigame
             MinigameManager.current.ActivateMinigame(((PlayerBattleAction)turnQueue[0]).sample.miniGameSceneName);
+
+            //load the next minigame in the queue
+
+
 
         }
 

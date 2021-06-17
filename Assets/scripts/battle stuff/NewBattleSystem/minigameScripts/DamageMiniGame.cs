@@ -31,7 +31,7 @@ public class DamageMiniGame : MiniGame
 
     public List<NIndicator> indicators;
 
-    public float hitToleranceTime = 1;
+    public float hitToleranceTime = 0.2f;
 
     private void Start()
     {
@@ -44,9 +44,10 @@ public class DamageMiniGame : MiniGame
         rectTransform = indicatorContainer.GetComponent<RectTransform>();
 
         beatOffset = rectTransform.rect.height / this.miniGameSettings.numBeats;
-        SpawnIndicators();
+        // SpawnIndicators();
     }
 
+    //TODO: rewrite this to work a little better, make it more controllable maybe via an array or something
     void SpawnIndicators()
     {
         //just spawn one every 2 beats for now
@@ -62,10 +63,18 @@ public class DamageMiniGame : MiniGame
         }
     }
 
+    public override void Preload()
+    {
+        base.Preload();
+        SpawnIndicators();
+
+    }
+
     public override void StartMiniGame()
     {
         base.StartMiniGame();
 
+        //so we need some way of loading the minigame the turn before they happen
         SetIndicatorTimes();
 
 
@@ -95,24 +104,21 @@ public class DamageMiniGame : MiniGame
             foreach (NIndicator ind in indicators)
             {
                 ind.UpdateIndicator();
-
-                // //check if we should delete the indicator
-                // if (AudioSettings.dspTime - ind.endTime > hitToleranceTime)
-                // {
-                //     Debug.Log("bad");
-                //     // Destroy(indicators[0].gameObject);
-                //     // indicators.RemoveAt(0);
-                // }
             }
 
 
             //check if the next indicators time has expired
-            if (AudioSettings.dspTime - (indicators[0].startTime + indicators[0].endTime) > hitToleranceTime)
+            // if (Mathf.Abs((float)(AudioSettings.dspTime - (indicators[0].startTime + indicators[0].endTime))) > hitToleranceTime)
+            if ((indicators[0].startTime + indicators[0].endTime + hitToleranceTime) < AudioSettings.dspTime)
             {
                 Debug.Log("bad");
                 Destroy(indicators[0].gameObject);
                 indicators.RemoveAt(0);
             }
+
+            //so look at the bottom indicators end time, if the difference between that and now is bigger than the tolerance delete it
+
+
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && indicators.Count > 0)

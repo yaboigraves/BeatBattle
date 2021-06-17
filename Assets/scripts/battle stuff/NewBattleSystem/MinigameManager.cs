@@ -95,22 +95,31 @@ public class MinigameManager : MonoBehaviour
         }
 
         //look through the minigames loaded and set the one we're looking for active
+        MiniGame game = findMiniGameByName(sceneName);
 
-        foreach (MiniGame game in loadedMiniGames)
+        if (game)
         {
-
-            if (game.miniGameSettings.minigameSample != null && game.miniGameSettings.minigameSample.miniGameSceneName == sceneName)
-            {
-                //activate the canvas
-
-                game.miniGameCanvas.gameObject.SetActive(true);
-                //Debug.Log("setting the minigame canvas active");
-                activeMiniGame = game;
-                activeMiniGame.StartMiniGame();
-                return;
-
-            }
+            //activate the canvas
+            game.miniGameCanvas.gameObject.SetActive(true);
+            //Debug.Log("setting the minigame canvas active");
+            activeMiniGame = game;
+            activeMiniGame.StartMiniGame();
+            return;
         }
+    }
+
+    public void PreloadMiniGame(string sceneName)
+    {
+        MiniGame game = findMiniGameByName(sceneName);
+        if (game)
+        {
+            game.Preload();
+        }
+    }
+
+    private MiniGame findMiniGameByName(string minigameName)
+    {
+        return loadedMiniGames.Find(g => g.miniGameSettings.minigameSample.miniGameSceneName == minigameName);
     }
 
 

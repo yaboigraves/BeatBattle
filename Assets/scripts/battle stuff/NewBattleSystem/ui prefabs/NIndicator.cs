@@ -24,8 +24,6 @@ public class NIndicator : MonoBehaviour
 
         //TODO: make this dependent on bpm
         transform.position = Vector3.Lerp(initialPosition, endPosition, (float)((AudioSettings.dspTime - startTime) / endTime));
-
-        //check if we've exceeded our time
     }
 
     public void SetStartTime(double startTime)

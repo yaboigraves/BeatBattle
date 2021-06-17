@@ -55,7 +55,7 @@ public class MiniGame : MonoBehaviour
 
     public void LoadStuff()
     {
-        Debug.Log(miniGameSettings.minigameSample.miniGameSceneName);
+        //Debug.Log(miniGameSettings.minigameSample.miniGameSceneName);
         miniGameCanvas.gameObject.SetActive(false);
         state = MiniGameState.Inactive;
         //register this minigame with the minigame manager
@@ -65,6 +65,11 @@ public class MiniGame : MonoBehaviour
     public virtual void StartMiniGame()
     {
         state = MiniGameState.Active;
+    }
+
+    public virtual void Preload()
+    {
+
     }
 
 }

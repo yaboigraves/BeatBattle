@@ -63,6 +63,10 @@ public class NBattleManager : MonoBehaviour
 
     public int playerHealth, enemyHealth;
 
+    List<BattleAction> savedTurnQueue;
+
+
+
     private void Awake()
     {
 
@@ -118,6 +122,13 @@ public class NBattleManager : MonoBehaviour
             turnQueue.Add(enemyTurn);
 
         }
+
+        //store this turn queue as the one we can reset to
+        savedTurnQueue = new List<BattleAction>();
+        savedTurnQueue.AddRange(turnQueue);
+
+        Debug.Log(savedTurnQueue.Count);
+
 
         calculateQueueModifiers();
 
@@ -224,6 +235,10 @@ public class NBattleManager : MonoBehaviour
     //depending on battle phase we start a different persons turn
     public void ChangeTurn()
     {
+        //so we need to check if we should refill the queue here
+
+
+
 
 
         Debug.Log("turn changing");
@@ -234,6 +249,21 @@ public class NBattleManager : MonoBehaviour
         {
             EndTurn();
         }
+
+
+        if (turnQueue.Count < 1)
+        {
+            Debug.Log("resetting the turnqueue");
+            turnQueue.AddRange(savedTurnQueue);
+
+            //reupadte the ui
+
+            //so we only need to recalculate the queue if you do an interlude
+            //calculateQueueModifiers();
+
+            NBattleUIManager.current.InitTurnQueue(turnQueue);
+        }
+
 
         if (turnQueue.Count > 0)
         {
@@ -261,6 +291,8 @@ public class NBattleManager : MonoBehaviour
                 currentState = BattleState.PlayerTurn;
                 break;
         }
+
+
 
         //after the turn is changed, wait however many bars and then do it all again woo
         WaitCallback methodToCall = ChangeTurn;

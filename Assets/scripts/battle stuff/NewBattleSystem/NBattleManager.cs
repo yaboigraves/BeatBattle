@@ -105,23 +105,26 @@ public class NBattleManager : MonoBehaviour
         turnQueue = new List<BattleAction>();
 
         //so rather than building these randomly build them from the players set
-
-        for (int i = 0; i < playerSet.Length; i++)
+        for (int b = 0; b < 2; b++)
         {
-            PlayerBattleAction turn = new PlayerBattleAction();
-            Sample s = Instantiate(playerSet[i]);
-            turn.minigameSceneName = playerSet[i].sampleName;
-            turn.playerOrEnemy = true;
-            turn.sample = s;
-            turnQueue.Add(turn);
+            for (int i = 0; i < playerSet.Length; i++)
+            {
+                PlayerBattleAction turn = new PlayerBattleAction();
+                Sample s = Instantiate(playerSet[i]);
+                turn.minigameSceneName = playerSet[i].sampleName;
+                turn.playerOrEnemy = true;
+                turn.sample = s;
+                turnQueue.Add(turn);
 
-            //do an enemy turn for this player turn
-            EnemyBattleAction enemyTurn = new EnemyBattleAction();
-            enemyTurn.playerOrEnemy = false;
-            enemyTurn.dmg = enemies[0].attack;
-            turnQueue.Add(enemyTurn);
+                //do an enemy turn for this player turn
+                EnemyBattleAction enemyTurn = new EnemyBattleAction();
+                enemyTurn.playerOrEnemy = false;
+                enemyTurn.dmg = enemies[0].attack;
+                turnQueue.Add(enemyTurn);
 
+            }
         }
+
 
         //store this turn queue as the one we can reset to
         savedTurnQueue = new List<BattleAction>();
@@ -239,8 +242,6 @@ public class NBattleManager : MonoBehaviour
 
 
 
-
-
         Debug.Log("turn changing");
         //turn off the active minigame canvas
 
@@ -251,7 +252,8 @@ public class NBattleManager : MonoBehaviour
         }
 
 
-        if (turnQueue.Count < 1)
+        //so if there's only one bar left of input just add on the whole turnqueue to the end to create a new loop
+        if (turnQueue.Count / 2 <= 4)
         {
             Debug.Log("resetting the turnqueue");
             turnQueue.AddRange(savedTurnQueue);

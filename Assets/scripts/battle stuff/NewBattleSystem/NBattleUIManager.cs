@@ -44,6 +44,8 @@ public class NBattleUIManager : MonoBehaviour
         InitSampleLibraryPanel();
         InitSetCustomizationPanel();
 
+        TimeManager.beatCallbacks.Add(UpdateMetronome);
+
     }
 
     public void SetCurrentlySelectedTurnAction(GameObject action)
@@ -252,5 +254,20 @@ public class NBattleUIManager : MonoBehaviour
             playerSet[i] = actionIcons[i].sample;
         }
         NBattleManager.current.InitQueue(playerSet);
+    }
+
+    int currentBeat = 0;
+
+    public TextMeshProUGUI metronomeText;
+    public void UpdateMetronome()
+    {
+        currentBeat++;
+        if (currentBeat > 4)
+        {
+            currentBeat = 1;
+        }
+
+        metronomeText.text = currentBeat.ToString();
+
     }
 }

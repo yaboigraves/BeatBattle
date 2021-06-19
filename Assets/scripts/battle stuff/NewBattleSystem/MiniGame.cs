@@ -59,7 +59,12 @@ public class MiniGame : MonoBehaviour
         miniGameCanvas.gameObject.SetActive(false);
         state = MiniGameState.Inactive;
         //register this minigame with the minigame manager
-        MinigameManager.current.registerMinigame(this);
+
+        if (MinigameManager.current)
+        {
+            MinigameManager.current.registerMinigame(this);
+        }
+
     }
 
     public virtual void StartMiniGame()

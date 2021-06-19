@@ -11,6 +11,27 @@ public static class TimeManager
     public static double battleStartTime;
 
 
+    public static int currentBeat = 0;
+
+    //TODO: 6/17 create a list of delegate functions that need to get called every beat that we can assign stuff too
+
+
+    public delegate void BeatCallBackFunction();
+
+    public static List<BeatCallBackFunction> beatCallbacks = new List<BeatCallBackFunction>();
+
+    public static void BeatCallBack()
+    {
+        currentBeat++;
+        //Debug.Log("NCE");
+        //NBattleUIManager.current.UpdateMetronome();
+
+        foreach (BeatCallBackFunction b in beatCallbacks)
+        {
+            b();
+        }
+    }
+
 
     public static IEnumerator barWait(NBattleManager.WaitCallback methodToCall, int numBars = 1)
     {

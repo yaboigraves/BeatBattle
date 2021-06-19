@@ -8,6 +8,12 @@ public class NBattleAudioManager : MonoBehaviour
 
     AudioSource musicAudioSource;
 
+    //so the battle audio manager is going to every beat fire a callback to the time manager to handle on beat stuff
+
+
+
+
+
     public SongInfo songInfo;
 
     private void Awake()
@@ -37,6 +43,31 @@ public class NBattleAudioManager : MonoBehaviour
         //this may need to be halted until the audio source can reliably be known to be playing
         TimeManager.SetBattleStart();
         musicAudioSource.Play();
+    }
+
+
+    private void Update()
+    {
+        if (NBattleManager.current.currentState != BattleState.Prebattle)
+        {
+            CheckForBeat();
+        }
+
+    }
+
+
+    public double lastBeatTime = 0, nextBeatTime = 0;
+    //checks to see if we should trigger the beat callback
+    void CheckForBeat()
+    {
+        if (AudioSettings.dspTime > nextBeatTime)
+        {
+            TimeManager.BeatCallBack();
+
+            //so remember this is unreliable bud
+            //we need to mark the start time and everything is relative to that dont use the current time
+            nextBeatTime = TimeManager.battleStartTime + ((60d / TimeManager.currentSongBpm) * (float)TimeManager.currentBeat);
+        }
     }
 
 

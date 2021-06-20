@@ -58,6 +58,8 @@ public class DamageMiniGame : MiniGame
             //move the indicator up 
             ind.transform.Translate(Vector3.up * (beatOffset * i));
             NIndicator indie = ind.GetComponent<NIndicator>();
+
+            //TODO: copy this code over to the healing minigame
             indie.SetIndicatorInfo(Vector3.up * (beatOffset * i), indicatorContainer.transform.position - (Vector3.up * (rectTransform.rect.height / 2)), i);
             indicators.Add(indie);
         }

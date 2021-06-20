@@ -875,6 +875,14 @@ MonoBehaviour:
   miniGameCanvas: {fileID: 1906576240}
   state: 0
   catcher: {fileID: 1137415699}
+  toleranceTime: 0.4
+  indicator: {fileID: 3199911432161153602, guid: 140c3adb30a212c4a88e0f6f3adc3916,
+    type: 3}
+  lanes:
+  - {fileID: 1928425365}
+  - {fileID: 465370644}
+  - {fileID: 1470107351}
+  - {fileID: 1496909963}
 --- !u!4 &1757227550
 Transform:
   m_ObjectHideFlags: 0
@@ -907,7 +915,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1906576238
 MonoBehaviour:
   m_ObjectHideFlags: 0

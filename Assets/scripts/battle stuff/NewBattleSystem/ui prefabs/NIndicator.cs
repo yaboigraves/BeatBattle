@@ -22,7 +22,7 @@ public class NIndicator : MonoBehaviour
         //lerp down from our initial position we're assigned
         //so for now just lerp fuck time who cares
 
-        //TODO: make this dependent on bpm
+
         transform.position = Vector3.Lerp(initialPosition, endPosition, (float)((AudioSettings.dspTime - startTime) / endTime));
     }
 

@@ -21,11 +21,19 @@ public class HealMiniGame : MiniGame
 
     public float toleranceTime = 0.4f;
 
+    public GameObject indicator;
 
+    public Transform[] lanes;
+
+    List<NIndicator> indicators;
+
+
+    float beatOffset;
     private void Start()
     {
         base.LoadStuff();
         //TimeManager.beatCallbacks.Add(MoveCallback);
+        beatOffset = lanes[0].GetComponent<RectTransform>().rect.height / 8;
     }
 
     private void Update()
@@ -34,6 +42,15 @@ public class HealMiniGame : MiniGame
         {
             return;
         }
+
+        //update the indicators
+
+        foreach (NIndicator n in indicators)
+        {
+            n.UpdateIndicator();
+        }
+
+
         if (Input.GetKeyDown(KeyCode.A) && CheckLegalInput())
         {
             catcher.transform.Translate(Vector3.left * 120);
@@ -71,7 +88,7 @@ public class HealMiniGame : MiniGame
             beatDistance = Mathf.Abs((float)(AudioSettings.dspTime - (TimeManager.currentBeatDSPTime + TimeManager.timePerBeat)));
         }
 
-        Debug.Log("beat distance was " + beatDistance);
+        //Debug.Log("beat distance was " + beatDistance);
 
         if (beatDistance < toleranceTime)
         {
@@ -113,11 +130,46 @@ public class HealMiniGame : MiniGame
 
     }
 
+
+    //later indicators should probably become a common thing shared among minigames, seems like alot are going to have some form
     void SpawnIndicators()
     {
+
+        //clear old inciators
+        foreach (NIndicator n in indicators)
+        {
+            Destroy(n.gameObject);
+
+        }
+        indicators.Clear();
+
+
         //so we're just going to drop some indicators down, they travel to the bottom of their lane
         //spawn like 4 of these randomly over 8 spots
 
+        for (int i = 1; i < 8; i += 2)
+        {
+            //spawn an indicator in a random lane
+            //pick the lane for it
+
+            Vector3 indicatorPosition = Vector3.zero;
+            int lane = Random.Range(0, 4);
+
+            indicatorPosition.x = lanes[lane].position.x;
+            indicatorPosition.y = (lanes[lane].position.y - lanes[lane].GetComponent<RectTransform>().rect.height / 2) + (i * beatOffset);
+
+
+
+
+            GameObject ind = Instantiate(indicator, indicatorPosition, Quaternion.identity, lanes[lane]);
+
+            //TODO: fix this bullshit lol
+            ind.GetComponent<NIndicator>().SetIndicatorInfo(indicatorPosition, indicatorPosition - Vector3.down * 400, i);
+
+
+
+            indicators.Add(ind.GetComponent<NIndicator>());
+        }
 
     }
 

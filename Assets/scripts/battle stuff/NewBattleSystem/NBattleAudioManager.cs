@@ -41,8 +41,10 @@ public class NBattleAudioManager : MonoBehaviour
     public void StartSong()
     {
         //this may need to be halted until the audio source can reliably be known to be playing
-        TimeManager.SetBattleStart();
-        musicAudioSource.Play();
+
+        double battleStartTime = AudioSettings.dspTime + 0.5f;
+        TimeManager.SetBattleStart(battleStartTime);
+        musicAudioSource.PlayScheduled(battleStartTime);
     }
 
 

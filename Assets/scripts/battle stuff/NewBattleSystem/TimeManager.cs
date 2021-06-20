@@ -64,9 +64,9 @@ public static class TimeManager
         timePerBeat = 60f / bpm;
     }
 
-    public static void SetBattleStart()
+    public static void SetBattleStart(double start)
     {
-        battleStartTime = AudioSettings.dspTime;
+        battleStartTime = start;
     }
 
     public static float GetTimePerBeat()

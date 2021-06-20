@@ -19,7 +19,7 @@ public class HealMiniGame : MiniGame
     int moveInput;
     public RectTransform catcher;
 
-    public float toleranceTime = 0.3f;
+    public float toleranceTime = 0.4f;
 
 
     private void Start()

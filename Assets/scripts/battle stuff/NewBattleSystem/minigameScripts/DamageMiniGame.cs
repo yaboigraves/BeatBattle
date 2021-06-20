@@ -80,11 +80,14 @@ public class DamageMiniGame : MiniGame
 
     }
 
+    //so this probably needs to be made more accurate
     void SetIndicatorTimes()
     {
+        //Debug.Log(TimeManager.currentBeat);
         foreach (NIndicator n in indicators)
         {
-            n.SetStartTime(AudioSettings.dspTime);
+
+            n.SetStartTime(TimeManager.currentBeatDSPTime);
         }
     }
 

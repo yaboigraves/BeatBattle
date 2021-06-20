@@ -106,6 +106,21 @@ public class HealMiniGame : MiniGame
         moveInput = 0;
     }
 
+    public override void Preload()
+    {
+        base.Preload();
+        SpawnIndicators();
+
+    }
+
+    void SpawnIndicators()
+    {
+        //so we're just going to drop some indicators down, they travel to the bottom of their lane
+        //spawn like 4 of these randomly over 8 spots
+
+
+    }
+
 
 
 }

@@ -10,8 +10,11 @@ public static class TimeManager
 
     public static double battleStartTime;
 
+    public static float timePerBeat;
+
 
     public static int currentBeat = 0;
+    public static double currentBeatDSPTime = 0;
 
     //TODO: 6/17 create a list of delegate functions that need to get called every beat that we can assign stuff too
 
@@ -23,7 +26,8 @@ public static class TimeManager
     public static void BeatCallBack()
     {
         currentBeat++;
-        //Debug.Log("NCE");
+        currentBeatDSPTime = battleStartTime + (currentBeat * timePerBeat);
+        Debug.Log("NCE");
         //NBattleUIManager.current.UpdateMetronome();
 
         foreach (BeatCallBackFunction b in beatCallbacks)
@@ -57,6 +61,7 @@ public static class TimeManager
     public static void SetCurrentSongInfo(float bpm)
     {
         currentSongBpm = bpm;
+        timePerBeat = 60f / bpm;
     }
 
     public static void SetBattleStart()

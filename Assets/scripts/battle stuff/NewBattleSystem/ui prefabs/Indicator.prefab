@@ -88,3 +88,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db5dbc68b64a334084e4a376af60497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startTime: 0
+  endTime: 0
+  toleranceAmount: 0.2
+  state: 0
+  lane: 0

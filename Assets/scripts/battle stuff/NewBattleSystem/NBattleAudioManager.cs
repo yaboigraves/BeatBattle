@@ -52,6 +52,7 @@ public class NBattleAudioManager : MonoBehaviour
     {
         if (NBattleManager.current.currentState != BattleState.Prebattle)
         {
+            //Debug.Log("EEEE");
             CheckForBeat();
         }
 

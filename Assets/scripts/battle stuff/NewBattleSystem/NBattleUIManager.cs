@@ -46,6 +46,7 @@ public class NBattleUIManager : MonoBehaviour
 
         TimeManager.beatCallbacks.Add(UpdateMetronome);
 
+
     }
 
     public void SetCurrentlySelectedTurnAction(GameObject action)
@@ -166,6 +167,7 @@ public class NBattleUIManager : MonoBehaviour
             actionIcons[i] = turnQueueIconObjects[i].GetComponent<ActionIcon>();
         }
 
+        setCustomizationPanel.gameObject.SetActive(true);
 
     }
 

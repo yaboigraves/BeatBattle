@@ -78,8 +78,6 @@ public class DamageMiniGame : MiniGame
 
         //so we need some way of loading the minigame the turn before they happen
         SetIndicatorTimes();
-
-
     }
 
     //so this probably needs to be made more accurate
@@ -136,6 +134,10 @@ public class DamageMiniGame : MiniGame
                 //goood hit
                 //delete the indicator and its gameobject
                 Debug.Log("good hit");
+
+                //so this should maybe like increase the buff by 1 to the neighbors or something?
+                //need to recalculate the queue afterwords
+
                 Destroy(indicators[0].gameObject);
                 indicators.RemoveAt(0);
             }

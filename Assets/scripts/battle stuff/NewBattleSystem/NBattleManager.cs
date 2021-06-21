@@ -312,6 +312,20 @@ public class NBattleManager : MonoBehaviour
         StartCoroutine(TimeManager.barWait(methodToCall, 2));
     }
 
+    //also works for healing
+    public void DmgPlayer(int amount)
+    {
+        playerHealth -= amount;
+        NBattleUIManager.current.UpdateHealth();
+    }
+
+    public void HealPlayer(int amount)
+    {
+        playerHealth += amount;
+        NBattleUIManager.current.UpdateHealth();
+    }
+
+
 
 
 }

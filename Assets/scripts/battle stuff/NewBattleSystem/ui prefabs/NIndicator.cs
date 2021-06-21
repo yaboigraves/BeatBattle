@@ -10,6 +10,23 @@ public class NIndicator : MonoBehaviour
     int beatOfNote;
     public double startTime, endTime;
 
+    //THIS IS IN PERCENTAGE 0-1
+    public float toleranceAmount = 0.20f;
+
+    public IndicatorState state;
+
+
+    //used for the healing minigame
+    public int lane;
+
+    public enum IndicatorState
+    {
+        Waiting,
+        Moving,
+        PastMoving,
+        Expired
+    }
+
     public void SetIndicatorInfo(Vector3 initialPos, Vector3 endPos, int beatOfNote)
     {
         initialPosition = transform.position;
@@ -17,13 +34,43 @@ public class NIndicator : MonoBehaviour
         this.beatOfNote = beatOfNote;
     }
 
-    public void UpdateIndicator()
+    public void SetIndicatorInfo(Vector3 initialPos, Vector3 endPos, int beatOfNote, int lane)
+    {
+        initialPosition = transform.position;
+        endPosition = endPos;
+        this.beatOfNote = beatOfNote;
+        this.lane = lane;
+    }
+
+
+
+    //add some generalized way to check if the indicator should be getting cleaned up
+    //if this returns false its time to clean the indicator up
+    public IndicatorState UpdateIndicator()
     {
         //lerp down from our initial position we're assigned
         //so for now just lerp fuck time who cares
 
+        float lerpProgress = (float)((AudioSettings.dspTime - startTime) / endTime);
+        transform.position = Vector3.Lerp(initialPosition, endPosition, lerpProgress);
 
-        transform.position = Vector3.Lerp(initialPosition, endPosition, (float)((AudioSettings.dspTime - startTime) / endTime));
+
+
+        if (lerpProgress > 1f + toleranceAmount)
+        {
+            return IndicatorState.Expired;
+        }
+
+        else if (lerpProgress > 1f)
+        {
+            return IndicatorState.PastMoving;
+        }
+        else
+        {
+            return IndicatorState.Moving;
+        }
+
+
     }
 
     public void SetStartTime(double startTime)

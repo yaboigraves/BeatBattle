@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class HealMiniGame : MiniGame
 {
 
@@ -19,15 +19,21 @@ public class HealMiniGame : MiniGame
     int moveInput;
     public RectTransform catcher;
 
-    public float toleranceTime = 0.4f;
+    public float toleranceTime = 0.3f;
 
     public GameObject indicator;
 
     public Transform[] lanes;
 
-    List<NIndicator> indicators;
+    List<NIndicator> indicators = new List<NIndicator>();
+
+    public int currentCatcherLane = 1;
 
 
+    float inputLockTime = 0.1f;
+    bool inputLocked;
+
+    //
     float beatOffset;
     private void Start()
     {
@@ -35,6 +41,9 @@ public class HealMiniGame : MiniGame
         //TimeManager.beatCallbacks.Add(MoveCallback);
         beatOffset = lanes[0].GetComponent<RectTransform>().rect.height / 8;
     }
+    //
+
+
 
     private void Update()
     {
@@ -43,12 +52,45 @@ public class HealMiniGame : MiniGame
             return;
         }
 
-        //update the indicators
 
+        //update the indicators
+        List<NIndicator> killList = new List<NIndicator>();
         foreach (NIndicator n in indicators)
         {
-            n.UpdateIndicator();
+            NIndicator.IndicatorState state = n.UpdateIndicator();
+
+            if (state == NIndicator.IndicatorState.Expired)
+            {
+                //destroy the indicator
+                killList.Add(n);
+            }
+            else if (state == NIndicator.IndicatorState.PastMoving)
+            {
+                //add it to the kill list only if the hand is in the same lane
+                if (n.lane == currentCatcherLane)
+                {
+                    killList.Add(n);
+                    Debug.Log("Catch!!");
+
+                    //heal the player 1 point
+                    NBattleManager.current.HealPlayer(1);
+
+                }
+            }
         }
+
+        //process the kill list
+        for (int i = 0; i < killList.Count; i++)
+        {
+            //kill the gameobject
+            Destroy(killList[i].gameObject);
+
+            //kill the list entry
+            indicators.Remove(killList[i]);
+
+        }
+
+
 
 
         if (Input.GetKeyDown(KeyCode.A) && CheckLegalInput())
@@ -56,17 +98,26 @@ public class HealMiniGame : MiniGame
             catcher.transform.Translate(Vector3.left * 120);
             //moveInput = -1;
 
+            currentCatcherLane--;
+
         }
         else if (Input.GetKeyDown(KeyCode.D) && CheckLegalInput())
         {
             catcher.transform.Translate(Vector3.right * 120);
             //moveInput = 1;
+            currentCatcherLane++;
 
         }
     }
 
+
+
     bool CheckLegalInput()
     {
+        if (inputLocked)
+        {
+            return false;
+        }
         //look at the current time and see if its +/- some tolerance value from the next beats time
         //left off here 6/18
 
@@ -88,27 +139,42 @@ public class HealMiniGame : MiniGame
             beatDistance = Mathf.Abs((float)(AudioSettings.dspTime - (TimeManager.currentBeatDSPTime + TimeManager.timePerBeat)));
         }
 
-        //Debug.Log("beat distance was " + beatDistance);
+        Debug.Log("beat distance was " + beatDistance);
 
         if (beatDistance < toleranceTime)
         {
 
             return true;
         }
-
-        return false;
-
-
+        else
+        {
 
 
+            //penalize the player and lock input for a certain amount of time
+            StartCoroutine(lockInputRoutine());
 
+            return false;
 
+        }
     }
 
+    double lockEndTime;
+    IEnumerator lockInputRoutine()
+    {
+        inputLocked = true;
+        lockEndTime = TimeManager.currentBeatDSPTime + inputLockTime;
+        catcher.gameObject.GetComponent<Image>().color = Color.red;
+        yield return new WaitUntil(() => AudioSettings.dspTime >= lockEndTime);
+        catcher.gameObject.GetComponent<Image>().color = Color.white;
+        inputLocked = false;
+        //
+
+    }
 
     //so this may not even need to be setup like this but its a good start, the only issue is it's super weird to control cause of the delay
     //we should probably instead just wait for an input then check and see if its legal
 
+    //later penalize you for fucking up
     public void MoveCallback()
     {
         if (moveInput == 1)
@@ -136,41 +202,73 @@ public class HealMiniGame : MiniGame
     {
 
         //clear old inciators
+
         foreach (NIndicator n in indicators)
         {
             Destroy(n.gameObject);
-
         }
+
         indicators.Clear();
 
 
         //so we're just going to drop some indicators down, they travel to the bottom of their lane
         //spawn like 4 of these randomly over 8 spots
 
-        for (int i = 1; i < 8; i += 2)
+        for (int i = 3; i < 8; i += 2)
         {
             //spawn an indicator in a random lane
             //pick the lane for it
 
-            Vector3 indicatorPosition = Vector3.zero;
+
             int lane = Random.Range(0, 4);
 
-            indicatorPosition.x = lanes[lane].position.x;
-            indicatorPosition.y = (lanes[lane].position.y - lanes[lane].GetComponent<RectTransform>().rect.height / 2) + (i * beatOffset);
+            // indicatorPosition.x = lanes[lane].position.x;
+            // indicatorPosition.y = (lanes[lane].position.y - lanes[lane].GetComponent<RectTransform>().rect.height / 2) + (i * beatOffset);
+
+            //so we're just gonna assume the lanes have children at 0 and 1 that represent the top and bottom
+
+            //0-top
+            //1- bottom
+
+            Vector3 indicatorEndPosition = lanes[lane].GetChild(1).transform.position;
+
+            Vector3 indicatorStartPosition = lanes[lane].GetChild(0).transform.position;
+
+            //so the start position is the end position + the offset based on the beat
+            //beat offset is the beat * the units per beat
+            //units per beat is the distance between start and end positions y / 8
+
+            float unitsPerBeat = lanes[lane].GetComponent<RectTransform>().rect.height / 8f;
+            float beatOffset = i * unitsPerBeat;
+
+            indicatorStartPosition.Set(indicatorEndPosition.x, indicatorEndPosition.y + beatOffset, indicatorEndPosition.z);
 
 
-
-
-            GameObject ind = Instantiate(indicator, indicatorPosition, Quaternion.identity, lanes[lane]);
+            GameObject ind = Instantiate(indicator, indicatorStartPosition, Quaternion.identity, lanes[lane]);
 
             //TODO: fix this bullshit lol
-            ind.GetComponent<NIndicator>().SetIndicatorInfo(indicatorPosition, indicatorPosition - Vector3.down * 400, i);
+            ind.GetComponent<NIndicator>().SetIndicatorInfo(indicatorStartPosition, indicatorEndPosition, i, lane);
+            //
 
-
-
+            //ind.GetComponent<Canvas>().overrideSorting = true;
             indicators.Add(ind.GetComponent<NIndicator>());
         }
 
+    }
+
+    public override void StartMiniGame()
+    {
+        base.StartMiniGame();
+        SetIndicatorTimes();
+    }
+
+    void SetIndicatorTimes()
+    {
+        foreach (NIndicator n in indicators)
+        {
+
+            n.SetStartTime(TimeManager.currentBeatDSPTime);
+        }
     }
 
 

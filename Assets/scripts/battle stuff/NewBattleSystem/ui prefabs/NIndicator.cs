@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class NIndicator : MonoBehaviour
 {
     //so we need to track the time that the thingy spawned, and how long it should take to get to the pads position
 
     Vector3 initialPosition, endPosition;
-    int beatOfNote;
+    int beatOfNote, beatCounter;
     public double startTime, endTime;
 
     //THIS IS IN PERCENTAGE 0-1
@@ -15,6 +17,8 @@ public class NIndicator : MonoBehaviour
 
     public IndicatorState state;
 
+
+    public TextMeshProUGUI countDownText;
 
     //used for the healing minigame
     public int lane;
@@ -32,6 +36,12 @@ public class NIndicator : MonoBehaviour
         initialPosition = transform.position;
         endPosition = endPos;
         this.beatOfNote = beatOfNote;
+
+        this.beatCounter = beatOfNote;
+        countDownText = GetComponentInChildren<TextMeshProUGUI>();
+        countDownText.text = beatOfNote.ToString();
+
+        TimeManager.beatCallbacks.Add(UpdateCountdownText);
     }
 
     public void SetIndicatorInfo(Vector3 initialPos, Vector3 endPos, int beatOfNote, int lane)
@@ -40,6 +50,11 @@ public class NIndicator : MonoBehaviour
         endPosition = endPos;
         this.beatOfNote = beatOfNote;
         this.lane = lane;
+        this.beatCounter = beatOfNote;
+        countDownText = GetComponentInChildren<TextMeshProUGUI>();
+        countDownText.text = beatOfNote.ToString();
+
+        TimeManager.beatCallbacks.Add(UpdateCountdownText);
     }
 
 
@@ -84,6 +99,23 @@ public class NIndicator : MonoBehaviour
         // Debug.Log(endTime);
     }
 
+
+    public void UpdateCountdownText()
+    {
+
+
+        if (beatCounter == 0)
+        {
+            countDownText.text = "!!!";
+        }
+        else
+        {
+            countDownText.text = beatCounter.ToString();
+
+        }
+
+        beatCounter--;
+    }
 
 
 }

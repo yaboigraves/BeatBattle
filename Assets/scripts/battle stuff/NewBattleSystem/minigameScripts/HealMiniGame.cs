@@ -30,7 +30,7 @@ public class HealMiniGame : MiniGame
     public int currentCatcherLane = 1;
 
 
-    float inputLockTime = 0.1f;
+    float inputLockTime = 0.075f;
     bool inputLocked;
 
     //

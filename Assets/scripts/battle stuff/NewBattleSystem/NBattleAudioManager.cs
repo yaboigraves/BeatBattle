@@ -45,6 +45,8 @@ public class NBattleAudioManager : MonoBehaviour
         double battleStartTime = AudioSettings.dspTime + 0.5f;
         TimeManager.SetBattleStart(battleStartTime);
         musicAudioSource.PlayScheduled(battleStartTime);
+        nextBeatTime = TimeManager.battleStartTime + TimeManager.timePerBeat;
+
     }
 
 
@@ -52,7 +54,7 @@ public class NBattleAudioManager : MonoBehaviour
     {
         if (NBattleManager.current.currentState != BattleState.Prebattle)
         {
-            //Debug.Log("EEEE");
+
             CheckForBeat();
         }
 
@@ -63,13 +65,19 @@ public class NBattleAudioManager : MonoBehaviour
     //checks to see if we should trigger the beat callback
     void CheckForBeat()
     {
-        if (AudioSettings.dspTime > nextBeatTime)
+        Debug.Log("Next Beat Time : " + nextBeatTime);
+        Debug.Log("dsp time" + AudioSettings.dspTime);
+        Debug.Log("");
+        if (AudioSettings.dspTime >= nextBeatTime)
         {
+            Debug.Log("beat callback");
             TimeManager.BeatCallBack();
 
             //so remember this is unreliable bud
             //we need to mark the start time and everything is relative to that dont use the current time
-            nextBeatTime = TimeManager.battleStartTime + ((60d / TimeManager.currentSongBpm) * (float)TimeManager.currentBeat);
+            //nextBeatTime = TimeManager.battleStartTime + ((60d / TimeManager.currentSongBpm) * (float)TimeManager.currentBeat);
+            nextBeatTime = TimeManager.currentBeatDSPTime;
+
         }
     }
 

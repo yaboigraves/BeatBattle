@@ -89,7 +89,7 @@ public class NBattleManager : MonoBehaviour
 
     public void InitQueue(Sample[] samples)
     {
-        Debug.Log("Initializing the from the ui");
+        //        Debug.Log("Initializing the from the ui");
         playerSet = samples;
         InitQueue();
 

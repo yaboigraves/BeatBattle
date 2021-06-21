@@ -67,6 +67,9 @@ public static class TimeManager
     public static void SetBattleStart(double start)
     {
         battleStartTime = start;
+        currentBeatDSPTime = battleStartTime + (currentBeat * timePerBeat);
+
+
     }
 
     public static float GetTimePerBeat()

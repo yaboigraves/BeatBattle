@@ -6,11 +6,11 @@ using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
 
-public class NBattleUIManager : MonoBehaviour
+public class BattleUIManager : MonoBehaviour
 {
     public Transform turnQueuePanel, setCustomizationPanel, sampleRepoContent, sampleRepoPanel;
     public GameObject turnInfoPrefab;
-    public static NBattleUIManager current;
+    public static BattleUIManager current;
     public List<Transform> turnOrderQueue;
     public TextMeshProUGUI playerHealthText, enemyHealthText;
     public GameObject sampleIconPrefab;

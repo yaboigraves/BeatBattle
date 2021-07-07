@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NBattleAudioManager : MonoBehaviour
+public class BattleAudioManager : MonoBehaviour
 {
-    public static NBattleAudioManager current;
+    public static BattleAudioManager current;
 
     AudioSource musicAudioSource;
 

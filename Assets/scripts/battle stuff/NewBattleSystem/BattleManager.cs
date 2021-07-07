@@ -84,7 +84,7 @@ public class BattleManager : MonoBehaviour
         playerHealth = 10;
 
         //update health text
-        NBattleUIManager.current.UpdateHealth();
+        BattleUIManager.current.UpdateHealth();
     }
 
     public void InitQueue(Sample[] samples)
@@ -135,7 +135,7 @@ public class BattleManager : MonoBehaviour
 
         calculateQueueModifiers();
         //MinigameManager.current.PreloadMiniGame(((PlayerBattleAction)turnQueue[0]).sample.miniGameSceneName);
-        NBattleUIManager.current.InitTurnQueue(turnQueue);
+        BattleUIManager.current.InitTurnQueue(turnQueue);
 
 
     }
@@ -196,7 +196,7 @@ public class BattleManager : MonoBehaviour
         StartCoroutine(TimeManager.barWait(methodToCall, 2));
 
         //play the audio
-        NBattleAudioManager.current.StartSong();
+        BattleAudioManager.current.StartSong();
     }
 
 
@@ -227,10 +227,10 @@ public class BattleManager : MonoBehaviour
         }
 
 
-        NBattleUIManager.current.UpdateHealth();
+        BattleUIManager.current.UpdateHealth();
 
         //update the ui, 
-        NBattleUIManager.current.UpdateTurnQueue();
+        BattleUIManager.current.UpdateTurnQueue();
 
         //remove the elements from the queue
 
@@ -266,7 +266,7 @@ public class BattleManager : MonoBehaviour
             //so we only need to recalculate the queue if you do an interlude
             //calculateQueueModifiers();
 
-            NBattleUIManager.current.InitTurnQueue(turnQueue);
+            BattleUIManager.current.InitTurnQueue(turnQueue);
         }
 
 
@@ -316,13 +316,13 @@ public class BattleManager : MonoBehaviour
     public void DmgPlayer(int amount)
     {
         playerHealth -= amount;
-        NBattleUIManager.current.UpdateHealth();
+        BattleUIManager.current.UpdateHealth();
     }
 
     public void HealPlayer(int amount)
     {
         playerHealth += amount;
-        NBattleUIManager.current.UpdateHealth();
+        BattleUIManager.current.UpdateHealth();
     }
 
 }

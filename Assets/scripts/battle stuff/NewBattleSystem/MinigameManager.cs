@@ -43,7 +43,7 @@ public class MinigameManager : MonoBehaviour
     //TODO: this needs to be done in a coroutine otherwise it wont work properly with async operations
     public IEnumerator LoadMinigames()
     {
-        foreach (Sample s in NBattleManager.current.playerSamples)
+        foreach (Sample s in BattleManager.current.playerSamples)
         {
             miniGameSceneNames.Add(s.miniGameSceneName);
         }

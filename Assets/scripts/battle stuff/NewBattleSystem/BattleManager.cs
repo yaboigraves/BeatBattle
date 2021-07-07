@@ -46,9 +46,9 @@ so step 1 is to get the turn changes setup to transition based on the audio that
 so for now.... going to hard boil in audio settings but later we gotta figure out how its dynamic
 */
 
-public class NBattleManager : MonoBehaviour
+public class BattleManager : MonoBehaviour
 {
-    public static NBattleManager current;
+    public static BattleManager current;
     public delegate void WaitCallback();
 
     public BattleState currentState = BattleState.Prebattle;
@@ -325,10 +325,8 @@ public class NBattleManager : MonoBehaviour
         NBattleUIManager.current.UpdateHealth();
     }
 
-
-
-
 }
+//test
 
 public enum BattleState
 {

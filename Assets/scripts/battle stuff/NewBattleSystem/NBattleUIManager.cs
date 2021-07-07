@@ -61,19 +61,19 @@ public class NBattleUIManager : MonoBehaviour
 
     public void InitSampleLibraryPanel()
     {
-        sampleIconObjects = new GameObject[NBattleManager.current.playerSamples.Length];
-        for (int i = 0; i < NBattleManager.current.playerSamples.Length; i++)
+        sampleIconObjects = new GameObject[BattleManager.current.playerSamples.Length];
+        for (int i = 0; i < BattleManager.current.playerSamples.Length; i++)
         {
             GameObject icon = Instantiate(sampleIconPrefab);
             icon.transform.SetParent(sampleRepoContent.transform, false);
-            icon.transform.GetComponentInChildren<TextMeshProUGUI>().text = NBattleManager.current.playerSamples[i].sampleName[0].ToString();
+            icon.transform.GetComponentInChildren<TextMeshProUGUI>().text = BattleManager.current.playerSamples[i].sampleName[0].ToString();
 
             // if (i == 0)
             // {
             //     uiEventSystem.firstSelectedGameObject = icon;
             // }
 
-            Sample s = NBattleManager.current.playerSamples[i];
+            Sample s = BattleManager.current.playerSamples[i];
 
             icon.GetComponent<SampleIcon>().sample = s;
 
@@ -234,8 +234,8 @@ public class NBattleUIManager : MonoBehaviour
 
     public void UpdateHealth()
     {
-        playerHealthText.text = NBattleManager.current.playerHealth.ToString();
-        enemyHealthText.text = NBattleManager.current.enemyHealth.ToString();
+        playerHealthText.text = BattleManager.current.playerHealth.ToString();
+        enemyHealthText.text = BattleManager.current.enemyHealth.ToString();
     }
 
     //go button
@@ -255,7 +255,7 @@ public class NBattleUIManager : MonoBehaviour
         {
             playerSet[i] = actionIcons[i].sample;
         }
-        NBattleManager.current.InitQueue(playerSet);
+        BattleManager.current.InitQueue(playerSet);
     }
 
     int currentBeat = 0;

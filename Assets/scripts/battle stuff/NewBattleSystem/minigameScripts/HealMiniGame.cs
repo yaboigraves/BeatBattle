@@ -73,7 +73,7 @@ public class HealMiniGame : MiniGame
                     Debug.Log("Catch!!");
 
                     //heal the player 1 point
-                    NBattleManager.current.HealPlayer(1);
+                    BattleManager.current.HealPlayer(1);
 
                 }
             }

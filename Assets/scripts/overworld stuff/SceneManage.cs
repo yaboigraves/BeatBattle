@@ -158,7 +158,7 @@ public class SceneManage : MonoBehaviour
         InputHandler.current.LockPlayerMovement(false);
 
         //update the players inventory for any used items 
-        GameManager.current.player.inventory.items = BattleUIManager.current.battleItems;
+        //GameManager.current.player.inventory.items = BattleUIManager.current.battleItems;
 
         //reset the priority of the player camera
         CameraManager.current.updatePlayerCameraPriority(15);

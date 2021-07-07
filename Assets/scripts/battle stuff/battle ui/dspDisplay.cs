@@ -17,6 +17,6 @@ public class dspDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        text.text = TrackTimeManager.debugDSPTIME.ToString() + "\n" + TrackTimeManager.songPosition.ToString();
+        // text.text = TrackTimeManager.debugDSPTIME.ToString() + "\n" + TrackTimeManager.songPosition.ToString();
     }
 }

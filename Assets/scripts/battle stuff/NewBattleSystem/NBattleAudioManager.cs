@@ -52,7 +52,7 @@ public class NBattleAudioManager : MonoBehaviour
 
     private void Update()
     {
-        if (NBattleManager.current.currentState != BattleState.Prebattle)
+        if (BattleManager.current.currentState != BattleState.Prebattle)
         {
 
             CheckForBeat();

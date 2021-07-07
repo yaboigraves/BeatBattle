@@ -37,7 +37,7 @@ public static class TimeManager
     }
 
 
-    public static IEnumerator barWait(NBattleManager.WaitCallback methodToCall, int numBars = 1)
+    public static IEnumerator barWait(BattleManager.WaitCallback methodToCall, int numBars = 1)
     {
         //start the wait based on the current dspTime 
         double waitStart = AudioSettings.dspTime;

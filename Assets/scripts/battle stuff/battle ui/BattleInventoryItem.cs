@@ -11,7 +11,7 @@ public class BattleInventoryItem : MonoBehaviour
     public void EquipBattleItem()
     {
         //tell the battleui manager that we want to equip this item
-        BattleUIManager.current.EquipItem(item, 0);
+        // BattleUIManager.current.EquipItem(item, 0);
     }
 
 }

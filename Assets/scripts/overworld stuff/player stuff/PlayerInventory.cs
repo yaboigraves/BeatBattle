@@ -105,13 +105,13 @@ public class PlayerInventory : MonoBehaviour
     public void EquipGearEffect(string effectName)
     {
         //print("applying effect " + effectName);
-        gearEffects.Add(GearEffects.gearEffectDictionary[effectName]);
+        //gearEffects.Add(GearEffects.gearEffectDictionary[effectName]);
     }
 
     public void UnequipGearEffect(string effectName)
     {
         print("Removing the " + effectName);
-        gearEffects.Remove(GearEffects.gearEffectDictionary[effectName]);
+        //gearEffects.Remove(GearEffects.gearEffectDictionary[effectName]);
 
     }
 

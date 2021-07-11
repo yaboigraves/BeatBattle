@@ -41,14 +41,14 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _Choppiness: 0.4
+    - _Choppiness: 0.1
     - _FlowSpeed: 0.01
-    - _FlowStrength: 0.0075
+    - _FlowStrength: 0.03
     - _FoamDistance: 1.5
     - _Opacity: 1
     - _Size: 10
     m_Colors:
     - _DarkFoamColor: {r: 0.20265219, g: 0.4339623, b: 0.3993987, a: 1}
-    - _LightFoamColor: {r: 1, g: 1, b: 1, a: 1}
-    - _WaterColor: {r: 0.29803923, g: 0.67058825, b: 0.6117647, a: 1}
+    - _LightFoamColor: {r: 0.92141336, g: 0.9622642, b: 0.92754275, a: 1}
+    - _WaterColor: {r: 0.1264685, g: 0.5471698, b: 0.48074335, a: 1}
   m_BuildTextureStacks: []

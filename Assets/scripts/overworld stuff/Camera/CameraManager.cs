@@ -12,6 +12,8 @@ public class CameraManager : MonoBehaviour
 
     public CinemachineVirtualCamera itemPickupCam;
 
+    public OrbitCamera playerOrbitCam;
+
 
     void Awake()
     {

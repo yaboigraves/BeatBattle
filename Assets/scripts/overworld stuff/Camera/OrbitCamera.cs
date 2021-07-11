@@ -78,6 +78,10 @@ public class OrbitCamera : MonoBehaviour
         transform.localRotation = orbitRotation = Quaternion.Euler(orbitAngles);
 
     }
+    private void Start()
+    {
+        CameraManager.current.playerOrbitCam = this;
+    }
 
     void UpdateGravityAlignment()
     {
@@ -239,5 +243,13 @@ public class OrbitCamera : MonoBehaviour
     {
         float angle = Mathf.Acos(direction.y) * Mathf.Rad2Deg;
         return direction.x < 0f ? 360f - angle : angle;
+    }
+
+
+    public void Zoom(float zoomAmount)
+    {
+        Debug.Log("trying to zoom");
+        distance += zoomAmount;
+
     }
 }

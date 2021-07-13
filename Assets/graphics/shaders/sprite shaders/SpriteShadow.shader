@@ -25,7 +25,7 @@ Shader "Sprites/Custom/SpriteShadow"
         "CanUseSpriteAtlas" = "True"
     }
  
-        Cull On
+        // Cull On
         Lighting Off
         ZWrite Off
         Blend One OneMinusSrcAlpha

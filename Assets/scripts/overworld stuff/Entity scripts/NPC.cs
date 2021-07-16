@@ -83,7 +83,9 @@ public class NPC : Entity, IInteractable
             //print(cameraObjs.GetChild(i).name);
         }
 
-        DialogCameraController.current.setCameraObjects(cameraPositions);
+
+        //TODO: reimpliment later, this only needs to be registered when a player actually talks to the npc
+        //DialogCameraController.current.setCameraObjects(cameraPositions);
 
         npcTextBox.transform.parent.gameObject.SetActive(false);
 
@@ -96,6 +98,7 @@ public class NPC : Entity, IInteractable
         StopCoroutine(npcTextTrigger());
         if (greetingText != "")
         {
+            Debug.Log("Greeting");
             npcTextBox.text = greetingText;
             npcTextBox.transform.parent.gameObject.SetActive(true);
             StartCoroutine(npcTextTrigger());

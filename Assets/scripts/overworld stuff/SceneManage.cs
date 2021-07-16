@@ -166,6 +166,8 @@ public class SceneManage : MonoBehaviour
 
     }
 
+
+    //TODO: rewrite this a bit
     public void loadLevel(string sceneName, Vector3 loadPosition)
     {
 

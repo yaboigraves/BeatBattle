@@ -29,4 +29,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/scripts/battle stuff/NewBattleSystem/minigameScenes/dmgMiniGame.unity
     guid: c66e282f99113e440ab995b7b68ac367
+  - enabled: 1
+    path: Assets/Scenes/sewer town/Street1.unity
+    guid: 6c94b866f5f08ea4cb47a84b8e830591
+  - enabled: 1
+    path: Assets/Scenes/sewer town/Street2.unity
+    guid: 14088d26b4d502044a462364d3b6ea8f
+  - enabled: 1
+    path: Assets/Scenes/sewer town/BarInterior.unity
+    guid: d871b6f5b09174a40b708e2997fca6fe
   m_configObjects: {}

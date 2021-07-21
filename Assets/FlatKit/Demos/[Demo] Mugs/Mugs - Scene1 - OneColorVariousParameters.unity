@@ -303,7 +303,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &120739525
 Light:
   m_ObjectHideFlags: 0
@@ -396,7 +396,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!108 &170076734
 Light:
   m_ObjectHideFlags: 0
@@ -466,13 +466,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 170076733}
-  m_LocalRotation: {x: -0.75319517, y: 0.092981674, z: 0.18813843, w: -0.6234223}
+  m_LocalRotation: {x: -0.7110471, y: 0.08130849, z: 0.38519812, w: -0.58260053}
   m_LocalPosition: {x: -0.41, y: 3.69, z: 0.71}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 64.706, y: -110.825, z: 241.26599}
+  m_LocalEulerAnglesHint: {x: 49.985, y: -92.175, z: 241.386}
 --- !u!1 &212158456
 GameObject:
   m_ObjectHideFlags: 0
@@ -895,7 +895,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &513909014
 Light:
   m_ObjectHideFlags: 0
@@ -907,7 +907,7 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 0, g: 0.60158324, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.7337059, b: 0, a: 1}
   m_Intensity: 1
   m_Range: 22
   m_SpotAngle: 71.78059
@@ -1692,7 +1692,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3db4c4a72731246b2b1ad1e73178c04e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  translationMode: 0
+  translationMode: 3
   translationVector: {x: 0, y: 0, z: 1}
   translationSpeed: 1
   rotationMode: 0

@@ -50,7 +50,7 @@ PrefabInstance:
     - target: {fileID: 5806393490112352006, guid: a1905b34840563b459685fc62b585a22,
         type: 3}
       propertyPath: m_Name
-      value: hostileLocal
+      value: hostileLocal Variant
       objectReference: {fileID: 0}
     - target: {fileID: 5806393490112352025, guid: a1905b34840563b459685fc62b585a22,
         type: 3}
@@ -127,6 +127,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8112608968773516748, guid: a1905b34840563b459685fc62b585a22,
+        type: 3}
+      propertyPath: m_Radius
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1905b34840563b459685fc62b585a22, type: 3}

@@ -35,6 +35,7 @@ public class OrbitCamera : MonoBehaviour
 
     Vector3 focusPoint, previousFocusPoint;
 
+    //make this a public variable
     Vector2 orbitAngles = new Vector2(10f, 0f);
 
     float lastManualRotationTime;
@@ -47,6 +48,9 @@ public class OrbitCamera : MonoBehaviour
 
     [SerializeField, Min(0f)]
     float upAlignmentSpeed = 360f;
+
+    [SerializeField, Range(0f, 10f)]
+    public float cameraHeight = 1.5f;
 
 
     Vector3 CameraHalfExtends
@@ -143,7 +147,7 @@ public class OrbitCamera : MonoBehaviour
             lookPosition = rectPosition - rectOffset;
         }
 
-        transform.SetPositionAndRotation(lookPosition + transform.up * 2.75f, lookRotation);
+        transform.SetPositionAndRotation(lookPosition + transform.up * cameraHeight, lookRotation);
     }
 
     void UpdateFocusPoint()

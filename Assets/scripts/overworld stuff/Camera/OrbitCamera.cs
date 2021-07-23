@@ -1,4 +1,8 @@
 using UnityEngine;
+using System;
+using System.Collections.Generic;
+using System.Collections;
+
 
 [RequireComponent(typeof(Camera))]
 public class OrbitCamera : MonoBehaviour
@@ -250,10 +254,49 @@ public class OrbitCamera : MonoBehaviour
     }
 
 
-    public void Zoom(float zoomAmount)
+    public void Zoom(float zoomAmount, float zoomTime)
     {
-        Debug.Log("trying to zoom");
-        distance += zoomAmount;
 
+        //ok so this needs to be smooth over time, either via a coroutine or a zoom
+        //probably easiest to just let it rip as a coroutine
+        // Debug.Log("trying to zoom");
+        // distance += zoomAmount;
+
+        StartCoroutine(zoomRoutine(zoomAmount, zoomTime));
+
+    }
+
+    public void UnZoom(float zoomTime)
+    {
+        //so unzooming should just return the 
+
+        //ok so this needs to be smooth over time, either via a coroutine or a zoom
+        //probably easiest to just let it rip as a coroutine
+        Debug.Log("trying to unzoom");
+        // distance -= zoomAmount;
+        StartCoroutine(unzoomRoutine());
+
+    }
+
+    float lastZoom = 0;
+    IEnumerator zoomRoutine(float zoomAmount, float zoomTime)
+    {
+        //so we're gonna need to basically mark the initial zoom amount so we know what to zoom back to
+        lastZoom = distance;
+
+        while (distance < zoomAmount)
+        {
+            distance += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    IEnumerator unzoomRoutine()
+    {
+        while (distance > lastZoom)
+        {
+            distance -= Time.deltaTime;
+            yield return null;
+        }
     }
 }

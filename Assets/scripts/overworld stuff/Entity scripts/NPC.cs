@@ -98,7 +98,7 @@ public class NPC : Entity, IInteractable
         StopCoroutine(npcTextTrigger());
         if (greetingText != "")
         {
-            Debug.Log("Greeting");
+            //Debug.Log("Greeting");
             npcTextBox.text = greetingText;
             npcTextBox.transform.parent.gameObject.SetActive(true);
             StartCoroutine(npcTextTrigger());

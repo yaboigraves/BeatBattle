@@ -25,7 +25,29 @@ public class CameraControlTrigger : MonoBehaviour
 
             if (action.actionType == ActionType.ZOOM)
             {
-                cam.Zoom(action.zoomAmount);
+                cam.Zoom(action.zoomAmount, 1f);
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            //tell the camera to either pan, zoom, or switch to focus on something else or something
+
+            //query the camera manager for the players orbit camera
+            OrbitCamera cam = CameraManager.current.playerOrbitCam;
+
+            if (cam == null)
+            {
+                Debug.LogWarning("O SHIT NO CAMERA FOUND LOL");
+                return;
+            }
+
+            if (action.actionType == ActionType.ZOOM)
+            {
+                cam.UnZoom(1f);
             }
         }
     }

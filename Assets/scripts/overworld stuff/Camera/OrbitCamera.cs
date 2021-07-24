@@ -11,7 +11,10 @@ public class OrbitCamera : MonoBehaviour
     [SerializeField]
     Transform focus = default;
 
+    private float playerDistance;
+
     [SerializeField, Range(1f, 20f)]
+
     float distance = 5f;
 
     [SerializeField, Min(0f)]
@@ -84,6 +87,8 @@ public class OrbitCamera : MonoBehaviour
         regularCamera = GetComponent<Camera>();
         focusPoint = focus.position;
         transform.localRotation = orbitRotation = Quaternion.Euler(orbitAngles);
+
+        playerDistance = distance;
 
     }
     private void Start()
@@ -254,7 +259,10 @@ public class OrbitCamera : MonoBehaviour
     }
 
 
-    public void Zoom(float zoomAmount, float zoomTime)
+
+    Coroutine zoom;
+
+    public void Zoom(float zoomAmount, float zoomTime, bool zoomIn)
     {
 
         //ok so this needs to be smooth over time, either via a coroutine or a zoom
@@ -262,40 +270,63 @@ public class OrbitCamera : MonoBehaviour
         // Debug.Log("trying to zoom");
         // distance += zoomAmount;
 
-        StartCoroutine(zoomRoutine(zoomAmount, zoomTime));
+
+        //so zoomAmount is an amount we're going to, need to make this work in or out
+
+        if (zoomIn)
+        {
+            if (zoom != null)
+            {
+                //already a a zoom going on so we should cancel the coroutine and start the new one
+                StopCoroutine(zoom);
+            }
+
+
+            zoom = StartCoroutine(zoomRoutine(zoomAmount, zoomTime));
+        }
+        else
+        {
+            zoom = StartCoroutine(unzoomRoutine(zoomTime));
+        }
 
     }
 
-    public void UnZoom(float zoomTime)
-    {
-        //so unzooming should just return the 
 
-        //ok so this needs to be smooth over time, either via a coroutine or a zoom
-        //probably easiest to just let it rip as a coroutine
-        Debug.Log("trying to unzoom");
-        // distance -= zoomAmount;
-        StartCoroutine(unzoomRoutine());
+    //so this should really just zoom us back to whatever the default playerDistance is, we can grab this and assume it's whatever it's set to in the inspector
 
-    }
 
-    float lastZoom = 0;
+
     IEnumerator zoomRoutine(float zoomAmount, float zoomTime)
     {
+
+        //so this just needs to be controlled with a speed
+
         //so we're gonna need to basically mark the initial zoom amount so we know what to zoom back to
-        lastZoom = distance;
+
+
+        //so we can just take the time in as a variable and we need to cover the distance in that time
+
+        //so if we have 10 units we want to cover in 3 seconds, then we move at 3.33 units per second
+
+        float speed = zoomAmount / zoomTime;
 
         while (distance < zoomAmount)
         {
-            distance += Time.deltaTime;
+            distance += Time.deltaTime * speed;
             yield return null;
         }
     }
 
-    IEnumerator unzoomRoutine()
+    IEnumerator unzoomRoutine(float zoomTime)
     {
-        while (distance > lastZoom)
+
+        //so we just wanna go a speed based on the difference between the current distance and the last zoom
+
+        float speed = (distance - playerDistance) / zoomTime;
+
+        while (distance > playerDistance)
         {
-            distance -= Time.deltaTime;
+            distance -= Time.deltaTime * speed;
             yield return null;
         }
     }

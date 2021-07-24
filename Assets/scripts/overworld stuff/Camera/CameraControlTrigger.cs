@@ -25,7 +25,7 @@ public class CameraControlTrigger : MonoBehaviour
 
             if (action.actionType == ActionType.ZOOM)
             {
-                cam.Zoom(action.zoomAmount, 1f);
+                cam.Zoom(action.zoomAmount, action.zoomTime, true);
             }
         }
     }
@@ -47,7 +47,7 @@ public class CameraControlTrigger : MonoBehaviour
 
             if (action.actionType == ActionType.ZOOM)
             {
-                cam.UnZoom(1f);
+                cam.Zoom(action.zoomAmount, action.zoomTime, false);
             }
         }
     }
@@ -63,6 +63,8 @@ public class CameraAction
 
     public float zoomAmount = 0;
     public float panAmount = 0;
+
+    public float zoomTime = 1f;
 
 }
 

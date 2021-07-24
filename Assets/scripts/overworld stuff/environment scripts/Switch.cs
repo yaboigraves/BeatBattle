@@ -14,8 +14,14 @@ public class Switch : MonoBehaviour, IInteractable
 
 
 
-    public void Interact()
+    public bool Interact()
     {
         activateable.Activate();
+        return true;
+    }
+
+    public void notify(bool inRange)
+    {
+
     }
 }

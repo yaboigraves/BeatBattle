@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class SaveStation : MonoBehaviour, IInteractable
 {
-    public void Interact()
+    public bool Interact()
     {
         print("Game Saved!");
         SaveManager.saveGame();
+        return true;
+
+    }
+
+    public void notify(bool inRange)
+    {
 
     }
 

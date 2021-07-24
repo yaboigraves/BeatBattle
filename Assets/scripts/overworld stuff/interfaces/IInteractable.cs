@@ -4,5 +4,6 @@ using UnityEngine;
 
 public interface IInteractable
 {
-    void Interact();
+    bool Interact();
+    void notify(bool inRange);
 }

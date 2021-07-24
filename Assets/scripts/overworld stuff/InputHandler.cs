@@ -91,10 +91,17 @@ public class InputHandler : MonoBehaviour
             }
             else if (player.interactRange.objectsInRange.Count > 0)
             {
-                Debug.Log("entering conversation");
-                player.interactRange.objectsInRange[0].GetComponent<IInteractable>().Interact();
 
-                if (player.interactRange.objectsInRange.Count > 0 && player.interactRange.objectsInRange[0].GetComponent<NPC>() != null)
+                //so when you try and interact with an npc, not all npc's are interactable
+                //we need to enter you into the state only if interacting is actually possible
+
+                //there are also multiple different interaction types, opening doors, cycling through things
+
+
+
+                bool interact = player.interactRange.objectsInRange[0].GetComponent<IInteractable>().Interact();
+
+                if (player.interactRange.objectsInRange.Count > 0 && player.interactRange.objectsInRange[0].GetComponent<NPC>() != null && interact)
                 {
                     player.enterDialogue();
                     Debug.Log("entering conversation");

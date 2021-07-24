@@ -6,10 +6,15 @@ public class Door : MonoBehaviour, IInteractable
 {
     public string goesToScene;
 
-    public void Interact()
+    public bool Interact()
     {
         GameManager.current.player.interactRange.objectsInRange.Clear();
         SceneManage.current.loadLevel(goesToScene, GameManager.current.player.transform.position);
+        return true;
+    }
+
+    public void notify(bool inRange)
+    {
 
     }
 }

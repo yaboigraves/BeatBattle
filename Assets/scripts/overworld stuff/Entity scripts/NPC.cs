@@ -5,6 +5,7 @@ using Yarn.Unity;
 using Cinemachine;
 using TMPro;
 using UnityEngine.Playables;
+using UnityEngine.UI;
 
 public class NPC : Entity, IInteractable
 {
@@ -28,8 +29,31 @@ public class NPC : Entity, IInteractable
     DialogueRunner dialogueRunner;
     public PlayableDirector cutsceneDirector;
 
-    public void Interact()
+    public bool hasDialogue => scriptToLoad != null && talkToNode != null;
+
+    public Image npcDialogueIcon;
+
+    public void notify(bool inRange)
     {
+        if (inRange && hasDialogue)
+        {
+            //if the npc has dialogue
+            //activate the little icon above its head
+            npcDialogueIcon.enabled = true;
+        }
+        else if (hasDialogue)
+        {
+            npcDialogueIcon.enabled = false;
+        }
+    }
+
+    public bool Interact()
+    {
+
+        if (talkToNode == null || scriptToLoad == null)
+        {
+            return false;
+        }
 
 
         //check if we have a cutscene to load 
@@ -49,6 +73,7 @@ public class NPC : Entity, IInteractable
         //print(cameraPositions);
 
         FindObjectOfType<DialogueRunner>().StartDialogue(talkToNode);
+        return true;
     }
 
 

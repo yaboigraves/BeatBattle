@@ -67,6 +67,7 @@ public class Player : Entity
     {
         inDialogue = false;
         //InputHandler.current.LockPlayerMovement(false);
+        DialogCameraController.current.LeaveDialogue();
     }
 
     public void enterBattle()

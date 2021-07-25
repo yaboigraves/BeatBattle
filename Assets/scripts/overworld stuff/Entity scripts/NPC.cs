@@ -55,13 +55,6 @@ public class NPC : Entity, IInteractable
             return false;
         }
 
-
-        //check if we have a cutscene to load 
-        // if (cutscene != null)
-        // {
-        //     CutsceneManager.current.LoadCutscene(cutscene);
-        // }
-
         //check if we have a cutscene to load 
         //TODO: reiplimnent this
         if (cutsceneDirector != null && cutsceneDirector.playableAsset != null)
@@ -69,10 +62,12 @@ public class NPC : Entity, IInteractable
             CutsceneManager.current.SetCutscene(cutsceneDirector);
         }
 
+        DialogCameraController.current.EnterDialogue(this);
 
-        //print(cameraPositions);
 
         FindObjectOfType<DialogueRunner>().StartDialogue(talkToNode);
+        //here's where the camera should be notified that it's time to do some dialogue shiet
+
         return true;
     }
 
@@ -98,15 +93,6 @@ public class NPC : Entity, IInteractable
             }
         }
 
-
-
-        Transform cameraObjs = transform.GetChild(0);
-        for (int i = 0; i < cameraObjs.childCount; i++)
-        {
-
-            cameraPositions.Add(cameraObjs.GetChild(i).name, cameraObjs.GetChild(i).GetComponent<CinemachineVirtualCamera>());
-            //print(cameraObjs.GetChild(i).name);
-        }
 
 
         //TODO: reimpliment later, this only needs to be registered when a player actually talks to the npc
@@ -175,5 +161,30 @@ public class NPC : Entity, IInteractable
     public void PauseCutscene()
     {
         CutsceneManager.current.PauseCutscene();
+    }
+
+    public Dictionary<string, CinemachineVirtualCamera> getCameraPositions()
+    {
+        Dictionary<string, CinemachineVirtualCamera> cameraPositions = new Dictionary<string, CinemachineVirtualCamera>();
+
+
+
+        //go through all the objects that are children of the camera parent
+
+        Transform cameraObjs = transform.GetChild(0);
+        for (int i = 0; i < cameraObjs.childCount; i++)
+        {
+
+            cameraPositions.Add(cameraObjs.GetChild(i).name, cameraObjs.GetChild(i).GetComponent<CinemachineVirtualCamera>());
+            //print(cameraObjs.GetChild(i).name);
+        }
+
+        if (cameraPositions.Count <= 0)
+        {
+            Debug.LogError("NO CAMERA POSITIONS FOUND FOR NPC");
+            return null;
+        }
+
+        return cameraPositions;
     }
 }

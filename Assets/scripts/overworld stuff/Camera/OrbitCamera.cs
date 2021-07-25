@@ -330,4 +330,9 @@ public class OrbitCamera : MonoBehaviour
             yield return null;
         }
     }
+
+    public bool IsCameraActive()
+    {
+        return GetComponent<Camera>().enabled;
+    }
 }

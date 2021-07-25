@@ -11,6 +11,10 @@ public class DialogCameraController : MonoBehaviour
     //camera is by default the playercamera
     public DialogueRunner dialogueRunner;
     Dictionary<string, CinemachineVirtualCamera> cameraPositions = new Dictionary<string, CinemachineVirtualCamera>();
+
+    public NPC currentNPC;
+
+
     private void Awake()
     {
         current = this;
@@ -35,6 +39,23 @@ public class DialogCameraController : MonoBehaviour
     public void testPing(string[] parameters)
     {
         print("test ping from camera");
+    }
+
+    public void EnterDialogue(NPC npc)
+    {
+        currentNPC = npc;
+        //ask the npc for their cameras, then we can have duplicate names for cameras
+        cameraPositions = npc.getCameraPositions();
+
+
+        //so when we enter dialogue we need to just swap the priortiy of the main camera and the orbit cam
+        CameraManager.current.mainCamera.depth = 2;
+
+    }
+
+    public void LeaveDialogue()
+    {
+        CameraManager.current.mainCamera.depth = 0;
     }
 
     public void setCameraObjects(Dictionary<string, CinemachineVirtualCamera> newCameraPositions)
@@ -64,10 +85,25 @@ public class DialogCameraController : MonoBehaviour
     }
 
 
-    //TODO: this still breaks sometimes so this needs to be further tested, it works for now
-    //for some reason the camera positions get truncated so we need to check if its actually there
     public void changeCamera(string[] paramaters)
     {
+
+        //alright so we can just base this off of either a numeric or camera name structure
+        //probably easier to have names associated witth the npc, so each npc contains their own
+
+        //so first things first we should def keep which npc we're dealing with here in a variable
+        //you can onnly ever be in contact with one npc at a time technically so it makes more senese to just store the npc
+
+        //so when we enter dialogue let the dialog camera controller know
+
+        //check and see if we need to disable the orbitcamera
+
+        // if (CameraManager.current.playerOrbitCam.IsCameraActive())
+        // {
+        //     CameraManager.current.playerOrbitCam.gameObject.GetComponent<Camera>().enabled = false;
+        // }
+
+
         print("changing camera to camera :" + paramaters[0]);
         //first argument is the camera to switch to
         //check if their are any custom positions 

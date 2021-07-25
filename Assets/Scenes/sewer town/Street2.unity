@@ -972,6 +972,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: hostileLocal Variant (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 767518347695550731, guid: 70162d6cfc3d503419cea406e695746c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 767518347695550743, guid: 70162d6cfc3d503419cea406e695746c,
         type: 3}
       propertyPath: m_RootOrder
@@ -2749,7 +2754,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh41792
+  m_Name: pb_Mesh21988
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3670,7 +3675,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh41818
+  m_Name: pb_Mesh22014
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4653,6 +4658,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: hostileLocal Variant (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 767518347695550731, guid: 70162d6cfc3d503419cea406e695746c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 767518347695550740, guid: 70162d6cfc3d503419cea406e695746c,
         type: 3}
       propertyPath: talkToNode
@@ -4733,7 +4743,7 @@ PrefabInstance:
     - target: {fileID: 6102089180811454093, guid: 70162d6cfc3d503419cea406e695746c,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70162d6cfc3d503419cea406e695746c, type: 3}

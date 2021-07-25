@@ -12,7 +12,7 @@ public class SaveStation : MonoBehaviour, IInteractable
 
     }
 
-    public void notify(bool inRange)
+    public void notify(InteractionEvent interactionEvent)
     {
 
     }

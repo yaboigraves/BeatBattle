@@ -104,7 +104,7 @@ public class DialogCameraController : MonoBehaviour
         // }
 
 
-        print("changing camera to camera :" + paramaters[0]);
+        //print("changing camera to camera :" + paramaters[0]);
         //first argument is the camera to switch to
         //check if their are any custom positions 
         foreach (KeyValuePair<string, CinemachineVirtualCamera> cameraPos in cameraPositions)

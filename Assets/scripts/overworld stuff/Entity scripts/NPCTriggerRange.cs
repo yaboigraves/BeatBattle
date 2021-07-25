@@ -11,7 +11,9 @@ public class NPCTriggerRange : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             //check to see if this NPC has some greeting text
-            nPC.NPCGreet();
+
+            //TODO: reimpliment this later
+            //nPC.NPCGreet();
 
         }
     }

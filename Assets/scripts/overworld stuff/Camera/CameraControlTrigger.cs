@@ -6,6 +6,18 @@ using UnityEngine;
 public class CameraControlTrigger : MonoBehaviour
 {
     public CameraAction action = new CameraAction();
+    BoxCollider collider;
+
+    private void OnValidate()
+    {
+        collider = GetComponent<BoxCollider>();
+
+    }
+
+    private void Start()
+    {
+        collider = GetComponent<BoxCollider>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -26,6 +38,10 @@ public class CameraControlTrigger : MonoBehaviour
             if (action.actionType == ActionType.ZOOM)
             {
                 cam.Zoom(action.zoomAmount, action.zoomTime, true);
+            }
+            else if (action.actionType == ActionType.PAN)
+            {
+                cam.CamPan(action.zoomAmount, action.zoomTime);
             }
         }
     }
@@ -49,7 +65,16 @@ public class CameraControlTrigger : MonoBehaviour
             {
                 cam.Zoom(action.zoomAmount, action.zoomTime, false);
             }
+
+
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+
+        Gizmos.DrawWireCube(transform.position, collider.size);
     }
 }
 

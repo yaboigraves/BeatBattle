@@ -20,7 +20,7 @@ public class Switch : MonoBehaviour, IInteractable
         return true;
     }
 
-    public void notify(bool inRange)
+    public void notify(InteractionEvent interactionEvent)
     {
 
     }

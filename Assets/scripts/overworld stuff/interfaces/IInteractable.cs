@@ -5,5 +5,13 @@ using UnityEngine;
 public interface IInteractable
 {
     bool Interact();
-    void notify(bool inRange);
+    void notify(InteractionEvent interactionEvent);
+}
+
+public enum InteractionEvent
+{
+    IN_RANGE,
+    OUT_OF_RANGE,
+    SELECTED,
+    UNSELECTED
 }

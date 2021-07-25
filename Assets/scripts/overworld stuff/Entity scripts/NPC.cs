@@ -33,17 +33,27 @@ public class NPC : Entity, IInteractable
 
     public Image npcDialogueIcon;
 
-    public void notify(bool inRange)
+    public void notify(InteractionEvent interactionEvent)
     {
-        if (inRange && hasDialogue)
+        if (interactionEvent == InteractionEvent.IN_RANGE && hasDialogue)
         {
             //if the npc has dialogue
             //activate the little icon above its head
             npcDialogueIcon.enabled = true;
         }
-        else if (hasDialogue)
+        else if (interactionEvent == InteractionEvent.OUT_OF_RANGE && hasDialogue)
         {
             npcDialogueIcon.enabled = false;
+        }
+        else if (interactionEvent == InteractionEvent.SELECTED)
+        {
+            //so if we got selected as the npc then we need to activate some kind of underline effect on the dialogue icon
+
+            //ask the ui manager for the selected icon to overlay on top of the selection icon
+
+            Debug.Log("asking for selection icon");
+            UIManager.current.AskForSelectionIcon(this.npcDialogueIcon);
+
         }
     }
 
@@ -166,7 +176,6 @@ public class NPC : Entity, IInteractable
     public Dictionary<string, CinemachineVirtualCamera> getCameraPositions()
     {
         Dictionary<string, CinemachineVirtualCamera> cameraPositions = new Dictionary<string, CinemachineVirtualCamera>();
-
 
 
         //go through all the objects that are children of the camera parent

@@ -335,4 +335,13 @@ public class OrbitCamera : MonoBehaviour
     {
         return GetComponent<Camera>().enabled;
     }
+
+
+
+    //TODO: do this good with the orbit camera, will require some finesse
+    public void CamPan(float panAmount, float panTime)
+    {
+        Debug.Log("yeet");
+        transform.RotateAround(focus.position, focus.transform.up, panAmount * Time.deltaTime);
+    }
 }

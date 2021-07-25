@@ -605,5 +605,17 @@ public class UIManager : MonoBehaviour
     }
 
 
+    //need an asset for the selection thingy
+    public GameObject selectionIcon;
+
+    public void AskForSelectionIcon(Image icon)
+    {
+        //take the selectionicon and set its parent to the selected npc's dialogue icon
+        selectionIcon.transform.SetParent(icon.transform);
+        selectionIcon.transform.localPosition = (Vector3.down + Vector3.right) * 3;
+
+    }
+
+
 
 }

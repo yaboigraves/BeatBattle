@@ -13,7 +13,7 @@ public class Door : MonoBehaviour, IInteractable
         return true;
     }
 
-    public void notify(bool inRange)
+    public void notify(InteractionEvent interactionEvent)
     {
 
     }

@@ -22,6 +22,13 @@ public class InputHandler : MonoBehaviour
     public bool inPickupCutscene;
 
 
+    //so we need some way of basically cycling what you're about to interact with
+    //maybe hitting e to cycle and then holding e to interact
+
+    //we can basically handle this by just swapping shit around to the first index in the array
+
+
+
 
     void Awake()
     {
@@ -96,6 +103,8 @@ public class InputHandler : MonoBehaviour
                 //we need to enter you into the state only if interacting is actually possible
 
                 //there are also multiple different interaction types, opening doors, cycling through things
+
+
 
 
 

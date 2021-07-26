@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//TODO: rename this because this is moreso just going to handle all of the objects in range for the player
 public class InteractRange : MonoBehaviour
 {
 
     public List<GameObject> objectsInRange;
     PlayerInventory inventory;
+    IInteractable currentSelected;
 
 
     void Start()
@@ -15,60 +18,76 @@ public class InteractRange : MonoBehaviour
         inventory = transform.parent.GetComponent<PlayerInventory>();
     }
 
-    public void OnTriggerEnter(Collider other)
+    //so this needs to get called every time we issue a move command if stuff is in range
+    //should probably make some kind of observer based on the players movement so stuff can be scripted based off of it 
+    //
+
+    private void Update()
     {
-        if (other.gameObject.GetComponent<IInteractable>() != null)
+        if (objectsInRange.Count > 1)
         {
-            objectsInRange.Add(other.gameObject);
-
-            //notify the element that we're in range so we can do whatever we need to do
-            other.gameObject.GetComponent<IInteractable>().notify(InteractionEvent.IN_RANGE);
-
             RecalculateSelected();
         }
-
-        if (other.gameObject.GetComponent<IPickupable>() != null)
-        {
-            other.gameObject.GetComponent<IPickupable>().Pickup(inventory);
-        }
     }
 
-
-
-    public void OnTriggerExit(Collider other)
+    public void InteractWithSelected()
     {
-        if (other.gameObject.GetComponent<IInteractable>() != null)
-        {
-            if (objectsInRange.Contains(other.gameObject))
-            {
-                other.gameObject.GetComponent<IInteractable>().notify(InteractionEvent.OUT_OF_RANGE);
-
-                objectsInRange.Remove(other.gameObject);
-                //notify the element we're not in range anymore
-
-                RecalculateSelected();
-
-
-            }
-        }
+        currentSelected.Interact();
     }
+
+
 
     void RecalculateSelected()
     {
-        //mark the 0th position in objects in range as the selected object
-        //for now we can just activate the underline graphic and mark it to follow the image?
-        //probably easier than having every icon also contain the selected icon
 
-        if (objectsInRange.Count > 0)
-        {
-            UIManager.current.selectionIcon.SetActive(true);
 
-            objectsInRange[0].GetComponent<IInteractable>().notify(InteractionEvent.SELECTED);
-        }
-        else
+        if (objectsInRange.Count <= 0)
         {
             //turn off the selection icon
             UIManager.current.selectionIcon.SetActive(false);
+            return;
         }
+
+
+
+
+        //so this should be based on distance
+        //find the closest dude i guess lol
+
+
+        UIManager.current.selectionIcon.SetActive(true);
+
+        GameObject closest = objectsInRange[0];
+
+        for (int i = 0; i < objectsInRange.Count; i++)
+        {
+            if (Vector3.Distance(transform.position, objectsInRange[i].transform.position) < Vector3.Distance(transform.position, closest.transform.position))
+            {
+                closest = objectsInRange[i];
+            }
+        }
+
+        currentSelected = closest.GetComponentInChildren<IInteractable>();
+
+        closest.GetComponent<IInteractable>().notify(InteractionEvent.SELECTED);
+    }
+
+    public void NotifyInRange(GameObject interactable, bool inRange)
+    {
+        if (inRange)
+        {
+            objectsInRange.Add(interactable.gameObject);
+            //notify the element that we're in range so we can do whatever we need to do
+            interactable.gameObject.GetComponent<IInteractable>().notify(InteractionEvent.IN_RANGE);
+            RecalculateSelected();
+        }
+        else
+        {
+            objectsInRange.Remove(interactable.gameObject);
+            interactable.gameObject.GetComponent<IInteractable>().notify(InteractionEvent.OUT_OF_RANGE);
+            RecalculateSelected();
+        }
+
     }
 }
+

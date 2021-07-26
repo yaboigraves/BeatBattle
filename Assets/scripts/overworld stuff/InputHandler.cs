@@ -21,6 +21,8 @@ public class InputHandler : MonoBehaviour
 
     public bool inPickupCutscene;
 
+    InteractRange playerInteract;
+
 
     //so we need some way of basically cycling what you're about to interact with
     //maybe hitting e to cycle and then holding e to interact
@@ -47,12 +49,14 @@ public class InputHandler : MonoBehaviour
     void Start()
     {
         //player = GameManager.current.playerObj.GetComponentInChildren<Player>();
-
-        playerMove = player.gameObject.GetComponent<PlayerMove>();
         if (player == null)
         {
             print("ERROR : INPUT HANDLER PLAYER REFERENCE BROKEN");
         }
+
+        playerMove = player.gameObject.GetComponent<PlayerMove>();
+
+        playerInteract = player.GetComponentInChildren<InteractRange>();
 
 
     }
@@ -74,9 +78,9 @@ public class InputHandler : MonoBehaviour
             //clear the list of any missing game objects or fucked up references
             player.clearObjectsInRange();
 
-            Debug.Log("Trying to handle an E input");
+            //Debug.Log("Trying to handle an E input");
 
-            Debug.Log(player.interactRange.objectsInRange.Count);
+            //Debug.Log(player.interactRange.objectsInRange.Count);
             if (player.inDialogue)
             {
                 //go to the next dialogue 
@@ -107,15 +111,24 @@ public class InputHandler : MonoBehaviour
 
 
 
+                //bool interact = player.interactRange.objectsInRange[0].GetComponent<IInteractable>().Interact();
 
-                bool interact = player.interactRange.objectsInRange[0].GetComponent<IInteractable>().Interact();
+                playerInteract.InteractWithSelected();
 
-                if (player.interactRange.objectsInRange.Count > 0 && player.interactRange.objectsInRange[0].GetComponent<NPC>() != null && interact)
+                //TODO: so this needs to be based on whatever is curently selected, pass this along to the interactableRange
+
+                //TODO: 
+
+                if (player.interactRange.objectsInRange.Count > 0 && player.interactRange.objectsInRange[0].GetComponent<NPC>() != null)
                 {
                     player.enterDialogue();
                     Debug.Log("entering conversation");
                     ResetInputAxis();
                 }
+
+
+
+
             }
         }
 

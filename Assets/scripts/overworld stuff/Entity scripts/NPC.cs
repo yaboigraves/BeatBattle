@@ -51,7 +51,7 @@ public class NPC : Entity, IInteractable
 
             //ask the ui manager for the selected icon to overlay on top of the selection icon
 
-            Debug.Log("asking for selection icon");
+            //Debug.Log("asking for selection icon");
             UIManager.current.AskForSelectionIcon(this.npcDialogueIcon);
 
         }

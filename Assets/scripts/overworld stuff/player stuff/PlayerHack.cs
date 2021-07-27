@@ -58,6 +58,13 @@ public class PlayerHack : MonoBehaviour
                 currentlySelectedRadio.Select(true);
             }
 
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                //so now we need to open a ui menu, so we ask the ui manager to open a menu and set it to spawn near the mouse 
+                UIManager.current.SpawnHackingMenu();
+            }
+
             return;
         }
 

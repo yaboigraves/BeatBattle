@@ -22,7 +22,7 @@ public class UIManager : MonoBehaviour
     //public GameObject dialoguePanel;
     Text dialogueText;
     public Player player;
-    Canvas canvas;
+    public Canvas canvas;
 
     [Header("UI Fade effects")]
     public CanvasGroup faderCanvas;
@@ -614,6 +614,26 @@ public class UIManager : MonoBehaviour
         selectionIcon.transform.SetParent(icon.transform);
         selectionIcon.transform.localPosition = (Vector3.down + Vector3.right) * 3;
 
+    }
+
+
+    public Image hackPanel;
+
+
+
+    public void SpawnHackingMenu()
+    {
+        //move the panel to mouse position top left corner
+
+        Vector2 pos;
+
+
+
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, Input.mousePosition, canvas.worldCamera, out pos);
+
+        hackPanel.rectTransform.position = canvas.transform.TransformPoint(pos);
+        //enable the panel
+        hackPanel.gameObject.SetActive(true);
     }
 
 

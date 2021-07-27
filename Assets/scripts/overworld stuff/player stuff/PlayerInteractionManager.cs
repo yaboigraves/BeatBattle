@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 //TODO: rename this because this is moreso just going to handle all of the objects in range for the player
-public class InteractRange : MonoBehaviour
+public class PlayerInteractionManager : MonoBehaviour
 {
 
     public List<GameObject> objectsInRange;
@@ -49,11 +49,8 @@ public class InteractRange : MonoBehaviour
         }
 
 
-
-
         //so this should be based on distance
         //find the closest dude i guess lol
-
 
         UIManager.current.selectionIcon.SetActive(true);
 

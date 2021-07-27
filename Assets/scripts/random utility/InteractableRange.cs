@@ -7,7 +7,7 @@ public class InteractableRange : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        InteractRange i = FoundPlayer(other);
+        PlayerInteractionManager i = FoundPlayer(other);
         if (i)
         {
             i.NotifyInRange(transform.parent.gameObject, true);
@@ -17,7 +17,7 @@ public class InteractableRange : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        InteractRange i = FoundPlayer(other);
+        PlayerInteractionManager i = FoundPlayer(other);
         if (i)
         {
             i.NotifyInRange(transform.parent.gameObject, false);
@@ -27,9 +27,9 @@ public class InteractableRange : MonoBehaviour
 
 
 
-    InteractRange FoundPlayer(Collider other)
+    PlayerInteractionManager FoundPlayer(Collider other)
     {
-        InteractRange playerInteractRange = other.gameObject.GetComponent<InteractRange>();
+        PlayerInteractionManager playerInteractRange = other.gameObject.GetComponent<PlayerInteractionManager>();
 
         if (playerInteractRange != null)
         {

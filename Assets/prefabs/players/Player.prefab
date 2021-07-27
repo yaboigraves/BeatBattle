@@ -6391,7 +6391,7 @@ GameObject:
   - component: {fileID: 8796179301883559384}
   - component: {fileID: 8796179301883559383}
   m_Layer: 12
-  m_Name: InteractRange
+  m_Name: PlayerInteractionManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6433,11 +6433,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8796179301883559386}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0415646161b410542a9bbebcd663de16, type: 3}
+  m_Script: {fileID: 11500000, guid: 40cac8f26e103824b88749dfbed4fb7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectsInRange:
-  - {fileID: 0}
+  objectsInRange: []
 --- !u!1 &8796179302061234381
 GameObject:
   m_ObjectHideFlags: 0
@@ -6452,6 +6451,7 @@ GameObject:
   - component: {fileID: 3195855955633630875}
   - component: {fileID: 2855622435184960728}
   - component: {fileID: 6092002489857706678}
+  - component: {fileID: 7391158804718777277}
   - component: {fileID: 2944441484504678056}
   - component: {fileID: 345281555}
   m_Layer: 12
@@ -6469,7 +6469,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8796179302061234381}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 24, y: -2, z: 11}
+  m_LocalPosition: {x: 2.71, y: 0.752, z: 1.43}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1325764953741290771}
@@ -6552,6 +6552,7 @@ MonoBehaviour:
   inBattle: 0
   inDialogue: 0
   inShop: 0
+  inHack: 0
   spriteHolder: {fileID: 0}
   battleRangeChecker: {fileID: 3292425265038948178}
   inventory: {fileID: 5122287838450495549}
@@ -6601,6 +6602,18 @@ MonoBehaviour:
   stairsMask:
     serializedVersion: 2
     m_Bits: 262144
+--- !u!114 &7391158804718777277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8796179302061234381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba0a843d0ec51924d825f62f99f50fd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!96 &2944441484504678056
 TrailRenderer:
   serializedVersion: 2

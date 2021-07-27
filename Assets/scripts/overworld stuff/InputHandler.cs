@@ -21,7 +21,7 @@ public class InputHandler : MonoBehaviour
 
     public bool inPickupCutscene;
 
-    InteractRange playerInteract;
+    PlayerInteractionManager playerInteract;
 
 
     //so we need some way of basically cycling what you're about to interact with
@@ -30,6 +30,7 @@ public class InputHandler : MonoBehaviour
     //we can basically handle this by just swapping shit around to the first index in the array
 
 
+    //TODO: Refactor this whole bitch with a command interface
 
 
     void Awake()
@@ -56,7 +57,7 @@ public class InputHandler : MonoBehaviour
 
         playerMove = player.gameObject.GetComponent<PlayerMove>();
 
-        playerInteract = player.GetComponentInChildren<InteractRange>();
+        playerInteract = player.GetComponentInChildren<PlayerInteractionManager>();
 
 
     }
@@ -109,15 +110,11 @@ public class InputHandler : MonoBehaviour
                 //there are also multiple different interaction types, opening doors, cycling through things
 
 
-
-
                 //bool interact = player.interactRange.objectsInRange[0].GetComponent<IInteractable>().Interact();
 
                 playerInteract.InteractWithSelected();
 
                 //TODO: so this needs to be based on whatever is curently selected, pass this along to the interactableRange
-
-                //TODO: 
 
                 if (player.interactRange.objectsInRange.Count > 0 && player.interactRange.objectsInRange[0].GetComponent<NPC>() != null)
                 {
@@ -125,9 +122,6 @@ public class InputHandler : MonoBehaviour
                     Debug.Log("entering conversation");
                     ResetInputAxis();
                 }
-
-
-
 
             }
         }
@@ -217,6 +211,27 @@ public class InputHandler : MonoBehaviour
             print(SceneManage.current);
             print(TrackManager.current);
             print("DONE TESTING");
+        }
+
+        //radio hacking
+        if (Input.GetKeyDown(KeyCode.X) && !player.inBattle && !player.inDialogue)
+        {
+            //enter hack mode or leave hack mode
+            if (player.inHack)
+            {
+                LockPlayerMovement(false);
+            }
+            else
+            {
+                LockPlayerMovement(true);
+                //so now we need to have the camera shoot a ray out, this can probably be handled by a hacking component
+
+            }
+
+            player.inHack = !player.inHack;
+            player.ToggleHackMode(player.inHack);
+
+
         }
 
 

@@ -8,11 +8,11 @@ public class Player : Entity
     public PlayerRootCollider playerRoot;
     public Rigidbody rb;
     public int maxHealth, health;
-    public InteractRange interactRange;
+    public PlayerInteractionManager interactRange;
     public bool inBattle;
     float horizontalIn;
     float verticalIn;
-    public bool inDialogue, inShop;
+    public bool inDialogue, inShop, inHack;
     Vector3 deltaPos;
     public Transform spriteHolder;
     public BattleRangeChecker battleRangeChecker;
@@ -22,9 +22,11 @@ public class Player : Entity
     public Homie homie;
     public Cinemachine.CinemachineVirtualCamera pickupItemCam;
 
+    PlayerHack playerHack;
+
     private void Awake()
     {
-        interactRange = GetComponentInChildren<InteractRange>();
+        interactRange = GetComponentInChildren<PlayerInteractionManager>();
     }
 
     void Start()
@@ -42,6 +44,8 @@ public class Player : Entity
 
         inventory = GetComponent<PlayerInventory>();
         //LoadHomie();
+
+        playerHack = GetComponent<PlayerHack>();
     }
 
     public void LoadHomie()
@@ -191,5 +195,10 @@ public class Player : Entity
     {
         //interactRange.objectsInRange.Clear();
         //transform.position = GameObject.FindGameObjectWithTag("playerSpawn").transform.position;
+    }
+
+    public void ToggleHackMode(bool toggle)
+    {
+        playerHack.ToggleHack(toggle);
     }
 }

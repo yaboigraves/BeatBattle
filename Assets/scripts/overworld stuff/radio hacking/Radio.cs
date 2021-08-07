@@ -24,11 +24,35 @@ public class Radio : MonoBehaviour
         currentSong = song;
         Debug.Log("radio got message");
 
+        //coding the songs 
+        //0 - explode
+        //1 - npc thing
+        //2 - activate
+
+        HackEffect action;
+
+        switch (song)
+        {
+            case 0:
+                action = HackEffect.Explode;
+                break;
+            case 1:
+                action = HackEffect.NPCSway;
+                break;
+            case 2:
+                action = HackEffect.Activate;
+                break;
+            default:
+                action = HackEffect.Activate;
+                break;
+        }
+
+
         //do a ping
-        PingArea();
+        PingArea(action);
     }
 
-    public void PingArea()
+    public void PingArea(HackEffect effect)
     {
         //notify all the things in range of the radio,
 
@@ -38,7 +62,7 @@ public class Radio : MonoBehaviour
         List<RadioTarget> removalList = new List<RadioTarget>();
         foreach (RadioTarget t in radioTargets)
         {
-            if (t.Ping())
+            if (t.Ping(effect))
             {
                 removalList.Add(t);
             }

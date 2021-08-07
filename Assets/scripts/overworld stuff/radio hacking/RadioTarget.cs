@@ -22,15 +22,17 @@ public class RadioTarget : MonoBehaviour
 
 
     //returns true if the target needs to get cleared
-    public bool Ping()
+    public bool Ping(HackEffect pingEffect)
     {
-        Debug.Log("recieved ping");
+
+
 
 
 
         switch (hackEffect)
         {
             case HackEffect.Explode:
+                if (hackEffect != pingEffect) { break; }
 
                 Explodeable splode = GetComponentInChildren<Explodeable>();
                 Debug.Assert(splode != null, "NO SPLODER");
@@ -42,9 +44,11 @@ public class RadioTarget : MonoBehaviour
             //so we need to mark the radio for removal after we go through the list
 
             case HackEffect.Activate:
+                if (hackEffect != pingEffect) { break; }
 
                 break;
             case HackEffect.NPCSway:
+                if (hackEffect != pingEffect) { break; }
 
                 break;
         }

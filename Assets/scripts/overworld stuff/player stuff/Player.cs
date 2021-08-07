@@ -200,5 +200,11 @@ public class Player : Entity
     public void ToggleHackMode(bool toggle)
     {
         playerHack.ToggleHack(toggle);
+        inHack = toggle;
+    }
+
+    public void SetHackSong(int song)
+    {
+        playerHack.SetRadioSong(song);
     }
 }

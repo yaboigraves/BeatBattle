@@ -9,8 +9,6 @@ using TMPro;
 public class UIManager : MonoBehaviour
 {
 
-
-
     //TODO: make ui state an object and then i can do away with the like 6 or 7 variables at a time
     //components for fading in and out
     [Header("Overworld UI ELements")]
@@ -619,23 +617,37 @@ public class UIManager : MonoBehaviour
 
     public Image hackPanel;
 
-
-
-    public void SpawnHackingMenu()
+    public void SpawnHackingMenu(bool toggle)
     {
         //move the panel to mouse position top left corner
+        if (toggle)
+        {
+            Vector2 pos;
 
-        Vector2 pos;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, Input.mousePosition, canvas.worldCamera, out pos);
+
+            hackPanel.rectTransform.position = canvas.transform.TransformPoint(pos);
+            //enable the panel
+        }
 
 
-
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, Input.mousePosition, canvas.worldCamera, out pos);
-
-        hackPanel.rectTransform.position = canvas.transform.TransformPoint(pos);
-        //enable the panel
-        hackPanel.gameObject.SetActive(true);
+        hackPanel.gameObject.SetActive(toggle);
     }
 
+    public void SelectRadioSong(int song)
+    {
+        //so for now we're just gonna call this function with ant int for the songs between 1 and 4
+        Debug.Log("song " + song);
 
+        GameManager.current.player.SetHackSong(song);
+        GameManager.current.player.ToggleHackMode(false);
+
+        //turn off the menu and turn off hack mode
+        SpawnHackingMenu(false);
+
+        //turn off hack mode still on lol
+
+        InputHandler.current.LockPlayerMovement(false);
+    }
 
 }

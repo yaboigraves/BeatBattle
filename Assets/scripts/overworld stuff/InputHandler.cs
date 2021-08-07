@@ -58,8 +58,6 @@ public class InputHandler : MonoBehaviour
         playerMove = player.gameObject.GetComponent<PlayerMove>();
 
         playerInteract = player.GetComponentInChildren<PlayerInteractionManager>();
-
-
     }
 
     void Update()
@@ -225,17 +223,11 @@ public class InputHandler : MonoBehaviour
             {
                 LockPlayerMovement(true);
                 //so now we need to have the camera shoot a ray out, this can probably be handled by a hacking component
-
             }
 
             player.inHack = !player.inHack;
             player.ToggleHackMode(player.inHack);
-
-
         }
-
-
-
     }
 
     public void ResetInputAxis()

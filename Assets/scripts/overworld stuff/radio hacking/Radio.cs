@@ -11,7 +11,7 @@ public class Radio : MonoBehaviour
     int currentSong;
     //raise the image over the radio
 
-    List<RadioTarget> radioTargets = new List<RadioTarget>();
+    public List<RadioTarget> radioTargets = new List<RadioTarget>();
 
 
     public void Select(bool toggle)
@@ -35,10 +35,19 @@ public class Radio : MonoBehaviour
         //trigger collider tracks all the things in range
 
         //things in range are defined as RadioTargets and will recieve the ping and do something
-
+        List<RadioTarget> removalList = new List<RadioTarget>();
         foreach (RadioTarget t in radioTargets)
         {
-            t.Ping();
+            if (t.Ping())
+            {
+                removalList.Add(t);
+            }
+        }
+
+        foreach (RadioTarget t in removalList)
+        {
+            //remove it from the list
+            radioTargets.Remove(t);
         }
 
     }
@@ -48,7 +57,7 @@ public class Radio : MonoBehaviour
         RadioTarget t = other.gameObject.GetComponent<RadioTarget>();
         if (t != null)
         {
-            radioTargets.Add(t);
+            AddTarget(t, true);
         }
     }
     private void OnTriggerExit(Collider other)
@@ -56,7 +65,25 @@ public class Radio : MonoBehaviour
         RadioTarget t = other.gameObject.GetComponent<RadioTarget>();
         if (t != null)
         {
-            radioTargets.Remove(t);
+            AddTarget(t, false);
+        }
+    }
+
+    public void AddTarget(RadioTarget target, bool adding)
+    {
+        if (adding)
+        {
+            radioTargets.Add(target);
+            target.AddRadio(this, true);
+        }
+        else
+        {
+            radioTargets.Remove(target);
+            if (target.HasRadio(this))
+            {
+                target.AddRadio(this, false);
+            }
+
         }
     }
 }

@@ -25,10 +25,6 @@ public class RadioTarget : MonoBehaviour
     public bool Ping(HackEffect pingEffect)
     {
 
-
-
-
-
         switch (hackEffect)
         {
             case HackEffect.Explode:
@@ -54,17 +50,6 @@ public class RadioTarget : MonoBehaviour
         }
         return false;
     }
-
-    // public void ClearRadiosInRange()
-    // {
-    //     //remove from all of the radios in range and clear the list
-
-    //     foreach (Radio r in radiosInRange)
-    //     {
-    //         r.radioTargets.Remove(this);
-    //     }
-    //     radiosInRange.Clear();
-    // }
 
     public bool HasRadio(Radio r)
     {

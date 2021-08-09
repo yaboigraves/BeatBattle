@@ -25,11 +25,10 @@ public class RadioTarget : MonoBehaviour
     //returns true if the target needs to get cleared
     public bool Ping(HackEffect pingEffect)
     {
+        Debug.Log(pingEffect.ToString());
 
 
-        print("got ping");
-
-        switch (hackEffect)
+        switch (pingEffect)
         {
             case HackEffect.Explode:
                 if (hackEffect != pingEffect) { break; }
@@ -41,19 +40,31 @@ public class RadioTarget : MonoBehaviour
                 // ClearRadiosInRange();
                 return true;
 
+
             //so we need to mark the radio for removal after we go through the list
 
             case HackEffect.Activate:
-                GetComponent<HackActivate>().Activate();
+                HackActivate activator = GetComponent<HackActivate>();
+
+                if (activator != null)
+                {
+                    GetComponent<HackActivate>().Activate();
+                }
+
+
 
                 if (hackEffect != pingEffect) { break; }
 
                 break;
             case HackEffect.NPCSway:
                 NPC npc = GetComponent<NPC>();
-                Debug.Assert(npc != null, "NO NPC FOUND!!!");
+                //Debug.Assert(npc != null, "NO NPC FOUND!!!");
+                if (npc != null)
+                {
+                    npc.Sway();
+                }
 
-                npc.Sway();
+
 
                 if (hackEffect != pingEffect) { break; }
 

@@ -3,11 +3,15 @@ tags:
 ---
 
 <<if $jeff_the_fucker_swayed is 1>>
-    Jeff: Hi.
+    Jeff: Hey, you know what you seem cool.
+    Jeff: This lift only broke a bit ago I've been trying to fix it.
+    Jeff: At this point just needs a quick jump, if only I had a generator man fuck.
+    Jeff: Dankest burrito place is down the street this way...
+    Jeff: So hungry....
 
 
 <<else>>
-    Jeff: Gtfo nerd.
+    Jeff: Fuck off i'm not in the mood for tourists right now.
 <<endif>>
 
 

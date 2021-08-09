@@ -61,7 +61,7 @@ public class Radio : MonoBehaviour
         //notify all the things in range of the radio,
 
         //trigger collider tracks all the things in range
-        print("doing ping sweep");
+        // print("doing ping sweep");
 
         //things in range are defined as RadioTargets and will recieve the ping and do something
         List<RadioTarget> removalList = new List<RadioTarget>();
@@ -95,7 +95,7 @@ public class Radio : MonoBehaviour
     {
         foreach (RadioTarget r in radioTargets)
         {
-            if (r.gameObject == t.gameObject || r.transform.parent.gameObject == t)
+            if (r.gameObject == t.gameObject || (r.transform.parent != null && r.transform.parent.gameObject == t))
             {
                 return true;
             }

@@ -61,6 +61,7 @@ public class Radio : MonoBehaviour
         //notify all the things in range of the radio,
 
         //trigger collider tracks all the things in range
+        print("doing ping sweep");
 
         //things in range are defined as RadioTargets and will recieve the ping and do something
         List<RadioTarget> removalList = new List<RadioTarget>();
@@ -83,15 +84,30 @@ public class Radio : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         RadioTarget t = other.gameObject.GetComponent<RadioTarget>();
-        if (t != null)
+        //make sure its not an interactable or anything
+        if (t != null && !CheckIfTargetExists(t))
         {
             AddTarget(t, true);
         }
     }
+
+    bool CheckIfTargetExists(RadioTarget t)
+    {
+        foreach (RadioTarget r in radioTargets)
+        {
+            if (r.gameObject == t.gameObject || r.transform.parent.gameObject == t)
+            {
+                return true;
+            }
+
+        }
+        return false;
+    }
+
     private void OnTriggerExit(Collider other)
     {
         RadioTarget t = other.gameObject.GetComponent<RadioTarget>();
-        if (t != null)
+        if (t != null && !CheckIfTargetExists(t))
         {
             AddTarget(t, false);
         }

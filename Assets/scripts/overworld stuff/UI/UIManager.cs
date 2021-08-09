@@ -658,7 +658,7 @@ public class UIManager : MonoBehaviour
     {
 
         print(npc.gameObject.name + "_swayed");
-        yarnVariableStorage.SetValue(npc.gameObject.name + "_swayed", 1);
+        yarnVariableStorage.SetValue("$" + npc.gameObject.name + "_swayed", 1);
 
         yarnVariableStorage.SetValue("ass", 2);
 

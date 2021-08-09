@@ -94,6 +94,7 @@ public class PlayerHack : MonoBehaviour
 
         if (currentlySelectedRadio != null)
         {
+            //turn off the icon too
             currentlySelectedRadio.Select(false);
             currentlySelectedRadio = null;
             currentlySelectedRadioObj = null;

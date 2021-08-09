@@ -27,7 +27,7 @@ public class RadioTarget : MonoBehaviour
     {
 
 
-
+        print("got ping");
 
         switch (hackEffect)
         {

@@ -2,11 +2,11 @@
 tags:
 ---
 
-<<if $jeff_the_fucker_swayed > 0>>
+<<if $jeff_the_fucker_swayed is 1>>
     Jeff: Hi.
-<<endif>>
 
-<<if $jeff_the_fucker_swayed < 1>>
+
+<<else>>
     Jeff: Gtfo nerd.
 <<endif>>
 

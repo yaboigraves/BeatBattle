@@ -35,6 +35,8 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI dialogTextContainer;
     public DialogueRunner dialogueRunner;
 
+    public InMemoryVariableStorage yarnVariableStorage;
+
     public TextEffectManager textEffectManager;
 
     //this variable tracks what letter we're currently on in the dialogue (used for text effects)
@@ -64,6 +66,8 @@ public class UIManager : MonoBehaviour
         dialogueRunner.AddCommandHandler("applyMarkup", applyMarkup);
         dialogueRunner.AddCommandHandler("clearMarkup", clearMarkup);
         //init the power usage 
+
+
     }
 
     public void InitUIManager()
@@ -650,4 +654,13 @@ public class UIManager : MonoBehaviour
         InputHandler.current.LockPlayerMovement(false);
     }
 
+    public void TrySwayNPC(NPC npc)
+    {
+
+        print(npc.gameObject.name + "_swayed");
+        yarnVariableStorage.SetValue(npc.gameObject.name + "_swayed", 1);
+
+        yarnVariableStorage.SetValue("ass", 2);
+
+    }
 }

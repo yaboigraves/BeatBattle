@@ -196,4 +196,11 @@ public class NPC : Entity, IInteractable
 
         return cameraPositions;
     }
+
+    public void Sway()
+    {
+        //so yarn memory storage is gonna need to check if this npc is swayed\
+        UIManager.current.TrySwayNPC(this);
+
+    }
 }

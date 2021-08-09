@@ -2,6 +2,13 @@
 tags:
 ---
 
+<<if $jeff_the_fucker_swayed > 0>>
+    Jeff: Hi.
+<<endif>>
 
-Local: ....
+<<if $jeff_the_fucker_swayed < 1>>
+    Jeff: Gtfo nerd.
+<<endif>>
+
+
 ===

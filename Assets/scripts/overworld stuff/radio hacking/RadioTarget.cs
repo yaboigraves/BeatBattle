@@ -50,6 +50,11 @@ public class RadioTarget : MonoBehaviour
 
                 break;
             case HackEffect.NPCSway:
+                NPC npc = GetComponent<NPC>();
+                Debug.Assert(npc != null, "NO NPC FOUND!!!");
+
+                npc.Sway();
+
                 if (hackEffect != pingEffect) { break; }
 
                 break;

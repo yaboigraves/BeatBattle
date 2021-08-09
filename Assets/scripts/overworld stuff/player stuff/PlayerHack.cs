@@ -50,6 +50,16 @@ public class PlayerHack : MonoBehaviour
             //this effect is then processed by the events hit by it
             if (hit.collider.gameObject != currentlySelectedRadioObj)
             {
+                //so if the thing you collided with doesnt have a radio then we just say fuck you
+
+                currentlySelectedRadio = hit.collider.gameObject.GetComponentInParent<Radio>();
+
+                if (currentlySelectedRadio == null)
+                {
+                    return;
+                }
+
+
                 if (currentlySelectedRadioObj != null)
                 {
                     currentlySelectedRadio.Select(false);
@@ -57,18 +67,24 @@ public class PlayerHack : MonoBehaviour
 
                 currentlySelectedRadioObj = hit.collider.gameObject;
                 currentlySelectedRadio = currentlySelectedRadioObj.GetComponentInParent<Radio>();
-                currentlySelectedRadio.Select(true);
+
+
+                //Debug.Assert(currentlySelectedRadio != null, "NO RADIO SELECTED");
+                if (currentlySelectedRadio != null)
+                {
+                    currentlySelectedRadio.Select(true);
+                }
+
+
             }
 
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && currentlySelectedRadio != null)
             {
                 //so now we need to open a ui menu, so we ask the ui manager to open a menu and set it to spawn near the mouse 
                 UIManager.current.SpawnHackingMenu(true);
                 //disable this
                 this.enabled = false;
-
-
             }
 
             return;

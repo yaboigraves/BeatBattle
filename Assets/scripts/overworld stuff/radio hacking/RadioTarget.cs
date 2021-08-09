@@ -8,6 +8,7 @@ public class RadioTarget : MonoBehaviour
 
     List<Radio> radiosInRange = new List<Radio>();
 
+
     public void AddRadio(Radio r, bool adding)
     {
         if (adding)
@@ -25,6 +26,9 @@ public class RadioTarget : MonoBehaviour
     public bool Ping(HackEffect pingEffect)
     {
 
+
+
+
         switch (hackEffect)
         {
             case HackEffect.Explode:
@@ -40,6 +44,8 @@ public class RadioTarget : MonoBehaviour
             //so we need to mark the radio for removal after we go through the list
 
             case HackEffect.Activate:
+                GetComponent<HackActivate>().Activate();
+
                 if (hackEffect != pingEffect) { break; }
 
                 break;

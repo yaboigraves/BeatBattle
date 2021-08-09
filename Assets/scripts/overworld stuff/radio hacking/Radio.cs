@@ -10,8 +10,9 @@ public class Radio : MonoBehaviour
     [SerializeField]
     int currentSong;
     //raise the image over the radio
-
     public List<RadioTarget> radioTargets = new List<RadioTarget>();
+
+    public ParticleSystem emissionParticle;
 
 
     public void Select(bool toggle)
@@ -50,6 +51,9 @@ public class Radio : MonoBehaviour
 
         //do a ping
         PingArea(action);
+
+        //play the particle system
+        emissionParticle.Play();
     }
 
     public void PingArea(HackEffect effect)

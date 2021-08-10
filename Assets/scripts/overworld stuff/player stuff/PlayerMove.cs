@@ -286,7 +286,9 @@ public class PlayerMove : MonoBehaviour
         }
 
 
-        player.footDust.Play();
+
+        player.spriteManager.CreateDust();
+
         stepsSinceLastJump = 0;
         jumpPhase += 1;
         float jumpSpeed = Mathf.Sqrt(2f * gravity.magnitude * jumpHeight);

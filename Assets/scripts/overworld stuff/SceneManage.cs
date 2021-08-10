@@ -202,5 +202,10 @@ public class SceneManage : MonoBehaviour
         //player.RoomTransition();
     }
 
+    public void LoadOverworldMinigame()
+    {
+
+    }
+
 
 }

@@ -51,8 +51,6 @@ public class RadioTarget : MonoBehaviour
                     GetComponent<HackActivate>().Activate();
                 }
 
-
-
                 if (hackEffect != pingEffect) { break; }
 
                 break;

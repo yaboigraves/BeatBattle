@@ -4,17 +4,14 @@ using UnityEngine;
 
 public class Player : Entity
 {
-    public ParticleSystem footDust;
+
     public PlayerRootCollider playerRoot;
     public Rigidbody rb;
     public int maxHealth, health;
     public PlayerInteractionManager interactRange;
     public bool inBattle;
-    float horizontalIn;
-    float verticalIn;
     public bool inDialogue, inShop, inHack;
     Vector3 deltaPos;
-    public Transform spriteHolder;
     public BattleRangeChecker battleRangeChecker;
     public PlayerInventory inventory;
     // Start is called before the first frame update
@@ -23,6 +20,8 @@ public class Player : Entity
     public Cinemachine.CinemachineVirtualCamera pickupItemCam;
 
     PlayerHack playerHack;
+
+    public PlayerSprite spriteManager;
 
     private void Awake()
     {
@@ -102,18 +101,9 @@ public class Player : Entity
     //     homie.jump(new Vector3(rb.velocity.x, jumpVelocity, rb.velocity.z));
     // }
 
-    public void flip(float rotation)
-    {
-        // StartCoroutine(LerpToRotation(rotation, 0.1f, 0.1f));
-        //StartCoroutine(LerpToScale(rotation, 0.1f, 0.1f));
-        CreateDust();
-    }
 
 
-    public void CreateDust()
-    {
-        footDust.Play();
-    }
+
 
     public void ResetDeltaPos()
     {

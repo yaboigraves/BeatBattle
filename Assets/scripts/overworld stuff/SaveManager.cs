@@ -7,6 +7,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 //so this things job is to use both the player prefs, and game state objects that are serialized to load and save game info
 
+//TODO: tie this into yarn spinner, basically we create a big dictionary of id's and then can store and load data for levels
 
 public static class SaveManager
 {
@@ -16,13 +17,11 @@ public static class SaveManager
 
     */
 
-
     //public static StoryData storyData;
 
     //big globally accessible access to the currently loaded gamestate 
     //this can be used to trigger alot of stuff and/or autosave stuff without needing to use yarn
     public static GameStateData gameStateData;
-
 
     public static void saveGame()
     {

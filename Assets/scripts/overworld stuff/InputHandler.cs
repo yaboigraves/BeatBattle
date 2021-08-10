@@ -13,7 +13,6 @@ public class InputHandler : MonoBehaviour
     public Player player;
     PlayerMove playerMove;
 
-
     //tracks whether the player can move or not
     public bool playerMovementLocked;
 
@@ -23,12 +22,10 @@ public class InputHandler : MonoBehaviour
 
     PlayerInteractionManager playerInteract;
 
-
     //so we need some way of basically cycling what you're about to interact with
     //maybe hitting e to cycle and then holding e to interact
 
     //we can basically handle this by just swapping shit around to the first index in the array
-
 
     //TODO: Refactor this whole bitch with a command interface
 
@@ -136,11 +133,11 @@ public class InputHandler : MonoBehaviour
             //TODO: fix this so its uniform
             if (Input.GetKeyDown(KeyCode.D))
             {
-                player.flip(1f);
+                player.spriteManager.flip(1f);
             }
             else if (Input.GetKeyDown(KeyCode.A))
             {
-                player.flip(-1f);
+                player.spriteManager.flip(-1f);
             }
         }
 

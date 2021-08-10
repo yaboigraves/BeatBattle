@@ -1,0 +1,55 @@
+# ProBuilder 4.2.3
+# https://unity3d.com/unity/features/worldbuilding/probuilder
+# 6/1/2021 9:39:34 PM
+
+mtllib ./RecordStoreCrib.mtl
+o RecordStoreCrib
+
+g RecordStoreCrib
+v 2 -1 7
+v -6 -1 7
+v 2 3.5 7
+v -6 4.5 7
+v -6 -1 -1
+v -6 4.5 -1
+v 2 -1 -1
+v 2 3.5 -1
+
+vt 2 -1
+vt -6 -1
+vt 2 3.5
+vt -6 4.5
+vt 7 -1
+vt -1 -1
+vt 7 4.5
+vt -1 4.5
+vt 6 -1
+vt -2 -1
+vt 6 4.5
+vt -2 3.5
+vt 1 -1
+vt -7 -1
+vt 1 3.5
+vt -7 3.5
+vt -1.550434 7
+vt 6.511824 7
+vt -1.550434 -1
+vt 6.511824 -1
+vt 2 7
+vt -6 7
+
+vn 0 0 1
+vn -1 0 0
+vn 0 0 -1
+vn 1 0 0
+vn 0.1240347 0.9922779 0
+vn 0 -1 0
+
+usemtl GridLines
+f 3/3/1 4/4/1 2/2/1 1/1/1
+f 4/7/2 6/8/2 5/6/2 2/5/2
+f 6/11/3 8/12/3 7/10/3 5/9/3
+f 8/15/4 3/16/4 1/14/4 7/13/4
+f 8/19/5 6/20/5 4/18/5 3/17/5
+f 1/21/6 2/22/6 5/2/6 7/1/6
+

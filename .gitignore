@@ -63,8 +63,6 @@ crashlytics-build.properties
 *.mp3
 
 #models
-*.blend
-*.obj
-*.fbx
+
 
 *.zip

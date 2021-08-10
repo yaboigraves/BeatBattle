@@ -1496,7 +1496,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh70768
+  m_Name: pb_Mesh123898
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2102,7 +2102,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh70720
+  m_Name: pb_Mesh123850
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2266,7 +2266,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh70790
+  m_Name: pb_Mesh123920
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2928,7 +2928,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh70664
+  m_Name: pb_Mesh123794
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4250,7 +4250,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh70838
+  m_Name: pb_Mesh123968
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5087,9 +5087,21 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_IsSelectable: 1
-  m_SelectedFaces: 
-  m_SelectedEdges: []
-  m_SelectedVertices: 
+  m_SelectedFaces: 07000000
+  m_SelectedEdges:
+  - a: 35
+    b: 30
+  - a: 30
+    b: 31
+  - a: 34
+    b: 35
+  - a: 33
+    b: 34
+  - a: 32
+    b: 33
+  - a: 31
+    b: 32
+  m_SelectedVertices: 230000001e0000001f000000220000002100000020000000
 --- !u!23 &1542640421
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6629,7 +6641,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh70816
+  m_Name: pb_Mesh123946
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

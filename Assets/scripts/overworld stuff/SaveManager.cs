@@ -92,17 +92,17 @@ public static class SaveManager
 
         //so if there is no gamestate currently loaded, then we create a new empty list of integers 
         //TODO: remove this as gamestate is only loaded one time then assumed to be set good
-        List<int> cutsceneData;
+        List<int> cutsceneData=new List<int>();
 
-        if (gameStateData.cutScenesRun == null)
-        {
-            cutsceneData = new List<int>();
-        }
-        //otherwise we just load whatever cutscene data is stored in the save currently (this is changed during runtme) and save that
-        else
-        {
-            cutsceneData = gameStateData.cutScenesRun;
-        }
+        // if (gameStateData.cutScenesRun == null)
+        // {
+        //     cutsceneData = new List<int>();
+        // }
+        // //otherwise we just load whatever cutscene data is stored in the save currently (this is changed during runtme) and save that
+        // else
+        // {
+        //     cutsceneData = gameStateData.cutScenesRun;
+        // }
 
 
         //eee

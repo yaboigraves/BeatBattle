@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
-using UnityEditor.SceneManagement;
+// using UnityEditor;
+// using UnityEditor.SceneManagement;
 
 public class PlayerSpawner : MonoBehaviour
 {
@@ -27,11 +27,11 @@ public class PlayerSpawner : MonoBehaviour
     }
 
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.white; ;
-        // Gizmos.DrawSphere(transform.position, 0.25f);
-        Gizmos.DrawMesh(sSymbol, -1, transform.position, Quaternion.Euler(90, (float)EditorApplication.timeSinceStartup * 450, 0));
-    }
+    // private void OnDrawGizmos()
+    // {
+    //     Gizmos.color = Color.white; ;
+    //     // Gizmos.DrawSphere(transform.position, 0.25f);
+    //     Gizmos.DrawMesh(sSymbol, -1, transform.position, Quaternion.Euler(90, (float)EditorApplication.timeSinceStartup * 450, 0));
+    // }
 
 }

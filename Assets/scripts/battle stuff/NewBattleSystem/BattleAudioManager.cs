@@ -73,7 +73,7 @@ public class BattleAudioManager : MonoBehaviour
 
         if (AudioSettings.dspTime >= nextBeatTime)
         {
-            Debug.Log("beat callback");
+            //Debug.Log("beat callback");
             TimeManager.BeatCallBack();
 
             //so remember this is unreliable bud

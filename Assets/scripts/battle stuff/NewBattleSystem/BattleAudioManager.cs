@@ -6,15 +6,16 @@ public class BattleAudioManager : MonoBehaviour
 {
     public static BattleAudioManager current;
 
+    //ok, so this def needs to be made into some kind of 'track' object that contains bpm info and the audio clip
+
+
     AudioSource musicAudioSource;
+
+    public Track audioTrack;
 
     //so the battle audio manager is going to every beat fire a callback to the time manager to handle on beat stuff
 
-
-
-
-
-    public SongInfo songInfo;
+    // public SongInfo songInfo;
 
     private void Awake()
     {
@@ -32,8 +33,9 @@ public class BattleAudioManager : MonoBehaviour
         //set the bpm
         //set the audio source
 
-        musicAudioSource.clip = songInfo.clip;
-        TimeManager.SetCurrentSongInfo(songInfo.bpm);
+
+        musicAudioSource.clip = audioTrack.trackClip;
+        TimeManager.SetCurrentSongInfo(audioTrack.oldBPM);
     }
 
 
@@ -41,11 +43,12 @@ public class BattleAudioManager : MonoBehaviour
     public void StartSong()
     {
         //this may need to be halted until the audio source can reliably be known to be playing
-
+        //print("test");
         double battleStartTime = AudioSettings.dspTime + 0.5f;
         TimeManager.SetBattleStart(battleStartTime);
         musicAudioSource.PlayScheduled(battleStartTime);
         nextBeatTime = TimeManager.battleStartTime + TimeManager.timePerBeat;
+        Debug.Log(nextBeatTime);
 
     }
 
@@ -54,7 +57,6 @@ public class BattleAudioManager : MonoBehaviour
     {
         if (BattleManager.current.currentState != BattleState.Prebattle)
         {
-
             CheckForBeat();
         }
 
@@ -65,9 +67,10 @@ public class BattleAudioManager : MonoBehaviour
     //checks to see if we should trigger the beat callback
     void CheckForBeat()
     {
-        Debug.Log("Next Beat Time : " + nextBeatTime);
-        Debug.Log("dsp time" + AudioSettings.dspTime);
-        Debug.Log("");
+        // Debug.Log("Next Beat Time : " + nextBeatTime);
+        // Debug.Log("dsp time" + AudioSettings.dspTime);
+        // Debug.Log("");
+
         if (AudioSettings.dspTime >= nextBeatTime)
         {
             Debug.Log("beat callback");
@@ -76,7 +79,12 @@ public class BattleAudioManager : MonoBehaviour
             //so remember this is unreliable bud
             //we need to mark the start time and everything is relative to that dont use the current time
             //nextBeatTime = TimeManager.battleStartTime + ((60d / TimeManager.currentSongBpm) * (float)TimeManager.currentBeat);
+
+            //BUG REPORT TODO HIGH PRIO: TODO: TODO: TODO: SO FOR SOME REASON THIS BREAKS ON A RECOMPILE, MAKE SURE THAT CURRENTBEATDSPTIME IS WORKING PROPERLY
             nextBeatTime = TimeManager.currentBeatDSPTime;
+
+            // Debug.Log(nextBeatTime);
+            // Debug.Break();
 
         }
     }
@@ -86,10 +94,10 @@ public class BattleAudioManager : MonoBehaviour
 }
 
 
-[System.Serializable]
-public class SongInfo
-{
-    public AudioClip clip;
-    public float bpm;
-    public int lengthInBeats;
-}
+// [System.Serializable]
+// public class SongInfo
+// {
+//     public AudioClip clip;
+//     public float bpm;
+//     public int lengthInBeats;
+// }

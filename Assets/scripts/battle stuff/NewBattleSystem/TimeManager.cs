@@ -32,6 +32,7 @@ public static class TimeManager
 
         foreach (BeatCallBackFunction b in beatCallbacks)
         {
+            //Debug.Log(b);
             b();
         }
     }
@@ -41,6 +42,7 @@ public static class TimeManager
     {
         //start the wait based on the current dspTime 
         double waitStart = AudioSettings.dspTime;
+
 
         //for now we're just hard coding for 4 seconds
         //TODO: make this dynamic based on bpm

@@ -48,7 +48,9 @@ public class BattleAudioManager : MonoBehaviour
         TimeManager.SetBattleStart(battleStartTime);
         musicAudioSource.PlayScheduled(battleStartTime);
         nextBeatTime = TimeManager.battleStartTime + TimeManager.timePerBeat;
-        Debug.Log(nextBeatTime);
+        //Debug.Log(nextBeatTime);
+
+
 
     }
 
@@ -70,16 +72,15 @@ public class BattleAudioManager : MonoBehaviour
     void CheckForBeat()
     {
 
-
         if (AudioSettings.dspTime >= nextBeatTime)
         {
-            print("nce");
+            //print("nce");
             TimeManager.BeatCallBack();
             nextBeatTime = TimeManager.currentBeatDSPTime;
 
             //if we're at the end of a song, queue up the next one
-
             //going to need to track the length of the current track
+
 
 
         }

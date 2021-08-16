@@ -3106,7 +3106,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b8ab0513c12584da61ebef2eaf1ce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 0
   interludeRequested: 0
   playerSet:
   - {fileID: 11400000, guid: 9dac59099511622418d5278c180cb4f7, type: 2}
@@ -3116,8 +3115,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9dac59099511622418d5278c180cb4f7, type: 2}
   - {fileID: 11400000, guid: 4063dc22b3cfb52499fdd92162ac5463, type: 2}
   - {fileID: 11400000, guid: 6cb059902c5abc24fa422bbe394a36cf, type: 2}
-  enemies:
-  - {fileID: 1269755686}
+  battle:
+    currentState: 0
+    enemies:
+    - {fileID: 1269755686}
+    manager: {fileID: 0}
 --- !u!4 &1320745404
 Transform:
   m_ObjectHideFlags: 0

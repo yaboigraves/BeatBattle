@@ -2,70 +2,56 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//sketches for this : 
-//phasing is a big deal, so we need to keep track of the state of the battle
-
-//STATES
-
-//-init
-//-1 bar of basically just get ready, and you can do any last minute swaps of your order of party members if you want
 
 
-//-your turn/enemies turn
-//-minigame comes out
-//-do the minigame
-//-the last beat of the minigame is empty no input there, so we can get ready for the next minigame\
-//if you don't request a interlude after the player/enemy turn phase it just loops back around
+//8-14 rewrite
+//okie dokie so this is gonna be a slightly big redo
+//we are going to need a general input manager for this, the minigame scenes that are loaded are really just visualizers
 
-
-//prototype : just have a simple player minigame and a simple enemy minigame and alternate between
-//beat should change for each minigame, play about 20 seconds each 
-//one cycle should probably be about 40 seconds
-
-
-
-//so we need some basic sample abilities 
-//first setup an infrastucture like the gear pipeline where we can just make sample scriptable objects
-//these scriptable objects need the basic info for the sample, as well as some way to find its function that it applies to the quue
-//the queue needs to be expanded so that we can iterate through it and calculate the effects of all the modifiers in the queue
-//basic UI for demonstrating this
-//finally, create a basic menu for organizing a set based on a premade set of samples
-
-
-
-//6/14 notes
-/*
-ok so the basic thing is laid out, theres no audio however
-so lets build that in, we can start by using a standard loop that plays 
-idea should be that we just for now run through the set you setup on bpm with whatever audio is loaded
-minigames duration and speed is dictated by this so the audio and bpm shit needs to be coded in before doing any actual minigame programming
-so step 1 is to get the turn changes setup to transition based on the audio thats playing, time manager can handle this
-*need to refactor alot of this later so be ready to refine this system and lean more on the timemanager in the future
-
-
-so for now.... going to hard boil in audio settings but later we gotta figure out how its dynamic
-*/
 
 public class BattleManager : MonoBehaviour
 {
     public static BattleManager current;
     public delegate void WaitCallback();
 
-    public BattleState currentState = BattleState.Prebattle;
 
     public bool interludeRequested = false;
 
-    public List<BattleAction> turnQueue;
-
     public Sample[] playerSet, playerSamples;
 
-    public NEnemy[] enemies;
+    int playerHealth, enemyHealth;
 
-    public int playerHealth, enemyHealth;
+
+    public int PlayerHealth
+    {
+        get => playerHealth;
+
+        set
+        {
+            BattleUIManager.current.UpdateHealth();
+            playerHealth = value;
+
+
+        }
+    }
+
+    public int EnemyHealth
+    {
+        get => enemyHealth;
+
+        set
+        {
+            BattleUIManager.current.UpdateHealth();
+            enemyHealth = value;
+
+
+        }
+    }
 
     List<BattleAction> savedTurnQueue;
 
 
+    public Battle battle;
 
     private void Awake()
     {
@@ -73,6 +59,10 @@ public class BattleManager : MonoBehaviour
         current = this;
         //once all the minigames scenes are loaded, we can construct the queue of turns based on the players sets
         //for now we'll just construct a simple back and forth for 2 iterations
+
+        //init the battle
+        InitBattle();
+
     }
 
     void Start()
@@ -80,18 +70,30 @@ public class BattleManager : MonoBehaviour
         //so first things first, we have to set the state to pre-battle
         StartCoroutine(MinigameManager.current.LoadMinigames());
 
-        enemyHealth = enemies[0].hp;
-        playerHealth = 10;
+        //EnemyHealth = battle.enemies[0].hp;
+        EnemyHealth = 5;
+        PlayerHealth = 10;
 
         //update health text
-        BattleUIManager.current.UpdateHealth();
+        // BattleUIManager.current.UpdateHealth();
+    }
+
+    void InitBattle()
+    {
+        battle = new Battle();
+        battle.enemies = new NEnemy[1];
+
+        //testing code for now
+        battle.enemies[0] = GameObject.FindObjectOfType<NEnemy>();
     }
 
     public void InitQueue(Sample[] samples)
     {
         //        Debug.Log("Initializing the from the ui");
         playerSet = samples;
-        InitQueue();
+        //InitQueue();
+
+        battle.InitTurnQueue(samples);
 
         //after the queue has been initialized, we can load the minigames requested
         //send this off to the minigame manager to handle, probably want a coroutine so we cant start the battle till these load
@@ -99,68 +101,68 @@ public class BattleManager : MonoBehaviour
 
     }
 
-    public void InitQueue()
-    {
-        //Debug.Log("Initializing the turnQueue");
-        turnQueue = new List<BattleAction>();
+    // public void InitQueue()
+    // {
+    //     //Debug.Log("Initializing the turnQueue");
+    //     turnQueue = new List<BattleAction>();
 
-        //so rather than building these randomly build them from the players set
-        for (int b = 0; b < 2; b++)
-        {
-            for (int i = 0; i < playerSet.Length; i++)
-            {
-                PlayerBattleAction turn = new PlayerBattleAction();
-                Sample s = Instantiate(playerSet[i]);
-                turn.minigameSceneName = playerSet[i].sampleName;
-                turn.playerOrEnemy = true;
-                turn.sample = s;
-                turnQueue.Add(turn);
+    //     //so rather than building these randomly build them from the players set
+    //     for (int b = 0; b < 2; b++)
+    //     {
+    //         for (int i = 0; i < playerSet.Length; i++)
+    //         {
+    //             PlayerBattleAction turn = new PlayerBattleAction();
+    //             Sample s = Instantiate(playerSet[i]);
+    //             turn.minigameSceneName = playerSet[i].sampleName;
+    //             turn.playerOrEnemy = true;
+    //             turn.sample = s;
+    //             turnQueue.Add(turn);
 
-                //do an enemy turn for this player turn
-                EnemyBattleAction enemyTurn = new EnemyBattleAction();
-                enemyTurn.playerOrEnemy = false;
-                enemyTurn.dmg = enemies[0].attack;
-                turnQueue.Add(enemyTurn);
+    //             //do an enemy turn for this player turn
+    //             EnemyBattleAction enemyTurn = new EnemyBattleAction();
+    //             enemyTurn.playerOrEnemy = false;
+    //             enemyTurn.dmg = enemies[0].attack;
+    //             turnQueue.Add(enemyTurn);
 
-            }
-        }
-
-
-        //store this turn queue as the one we can reset to
-        savedTurnQueue = new List<BattleAction>();
-        savedTurnQueue.AddRange(turnQueue);
-
-        //Debug.Log(savedTurnQueue.Count);
+    //         }
+    //     }
 
 
-        calculateQueueModifiers();
-        //MinigameManager.current.PreloadMiniGame(((PlayerBattleAction)turnQueue[0]).sample.miniGameSceneName);
-        BattleUIManager.current.InitTurnQueue(turnQueue);
+    //     //store this turn queue as the one we can reset to
+    //     savedTurnQueue = new List<BattleAction>();
+    //     savedTurnQueue.AddRange(turnQueue);
+
+    //     //Debug.Log(savedTurnQueue.Count);
 
 
-    }
+    //     calculateQueueModifiers();
+    //     //MinigameManager.current.PreloadMiniGame(((PlayerBattleAction)turnQueue[0]).sample.miniGameSceneName);
+    //     BattleUIManager.current.InitTurnQueue(turnQueue);
+
+
+    // }
 
     //so once all the samples get added we then go through and calculate how all the samples will modify one another
     //basically each modifier needs the whole state of the queue, so we modify the state by handing it off to 
     //the sample one at a time right->left
 
-    public void calculateQueueModifiers()
-    {
-        //go through each of the samples in the queue, and call their function, store the result, and then do it again for the next modifier
-        //Debug.Log(turnQueue.Count);
+    // public void calculateQueueModifiers()
+    // {
+    //     //go through each of the samples in the queue, and call their function, store the result, and then do it again for the next modifier
+    //     //Debug.Log(turnQueue.Count);
 
-        //+= 2 to skip the enemy turns
-        for (int i = 0; i < turnQueue.Count; i += 2)
-        {
-            PlayerBattleAction a = (PlayerBattleAction)turnQueue[i];
-            if (a.sample.functionName != "")
-            {
-                turnQueue = SampleEffects.processSampleEffect(turnQueue, i);
-            }
-        }
+    //     //+= 2 to skip the enemy turns
+    //     for (int i = 0; i < turnQueue.Count; i += 2)
+    //     {
+    //         PlayerBattleAction a = (PlayerBattleAction)turnQueue[i];
+    //         if (a.sample.functionName != "")
+    //         {
+    //             turnQueue = SampleEffects.processSampleEffect(turnQueue, i);
+    //         }
+    //     }
 
 
-    }
+    // }
 
 
 
@@ -173,12 +175,12 @@ public class BattleManager : MonoBehaviour
 
     void UpdateState()
     {
-        if (currentState == BattleState.Prebattle && Input.GetKeyDown(KeyCode.Space) && MinigameManager.current.minigamesLoaded)
+        if (battle.currentState == BattleState.Prebattle && Input.GetKeyDown(KeyCode.Space) && MinigameManager.current.minigamesLoaded)
         {
             StartBattle();
         }
 
-        if ((currentState == BattleState.PlayerTurn || currentState == BattleState.EnemyTurn) && Input.GetKeyDown(KeyCode.Escape))
+        if ((battle.currentState == BattleState.PlayerTurn || battle.currentState == BattleState.EnemyTurn) && Input.GetKeyDown(KeyCode.Escape))
         {
             interludeRequested = true;
         }
@@ -189,7 +191,7 @@ public class BattleManager : MonoBehaviour
 
 
         //start the countin phase
-        currentState = BattleState.Countin;
+        battle.currentState = BattleState.Countin;
         //wait 1 bar then go into either player or enemy turn phase
         //this should be handled by a seperate static class that helps dispatch waits based on the audiosettings.dsp time
         WaitCallback methodToCall = ChangeTurn;
@@ -204,7 +206,7 @@ public class BattleManager : MonoBehaviour
     public void EndTurn()
     {
 
-        if (((PlayerBattleAction)turnQueue[0]).sample.sampleType == SampleType.block)
+        if (((PlayerBattleAction)battle.turnQueue[0]).sample.sampleType == SampleType.block)
         {
             //TODO: add block
         }
@@ -215,26 +217,26 @@ public class BattleManager : MonoBehaviour
         //so these should happen at the end of the phase, not the beggining 
 
         //do the players damage and the enemies damage
-        playerHealth -= ((EnemyBattleAction)turnQueue[1]).dmg;
+        PlayerHealth -= ((EnemyBattleAction)battle.turnQueue[1]).dmg;
 
-        if (((PlayerBattleAction)turnQueue[0]).sample.sampleType == SampleType.damage)
+        if (((PlayerBattleAction)battle.turnQueue[0]).sample.sampleType == SampleType.damage)
         {
-            enemyHealth -= ((PlayerBattleAction)turnQueue[0]).sample.numericValue;
+            EnemyHealth -= ((PlayerBattleAction)battle.turnQueue[0]).sample.numericValue;
         }
-        else if (((PlayerBattleAction)turnQueue[0]).sample.sampleType == SampleType.heal)
+        else if (((PlayerBattleAction)battle.turnQueue[0]).sample.sampleType == SampleType.heal)
         {
-            playerHealth += ((PlayerBattleAction)turnQueue[0]).sample.numericValue;
+            PlayerHealth += ((PlayerBattleAction)battle.turnQueue[0]).sample.numericValue;
         }
 
 
-        BattleUIManager.current.UpdateHealth();
+        //BattleUIManager.current.UpdateHealth();
 
         //update the ui, 
         BattleUIManager.current.UpdateTurnQueue();
 
         //remove the elements from the queue
 
-        turnQueue.RemoveRange(0, 2);
+        battle.turnQueue.RemoveRange(0, 2);
     }
 
 
@@ -249,35 +251,35 @@ public class BattleManager : MonoBehaviour
         //turn off the active minigame canvas
 
         //if there was a turn previously running, end it
-        if (currentState != BattleState.Prebattle && currentState != BattleState.Countin)
+        if (battle.currentState != BattleState.Prebattle && battle.currentState != BattleState.Countin)
         {
             EndTurn();
         }
 
 
         //so if there's only one bar left of input just add on the whole turnqueue to the end to create a new loop
-        if (turnQueue.Count / 2 <= 4)
+        if (battle.turnQueue.Count / 2 <= 4)
         {
             Debug.Log("resetting the turnqueue");
-            turnQueue.AddRange(savedTurnQueue);
+            battle.turnQueue.AddRange(battle.savedTurnQueue);
 
             //reupadte the ui
 
             //so we only need to recalculate the queue if you do an interlude
             //calculateQueueModifiers();
 
-            BattleUIManager.current.InitTurnQueue(turnQueue);
+            BattleUIManager.current.InitTurnQueue(battle.turnQueue);
         }
 
 
-        if (turnQueue.Count > 0)
+        if (battle.turnQueue.Count > 0)
         {
-            MinigameManager.current.PreloadMiniGame(((PlayerBattleAction)turnQueue[0]).sample.miniGameSceneName);
+            MinigameManager.current.PreloadMiniGame(((PlayerBattleAction)battle.turnQueue[0]).sample.miniGameSceneName);
 
 
             //TODO: this organizatio needs to be refactored
             //pull out and load the minigame
-            MinigameManager.current.ActivateMinigame(((PlayerBattleAction)turnQueue[0]).sample.miniGameSceneName);
+            MinigameManager.current.ActivateMinigame(((PlayerBattleAction)battle.turnQueue[0]).sample.miniGameSceneName);
 
             //load the next minigame in the queue
 
@@ -286,22 +288,22 @@ public class BattleManager : MonoBehaviour
         }
 
 
-        switch (currentState)
+        switch (battle.currentState)
         {
             case BattleState.Countin:
-                currentState = BattleState.PlayerTurn;
+                battle.currentState = BattleState.PlayerTurn;
                 break;
             case BattleState.PlayerTurn:
-                currentState = BattleState.EnemyTurn;
+                battle.currentState = BattleState.EnemyTurn;
                 break;
             case BattleState.EnemyTurn:
                 //so here is where we check if an interlude is requested, if so we go into an interlude
-                currentState = interludeRequested ? BattleState.Interlude : BattleState.PlayerTurn;
+                battle.currentState = interludeRequested ? BattleState.Interlude : BattleState.PlayerTurn;
                 interludeRequested = false;
                 break;
             case BattleState.Interlude:
                 //if we're in an interlude then we just go back to the players turn
-                currentState = BattleState.PlayerTurn;
+                battle.currentState = BattleState.PlayerTurn;
                 break;
         }
 
@@ -315,14 +317,14 @@ public class BattleManager : MonoBehaviour
     //also works for healing
     public void DmgPlayer(int amount)
     {
-        playerHealth -= amount;
-        BattleUIManager.current.UpdateHealth();
+        PlayerHealth -= amount;
+        //BattleUIManager.current.UpdateHealth();
     }
 
     public void HealPlayer(int amount)
     {
-        playerHealth += amount;
-        BattleUIManager.current.UpdateHealth();
+        PlayerHealth += amount;
+        //BattleUIManager.current.UpdateHealth();
     }
 
 }

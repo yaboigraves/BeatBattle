@@ -27,12 +27,13 @@ public static class TimeManager
     {
         currentBeat++;
         currentBeatDSPTime = battleStartTime + (currentBeat * timePerBeat);
-        // Debug.Log("NCE");
-        //NBattleUIManager.current.UpdateMetronome();
+        Debug.Log("NCE");
+        //BattleUIManager.current.UpdateMetronome();
+
 
         foreach (BeatCallBackFunction b in beatCallbacks)
         {
-            //Debug.Log(b);
+            Debug.Log(b);
             b();
         }
     }
@@ -74,8 +75,6 @@ public static class TimeManager
         // Debug.Log(timePerBeat);
         currentBeatDSPTime = battleStartTime + (currentBeat * timePerBeat);
         //Debug.Log(currentBeatDSPTime);
-
-
     }
 
     public static float GetTimePerBeat()

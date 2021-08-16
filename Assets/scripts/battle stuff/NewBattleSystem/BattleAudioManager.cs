@@ -55,7 +55,7 @@ public class BattleAudioManager : MonoBehaviour
 
     private void Update()
     {
-        if (BattleManager.current.currentState != BattleState.Prebattle)
+        if (BattleManager.current.battle.currentState != BattleState.Prebattle)
         {
             CheckForBeat();
         }
@@ -65,26 +65,22 @@ public class BattleAudioManager : MonoBehaviour
 
     public double lastBeatTime = 0, nextBeatTime = 0;
     //checks to see if we should trigger the beat callback
+
+    //maybe move this somewhere else, probably time manager really doesnt need to be in here
     void CheckForBeat()
     {
-        // Debug.Log("Next Beat Time : " + nextBeatTime);
-        // Debug.Log("dsp time" + AudioSettings.dspTime);
-        // Debug.Log("");
+
 
         if (AudioSettings.dspTime >= nextBeatTime)
         {
-            //Debug.Log("beat callback");
+            print("nce");
             TimeManager.BeatCallBack();
-
-            //so remember this is unreliable bud
-            //we need to mark the start time and everything is relative to that dont use the current time
-            //nextBeatTime = TimeManager.battleStartTime + ((60d / TimeManager.currentSongBpm) * (float)TimeManager.currentBeat);
-
-            //BUG REPORT TODO HIGH PRIO: TODO: TODO: TODO: SO FOR SOME REASON THIS BREAKS ON A RECOMPILE, MAKE SURE THAT CURRENTBEATDSPTIME IS WORKING PROPERLY
             nextBeatTime = TimeManager.currentBeatDSPTime;
 
-            // Debug.Log(nextBeatTime);
-            // Debug.Break();
+            //if we're at the end of a song, queue up the next one
+
+            //going to need to track the length of the current track
+
 
         }
     }

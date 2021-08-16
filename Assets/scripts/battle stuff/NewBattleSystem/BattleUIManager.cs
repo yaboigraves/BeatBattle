@@ -44,6 +44,7 @@ public class BattleUIManager : MonoBehaviour
         InitSampleLibraryPanel();
         InitSetCustomizationPanel();
 
+        //print("adding update metronome");
         TimeManager.beatCallbacks.Add(UpdateMetronome);
 
 
@@ -232,10 +233,12 @@ public class BattleUIManager : MonoBehaviour
 
     }
 
+
+    //ok now lets make these actual health bars
     public void UpdateHealth()
     {
-        playerHealthText.text = BattleManager.current.playerHealth.ToString();
-        enemyHealthText.text = BattleManager.current.enemyHealth.ToString();
+        playerHealthText.text = BattleManager.current.PlayerHealth.ToString();
+        enemyHealthText.text = BattleManager.current.EnemyHealth.ToString();
     }
 
     //go button
@@ -256,6 +259,8 @@ public class BattleUIManager : MonoBehaviour
             playerSet[i] = actionIcons[i].sample;
         }
         BattleManager.current.InitQueue(playerSet);
+
+        //so at this point the player set needs to get
     }
 
     int currentBeat = 0;

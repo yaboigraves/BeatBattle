@@ -29,6 +29,8 @@ public class Battle
     public BattleManager manager;
     //so the enemy turns are going to need to later be pre-generated for now just use the basic one
 
+
+
     public void InitTurnQueue(Sample[] playerSamples)
     {
         turnQueue = new List<BattleAction>();
@@ -36,7 +38,7 @@ public class Battle
         for (int i = 0; i < playerSamples.Length; i++)
         {
             PlayerBattleAction turn = new PlayerBattleAction();
-            Sample s = new Sample();
+            Sample s = (Sample)ScriptableObject.CreateInstance("Sample");
 
             s = playerSamples[i].DeepCopy(s);
 
@@ -141,6 +143,7 @@ public class Battle
     public void EndTurn()
     {
 
+
         if (((PlayerBattleAction)turnQueue[0]).sample.sampleType == SampleType.block)
         {
             //TODO: add block
@@ -175,9 +178,14 @@ public class Battle
         //so we just schedule the next song in the queue to start playing i guess
         //first things first get the minigames just like lasting as long as the track actually specifies
 
+
+        BattleAudioManager.current.LoadNextTrack();
+        BattleAudioManager.current.AudioUpdate();
+
     }
 
-    public Track getNextTrack()
+
+    public Track getCurrentTrack()
     {
         if (turnQueue.Count <= 0)
         {
@@ -186,6 +194,17 @@ public class Battle
         }
 
         return ((PlayerBattleAction)turnQueue[0]).sample.sampleTrack;
+    }
+
+    public Track getNextTrack()
+    {
+        if (turnQueue.Count < 4)
+        {
+            Debug.LogWarning("O FUCK NO TRACKS LOL");
+            return null;
+        }
+
+        return ((PlayerBattleAction)turnQueue[2]).sample.sampleTrack;
     }
 
 

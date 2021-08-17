@@ -65,8 +65,12 @@ public static class TimeManager
         methodToCall();
     }
 
+
+    //TODO: make this happen on the 1, not the 4
     public static void SetCurrentSongInfo(float bpm)
     {
+        Debug.Log("setting bpm to " + bpm);
+        Debug.Break();
         currentSongBpm = bpm;
         timePerBeat = 60f / bpm;
     }

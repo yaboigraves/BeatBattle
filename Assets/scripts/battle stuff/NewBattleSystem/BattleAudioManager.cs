@@ -67,7 +67,7 @@ public class BattleAudioManager : MonoBehaviour
         TimeManager.SetCurrentSongInfo(audioTrack.oldBPM);
 
         musicAudioSource1.PlayScheduled(battleStartTime);
-        musicAudioSource2.PlayScheduled(battleStartTime + (TimeManager.timePerBeat * ((2 + BattleManager.current.battle.getCurrentTrack().numBars) * 4)));
+        //musicAudioSource2.PlayScheduled(battleStartTime + (TimeManager.timePerBeat * ((2 + BattleManager.current.battle.getCurrentTrack().numBars) * 4)));
 
         currentAudioSource = musicAudioSource1;
 
@@ -77,13 +77,11 @@ public class BattleAudioManager : MonoBehaviour
     //so this gets called after we pop a track off
     public void LoadNextTrack()
     {
-
         //so this means a turn has ended.
         //turn off the current audio source
-        currentAudioSource.Stop();
+        // currentAudioSource.Stop();
 
         //the idea is the other audio source has already been scheduled to play at this point
-
 
         //Debug.Log("loading next track");
         // Debug.Break();
@@ -103,7 +101,6 @@ public class BattleAudioManager : MonoBehaviour
             //queue up the next song on audio source one
             musicAudioSource1.clip = nextAudioTrack.trackClip;
         }
-
     }
 
 
@@ -147,9 +144,34 @@ public class BattleAudioManager : MonoBehaviour
     //so this gets called at the end of every turn
     public void AudioUpdate()
     {
+        //schedule the next song to play in one beat, schedule
+        currentAudioSource.SetScheduledEndTime(TimeManager.GetNextBeatDSPTime());
+
+        //set the audio sources
+
+        audioTrack = nextAudioTrack;
+        nextAudioTrack = BattleManager.current.battle.getNextTrack();
+
+        //so now we need to do some switch switches
+        if (currentAudioSource == musicAudioSource1)
+        {
+            musicAudioSource2.clip = audioTrack.trackClip;
+            musicAudioSource2.PlayScheduled(TimeManager.GetNextBeatDSPTime());
+            currentAudioSource = musicAudioSource2;
+        }
+        else
+        {
+            musicAudioSource1.clip = audioTrack.trackClip;
+            musicAudioSource1.PlayScheduled(TimeManager.GetNextBeatDSPTime());
+            currentAudioSource = musicAudioSource1;
+        }
+
+        TimeManager.SetCurrentSongInfo(audioTrack.oldBPM);
+
+
+
 
     }
-
 
 }
 

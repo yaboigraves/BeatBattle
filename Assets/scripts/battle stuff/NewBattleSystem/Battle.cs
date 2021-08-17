@@ -82,6 +82,7 @@ public class Battle
     public void ChangeTurn()
     {
 
+        //Debug.Log("turn changing");
         if (currentState != BattleState.Prebattle && currentState != BattleState.Countin)
         {
             EndTurn();
@@ -99,7 +100,7 @@ public class Battle
             BattleUIManager.current.InitTurnQueue(turnQueue);
         }
 
-
+        Debug.Log("trying to load minigame");
         if (turnQueue.Count > 0)
         {
             MinigameManager.current.PreloadMiniGame(((PlayerBattleAction)turnQueue[0]).sample.miniGameSceneName);
@@ -107,6 +108,7 @@ public class Battle
 
             //TODO: this organizatio needs to be refactored
             //pull out and load the minigame
+            Debug.Log("trying to load minigame");
             MinigameManager.current.ActivateMinigame(((PlayerBattleAction)turnQueue[0]).sample.miniGameSceneName);
 
             //load the next minigame in the queue
@@ -179,7 +181,15 @@ public class Battle
         //first things first get the minigames just like lasting as long as the track actually specifies
 
 
-        BattleAudioManager.current.LoadNextTrack();
+        // BattleAudioManager.current.LoadNextTrack();
+        // BattleAudioManager.current.AudioUpdate();
+
+        //ok lets try this again
+        //so lets first just figure out exactly when this gets called
+        // Debug.Break();
+        // Debug.Log("end of turn");
+
+        //so the turn ends on the 4, therefore we just need to schedule the next song to start one beat in the future
         BattleAudioManager.current.AudioUpdate();
 
     }

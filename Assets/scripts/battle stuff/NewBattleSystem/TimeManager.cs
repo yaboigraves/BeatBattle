@@ -55,8 +55,12 @@ public static class TimeManager
 
         double waitEnd = AudioSettings.dspTime + barLength;
 
+        Debug.Log("doing bar wait for " + numBars.ToString());
+
+        Debug.Log(waitEnd);
 
         yield return new WaitUntil(() => AudioSettings.dspTime >= waitEnd);
+        Debug.Log("bar wait over");
 
         methodToCall();
     }
@@ -80,6 +84,11 @@ public static class TimeManager
     public static float GetTimePerBeat()
     {
         return 60.0f / currentSongBpm;
+    }
+
+    public static double GetNextBeatDSPTime()
+    {
+        return currentBeatDSPTime + timePerBeat;
     }
 
 }

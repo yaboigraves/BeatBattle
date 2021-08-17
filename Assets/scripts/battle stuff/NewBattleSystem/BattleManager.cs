@@ -126,6 +126,8 @@ public class BattleManager : MonoBehaviour
     void StartBattle()
     {
 
+        //play the audio
+        BattleAudioManager.current.StartSong();
 
         //start the countin phase
         battle.currentState = BattleState.Countin;
@@ -134,8 +136,7 @@ public class BattleManager : MonoBehaviour
         WaitCallback methodToCall = battle.ChangeTurn;
         StartCoroutine(TimeManager.barWait(methodToCall, battle.getCurrentTrack().numBars));
 
-        //play the audio
-        BattleAudioManager.current.StartSong();
+
     }
 
 

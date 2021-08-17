@@ -30,7 +30,7 @@ MonoBehaviour:
   trackTransitions: []
   artist: 
   oldBPM: 138
-  numBars: 2
+  numBars: 4
   isBattleTrack: 0
   trackStats:
     trackVibe: 0

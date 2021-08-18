@@ -258,7 +258,10 @@ public class BattleUIManager : MonoBehaviour
         {
             playerSet[i] = actionIcons[i].sample;
         }
+
+        //load up everything
         BattleManager.current.InitQueue(playerSet);
+
 
         //so at this point the player set needs to get
     }

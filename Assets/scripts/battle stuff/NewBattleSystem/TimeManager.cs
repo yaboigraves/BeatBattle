@@ -23,6 +23,25 @@ public static class TimeManager
 
     public static List<BeatCallBackFunction> beatCallbacks = new List<BeatCallBackFunction>();
 
+    public static BeatTimeline beatTimeline = new BeatTimeline();
+
+    public static void CheckForBeat()
+    {
+        //using the current beat index and the battle start time check if the beat callback should be called
+
+        if (battleStartTime + beatTimeline.timeline[beatTimeline.currentBeatIndex].time < AudioSettings.dspTime)
+        {
+
+            Debug.Log("doing beat callback");
+            TimeManager.BeatCallBack();
+            beatTimeline.currentBeatIndex++;
+
+            // if (beatTimeline.currentBeatIndex >= beatTimeline.timeline.Length)
+            // {
+            //     beatTimeline.currentBeatIndex = 0;
+            // }
+        }
+    }
     public static void BeatCallBack()
     {
         currentBeat++;
@@ -32,18 +51,18 @@ public static class TimeManager
 
         //check for any shit that needs to happen on like the 1
         // Debug.Log(currentBeat);
-        if ((currentBeat) % 4 == 1)
-        {
-            // //Debug.Log(currentBeat);
-            // Debug.Break();
+        // if ((currentBeat) % 4 == 1)
+        // {
+        //     // //Debug.Log(currentBeat);
+        //     // Debug.Break();
 
-            //so this is on the 1
+        //     //so this is on the 1
 
-            if (bpmSwitchRequested)
-            {
-                SetCurrentSongInfo(newBPM);
-            }
-        }
+        //     if (bpmSwitchRequested)
+        //     {
+        //         SetCurrentSongInfo(newBPM);
+        //     }
+        // }
 
 
         foreach (BeatCallBackFunction b in beatCallbacks)
@@ -54,6 +73,10 @@ public static class TimeManager
     }
 
 
+    //tODO: rewrite/re-evaluate this system
+    //it's probably best to do this with a coroutine but maybe just have it all be in the beatcallback
+    //it may be smart to write some kind of object to represent the beattimeline that pre-calculates beat times
+
     public static IEnumerator barWait(BattleManager.WaitCallback methodToCall, int numBars = 1)
     {
         //start the wait based on the current dspTime 
@@ -61,7 +84,7 @@ public static class TimeManager
 
 
         //for now we're just hard coding for 4 seconds
-        //TODO: make this dynamic based on bpm
+        //TODO: make this dynamic based on bpm oh duh
 
         float barLength = (60 / currentSongBpm) * 4 * numBars;
 
@@ -70,9 +93,9 @@ public static class TimeManager
 
         double waitEnd = AudioSettings.dspTime + barLength;
 
-        Debug.Log("doing bar wait for " + numBars.ToString());
+        //Debug.Log("doing bar wait for " + numBars.ToString());
 
-        Debug.Log(waitEnd);
+        //Debug.Log(waitEnd);
 
         yield return new WaitUntil(() => AudioSettings.dspTime >= waitEnd);
         Debug.Log("bar wait over");

@@ -108,7 +108,7 @@ public class Battle
 
             //TODO: this organizatio needs to be refactored
             //pull out and load the minigame
-            Debug.Log("trying to load minigame");
+            //Debug.Log("trying to load minigame");
             MinigameManager.current.ActivateMinigame(((PlayerBattleAction)turnQueue[0]).sample.miniGameSceneName);
 
             //load the next minigame in the queue
@@ -138,6 +138,7 @@ public class Battle
         //so the audio should probably switch here?
 
 
+        //TODO: so this may end up fucking stuff up because of bpm switches now, need to re-look
         manager.RefreshTurn();
     }
 

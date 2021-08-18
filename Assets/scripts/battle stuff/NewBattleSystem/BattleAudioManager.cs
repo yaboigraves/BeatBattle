@@ -108,7 +108,9 @@ public class BattleAudioManager : MonoBehaviour
     {
         if (BattleManager.current.battle.currentState != BattleState.Prebattle)
         {
-            CheckForBeat();
+            //doesnt really make sense for this to be here but ok
+            //CheckForBeat();
+            TimeManager.CheckForBeat();
         }
 
     }
@@ -118,6 +120,9 @@ public class BattleAudioManager : MonoBehaviour
     //checks to see if we should trigger the beat callback
 
     //maybe move this somewhere else, probably time manager really doesnt need to be in here
+
+    //so rather than maintaining a messy variable, lets just use the beat timeline 
+    //we can track each beat as an index in the beattimelines array
     void CheckForBeat()
     {
 
@@ -133,9 +138,6 @@ public class BattleAudioManager : MonoBehaviour
             //so at the beggining of each turn we should queue up the next audio to play
             //this is going to require a second audio source, we can call these mix1 and mix2
 
-
-
-
         }
     }
 
@@ -145,7 +147,8 @@ public class BattleAudioManager : MonoBehaviour
     public void AudioUpdate()
     {
         //schedule the next song to play in one beat, schedule
-        currentAudioSource.SetScheduledEndTime(TimeManager.GetNextBeatDSPTime());
+        //currentAudioSource.SetScheduledEndTime(TimeManager.GetNextBeatDSPTime());
+        currentAudioSource.Stop();
 
         //set the audio sources
 

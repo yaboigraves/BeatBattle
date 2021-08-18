@@ -99,8 +99,9 @@ public class BattleManager : MonoBehaviour
         //after the queue has been initialized, we can load the minigames requested
         //send this off to the minigame manager to handle, probably want a coroutine so we cant start the battle till these load
         // StartCoroutine(MinigameManager.current.LoadMinigames(turnQueue));
-        BattleAudioManager.current.InitializeBattleAudio();
+        TimeManager.beatTimeline.InitializeTimeline(samples);
 
+        BattleAudioManager.current.InitializeBattleAudio();
     }
 
 
@@ -125,7 +126,6 @@ public class BattleManager : MonoBehaviour
 
     void StartBattle()
     {
-
         //play the audio
         BattleAudioManager.current.StartSong();
 
@@ -135,13 +135,13 @@ public class BattleManager : MonoBehaviour
         //this should be handled by a seperate static class that helps dispatch waits based on the audiosettings.dsp time
         WaitCallback methodToCall = battle.ChangeTurn;
         StartCoroutine(TimeManager.barWait(methodToCall, battle.getCurrentTrack().numBars));
-
-
     }
 
 
     public void RefreshTurn()
     {
+        Debug.Log("starting the wait for the next turn");
+        Debug.Break();
         WaitCallback methodToCall = battle.ChangeTurn;
         StartCoroutine(TimeManager.barWait(methodToCall, battle.getCurrentTrack().numBars));
     }

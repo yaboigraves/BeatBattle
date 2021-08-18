@@ -30,6 +30,21 @@ public static class TimeManager
         //Debug.Log("NCE");
         //BattleUIManager.current.UpdateMetronome();
 
+        //check for any shit that needs to happen on like the 1
+        // Debug.Log(currentBeat);
+        if ((currentBeat) % 4 == 1)
+        {
+            // //Debug.Log(currentBeat);
+            // Debug.Break();
+
+            //so this is on the 1
+
+            if (bpmSwitchRequested)
+            {
+                SetCurrentSongInfo(newBPM);
+            }
+        }
+
 
         foreach (BeatCallBackFunction b in beatCallbacks)
         {
@@ -70,7 +85,7 @@ public static class TimeManager
     public static void SetCurrentSongInfo(float bpm)
     {
         Debug.Log("setting bpm to " + bpm);
-        Debug.Break();
+        //Debug.Break();
         currentSongBpm = bpm;
         timePerBeat = 60f / bpm;
     }
@@ -93,6 +108,20 @@ public static class TimeManager
     public static double GetNextBeatDSPTime()
     {
         return currentBeatDSPTime + timePerBeat;
+    }
+
+    static bool bpmSwitchRequested;
+    static float newBPM;
+    public static void BPMSwitch(float bpm)
+    {
+        //so this should either start a coroutine or have the beatupdate do something
+
+        //lets try doing it with the beat update
+
+        //so a bpm switch is requested
+        newBPM = bpm;
+        bpmSwitchRequested = true;
+
     }
 
 }

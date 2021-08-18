@@ -167,7 +167,10 @@ public class BattleAudioManager : MonoBehaviour
         }
 
         //so this actually needs to happen starting on the next beat,
-        TimeManager.SetCurrentSongInfo(audioTrack.oldBPM);
+        // TimeManager.SetCurrentSongInfo(audioTrack.oldBPM);
+        TimeManager.BPMSwitch(audioTrack.oldBPM);
+
+
 
 
 

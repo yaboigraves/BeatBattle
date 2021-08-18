@@ -32,14 +32,17 @@ public static class TimeManager
         if (battleStartTime + beatTimeline.timeline[beatTimeline.currentBeatIndex].time < AudioSettings.dspTime)
         {
 
-            Debug.Log("doing beat callback");
+            // Debug.Log("doing beat callback");
             TimeManager.BeatCallBack();
-            beatTimeline.currentBeatIndex++;
 
-            // if (beatTimeline.currentBeatIndex >= beatTimeline.timeline.Length)
-            // {
-            //     beatTimeline.currentBeatIndex = 0;
-            // }
+
+
+            //so the other thing we should do is call any functions that need to get called
+            //lets try and get change turn running on these
+
+            beatTimeline.timeline[beatTimeline.currentBeatIndex].Invoke();
+
+            beatTimeline.currentBeatIndex++;
         }
     }
     public static void BeatCallBack()

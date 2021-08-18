@@ -47,12 +47,18 @@ public class BeatTimeline
         Debug.Log("completed initializing beat timeline");
         Debug.Log(numBeats);
     }
+
+    public void AddBeatCallback(int beatIndex, BattleManager.WaitCallback function)
+    {
+
+    }
 }
 
 
 public class BeatNode
 {
     public double time;
+    public List<BattleManager.WaitCallback> callbackFunction;
     public BeatNode(double time)
     {
         this.time = time;

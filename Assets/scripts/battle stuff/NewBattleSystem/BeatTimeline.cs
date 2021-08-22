@@ -70,21 +70,18 @@ public class BeatTimeline
 
 
                 timeline[beat] = new BeatNode(beatTime);
-                // Debug.Log(beatTime);
 
 
                 //need to find a way to know if we're at the end
-                if (b > (samples[i].sampleTrack.numBars * 4) - 1)
+                if (b >= (samples[i].sampleTrack.numBars * 4) - 1)
                 {
-                    //Debug.Log("added a end turn");
                     timeline[beat].AddCallback(endTurnCallback);
                 }
 
                 beat++;
             }
         }
-        // Debug.Log("completed initializing beat timeline");
-        // Debug.Log(numBeats);
+
     }
 
     public void AddBeatCallback(int beatIndex, BattleManager.WaitCallback function)
@@ -121,7 +118,7 @@ public class BeatNode
         //invokes all the callbacks assigned to the node
         foreach (BattleManager.WaitCallback callback in callbackFunctions)
         {
-            Debug.Log("doing invoke at " + time);
+            // Debug.Log("doing invoke at " + time);
             // Debug.Log("invoked " + callback.Method.Name);
             callback.Invoke();
         }

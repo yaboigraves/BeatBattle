@@ -151,7 +151,6 @@ public static class TimeManager
         //so a bpm switch is requested
         newBPM = bpm;
         bpmSwitchRequested = true;
-
     }
 
 }

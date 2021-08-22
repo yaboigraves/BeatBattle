@@ -17,4 +17,4 @@ MonoBehaviour:
   numericValue: 1
   sampleType: 0
   miniGameSceneName: dmgBuffMiniGame
-  sampleTrack: {fileID: 11400000, guid: c7046a1e0d67afc4792055f46aef585a, type: 2}
+  sampleTrack: {fileID: 11400000, guid: b7fd4ab206cbea04f801b50baa639888, type: 2}

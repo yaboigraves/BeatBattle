@@ -68,6 +68,7 @@ public class BattleAudioManager : MonoBehaviour
         TimeManager.SetCurrentSongInfo(audioTrack.oldBPM);
 
         musicAudioSource1.PlayScheduled(battleStartTime);
+        musicAudioSource1.SetScheduledEndTime(battleStartTime + TimeManager.beatTimeline.timeline[16].time);
         //musicAudioSource2.PlayScheduled(battleStartTime + (TimeManager.timePerBeat * ((2 + BattleManager.current.battle.getCurrentTrack().numBars) * 4)));
 
         //tODO: rewrite this to be dyhnamic
@@ -166,6 +167,15 @@ public class BattleAudioManager : MonoBehaviour
         // currentAudioSource.Stop();
 
         //set the audio sources
+
+        Debug.Log("doing audio update");
+        Debug.Break();
+
+
+
+        //todo
+        //set the next audio to schedule to play  
+        //set the audio that just started playing to end then
 
         audioTrack = nextAudioTrack;
         nextAudioTrack = BattleManager.current.battle.getNextTrack();

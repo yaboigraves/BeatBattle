@@ -17,4 +17,4 @@ MonoBehaviour:
   numericValue: 3
   sampleType: 1
   miniGameSceneName: healMinigame
-  sampleTrack: {fileID: 11400000, guid: aad9aaebacf2b764c8f7208a7e8f2cb4, type: 2}
+  sampleTrack: {fileID: 11400000, guid: 4c877a403b2f3e34b8a30f237235dba0, type: 2}

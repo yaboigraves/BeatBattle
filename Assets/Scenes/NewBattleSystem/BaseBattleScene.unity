@@ -1280,7 +1280,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.267
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2188,6 +2188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioTrack: {fileID: 11400000, guid: aad9aaebacf2b764c8f7208a7e8f2cb4, type: 2}
+  nextAudioTrack: {fileID: 0}
   lastBeatTime: 0
   nextBeatTime: 0
 --- !u!1 &829575834
@@ -2677,7 +2678,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.267
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0

@@ -79,40 +79,22 @@ public class Battle
 
     }
 
+
+
+
+    //ok so if this is to be based off of the beat timeline then we can just assign it to the callbacks every n number of beats
+
     public void ChangeTurn()
     {
-
-        //Debug.Log("turn changing");
-        if (currentState != BattleState.Prebattle && currentState != BattleState.Countin)
-        {
-            EndTurn();
-        }
+        Debug.Log("changing turn!");
 
 
-        //so if there's only one bar left of input just add on the whole turnqueue to the end to create a new loop
-        if (turnQueue.Count / 2 <= 4)
-        {
-            Debug.Log("resetting the turnqueue");
-            turnQueue.AddRange(savedTurnQueue);
-            //reupadte the ui
-            //so we only need to recalculate the queue if you do an interlude
-            //calculateQueueModifiers();
-            BattleUIManager.current.InitTurnQueue(turnQueue);
-        }
+        EndTurn();
 
-        Debug.Log("trying to load minigame");
         if (turnQueue.Count > 0)
         {
-            MinigameManager.current.PreloadMiniGame(((PlayerBattleAction)turnQueue[0]).sample.miniGameSceneName);
 
-
-            //TODO: this organizatio needs to be refactored
-            //pull out and load the minigame
-            //Debug.Log("trying to load minigame");
             MinigameManager.current.ActivateMinigame(((PlayerBattleAction)turnQueue[0]).sample.miniGameSceneName);
-
-            //load the next minigame in the queue
-
         }
 
 
@@ -139,7 +121,7 @@ public class Battle
 
 
         //TODO: so this may end up fucking stuff up because of bpm switches now, need to re-look
-        manager.RefreshTurn();
+        //manager.RefreshTurn();
     }
 
     //so yea this basically handles damamge and shit
@@ -169,30 +151,12 @@ public class Battle
             manager.PlayerHealth += ((PlayerBattleAction)turnQueue[0]).sample.numericValue;
         }
 
-        //BattleUIManager.current.UpdateHealth();
-        //update the ui, 
-        BattleUIManager.current.UpdateTurnQueue();
 
-        //remove the elements from the queue
+
+
         turnQueue.RemoveRange(0, 2);
-
-        //so i guess here is where we schedule the next song to play?
-
-        //so we just schedule the next song in the queue to start playing i guess
-        //first things first get the minigames just like lasting as long as the track actually specifies
-
-
-        // BattleAudioManager.current.LoadNextTrack();
-        // BattleAudioManager.current.AudioUpdate();
-
-        //ok lets try this again
-        //so lets first just figure out exactly when this gets called
-        // Debug.Break();
-        // Debug.Log("end of turn");
-
-        //so the turn ends on the 4, therefore we just need to schedule the next song to start one beat in the future
+        BattleUIManager.current.UpdateTurnQueue();
         BattleAudioManager.current.AudioUpdate();
-
     }
 
 

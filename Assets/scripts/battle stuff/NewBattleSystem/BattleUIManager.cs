@@ -45,7 +45,8 @@ public class BattleUIManager : MonoBehaviour
         InitSetCustomizationPanel();
 
         //print("adding update metronome");
-        TimeManager.beatCallbacks.Add(UpdateMetronome);
+        //TimeManager.beatCallbacks.Add(UpdateMetronome);
+
 
 
     }
@@ -278,6 +279,12 @@ public class BattleUIManager : MonoBehaviour
         }
 
         metronomeText.text = currentBeat.ToString();
+
+    }
+
+    public void EnableMetronomeTicks()
+    {
+        TimeManager.beatTimeline.AddEveryBeatCallback(UpdateMetronome);
 
     }
 }

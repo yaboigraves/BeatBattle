@@ -100,6 +100,8 @@ public class BattleManager : MonoBehaviour
         //send this off to the minigame manager to handle, probably want a coroutine so we cant start the battle till these load
         // StartCoroutine(MinigameManager.current.LoadMinigames(turnQueue));
         TimeManager.beatTimeline.InitializeTimeline(samples);
+        //add a metronome tick to all of them
+        BattleUIManager.current.EnableMetronomeTicks();
 
         BattleAudioManager.current.InitializeBattleAudio();
     }
@@ -130,18 +132,20 @@ public class BattleManager : MonoBehaviour
         BattleAudioManager.current.StartSong();
 
         //start the countin phase
-        battle.currentState = BattleState.Countin;
+        //battle.currentState = BattleState.Countin;
+        battle.currentState = BattleState.PlayerTurn;
         //wait 1 bar then go into either player or enemy turn phase
         //this should be handled by a seperate static class that helps dispatch waits based on the audiosettings.dsp time
-        WaitCallback methodToCall = battle.ChangeTurn;
-        StartCoroutine(TimeManager.barWait(methodToCall, battle.getCurrentTrack().numBars));
+        // WaitCallback methodToCall = battle.ChangeTurn;
+        // StartCoroutine(TimeManager.barWait(methodToCall, battle.getCurrentTrack().numBars));
+        battle.ChangeTurn();
     }
 
 
     public void RefreshTurn()
     {
-        Debug.Log("starting the wait for the next turn");
-        Debug.Break();
+        // Debug.Log("starting the wait for the next turn");
+        // Debug.Break();
         WaitCallback methodToCall = battle.ChangeTurn;
         StartCoroutine(TimeManager.barWait(methodToCall, battle.getCurrentTrack().numBars));
     }

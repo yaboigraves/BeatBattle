@@ -14,10 +14,17 @@ public class BeatTimeline
 
     public int currentBeatIndex = 0;
 
+    BattleManager.WaitCallback endTurnCallback = BattleManager.current.battle.ChangeTurn;
+
+
+
+
+    //TODO: diagnose bug where theres a weird
     public void InitializeTimeline(Sample[] samples)
     {
         //figure out the amount of beats
         int numBeats = 0;
+        currentBeatIndex = 0;
 
         foreach (Sample s in samples)
         {
@@ -40,17 +47,36 @@ public class BeatTimeline
 
 
                 timeline[beat] = new BeatNode(beatTime);
+
+
+                //need to find a way to know if we're at the end
+                if (b >= (samples[i].sampleTrack.numBars * 4) - 1)
+                {
+                    //Debug.Log("added a end turn");
+                    timeline[beat].AddCallback(endTurnCallback);
+                }
+
                 beat++;
             }
+
+
         }
 
-        Debug.Log("completed initializing beat timeline");
-        Debug.Log(numBeats);
+        // Debug.Log("completed initializing beat timeline");
+        // Debug.Log(numBeats);
     }
 
     public void AddBeatCallback(int beatIndex, BattleManager.WaitCallback function)
     {
 
+    }
+
+    public void AddEveryBeatCallback(BattleManager.WaitCallback function)
+    {
+        foreach (BeatNode n in timeline)
+        {
+            n.AddCallback(function);
+        }
     }
 }
 
@@ -58,14 +84,24 @@ public class BeatTimeline
 public class BeatNode
 {
     public double time;
-    public List<BattleManager.WaitCallback> callbackFunction;
+    public List<BattleManager.WaitCallback> callbackFunctions = new List<BattleManager.WaitCallback>();
     public BeatNode(double time)
     {
         this.time = time;
     }
 
+    public void AddCallback(BattleManager.WaitCallback callback)
+    {
+        callbackFunctions.Add(callback);
+    }
+
     public void Invoke()
     {
         //invokes all the callbacks assigned to the node
+        foreach (BattleManager.WaitCallback callback in callbackFunctions)
+        {
+            Debug.Log("doing invoke at " + time);
+            callback.Invoke();
+        }
     }
 }

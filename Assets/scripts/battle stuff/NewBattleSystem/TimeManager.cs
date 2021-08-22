@@ -16,8 +16,6 @@ public static class TimeManager
     public static int currentBeat = 0;
     public static double currentBeatDSPTime = 0;
 
-    //TODO: 6/17 create a list of delegate functions that need to get called every beat that we can assign stuff too
-
 
     public delegate void BeatCallBackFunction();
 
@@ -31,7 +29,8 @@ public static class TimeManager
 
         if (battleStartTime + beatTimeline.timeline[beatTimeline.currentBeatIndex].time < AudioSettings.dspTime)
         {
-
+            // Debug.Log(beatTimeline.currentBeatIndex);
+            // Debug.Log(battleStartTime);
             // Debug.Log("doing beat callback");
             TimeManager.BeatCallBack();
 
@@ -66,6 +65,11 @@ public static class TimeManager
         //         SetCurrentSongInfo(newBPM);
         //     }
         // }
+
+        if (bpmSwitchRequested)
+        {
+            currentSongBpm = newBPM;
+        }
 
 
         foreach (BeatCallBackFunction b in beatCallbacks)

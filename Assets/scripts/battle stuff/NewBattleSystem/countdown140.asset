@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d29d3d57d0edae4c9066abd17179e95, type: 3}
-  m_Name: TestTrack
+  m_Name: countdown140
   m_EditorClassIdentifier: 
   itemName: Item
   cost: 1
@@ -18,18 +18,11 @@ MonoBehaviour:
   unique: 0
   itemIcon: {fileID: 0}
   trackName: 
-  trackClip: {fileID: 8300000, guid: 62faee755c5d349468d893a57365eeab, type: 3}
-  tracks:
-  - trackClip: {fileID: 0}
-    kickBeats: []
-    snareBeats: []
-    hatBeats: []
-    percBeats: []
-    bpm: 0
-    numBeats: 0
+  trackClip: {fileID: 8300000, guid: 05aebdfae572f304db69a4e6a3e66ea2, type: 3}
+  tracks: []
   trackTransitions: []
   artist: 
-  oldBPM: 138
+  oldBPM: 140
   numBars: 4
   isBattleTrack: 0
   trackStats:

@@ -78,7 +78,7 @@ public class BeatTimeline
                 {
                     timeline[beat].AddCallback(endTurnCallback);
                 }
-                else if (b == 0)
+                else if (b == 0 && i != 0)
                 {
                     timeline[beat].AddCallback(updateAudioCallback);
                 }

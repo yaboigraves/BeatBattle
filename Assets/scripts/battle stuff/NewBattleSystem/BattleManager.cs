@@ -4,10 +4,17 @@ using UnityEngine;
 
 
 
-//8-14 rewrite
-//okie dokie so this is gonna be a slightly big redo
-//we are going to need a general input manager for this, the minigame scenes that are loaded are really just visualizers
+//8-21 leaving off note:
+/*
+so yeah got alot done, just gotta make it so the queue can actually empty and move through tracks/audio dynamically
+transitions need to be added but theyre less important then getting midi, so once everything works in an infinite loop we're good
+assume a min song length possibly?
 
+so yeah next session just try and get the queue able to completly run through and then just pause at the end when theirs no more tracks
+//should probably just loop again for now, probably need to make songs longer than 4 bars, try some demos that run it with 8 bars
+
+
+*/
 
 public class BattleManager : MonoBehaviour
 {
@@ -131,21 +138,15 @@ public class BattleManager : MonoBehaviour
         //play the audio
         BattleAudioManager.current.StartSong();
 
-        //start the countin phase
-        //battle.currentState = BattleState.Countin;
         battle.currentState = BattleState.PlayerTurn;
-        //wait 1 bar then go into either player or enemy turn phase
-        //this should be handled by a seperate static class that helps dispatch waits based on the audiosettings.dsp time
-        // WaitCallback methodToCall = battle.ChangeTurn;
-        // StartCoroutine(TimeManager.barWait(methodToCall, battle.getCurrentTrack().numBars));
+
         battle.ChangeTurn();
     }
 
 
     public void RefreshTurn()
     {
-        // Debug.Log("starting the wait for the next turn");
-        // Debug.Break();
+
         WaitCallback methodToCall = battle.ChangeTurn;
         StartCoroutine(TimeManager.barWait(methodToCall, battle.getCurrentTrack().numBars));
     }

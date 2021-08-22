@@ -160,22 +160,9 @@ public class BattleAudioManager : MonoBehaviour
     }
 
 
+    //dotn call this on the first update i guess
     public void AudioUpdate()
     {
-        //schedule the next song to play in one beat, schedule
-        //currentAudioSource.SetScheduledEndTime(TimeManager.GetNextBeatDSPTime());
-        // currentAudioSource.Stop();
-
-        //set the audio sources
-
-        Debug.Log("doing audio update");
-        Debug.Break();
-
-
-
-        //todo
-        //set the next audio to schedule to play  
-        //set the audio that just started playing to end then
 
 
         //assuming this works for now
@@ -185,20 +172,24 @@ public class BattleAudioManager : MonoBehaviour
         //so now we need to do some switch switches
         if (currentAudioSource == musicAudioSource1)
         {
-            //so if we're currently on audio source 1 that means 2 is about to go
-            //scheduele 2 to stop
+            //so the audio source should already be done now
+            musicAudioSource1.clip = nextAudioTrack.trackClip;
+            //schedule the current source to stop
+            musicAudioSource1.PlayScheduled(TimeManager.battleStartTime + TimeManager.beatTimeline.timeline[TimeManager.beatTimeline.currentBeatIndex + 16].time);
+            musicAudioSource2.SetScheduledEndTime(TimeManager.battleStartTime + TimeManager.beatTimeline.timeline[TimeManager.beatTimeline.currentBeatIndex + 16].time);
 
-            //have 1 stop for now (later transitions will come in here)
-            //assing 1 to the next track
-
-            //so maybe we do this on the 1 now instead of the 4?
-
-
+            currentAudioSource = musicAudioSource2;
 
         }
         else
         {
+            //so the audio source should already be done now
+            musicAudioSource2.clip = nextAudioTrack.trackClip;
+            //schedule the current source to stop
+            musicAudioSource2.PlayScheduled(TimeManager.battleStartTime + TimeManager.beatTimeline.timeline[TimeManager.beatTimeline.currentBeatIndex + 16].time);
+            musicAudioSource1.SetScheduledEndTime(TimeManager.battleStartTime + TimeManager.beatTimeline.timeline[TimeManager.beatTimeline.currentBeatIndex + 16].time);
 
+            currentAudioSource = musicAudioSource1;
         }
 
 

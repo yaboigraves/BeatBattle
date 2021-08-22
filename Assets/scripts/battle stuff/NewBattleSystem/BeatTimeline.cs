@@ -41,16 +41,40 @@ public class BeatTimeline
             double secPerBeat = 60f / samples[i].sampleTrack.oldBPM;
 
 
+            //ok, so if its the first beat of the next sample, it actually occurs based on the old sec per beat not the new one
             for (int b = 0; b < samples[i].sampleTrack.numBars * 4; b++)
             {
-                double beatTime = secPerBeat * beat;
+
+                if (i > 0 && b == 0)
+                {
+                    secPerBeat = 60f / samples[i - 1].sampleTrack.oldBPM;
+                }
+                else
+                {
+                    secPerBeat = 60f / samples[i].sampleTrack.oldBPM;
+                }
+
+                //oh this is calculating wrong, we should
+                double beatTime;
+
+                if (i == 0 && b == 0)
+                {
+                    beatTime = 0;
+                }
+                else
+                {
+                    beatTime = secPerBeat + timeline[beat - 1].time;
+                }
+
+
 
 
                 timeline[beat] = new BeatNode(beatTime);
+                // Debug.Log(beatTime);
 
 
                 //need to find a way to know if we're at the end
-                if (b >= (samples[i].sampleTrack.numBars * 4) - 1)
+                if (b > (samples[i].sampleTrack.numBars * 4) - 1)
                 {
                     //Debug.Log("added a end turn");
                     timeline[beat].AddCallback(endTurnCallback);
@@ -58,10 +82,7 @@ public class BeatTimeline
 
                 beat++;
             }
-
-
         }
-
         // Debug.Log("completed initializing beat timeline");
         // Debug.Log(numBeats);
     }
@@ -101,6 +122,7 @@ public class BeatNode
         foreach (BattleManager.WaitCallback callback in callbackFunctions)
         {
             Debug.Log("doing invoke at " + time);
+            // Debug.Log("invoked " + callback.Method.Name);
             callback.Invoke();
         }
     }

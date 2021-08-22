@@ -89,12 +89,15 @@ public class Battle
         Debug.Log("changing turn!");
 
 
-        EndTurn();
 
         if (turnQueue.Count > 0)
         {
+            EndTurn();
 
             MinigameManager.current.ActivateMinigame(((PlayerBattleAction)turnQueue[0]).sample.miniGameSceneName);
+
+
+
         }
 
 
@@ -129,10 +132,10 @@ public class Battle
     {
 
 
-        if (((PlayerBattleAction)turnQueue[0]).sample.sampleType == SampleType.block)
-        {
-            //TODO: add block
-        }
+        // if (((PlayerBattleAction)turnQueue[0]).sample.sampleType == SampleType.block)
+        // {
+        //     //TODO: add block
+        // }
 
         //TODO: this happens all after the minigame runs
 

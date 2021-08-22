@@ -16,6 +16,7 @@ public class BeatTimeline
 
     BattleManager.WaitCallback endTurnCallback = BattleManager.current.battle.ChangeTurn;
 
+    BattleManager.WaitCallback updateAudioCallback = BattleAudioManager.current.AudioUpdate;
 
 
 
@@ -76,6 +77,10 @@ public class BeatTimeline
                 if (b >= (samples[i].sampleTrack.numBars * 4) - 1)
                 {
                     timeline[beat].AddCallback(endTurnCallback);
+                }
+                else if (b == 0)
+                {
+                    timeline[beat].AddCallback(updateAudioCallback);
                 }
 
                 beat++;

@@ -159,7 +159,10 @@ public class Battle
 
         turnQueue.RemoveRange(0, 2);
         BattleUIManager.current.UpdateTurnQueue();
-        BattleAudioManager.current.AudioUpdate();
+
+
+        //TODO: maybe bring this back?
+        //BattleAudioManager.current.AudioUpdate();
     }
 
 

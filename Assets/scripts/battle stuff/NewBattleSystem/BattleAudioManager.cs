@@ -177,25 +177,31 @@ public class BattleAudioManager : MonoBehaviour
         //set the next audio to schedule to play  
         //set the audio that just started playing to end then
 
+
+        //assuming this works for now
         audioTrack = nextAudioTrack;
         nextAudioTrack = BattleManager.current.battle.getNextTrack();
 
         //so now we need to do some switch switches
         if (currentAudioSource == musicAudioSource1)
         {
-            musicAudioSource2.clip = audioTrack.trackClip;
-            //musicAudioSource2.PlayScheduled(TimeManager.GetNextBeatDSPTime());
-            currentAudioSource = musicAudioSource2;
+            //so if we're currently on audio source 1 that means 2 is about to go
+            //scheduele 2 to stop
+
+            //have 1 stop for now (later transitions will come in here)
+            //assing 1 to the next track
+
+            //so maybe we do this on the 1 now instead of the 4?
+
+
+
         }
         else
         {
-            musicAudioSource1.clip = audioTrack.trackClip;
-            //musicAudioSource1.PlayScheduled(TimeManager.GetNextBeatDSPTime());
-            currentAudioSource = musicAudioSource1;
+
         }
 
-        //so this actually needs to happen starting on the next beat,
-        // TimeManager.SetCurrentSongInfo(audioTrack.oldBPM);
+
         TimeManager.BPMSwitch(audioTrack.oldBPM);
     }
 

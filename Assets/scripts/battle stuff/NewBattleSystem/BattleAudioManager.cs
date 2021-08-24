@@ -113,7 +113,7 @@ public class BattleAudioManager : MonoBehaviour
 
     private void Update()
     {
-        if (BattleManager.current.battle.currentState != BattleState.Prebattle)
+        if (BattleManager.current.battle.currentState != BattleState.Prebattle && BattleManager.current.battle.currentState != BattleState.RoundOver)
         {
             //doesnt really make sense for this to be here but ok
             //CheckForBeat();
@@ -169,6 +169,14 @@ public class BattleAudioManager : MonoBehaviour
         audioTrack = nextAudioTrack;
         nextAudioTrack = BattleManager.current.battle.getNextTrack();
 
+        TimeManager.BPMSwitch(audioTrack.oldBPM);
+
+        if (nextAudioTrack == null)
+        {
+            //so this means that we dont have to schedule anything new the battle is going to end
+            return;
+        }
+
         //so now we need to do some switch switches
         if (currentAudioSource == musicAudioSource1)
         {
@@ -179,7 +187,6 @@ public class BattleAudioManager : MonoBehaviour
             musicAudioSource2.SetScheduledEndTime(TimeManager.battleStartTime + TimeManager.beatTimeline.timeline[TimeManager.beatTimeline.currentBeatIndex + 16].time);
 
             currentAudioSource = musicAudioSource2;
-
         }
         else
         {
@@ -188,12 +195,11 @@ public class BattleAudioManager : MonoBehaviour
             //schedule the current source to stop
             musicAudioSource2.PlayScheduled(TimeManager.battleStartTime + TimeManager.beatTimeline.timeline[TimeManager.beatTimeline.currentBeatIndex + 16].time);
             musicAudioSource1.SetScheduledEndTime(TimeManager.battleStartTime + TimeManager.beatTimeline.timeline[TimeManager.beatTimeline.currentBeatIndex + 16].time);
-
             currentAudioSource = musicAudioSource1;
         }
 
 
-        TimeManager.BPMSwitch(audioTrack.oldBPM);
+
     }
 
 }

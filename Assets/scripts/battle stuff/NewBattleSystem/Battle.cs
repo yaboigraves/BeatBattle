@@ -28,11 +28,12 @@ public class Battle
 
     public BattleManager manager;
     //so the enemy turns are going to need to later be pre-generated for now just use the basic one
-
+    bool firstRound = true;
 
 
     public void InitTurnQueue(Sample[] playerSamples)
     {
+        firstRound = true;
         turnQueue = new List<BattleAction>();
 
         for (int i = 0; i < playerSamples.Length; i++)
@@ -89,15 +90,18 @@ public class Battle
         Debug.Log("changing turn!");
 
 
-
         if (turnQueue.Count > 0)
         {
-            EndTurn();
+            if (!firstRound)
+            {
+                EndTurn();
 
-            MinigameManager.current.ActivateMinigame(((PlayerBattleAction)turnQueue[0]).sample.miniGameSceneName);
-
-
-
+                MinigameManager.current.ActivateMinigame(((PlayerBattleAction)turnQueue[0]).sample.miniGameSceneName);
+            }
+            else
+            {
+                firstRound = false;
+            }
         }
 
 
@@ -179,7 +183,7 @@ public class Battle
 
     public Track getNextTrack()
     {
-        if (turnQueue.Count < 4)
+        if (turnQueue.Count <= 2)
         {
             Debug.LogWarning("O FUCK NO TRACKS LOL");
             return null;

@@ -164,6 +164,12 @@ public class BattleManager : MonoBehaviour
         //BattleUIManager.current.UpdateHealth();
     }
 
+    public void EndBattleRound()
+    {
+        battle.currentState = BattleState.RoundOver;
+        Debug.Log("Battle Round Over!");
+    }
+
 }
 //test
 
@@ -173,7 +179,8 @@ public enum BattleState
     Countin,
     PlayerTurn,
     EnemyTurn,
-    Interlude
+    Interlude,
+    RoundOver
 }
 
 

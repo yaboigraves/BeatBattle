@@ -18,6 +18,8 @@ public class BeatTimeline
 
     BattleManager.WaitCallback updateAudioCallback = BattleAudioManager.current.AudioUpdate;
 
+    BattleManager.WaitCallback endBattleRoundCallback = BattleManager.current.EndBattleRound;
+
 
 
     //TODO: diagnose bug where theres a weird
@@ -41,11 +43,9 @@ public class BeatTimeline
             //-seconds per beat
             double secPerBeat = 60f / samples[i].sampleTrack.oldBPM;
 
-
             //ok, so if its the first beat of the next sample, it actually occurs based on the old sec per beat not the new one
             for (int b = 0; b < samples[i].sampleTrack.numBars * 4; b++)
             {
-
                 if (i > 0 && b == 0)
                 {
                     secPerBeat = 60f / samples[i - 1].sampleTrack.oldBPM;
@@ -67,16 +67,13 @@ public class BeatTimeline
                     beatTime = secPerBeat + timeline[beat - 1].time;
                 }
 
-
-
-
                 timeline[beat] = new BeatNode(beatTime);
 
-
                 //need to find a way to know if we're at the end
-                if (b >= (samples[i].sampleTrack.numBars * 4) - 1)
+                if (b >= (samples[i].sampleTrack.numBars * 4) - 1 && i < samples.Length - 1)
                 {
                     timeline[beat].AddCallback(endTurnCallback);
+                    Debug.Log("added an end turn");
                 }
                 else if (b == 0 && i != 0)
                 {
@@ -86,6 +83,8 @@ public class BeatTimeline
                 beat++;
             }
         }
+
+        timeline[timeline.Length - 1].AddCallback(endBattleRoundCallback);
 
     }
 

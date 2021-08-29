@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 //8-21 leaving off note:
 /*
 so yeah got alot done, just gotta make it so the queue can actually empty and move through tracks/audio dynamically
@@ -12,8 +10,6 @@ assume a min song length possibly?
 
 so yeah next session just try and get the queue able to completly run through and then just pause at the end when theirs no more tracks
 //should probably just loop again for now, probably need to make songs longer than 4 bars, try some demos that run it with 8 bars
-
-
 */
 
 public class BattleManager : MonoBehaviour
@@ -21,13 +17,11 @@ public class BattleManager : MonoBehaviour
     public static BattleManager current;
     public delegate void WaitCallback();
 
-
     public bool interludeRequested = false;
 
     public Sample[] playerSet, playerSamples;
 
     int playerHealth, enemyHealth;
-
 
     public int PlayerHealth
     {
@@ -37,8 +31,6 @@ public class BattleManager : MonoBehaviour
         {
             BattleUIManager.current.UpdateHealth();
             playerHealth = value;
-
-
         }
     }
 
@@ -50,13 +42,10 @@ public class BattleManager : MonoBehaviour
         {
             BattleUIManager.current.UpdateHealth();
             enemyHealth = value;
-
-
         }
     }
 
     List<BattleAction> savedTurnQueue;
-
 
     public Battle battle;
 
@@ -69,7 +58,6 @@ public class BattleManager : MonoBehaviour
 
         //init the battle
         InitBattle();
-
     }
 
     void Start()
@@ -141,6 +129,8 @@ public class BattleManager : MonoBehaviour
         battle.currentState = BattleState.PlayerTurn;
 
         battle.ChangeTurn();
+
+
     }
 
 

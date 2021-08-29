@@ -43,6 +43,12 @@ public class MiniGame : MonoBehaviour
     public Canvas miniGameCanvas;
     public MiniGameState state;
 
+    //pretty much all minigames are going to have indicators now, so lets make it so we can plug in a channel of floats for these
+    //TODO: extend this to work with multiple channels
+
+    public List<double> beatTimes;
+
+
     private void Awake()
     {
 
@@ -72,9 +78,11 @@ public class MiniGame : MonoBehaviour
         state = MiniGameState.Active;
     }
 
-    public virtual void Preload()
-    {
+    public virtual void Preload(Sample sample) { }
 
+    public void SetBeatTimes(List<double> times)
+    {
+        beatTimes = times;
     }
 
 }

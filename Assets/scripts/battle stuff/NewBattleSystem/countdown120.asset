@@ -31,7 +31,11 @@ MonoBehaviour:
     vibePerHit: 0
   randomTrackData:
     trackClip: {fileID: 0}
-    kickBeats: []
+    kickBeats:
+    - 2
+    - 3
+    - 4
+    - 5
     snareBeats: []
     hatBeats: []
     percBeats: []

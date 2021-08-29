@@ -189,9 +189,9 @@ public class HealMiniGame : MiniGame
         moveInput = 0;
     }
 
-    public override void Preload()
+    public override void Preload(Sample sample)
     {
-        base.Preload();
+        base.Preload(sample);
         SpawnIndicators();
 
     }
@@ -266,8 +266,8 @@ public class HealMiniGame : MiniGame
     {
         foreach (NIndicator n in indicators)
         {
-
-            n.SetStartTime(TimeManager.currentBeatDSPTime);
+            //TODO: setting to 0 for now tie in later if we keep this class
+            n.SetStartTime(TimeManager.currentBeatDSPTime, 0);
         }
     }
 

@@ -176,6 +176,10 @@ public struct TrackStats
 public struct TrackData
 {
     public AudioClip trackClip;
+
+    //8/28 rewrite notes: so for now we're just gonna keep this system but im going to manually enter this info
+    //kick beats will be the de-facto testing channel, the idea is we want 4 channels possible for now but not necessarily tied to any drum
+
     public List<double> kickBeats, snareBeats, hatBeats, percBeats;
     public float bpm;
 

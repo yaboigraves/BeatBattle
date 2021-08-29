@@ -19,17 +19,12 @@ public class Battle
 
     //so yeah alot of responsibilities from the battlemanager can get moved into here, mostly for tracking
     //the battle manager can basically just be a storehouse for this object and can still handle running the update
-
     public BattleState currentState = BattleState.Prebattle;
-
     public List<BattleAction> turnQueue, savedTurnQueue;
-
     public NEnemy[] enemies;
-
     public BattleManager manager;
     //so the enemy turns are going to need to later be pre-generated for now just use the basic one
     bool firstRound = true;
-
 
     public void InitTurnQueue(Sample[] playerSamples)
     {
@@ -58,7 +53,6 @@ public class Battle
         savedTurnQueue.AddRange(turnQueue);
 
         calculateQueueModifiers();
-
         BattleUIManager.current.InitTurnQueue(turnQueue);
     }
 
@@ -76,34 +70,28 @@ public class Battle
                 turnQueue = SampleEffects.processSampleEffect(turnQueue, i);
             }
         }
-
-
     }
 
-
-
-
     //ok so if this is to be based off of the beat timeline then we can just assign it to the callbacks every n number of beats
-
     public void ChangeTurn()
     {
-        Debug.Log("changing turn!");
-
+        // Debug.Log("changing turn!");
+        // Debug.Break();
 
         if (turnQueue.Count > 0)
         {
             if (!firstRound)
             {
                 EndTurn();
-
-                MinigameManager.current.ActivateMinigame(((PlayerBattleAction)turnQueue[0]).sample.miniGameSceneName);
+                MinigameManager.current.PreloadMiniGame(((PlayerBattleAction)turnQueue[0]).sample);
+                //MinigameManager.current.ActivateMinigameScene(((PlayerBattleAction)turnQueue[0]).sample.miniGameSceneName);
             }
             else
             {
                 firstRound = false;
+                MinigameManager.current.PreloadMiniGame(((PlayerBattleAction)turnQueue[0]).sample);
             }
         }
-
 
         switch (currentState)
         {
@@ -158,12 +146,8 @@ public class Battle
             manager.PlayerHealth += ((PlayerBattleAction)turnQueue[0]).sample.numericValue;
         }
 
-
-
-
         turnQueue.RemoveRange(0, 2);
         BattleUIManager.current.UpdateTurnQueue();
-
 
         //TODO: maybe bring this back?
         //BattleAudioManager.current.AudioUpdate();
@@ -191,6 +175,4 @@ public class Battle
 
         return ((PlayerBattleAction)turnQueue[2]).sample.sampleTrack;
     }
-
-
 }

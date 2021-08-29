@@ -4,6 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+//8/28 notes
+/*
+    so these need to scale with dynamic bpm
+    -double check that the way they're getting it actually works lol
+
+
+*/
+
 public class NIndicator : MonoBehaviour
 {
     //so we need to track the time that the thingy spawned, and how long it should take to get to the pads position
@@ -88,12 +96,13 @@ public class NIndicator : MonoBehaviour
 
     }
 
-    public void SetStartTime(double startTime)
+    public void SetStartTime(double startTime, float bpm)
     {
         this.startTime = startTime;
 
         //so this just needs to be multiplied by the timeperbeat
-        this.endTime = (double)beatOfNote * TimeManager.GetTimePerBeat();
+        //so this should be set by the track not by the time manager hoenstly
+        this.endTime = (double)beatOfNote * (60f / bpm);
 
         // Debug.Log(startTime);
         // Debug.Log(endTime);

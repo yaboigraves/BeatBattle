@@ -3,24 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-//this guys job is to handle loading, deloading, and managing the seperate minigame scenes
-//we know basically all the minigame scenes that are going to be needed at the start of a battle, so just load them all
-//start with them set inactive, and then set them active when needed
-//only need to deload them at the end of a battle, we can just recycle these and reinit them when we have to
+//8/28 refactor
+
+/*
 
 
-//so minigames are just a ui loaded in from another scene
-//basically we need some way of presenting each minigame once its their time to come on
-//need some way of transitioning between these scenes with some kind of preview so you know what minigame is coming next
+so for now, when we load a new track at the end of a turn the loading of the minigame is now more or 
+less just 
+-loading the minigame scene
+-loading the indicator timing data (in beats)
+-spawning indicators
+-getting ready to get everything moving
 
-//once a minigame loads it shoudl register with the manager
-//each minigame is basically just gonna need its own kind of custom script to manage it anyways, so make a bass minigame class
+*/
 
-
-
-
-//TODO: make it so the minigames launch at the beggining of the phase, not the end of the phase
-
+/*GOALS
+indicator spawning
+generalized minigame (we can re-use the one button minigame battle one)
+variable length
+*/
 
 public class MinigameManager : MonoBehaviour
 {
@@ -86,7 +87,7 @@ public class MinigameManager : MonoBehaviour
     }
 
 
-    public void ActivateMinigame(string sceneName)
+    public void ActivateMinigameScene(string sceneName)
     {
         //turn off the active minigame if it exists
         if (activeMiniGame != null)
@@ -108,13 +109,20 @@ public class MinigameManager : MonoBehaviour
         }
     }
 
-    public void PreloadMiniGame(string sceneName)
+    //lets reurpose this
+    //so this gets called where the activate gets called right now
+    //basically we give one beat of time for all the indicators to spawn and shit
+    public void PreloadMiniGame(Sample playerSample)
     {
-        MiniGame game = findMiniGameByName(sceneName);
-        if (game)
-        {
-            game.Preload();
-        }
+        MiniGame game = findMiniGameByName(playerSample.miniGameSceneName);
+        game.SetBeatTimes(playerSample.sampleTrack.randomTrackData.kickBeats);
+        game.Preload(playerSample);
+
+        ActivateMinigameScene(playerSample.miniGameSceneName);
+
+        //so once the scene is active lets fuckin spawn some indicators based on the kick data
+        //generally speaking this should probably be handled by the actual minigame itself, so lets make an object for those
+
     }
 
     private MiniGame findMiniGameByName(string minigameName)

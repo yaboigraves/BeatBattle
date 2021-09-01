@@ -63,7 +63,8 @@ public class BattleAudioManager : MonoBehaviour
     {
         //this may need to be halted until the audio source can reliably be known to be playing
         //print("test");
-        double battleStartTime = AudioSettings.dspTime + 0.5f;
+        // double battleStartTime = AudioSettings.dspTime + 0.5f;
+        double battleStartTime = AudioSettings.dspTime;
         TimeManager.SetBattleStart(battleStartTime);
         TimeManager.SetCurrentSongInfo(audioTrack.oldBPM);
 
@@ -77,8 +78,6 @@ public class BattleAudioManager : MonoBehaviour
         currentAudioSource = musicAudioSource1;
 
         nextBeatTime = TimeManager.battleStartTime + TimeManager.timePerBeat;
-
-
     }
 
     //so this gets called after we pop a track off

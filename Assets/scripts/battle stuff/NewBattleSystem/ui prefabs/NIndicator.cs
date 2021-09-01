@@ -43,12 +43,17 @@ public class NIndicator : MonoBehaviour
         initialPosition = transform.position;
         endPosition = endPos;
         this.beatOfNote = beatOfNote;
-
         this.beatCounter = beatOfNote;
         countDownText = GetComponentInChildren<TextMeshProUGUI>();
         countDownText.text = beatOfNote.ToString();
 
         TimeManager.beatCallbacks.Add(UpdateCountdownText);
+
+
+        //so we can use the beat of the note and the time manager to actually calculate when this note should end
+
+        this.endTime = TimeManager.GetIndicatorEndTime(beatOfNote);
+        //Debug.Log(this.endTime);
     }
 
     public void SetIndicatorInfo(Vector3 initialPos, Vector3 endPos, int beatOfNote, int lane)
@@ -73,7 +78,23 @@ public class NIndicator : MonoBehaviour
         //lerp down from our initial position we're assigned
         //so for now just lerp fuck time who cares
 
-        float lerpProgress = (float)((AudioSettings.dspTime - startTime) / endTime);
+        //this might be whats causing the issue??
+
+        if (AudioSettings.dspTime - startTime < 0)
+        {
+            return IndicatorState.Waiting;
+        }
+
+        //Debug.Log((AudioSettings.dspTime - startTime));
+
+
+        //ohhhh so the end time is actually right now relative to the overall timeline and needs to be treated like that
+        //so the start time needs to be noted
+        float lerpProgress = (float)((AudioSettings.dspTime - startTime) / (endTime));
+
+
+
+
         transform.position = Vector3.Lerp(initialPosition, endPosition, lerpProgress);
 
 
@@ -95,9 +116,15 @@ public class NIndicator : MonoBehaviour
 
     }
 
-    public void SetStartTime(double startTime, float bpm)
+
+    //so really all this ACTUALLY needs is the index of the beat in the beat timeline
+    //note: this constrains battles to specifically 4 beats per bar, but we can do math to get in betweens
+
+    public void SetStartTime(double startTime)
     {
+
         this.startTime = startTime;
+        //also need to increase the end time by this much
 
         //so this just needs to be multiplied by the timeperbeat
         //so this should be set by the track not by the time manager hoenstly
@@ -105,12 +132,14 @@ public class NIndicator : MonoBehaviour
 
         //so we know the beat of each note (0-15)
         //we can just look at whatever the current minigame position is in the beat timeline and get the time from there
-        
 
-        this.endTime = (double)beatOfNote * (60f / bpm);
 
-        // Debug.Log(startTime);
-        // Debug.Log(endTime);
+        //this.endTime = (double)beatOfNote * (60f / bpm);
+        Debug.Log("indicator info");
+        Debug.Log(beatOfNote);
+        Debug.Log(startTime);
+        Debug.Log(endTime);
+        Debug.Log("");
     }
 
 

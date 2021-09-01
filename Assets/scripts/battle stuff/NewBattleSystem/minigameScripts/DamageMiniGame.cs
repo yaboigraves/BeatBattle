@@ -48,13 +48,18 @@ public class DamageMiniGame : MiniGame
     //8/31 bugs to fix :
     //-null pointer sometimes when switching tracks
     //-beats are not getting spawned at proper times/positions, might be due to the fact that the indicators are spawned one beat early
+
+
+    //okie dokie, so really what needs to be done, is the times for each indicator need to be set by the beat timeline, and can be set here
+
+
     void SpawnIndicators(float bpm)
     {
         this.bpm = bpm;
         //just spawn one every 2 beats for now
 
-        Debug.Log("spawning indicators");
-        Debug.Log(beatTimes.Count);
+        // Debug.Log("spawning indicators");
+        // Debug.Log(beatTimes.Count);
         for (int i = 0; i < beatTimes.Count; i++)
         {
             //instantiate an indicator for each position
@@ -68,7 +73,7 @@ public class DamageMiniGame : MiniGame
             indicators.Add(indie);
         }
 
-        Debug.Break();
+        //Debug.Break();
     }
 
     public override void Preload(Sample sample)
@@ -91,10 +96,18 @@ public class DamageMiniGame : MiniGame
     //so this probably needs to be made more accurate
     void SetIndicatorTimes()
     {
-        //Debug.Log(TimeManager.currentBeat);
+
+        //so the start time needs to be the battle start time + the first beat of the new minigames time
+
+        Debug.Log(TimeManager.currentMinigameBeatStart);
+        Debug.Log(TimeManager.beatTimeline.timeline[TimeManager.currentMinigameBeatStart].time);
+        //Debug.Break();
+
+
+
         foreach (NIndicator n in indicators)
         {
-            n.SetStartTime(TimeManager.currentBeatDSPTime, bpm);
+            n.SetStartTime(TimeManager.battleStartTime + TimeManager.beatTimeline.timeline[TimeManager.currentMinigameBeatStart].time);
         }
     }
 

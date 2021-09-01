@@ -73,7 +73,7 @@ public class BeatTimeline
                 if (b >= (samples[i].sampleTrack.numBars * 4) - 1 && i < samples.Length - 1)
                 {
                     timeline[beat].AddCallback(endTurnCallback);
-                    Debug.Log("added an end turn");
+                    //Debug.Log("added an end turn");
                 }
                 else if (b == 0 && i != 0)
                 {

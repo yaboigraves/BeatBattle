@@ -128,6 +128,7 @@ public static class TimeManager
     {
         currentBeat = 0;
         battleStartTime = start;
+        currentMinigameBeatStart = 0;
         // Debug.Log(currentBeat);
         // Debug.Log(timePerBeat);
         currentBeatDSPTime = battleStartTime + (currentBeat * timePerBeat);
@@ -160,10 +161,26 @@ public static class TimeManager
     public static void MarkMinigameStartIndex(Sample s)
     {
         currentMinigameBeatStart += s.sampleTrack.numBars * 4;
-        Debug.Log(currentMinigameBeatStart);
-        Debug.Log(beatTimeline.timeline[currentMinigameBeatStart - 1].time);
-        Debug.Log(AudioSettings.dspTime - battleStartTime);
+        // Debug.Log(currentMinigameBeatStart);
+        // Debug.Log(beatTimeline.timeline[currentMinigameBeatStart - 1].time);
+        // Debug.Log(AudioSettings.dspTime - battleStartTime);
 
+    }
+
+    public static double GetIndicatorEndTime(int beatNumber)
+    {
+        //note : this assumes that the currentMinigameBeatStart is set properly
+        // Debug.Log("getting info for indicator at " + beatNumber);
+        // Debug.Log("current start beat is " + currentMinigameBeatStart);
+        // Debug.Log("resolving time for " + (currentMinigameBeatStart + beatNumber));
+        //
+
+        //Debug.Log(beatTimeline.timeline[currentMinigameBeatStart + beatNumber].time);
+
+        //so the ending time was right the start time is fucked up
+
+        //so i guess the easy fix for this from this end would be to just subtract the time of the minigame beat start
+        return beatTimeline.timeline[currentMinigameBeatStart + beatNumber].time - beatTimeline.timeline[currentMinigameBeatStart].time;
     }
 
 }

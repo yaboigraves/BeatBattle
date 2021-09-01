@@ -267,7 +267,7 @@ public class HealMiniGame : MiniGame
         foreach (NIndicator n in indicators)
         {
             //TODO: setting to 0 for now tie in later if we keep this class
-            n.SetStartTime(TimeManager.currentBeatDSPTime, 0);
+            n.SetStartTime(TimeManager.battleStartTime);
         }
     }
 

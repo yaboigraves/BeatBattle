@@ -78,13 +78,18 @@ public class Battle
         // Debug.Log("changing turn!");
         // Debug.Break();
 
+        //mark in the time manager that a minigame started
+
+
         if (turnQueue.Count > 0)
         {
             if (!firstRound)
             {
-                EndTurn();
+                TimeManager.MarkMinigameStartIndex(((PlayerBattleAction)turnQueue[0]).sample);
+                Debug.Log(turnQueue.Count);
                 MinigameManager.current.PreloadMiniGame(((PlayerBattleAction)turnQueue[0]).sample);
                 //MinigameManager.current.ActivateMinigameScene(((PlayerBattleAction)turnQueue[0]).sample.miniGameSceneName);
+                EndTurn();
             }
             else
             {

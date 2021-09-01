@@ -23,6 +23,10 @@ public static class TimeManager
 
     public static BeatTimeline beatTimeline = new BeatTimeline();
 
+    //so this variable can be used to get the index in the timeline that this minigame started
+    //can be further used for indicator initializiation
+    public static int currentMinigameBeatStart = 0;
+
     public static void CheckForBeat()
     {
         //using the current beat index and the battle start time check if the beat callback should be called
@@ -151,6 +155,15 @@ public static class TimeManager
         //so a bpm switch is requested
         newBPM = bpm;
         bpmSwitchRequested = true;
+    }
+
+    public static void MarkMinigameStartIndex(Sample s)
+    {
+        currentMinigameBeatStart += s.sampleTrack.numBars * 4;
+        Debug.Log(currentMinigameBeatStart);
+        Debug.Log(beatTimeline.timeline[currentMinigameBeatStart - 1].time);
+        Debug.Log(AudioSettings.dspTime - battleStartTime);
+
     }
 
 }

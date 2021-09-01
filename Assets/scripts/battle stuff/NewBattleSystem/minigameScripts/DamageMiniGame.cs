@@ -9,6 +9,14 @@ using UnityEngine.UI;
 //-feed in kick channel for beat times
 //-make it work with whatever bpm is loaded
 
+//8/31 rewrite 
+/*
+so the issue i think has to do with timing information, the indicators are all getting initialized in the right spots but move at weird speeds
+-TODO: so when we initialize an indicator we know what beat it should come down, 
+-use the beat timeline to setup a way to just pass the ending time through the time manager
+
+*/
+
 public class DamageMiniGame : MiniGame
 {
     public GameObject indicator;
@@ -36,10 +44,17 @@ public class DamageMiniGame : MiniGame
     }
 
     //TODO: rewrite this to work a little better, make it more controllable maybe via an array or something
+
+    //8/31 bugs to fix :
+    //-null pointer sometimes when switching tracks
+    //-beats are not getting spawned at proper times/positions, might be due to the fact that the indicators are spawned one beat early
     void SpawnIndicators(float bpm)
     {
         this.bpm = bpm;
         //just spawn one every 2 beats for now
+
+        Debug.Log("spawning indicators");
+        Debug.Log(beatTimes.Count);
         for (int i = 0; i < beatTimes.Count; i++)
         {
             //instantiate an indicator for each position
@@ -52,6 +67,8 @@ public class DamageMiniGame : MiniGame
             indie.SetIndicatorInfo(Vector3.up * (beatOffset * (float)beatTimes[i]), indicatorContainer.transform.position - (Vector3.up * (rectTransform.rect.height / 2)), (int)beatTimes[i]);
             indicators.Add(indie);
         }
+
+        Debug.Break();
     }
 
     public override void Preload(Sample sample)

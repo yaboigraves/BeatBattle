@@ -25,7 +25,6 @@ public class NIndicator : MonoBehaviour
 
     public IndicatorState state;
 
-
     public TextMeshProUGUI countDownText;
 
     //used for the healing minigame
@@ -102,6 +101,12 @@ public class NIndicator : MonoBehaviour
 
         //so this just needs to be multiplied by the timeperbeat
         //so this should be set by the track not by the time manager hoenstly
+        //so honestly, this should just use the beat timeline to know when they should stop rather than calculating it
+
+        //so we know the beat of each note (0-15)
+        //we can just look at whatever the current minigame position is in the beat timeline and get the time from there
+        
+
         this.endTime = (double)beatOfNote * (60f / bpm);
 
         // Debug.Log(startTime);

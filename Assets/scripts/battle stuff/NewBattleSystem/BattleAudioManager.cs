@@ -17,7 +17,7 @@ public class BattleAudioManager : MonoBehaviour
     //we gotta juggle this though
     AudioSource musicAudioSource1, musicAudioSource2, currentAudioSource;
 
-    public Track audioTrack, nextAudioTrack;
+    public Track audioTrack = default, nextAudioTrack = default;
 
 
 
@@ -33,6 +33,8 @@ public class BattleAudioManager : MonoBehaviour
     private void Start()
     {
         // InitializeSongInfo();
+        //so this may be fixing bugs later remove this line and see if shit breaks again
+        TimeManager.beatTimeline = new BeatTimeline();
     }
 
     //this cant really happen until we get the queue setup
@@ -163,8 +165,21 @@ public class BattleAudioManager : MonoBehaviour
     public void AudioUpdate()
     {
 
+        //TODO: ok so this function has all kinds of fucked up bugs, going to need a session to sit down and fix it
+
+        //TODO: so sometimes on recompiled runs, the next audio track is null?
 
         //assuming this works for now
+        if (nextAudioTrack == null)
+        {
+            Debug.LogWarning("NEXT AUDIO TRACK IS NULL");
+            Debug.Log(audioTrack);
+            Debug.Log(nextAudioTrack);
+
+            Debug.Break();
+
+        }
+
         audioTrack = nextAudioTrack;
         nextAudioTrack = BattleManager.current.battle.getNextTrack();
 

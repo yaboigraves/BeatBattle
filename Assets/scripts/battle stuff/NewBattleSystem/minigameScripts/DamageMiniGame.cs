@@ -99,8 +99,8 @@ public class DamageMiniGame : MiniGame
 
         //so the start time needs to be the battle start time + the first beat of the new minigames time
 
-        Debug.Log(TimeManager.currentMinigameBeatStart);
-        Debug.Log(TimeManager.beatTimeline.timeline[TimeManager.currentMinigameBeatStart].time);
+        // Debug.Log(TimeManager.currentMinigameBeatStart);
+        // Debug.Log(TimeManager.beatTimeline.timeline[TimeManager.currentMinigameBeatStart].time);
         //Debug.Break();
 
 

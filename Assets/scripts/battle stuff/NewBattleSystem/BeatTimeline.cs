@@ -8,6 +8,10 @@ using UnityEngine;
 //and a delegate list that can get called on that beat
 //idea is that since all the events occur on the grid, we can just have a precomputed list of all the things occuring
 
+
+//9/1 bug report : some variable not being re-initialized is causing bugs
+
+
 public class BeatTimeline
 {
     public BeatNode[] timeline;

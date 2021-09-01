@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
 
+//
 public class BattleUIManager : MonoBehaviour
 {
     public Transform turnQueuePanel, setCustomizationPanel, sampleRepoContent, sampleRepoPanel;
@@ -261,6 +262,7 @@ public class BattleUIManager : MonoBehaviour
         }
 
         //load up everything
+        Debug.Log("loading");
         BattleManager.current.InitQueue(playerSet);
 
 

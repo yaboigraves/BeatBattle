@@ -135,11 +135,11 @@ public class NIndicator : MonoBehaviour
 
 
         //this.endTime = (double)beatOfNote * (60f / bpm);
-        Debug.Log("indicator info");
-        Debug.Log(beatOfNote);
-        Debug.Log(startTime);
-        Debug.Log(endTime);
-        Debug.Log("");
+        // Debug.Log("indicator info");
+        // Debug.Log(beatOfNote);
+        // Debug.Log(startTime);
+        // Debug.Log(endTime);
+        // Debug.Log("");
     }
 
 

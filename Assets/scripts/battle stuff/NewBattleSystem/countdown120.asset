@@ -32,10 +32,10 @@ MonoBehaviour:
   randomTrackData:
     trackClip: {fileID: 0}
     kickBeats:
-    - 1
     - 3
+    - 4
     - 5
-    - 7
+    - 6
     snareBeats: []
     hatBeats: []
     percBeats: []

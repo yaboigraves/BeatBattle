@@ -124,7 +124,6 @@ public class MinigameManager : MonoBehaviour
 
         //so once the scene is active lets fuckin spawn some indicators based on the kick data
         //generally speaking this should probably be handled by the actual minigame itself, so lets make an object for those
-
     }
 
     private MiniGame findMiniGameByName(string minigameName)
@@ -143,7 +142,6 @@ public class MinigameManager : MonoBehaviour
                 //turn on the text
                 BattleUIManager.current.ToggleReportText(true);
             }
-
             activeMiniGame.report.NotesCorrect++;
         }
         else
@@ -151,8 +149,6 @@ public class MinigameManager : MonoBehaviour
 
         }
     }
-
-
 }
 
 

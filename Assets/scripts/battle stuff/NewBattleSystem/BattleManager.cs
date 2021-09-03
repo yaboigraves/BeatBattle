@@ -31,6 +31,7 @@ public class BattleManager : MonoBehaviour
         {
             playerHealth = value;
             BattleUIManager.current.UpdateHealth();
+            BattleUIManager.current.playerHealthSlider.value = playerHealth;
         }
     }
 
@@ -42,6 +43,7 @@ public class BattleManager : MonoBehaviour
         {
             enemyHealth = value;
             BattleUIManager.current.UpdateHealth();
+            BattleUIManager.current.enemyHealthSlider.value = enemyHealth;
         }
     }
 
@@ -51,7 +53,6 @@ public class BattleManager : MonoBehaviour
 
     private void Awake()
     {
-
         current = this;
         //once all the minigames scenes are loaded, we can construct the queue of turns based on the players sets
         //for now we'll just construct a simple back and forth for 2 iterations
@@ -68,6 +69,12 @@ public class BattleManager : MonoBehaviour
         //EnemyHealth = battle.enemies[0].hp;
         EnemyHealth = 5;
         PlayerHealth = 10;
+
+        BattleUIManager.current.playerHealthSlider.maxValue = PlayerHealth;
+        BattleUIManager.current.enemyHealthSlider.maxValue = EnemyHealth;
+
+        BattleUIManager.current.playerHealthSlider.value = PlayerHealth;
+        BattleUIManager.current.enemyHealthSlider.value = EnemyHealth;
 
         //update health text
         // BattleUIManager.current.UpdateHealth();
@@ -129,14 +136,10 @@ public class BattleManager : MonoBehaviour
         battle.currentState = BattleState.PlayerTurn;
 
         battle.ChangeTurn();
-
-
     }
-
 
     public void RefreshTurn()
     {
-
         WaitCallback methodToCall = battle.ChangeTurn;
         StartCoroutine(TimeManager.barWait(methodToCall, battle.getCurrentTrack().numBars));
     }
@@ -167,12 +170,10 @@ public class BattleManager : MonoBehaviour
     public void HandleHit(bool goodHit)
     {
         MinigameManager.current.ReportHit(goodHit);
-
-
     }
 }
-//test
 
+//9/3 SO WE GOTTA REDO SOME OF THE RULES AND MECHANICS FOR HOW THIS WORKS
 public enum BattleState
 {
     Prebattle,
@@ -207,7 +208,7 @@ public class EnemyBattleAction : BattleAction
 {
     //dmg range?
 
-    //tODO: make it so the enemy actually effects this
+    //TODO: make it so the enemy actually effects this
 
     public int dmg = 1;
 }

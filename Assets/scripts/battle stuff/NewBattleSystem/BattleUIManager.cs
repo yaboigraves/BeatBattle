@@ -33,6 +33,8 @@ public class BattleUIManager : MonoBehaviour
 
     public GameObject goButton;
 
+    public Slider playerHealthSlider, enemyHealthSlider;
+
 
     //9/3 notes
     //ok lets try to get some stuff done 
@@ -320,4 +322,6 @@ public class BattleUIManager : MonoBehaviour
             dmgReportText.gameObject.SetActive(false);
         }
     }
+
+
 }

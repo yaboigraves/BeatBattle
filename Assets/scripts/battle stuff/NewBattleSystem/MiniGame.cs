@@ -74,7 +74,6 @@ public class MiniGame : MonoBehaviour
 
         //later this will be based on more channels
         report = new MinigameReport(miniGameSettings.minigameSample.sampleTrack.randomTrackData.kickBeats.Count);
-
     }
 
     public virtual void StartMiniGame()

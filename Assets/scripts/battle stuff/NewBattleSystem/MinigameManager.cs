@@ -35,6 +35,8 @@ public class MinigameManager : MonoBehaviour
 
     public MiniGame activeMiniGame;
 
+
+
     private void Awake()
     {
         current = this;
@@ -128,6 +130,26 @@ public class MinigameManager : MonoBehaviour
     private MiniGame findMiniGameByName(string minigameName)
     {
         return loadedMiniGames.Find(g => g.miniGameSettings.minigameSample.miniGameSceneName == minigameName);
+    }
+
+    public void ReportHit(bool hit)
+    {
+
+
+        if (hit)
+        {
+            if (activeMiniGame.report.NotesCorrect == 0)
+            {
+                //turn on the text
+                BattleUIManager.current.ToggleReportText(true);
+            }
+
+            activeMiniGame.report.NotesCorrect++;
+        }
+        else
+        {
+
+        }
     }
 
 

@@ -154,8 +154,8 @@ public class Battle
         turnQueue.RemoveRange(0, 2);
         BattleUIManager.current.UpdateTurnQueue();
 
-        //TODO: maybe bring this back?
-        //BattleAudioManager.current.AudioUpdate();
+        //turn off the dmg report text and reset it to 0
+        BattleUIManager.current.ToggleReportText(false);
     }
 
 

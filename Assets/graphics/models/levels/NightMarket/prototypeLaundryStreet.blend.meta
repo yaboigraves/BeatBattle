@@ -7,6 +7,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: DefaultGridbox
+    second: {fileID: 2100000, guid: 9df5fd0d426cefe4a887fa5cbcbaf859, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: No Name
     second: {fileID: 8919087070610292732, guid: 8213d5f1a6ea8ad4ea6ac18151c80a25,
       type: 3}

@@ -34,6 +34,16 @@ public class BattleUIManager : MonoBehaviour
     public GameObject goButton;
 
 
+    //9/3 notes
+    //ok lets try to get some stuff done 
+
+    /*
+        -counter for how much damage you do every minigame
+        -health bars and basic animation for that
+        -visual feedback for correct/missed hits
+    */
+
+
     private void Awake()
     {
         current = this;
@@ -288,5 +298,26 @@ public class BattleUIManager : MonoBehaviour
     {
         TimeManager.beatTimeline.AddEveryBeatCallback(UpdateMetronome);
 
+    }
+
+
+    public TextMeshProUGUI dmgReportText;
+
+    public void UpdateReportText(int dmg)
+    {
+        dmgReportText.text = " X " + dmg.ToString();
+    }
+
+    public void ToggleReportText(bool toggle)
+    {
+        if (toggle)
+        {
+            dmgReportText.gameObject.SetActive(true);
+        }
+        else
+        {
+            dmgReportText.text = "x 0";
+            dmgReportText.gameObject.SetActive(false);
+        }
     }
 }

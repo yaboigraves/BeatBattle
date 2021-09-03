@@ -29,8 +29,8 @@ public class BattleManager : MonoBehaviour
 
         set
         {
-            BattleUIManager.current.UpdateHealth();
             playerHealth = value;
+            BattleUIManager.current.UpdateHealth();
         }
     }
 
@@ -40,8 +40,8 @@ public class BattleManager : MonoBehaviour
 
         set
         {
-            BattleUIManager.current.UpdateHealth();
             enemyHealth = value;
+            BattleUIManager.current.UpdateHealth();
         }
     }
 
@@ -160,6 +160,16 @@ public class BattleManager : MonoBehaviour
         Debug.Log("Battle Round Over!");
     }
 
+    //battle handler stuff
+    //so over a minigame we need to track some info, it would be good to create a general
+    //MinigameReport object that we can basically just pack all this info into and then process
+
+    public void HandleHit(bool goodHit)
+    {
+        MinigameManager.current.ReportHit(goodHit);
+
+
+    }
 }
 //test
 

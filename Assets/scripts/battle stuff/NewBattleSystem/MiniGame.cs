@@ -48,6 +48,7 @@ public class MiniGame : MonoBehaviour
 
     public List<double> beatTimes;
 
+    public MinigameReport report;
 
     private void Awake()
     {
@@ -70,6 +71,9 @@ public class MiniGame : MonoBehaviour
         {
             MinigameManager.current.registerMinigame(this);
         }
+
+        //later this will be based on more channels
+        report = new MinigameReport(miniGameSettings.minigameSample.sampleTrack.randomTrackData.kickBeats.Count);
 
     }
 

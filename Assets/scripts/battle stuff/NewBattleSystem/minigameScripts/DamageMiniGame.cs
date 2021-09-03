@@ -157,6 +157,7 @@ public class DamageMiniGame : MiniGame
 
                 //so this should maybe like increase the buff by 1 to the neighbors or something?
                 //need to recalculate the queue afterwords
+                BattleManager.current.HandleHit(true);
 
                 Destroy(indicators[0].gameObject);
                 indicators.RemoveAt(0);
@@ -165,6 +166,7 @@ public class DamageMiniGame : MiniGame
             {
                 //u fucked up
                 //Debug.Log("bad");
+                BattleManager.current.HandleHit(false);
                 Destroy(indicators[0].gameObject);
                 indicators.RemoveAt(0);
             }

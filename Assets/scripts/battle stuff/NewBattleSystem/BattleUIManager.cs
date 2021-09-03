@@ -58,10 +58,7 @@ public class BattleUIManager : MonoBehaviour
         InitSetCustomizationPanel();
 
         //print("adding update metronome");
-        //TimeManager.beatCallbacks.Add(UpdateMetronome);
-
-
-
+        //TimeManager.beatCallbacks.Add(UpdateMetronome);\
     }
 
     public void SetCurrentlySelectedTurnAction(GameObject action)
@@ -94,8 +91,6 @@ public class BattleUIManager : MonoBehaviour
 
             icon.GetComponent<Button>().onClick.AddListener(delegate { SetActionSample(s); });
             sampleIconObjects[i] = icon;
-
-
         }
     }
 
@@ -183,7 +178,6 @@ public class BattleUIManager : MonoBehaviour
         }
 
         setCustomizationPanel.gameObject.SetActive(true);
-
     }
 
     public void InitTurnQueue(List<BattleAction> turnQueue)
@@ -215,7 +209,6 @@ public class BattleUIManager : MonoBehaviour
             }
 
             turnOrderQueue.Add(turnInfo.transform);
-
         }
     }
 
@@ -243,8 +236,6 @@ public class BattleUIManager : MonoBehaviour
         turnOrderQueue.RemoveAt(0);
         Destroy(turnOrderQueue[0].gameObject);
         turnOrderQueue.RemoveAt(0);
-
-
     }
 
 
@@ -276,8 +267,6 @@ public class BattleUIManager : MonoBehaviour
         //load up everything
         Debug.Log("loading");
         BattleManager.current.InitQueue(playerSet);
-
-
         //so at this point the player set needs to get
     }
 
@@ -293,15 +282,12 @@ public class BattleUIManager : MonoBehaviour
         }
 
         metronomeText.text = currentBeat.ToString();
-
     }
 
     public void EnableMetronomeTicks()
     {
         TimeManager.beatTimeline.AddEveryBeatCallback(UpdateMetronome);
-
     }
-
 
     public TextMeshProUGUI dmgReportText;
 
@@ -322,6 +308,4 @@ public class BattleUIManager : MonoBehaviour
             dmgReportText.gameObject.SetActive(false);
         }
     }
-
-
 }

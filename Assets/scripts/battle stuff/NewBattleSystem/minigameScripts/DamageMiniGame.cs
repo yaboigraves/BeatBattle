@@ -29,6 +29,8 @@ public class DamageMiniGame : MiniGame
     public float hitToleranceTime = 0.2f;
     float bpm;
 
+    public BeatPulse pulsePad;
+
     private void Start()
     {
         base.LoadStuff();
@@ -155,6 +157,7 @@ public class DamageMiniGame : MiniGame
                 //delete the indicator and its gameobject
                 Debug.Log("good hit");
 
+                pulsePad.Pulse();
                 //so this should maybe like increase the buff by 1 to the neighbors or something?
                 //need to recalculate the queue afterwords
                 BattleManager.current.HandleHit(true);

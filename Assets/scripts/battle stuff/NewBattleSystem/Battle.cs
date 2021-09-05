@@ -26,12 +26,18 @@ public class Battle
     //so the enemy turns are going to need to later be pre-generated for now just use the basic one
     bool firstRound = true;
 
+    public Battle()
+    {
+        //should probably look into the enemies for what kind of abilities they make
+        turnQueue = new List<BattleAction>();
+        InitEnemyTurns();
+    }
+
     public void InitTurnQueue(Sample[] playerSamples)
     {
         firstRound = true;
-        turnQueue = new List<BattleAction>();
 
-        for (int i = 0; i < playerSamples.Length; i++)
+        for (int i = 0; i < playerSamples.Length; i += 1)
         {
             PlayerBattleAction turn = new PlayerBattleAction();
             Sample s = (Sample)ScriptableObject.CreateInstance("Sample");
@@ -42,13 +48,21 @@ public class Battle
             turn.playerOrEnemy = true;
             turn.sample = s;
             turnQueue.Add(turn);
+            Debug.Log("added player turn");
 
-            //do an enemy turn for this player turn
-            EnemyBattleAction enemyTurn = new EnemyBattleAction();
-            enemyTurn.playerOrEnemy = false;
-            enemyTurn.dmg = enemies[0].attack;
-            turnQueue.Add(enemyTurn);
+
+            //TODO: ok gotta rewrite how enemy turns work a little bit, turns out these will need to actually be initialized BEFORE the player
+
+            // //do an enemy turn for this player turn
+            // EnemyBattleAction enemyTurn = new EnemyBattleAction();
+            // enemyTurn.playerOrEnemy = false;
+            // enemyTurn.dmg = enemies[0].attack;
+
+            turnQueue.Add(enemyBattleActions[i]);
+
+
         }
+
         savedTurnQueue = new List<BattleAction>();
         savedTurnQueue.AddRange(turnQueue);
 
@@ -64,6 +78,8 @@ public class Battle
         //+= 2 to skip the enemy turns
         for (int i = 0; i < turnQueue.Count; i += 2)
         {
+
+
             PlayerBattleAction a = (PlayerBattleAction)turnQueue[i];
             if (a.sample.functionName != "")
             {
@@ -119,7 +135,6 @@ public class Battle
 
         //so the audio should probably switch here?
 
-
         //TODO: so this may end up fucking stuff up because of bpm switches now, need to re-look
         //manager.RefreshTurn();
     }
@@ -127,15 +142,12 @@ public class Battle
     //so yea this basically handles damamge and shit
     public void EndTurn()
     {
-
-
         // if (((PlayerBattleAction)turnQueue[0]).sample.sampleType == SampleType.block)
         // {
         //     //TODO: add block
         // }
 
         //TODO: this happens all after the minigame runs
-
 
         //so these should happen at the end of the phase, not the beggining 
 
@@ -179,5 +191,28 @@ public class Battle
         }
 
         return ((PlayerBattleAction)turnQueue[2]).sample.sampleTrack;
+    }
+
+
+    //so this gets read by the ui manager when displaying the turns to the user
+    public List<EnemyBattleAction> enemyBattleActions;
+    public void InitEnemyTurns()
+    {
+        // //do an enemy turn for this player turn
+        // EnemyBattleAction enemyTurn = new EnemyBattleAction();
+        // enemyTurn.playerOrEnemy = false;
+        // enemyTurn.dmg = enemies[0].attack;
+        // turnQueue.Add(enemyTurn);
+        enemyBattleActions = new List<EnemyBattleAction>();
+
+        for (int i = 0; i < 4; i++)
+        {
+            EnemyBattleAction enemyTurn = new EnemyBattleAction();
+            enemyTurn.playerOrEnemy = false;
+            enemyTurn.dmg = 1;
+            enemyBattleActions.Add(enemyTurn);
+        }
+
+
     }
 }

@@ -41,6 +41,7 @@ public static class SampleEffects
         //check for a right element
         if (index <= turnQueue.Count - 3)
         {
+
             ((PlayerBattleAction)turnQueue[index + 2]).sample.numericValue += 3;
         }
 

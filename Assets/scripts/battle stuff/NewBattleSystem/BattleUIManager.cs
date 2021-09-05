@@ -18,7 +18,7 @@ public class BattleUIManager : MonoBehaviour
     //ENEMY PROTOTYPE SHIT
     public EventSystem uiEventSystem;
     GameObject[] sampleIconObjects;
-    public GameObject[] turnQueueIconObjects;
+    public GameObject[] turnqueuePlayerIconObjects, turnQueueEnemyIconObjects;
     ActionIcon[] actionIcons;
 
     //so for the ui stuff for selecting samples we need to move the currently interactable section between
@@ -26,15 +26,11 @@ public class BattleUIManager : MonoBehaviour
 
     //when you select a player action the menu should appear, and then you can pick from the samples for that action
 
-
     //so once the sample repo is opened, we need to track what actual turnactionicon we're changing
     //this can be done in the button onclick? probably
     public GameObject currentlySelectedTurnAction;
-
     public GameObject goButton;
-
     public Slider playerHealthSlider, enemyHealthSlider;
-
 
     //9/3 notes
     //ok lets try to get some stuff done 
@@ -44,7 +40,6 @@ public class BattleUIManager : MonoBehaviour
         -health bars and basic animation for that
         -visual feedback for correct/missed hits
     */
-
 
     private void Awake()
     {
@@ -108,14 +103,11 @@ public class BattleUIManager : MonoBehaviour
         //first take the current action and set it to whatever was selected
         //take the currently selected icon
 
-
         //set the action icon info of the selected object
         currentlySelectedTurnAction.GetComponent<ActionIcon>().sample = sample;
         currentlySelectedTurnAction.GetComponent<ActionIcon>().actionSet = true;
 
         currentlySelectedTurnAction.transform.GetComponentInChildren<TextMeshProUGUI>().text = sample.sampleName;
-
-
 
         //TODO: set this actually in the queue
 
@@ -147,7 +139,7 @@ public class BattleUIManager : MonoBehaviour
 
     void ToggleTurnQueueObjects(bool toggle)
     {
-        foreach (GameObject o in turnQueueIconObjects)
+        foreach (GameObject o in turnqueuePlayerIconObjects)
         {
             o.GetComponent<Button>().interactable = toggle;
         }
@@ -165,20 +157,38 @@ public class BattleUIManager : MonoBehaviour
         uiEventSystem.SetSelectedGameObject(sampleIconObjects[0]);
     }
 
+
+    public Sprite testingEnemyAttackIcon;
     //pull all the samples from the battle manager and load them into the panel
     public void InitSetCustomizationPanel()
     {
 
-        actionIcons = new ActionIcon[turnQueueIconObjects.Length];
+        actionIcons = new ActionIcon[turnqueuePlayerIconObjects.Length];
 
         //grab all the actionicons
-        for (int i = 0; i < turnQueueIconObjects.Length; i++)
+        for (int i = 0; i < turnqueuePlayerIconObjects.Length; i++)
         {
-            actionIcons[i] = turnQueueIconObjects[i].GetComponent<ActionIcon>();
+            actionIcons[i] = turnqueuePlayerIconObjects[i].GetComponent<ActionIcon>();
         }
 
         setCustomizationPanel.gameObject.SetActive(true);
+
+        List<EnemyBattleAction> enemyBattleActions = BattleManager.current.battle.enemyBattleActions;
+
+        //then we need to setup the enemy stuff
+        for (int i = 0; i < turnQueueEnemyIconObjects.Length; i++)
+        {
+            //TODO: later this should be based off of the enemy's established quueue
+            // if (enemyBattleActions[i].dmg > whatever)
+            // {
+            //     turnQueueEnemyIconObjects[i].GetComponent<Image>().sprite = testingEnemyAttackIcon;
+            // }
+
+            turnQueueEnemyIconObjects[i].GetComponent<Image>().sprite = testingEnemyAttackIcon;
+        }
     }
+
+
 
     public void InitTurnQueue(List<BattleAction> turnQueue)
     {

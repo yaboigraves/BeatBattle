@@ -67,8 +67,8 @@ public class BattleManager : MonoBehaviour
         StartCoroutine(MinigameManager.current.LoadMinigames());
 
         //EnemyHealth = battle.enemies[0].hp;
-        EnemyHealth = 5;
-        PlayerHealth = 10;
+        EnemyHealth = 20;
+        PlayerHealth = 30;
 
         BattleUIManager.current.playerHealthSlider.maxValue = PlayerHealth;
         BattleUIManager.current.enemyHealthSlider.maxValue = EnemyHealth;

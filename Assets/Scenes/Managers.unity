@@ -568,6 +568,11 @@ PrefabInstance:
       propertyPath: debugTextView
       value: 
       objectReference: {fileID: 147614210}
+    - target: {fileID: 1016405468567334732, guid: 35794f01adbfc7141b06bdcef0916d25,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 8495102062338693172, guid: 35794f01adbfc7141b06bdcef0916d25,
         type: 3}
       propertyPath: panel
@@ -692,6 +697,35 @@ PrefabInstance:
     - {fileID: 881023037, guid: 35794f01adbfc7141b06bdcef0916d25, type: 3}
     - {fileID: 63880226, guid: 35794f01adbfc7141b06bdcef0916d25, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 35794f01adbfc7141b06bdcef0916d25, type: 3}
+--- !u!1 &333806173 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 675454892642182902, guid: 35794f01adbfc7141b06bdcef0916d25,
+    type: 3}
+  m_PrefabInstance: {fileID: 333806172}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &333806174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 333806173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  Event: event:/CuntyTrack
+  PlayEvent: 1
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0
 --- !u!4 &336179346 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8495102062338693175, guid: 35794f01adbfc7141b06bdcef0916d25,

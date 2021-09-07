@@ -91,8 +91,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startTime: 0
   endTime: 0
-  toleranceAmount: 0.2
+  toleranceAmount: 0.1
   state: 0
+  countDownText: {fileID: 0}
   lane: 0
 --- !u!1 &5318650899354200834
 GameObject:

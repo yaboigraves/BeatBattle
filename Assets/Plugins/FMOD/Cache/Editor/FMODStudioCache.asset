@@ -428,7 +428,7 @@ MonoBehaviour:
   Path: FMOD/beatBattleFmod/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637580920103527833
+  lastModified: 637665668309328333
   LoadResult: 0
   FileSizes:
   - Name: Desktop
@@ -450,13 +450,13 @@ MonoBehaviour:
   guid: 5710f4e755c53040ad85519d32cb203e
   Banks:
   - {fileID: 3063274398547493314}
-  IsStream: 0
+  IsStream: 1
   Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
-  Length: 2582
+  Length: 392952
 --- !u!114 &-4451159155774460582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -851,7 +851,7 @@ MonoBehaviour:
   - {fileID: 7141657133338161675}
   StringsBanks:
   - {fileID: -4616149434453526043}
-  stringsBankWriteTime: 637580920103527833
+  stringsBankWriteTime: 637665668309328333
   cacheVersion: 6
 --- !u!114 &89815951418690271
 MonoBehaviour:
@@ -1146,7 +1146,7 @@ MonoBehaviour:
   Path: FMOD/beatBattleFmod/Build/Desktop/background music.bank
   Name: background music
   StudioPath: bank:/background music
-  lastModified: 637580920103467993
+  lastModified: 637665668309288198
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -1541,7 +1541,7 @@ MonoBehaviour:
   Path: FMOD/beatBattleFmod/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 637580920103507894
+  lastModified: 637665668309318115
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -1752,7 +1752,7 @@ MonoBehaviour:
   Path: FMOD/beatBattleFmod/Build/Desktop/Test.bank
   Name: Test
   StudioPath: bank:/Test
-  lastModified: 637580920103547776
+  lastModified: 637665668309358258
   LoadResult: 0
   FileSizes: []
   Exists: 1

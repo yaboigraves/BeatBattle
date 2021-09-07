@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{d06bb633-a823-4db4-b43b-f49f44324ed1}">
+		<property name="assetPath">
+			<value>ainmalcrossingoncoke.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>392.95274376417234</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{5627b2e2-1bc0-4f35-b080-5b3686692db7}</destination>
+		</relationship>
+	</object>
+</objects>

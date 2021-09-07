@@ -103,9 +103,10 @@ public class Battle
             {
                 TimeManager.MarkMinigameStartIndex(((PlayerBattleAction)turnQueue[0]).sample);
                 // Debug.Log(turnQueue.Count);
+                EndTurn();
                 MinigameManager.current.PreloadMiniGame(((PlayerBattleAction)turnQueue[0]).sample);
                 //MinigameManager.current.ActivateMinigameScene(((PlayerBattleAction)turnQueue[0]).sample.miniGameSceneName);
-                EndTurn();
+
             }
             else
             {

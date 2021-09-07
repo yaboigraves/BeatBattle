@@ -85,6 +85,7 @@ public class MiniGame : MonoBehaviour
 
     public void SetBeatTimes(List<double> times)
     {
+
         beatTimes = times;
     }
 

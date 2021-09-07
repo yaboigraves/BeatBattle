@@ -57,22 +57,34 @@ public class DamageMiniGame : MiniGame
 
     void SpawnIndicators(float bpm)
     {
+
         this.bpm = bpm;
         //just spawn one every 2 beats for now
 
         // Debug.Log("spawning indicators");
-        // Debug.Log(beatTimes.Count);
+        Debug.Log(beatTimes.Count);
+
+
         for (int i = 0; i < beatTimes.Count; i++)
         {
+
             //instantiate an indicator for each position
             GameObject ind = Instantiate(indicator, indicatorContainer.transform.position - (Vector3.up * (rectTransform.rect.height / 2)), Quaternion.identity, indicatorContainer);
             //move the indicator up 
             ind.transform.Translate(Vector3.up * (beatOffset * (float)beatTimes[i]));
+
+
             NIndicator indie = ind.GetComponent<NIndicator>();
+            Debug.Log(Vector3.up * (beatOffset * (float)beatTimes[i]));
+
+            // Debug.Log(beatTimes[i]);
+            // Debug.Log(beatOffset);
 
             //TODO: copy this code over to the healing minigame
             indie.SetIndicatorInfo(Vector3.up * (beatOffset * (float)beatTimes[i]), indicatorContainer.transform.position - (Vector3.up * (rectTransform.rect.height / 2)), (int)beatTimes[i]);
             indicators.Add(indie);
+
+            //Debug.Log(indicators.Count);
         }
 
         //Debug.Break();
@@ -83,6 +95,7 @@ public class DamageMiniGame : MiniGame
         base.Preload(sample);
 
         //so this should know the bpm
+
         SpawnIndicators(sample.sampleTrack.oldBPM);
 
     }
@@ -101,7 +114,7 @@ public class DamageMiniGame : MiniGame
 
         //so the start time needs to be the battle start time + the first beat of the new minigames time
 
-        // Debug.Log(TimeManager.currentMinigameBeatStart);
+        Debug.Log(TimeManager.currentMinigameBeatStart);
         // Debug.Log(TimeManager.beatTimeline.timeline[TimeManager.currentMinigameBeatStart].time);
         //Debug.Break();
 
@@ -109,6 +122,7 @@ public class DamageMiniGame : MiniGame
 
         foreach (NIndicator n in indicators)
         {
+            Debug.Log("yeet");
             n.SetStartTime(TimeManager.battleStartTime + TimeManager.beatTimeline.timeline[TimeManager.currentMinigameBeatStart].time);
         }
     }

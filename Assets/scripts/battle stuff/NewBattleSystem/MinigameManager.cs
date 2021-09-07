@@ -116,6 +116,7 @@ public class MinigameManager : MonoBehaviour
     //basically we give one beat of time for all the indicators to spawn and shit
     public void PreloadMiniGame(Sample playerSample)
     {
+
         MiniGame game = findMiniGameByName(playerSample.miniGameSceneName);
         game.SetBeatTimes(playerSample.sampleTrack.randomTrackData.kickBeats);
         game.Preload(playerSample);

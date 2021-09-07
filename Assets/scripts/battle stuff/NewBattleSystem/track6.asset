@@ -32,10 +32,18 @@ MonoBehaviour:
   randomTrackData:
     trackClip: {fileID: 8300000, guid: 816de7973c50db648a942557a5b638a8, type: 3}
     kickBeats:
-    - 3
+    - 0
+    - 1
+    - 2
     - 4
     - 5
     - 6
+    - 8
+    - 9
+    - 10
+    - 12
+    - 13
+    - 14
     snareBeats: []
     hatBeats: []
     percBeats: []

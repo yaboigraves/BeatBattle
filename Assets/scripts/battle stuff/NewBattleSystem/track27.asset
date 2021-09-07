@@ -22,7 +22,7 @@ MonoBehaviour:
   tracks: []
   trackTransitions: []
   artist: 
-  oldBPM: 140
+  oldBPM: 81
   numBars: 4
   isBattleTrack: 0
   trackStats:
@@ -32,8 +32,14 @@ MonoBehaviour:
   randomTrackData:
     trackClip: {fileID: 8300000, guid: 3bc092b51400f2f438641aef57523c35, type: 3}
     kickBeats:
-    - 2
+    - 0
+    - 1
+    - 4
     - 5
+    - 8
+    - 9
+    - 12
+    - 13
     snareBeats: []
     hatBeats: []
     percBeats: []

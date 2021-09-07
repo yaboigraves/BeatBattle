@@ -41,7 +41,7 @@ public class HealMiniGame : MiniGame
         //TimeManager.beatCallbacks.Add(MoveCallback);
         beatOffset = lanes[0].GetComponent<RectTransform>().rect.height / 8;
     }
-    //
+
 
 
 
@@ -58,6 +58,8 @@ public class HealMiniGame : MiniGame
         foreach (NIndicator n in indicators)
         {
             NIndicator.IndicatorState state = n.UpdateIndicator();
+
+
 
             if (state == NIndicator.IndicatorState.Expired)
             {

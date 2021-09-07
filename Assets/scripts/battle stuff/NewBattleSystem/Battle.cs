@@ -162,6 +162,8 @@ public class Battle
         else if (((PlayerBattleAction)turnQueue[0]).sample.sampleType == SampleType.heal)
         {
             manager.PlayerHealth += ((PlayerBattleAction)turnQueue[0]).sample.numericValue;
+
+
         }
 
         turnQueue.RemoveRange(0, 2);

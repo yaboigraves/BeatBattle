@@ -92,6 +92,11 @@ public class NIndicator : MonoBehaviour
         //so the start time needs to be noted
         float lerpProgress = (float)((AudioSettings.dspTime - startTime) / (endTime));
 
+        if (lerpProgress < 0)
+        {
+            Debug.Log("LERP IS FUCKED");
+            Debug.Break();
+        }
 
 
 

@@ -75,7 +75,7 @@ public class DamageMiniGame : MiniGame
 
 
             NIndicator indie = ind.GetComponent<NIndicator>();
-            Debug.Log(Vector3.up * (beatOffset * (float)beatTimes[i]));
+            //Debug.Log(Vector3.up * (beatOffset * (float)beatTimes[i]));
 
             // Debug.Log(beatTimes[i]);
             // Debug.Log(beatOffset);
@@ -114,7 +114,7 @@ public class DamageMiniGame : MiniGame
 
         //so the start time needs to be the battle start time + the first beat of the new minigames time
 
-        Debug.Log(TimeManager.currentMinigameBeatStart);
+        //Debug.Log(TimeManager.currentMinigameBeatStart);
         // Debug.Log(TimeManager.beatTimeline.timeline[TimeManager.currentMinigameBeatStart].time);
         //Debug.Break();
 
@@ -122,7 +122,7 @@ public class DamageMiniGame : MiniGame
 
         foreach (NIndicator n in indicators)
         {
-            Debug.Log("yeet");
+            //Debug.Log("yeet");
             n.SetStartTime(TimeManager.battleStartTime + TimeManager.beatTimeline.timeline[TimeManager.currentMinigameBeatStart].time);
         }
     }

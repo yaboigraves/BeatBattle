@@ -21,7 +21,9 @@ public class BattleManager : MonoBehaviour
 
     public Sample[] playerSet, playerSamples;
 
-    int playerHealth, enemyHealth;
+    int playerHealth, enemyHealth, playerMaxHealth, enemyMaxHealth;
+
+
 
     public int PlayerHealth
     {
@@ -29,9 +31,18 @@ public class BattleManager : MonoBehaviour
 
         set
         {
-            playerHealth = value;
-            BattleUIManager.current.UpdateHealth();
-            BattleUIManager.current.playerHealthSlider.value = playerHealth;
+            Debug.Log(value);
+
+            if (value <= playerMaxHealth)
+            {
+                playerHealth = value;
+                BattleUIManager.current.UpdateHealth();
+                BattleUIManager.current.playerHealthSlider.value = playerHealth;
+            }
+
+
+
+
         }
     }
 
@@ -59,6 +70,8 @@ public class BattleManager : MonoBehaviour
 
         //init the battle
         InitBattle();
+
+
     }
 
     void Start()
@@ -67,8 +80,12 @@ public class BattleManager : MonoBehaviour
         StartCoroutine(MinigameManager.current.LoadMinigames());
 
         //EnemyHealth = battle.enemies[0].hp;
+
+        playerMaxHealth = 30;
+        enemyMaxHealth = 20;
         EnemyHealth = 20;
         PlayerHealth = 30;
+
 
         BattleUIManager.current.playerHealthSlider.maxValue = PlayerHealth;
         BattleUIManager.current.enemyHealthSlider.maxValue = EnemyHealth;

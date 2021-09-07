@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sampleName: dmg
   functionName: 
-  numericValue: 35
+  numericValue: 3
   sampleType: 0
   miniGameSceneName: dmgBuffMiniGame
   sampleTrack: {fileID: 11400000, guid: aad9aaebacf2b764c8f7208a7e8f2cb4, type: 2}

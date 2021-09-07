@@ -661,6 +661,11 @@ PrefabInstance:
     - target: {fileID: 8495102063570293041, guid: 35794f01adbfc7141b06bdcef0916d25,
         type: 3}
       propertyPath: m_Volume
+      value: 0.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 8495102063570293041, guid: 35794f01adbfc7141b06bdcef0916d25,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8495102063570293041, guid: 35794f01adbfc7141b06bdcef0916d25,
@@ -673,6 +678,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8495102063570293043, guid: 35794f01adbfc7141b06bdcef0916d25,
+        type: 3}
+      propertyPath: currAudio
+      value: 
+      objectReference: {fileID: 926745302}
     - target: {fileID: 8495102063570293043, guid: 35794f01adbfc7141b06bdcef0916d25,
         type: 3}
       propertyPath: m_Enabled
@@ -824,6 +834,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 857256637}
   m_CullTransparentMesh: 1
+--- !u!82 &926745302 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 8495102063570293041, guid: 35794f01adbfc7141b06bdcef0916d25,
+    type: 3}
+  m_PrefabInstance: {fileID: 333806172}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &944869861
 GameObject:
   m_ObjectHideFlags: 0

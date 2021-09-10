@@ -35,9 +35,14 @@ using UnityEngine.SceneManagement;
 //basic idea will be program in a bunch of small little permutations that are only activated when fighting a certain type of enemy
 
 
-
+[System.Serializable]
 public class MiniGame : MonoBehaviour
 {
+
+    //so this could maybe become a scriptable object actually
+    //so actually there will be a minigame scriptable object that contains like the scene to load etc
+    //this can be inside of a sample, so samples directly have a way to know what minigame theyre loading and the scene
+
 
     public MiniGameSettings miniGameSettings;
     public Canvas miniGameCanvas;
@@ -58,6 +63,7 @@ public class MiniGame : MonoBehaviour
 
     private void Start()
     {
+        //so we should onloy actually load stuff once the minigame has been loadeed and its sample has been set
         LoadStuff();
     }
 
@@ -73,7 +79,7 @@ public class MiniGame : MonoBehaviour
             //so when we register the minigame, register it with the sample that the minigame uses
 
             //TODO: This might casue problems, hash codes arent unique
-            MinigameManager.current.registerMinigame(this, this.gameObject.scene.GetHashCode());
+            // MinigameManager.current.registerMinigame(this);
         }
 
         //later this will be based on more channels
@@ -107,7 +113,6 @@ public enum MiniGameState
 [System.Serializable]
 public class MiniGameSettings
 {
-    public float bpm;
     public int numBeats;
     public Sample minigameSample;
 }

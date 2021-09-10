@@ -11,6 +11,7 @@ using UnityEngine;
 public class Sample : ScriptableObject
 {
 
+    public MiniGameScriptableObject miniGameScriptableObject;
     public string sampleName;
 
     public string functionName;

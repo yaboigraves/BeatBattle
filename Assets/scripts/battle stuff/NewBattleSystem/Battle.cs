@@ -96,6 +96,9 @@ public class Battle
 
         //mark in the time manager that a minigame started
 
+        //so when we preoload a minigame, we really only have the sample information
+
+
 
         if (turnQueue.Count > 0)
         {

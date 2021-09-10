@@ -23,6 +23,8 @@ generalized minigame (we can re-use the one button minigame battle one)
 variable length
 */
 
+
+
 public class MinigameManager : MonoBehaviour
 {
     public static MinigameManager current;
@@ -31,7 +33,8 @@ public class MinigameManager : MonoBehaviour
     public bool minigamesLoaded = false;
 
     //list of all the minigames currently loaded in the battle
-    public List<MiniGame> loadedMiniGames;
+    //so this is a dictionary that associates a hash code with a minigame now
+    public Dictionary<Scene, MiniGame> loadedMiniGames;
 
     public MiniGame activeMiniGame;
 
@@ -82,16 +85,16 @@ public class MinigameManager : MonoBehaviour
     }
 
     //so when we register a minigame lets see what the scene indexes are
-    public void registerMinigame(MiniGame miniGame, int buildIndex)
+    public void registerMinigame(MiniGame miniGame, Scene minigameScene)
     {
 
         //so so we know the hash co
-        loadedMiniGames.Add(miniGame);
-        Debug.Log(miniGame.GetHashCode());
+        loadedMiniGames.Add(minigameScene, miniGame);
+
         //so when we register the video game we should also
         //miniGame.miniGameSettings.minigameSample.miniGameSceneName
         //we maybe need to pass some info to the minigame too
-        Debug.Log(buildIndex);
+
     }
 
 
@@ -107,19 +110,19 @@ public class MinigameManager : MonoBehaviour
 
         //ok so this doesnt actually work bc the scene names can be the same,
         //so we can i guess just use the instance id or something instead?
-        MiniGame game = findMiniGameByName(sceneName);
+        // MiniGame game = findMiniGameByName(sceneName);
 
-        if (game)
-        {
-            //activate the canvas
-            game.miniGameCanvas.gameObject.SetActive(true);
-            //Debug.Log("setting the minigame canvas active");
+        // if (game)
+        // {
+        //     //activate the canvas
+        //     game.miniGameCanvas.gameObject.SetActive(true);
+        //     //Debug.Log("setting the minigame canvas active");
 
-            // Debug.Log(game.GetInstanceID());
-            activeMiniGame = game;
-            activeMiniGame.StartMiniGame();
-            return;
-        }
+        //     // Debug.Log(game.GetInstanceID());
+        //     activeMiniGame = game;
+        //     activeMiniGame.StartMiniGame();
+        //     return;
+        // }
     }
 
     //lets reurpose this
@@ -128,22 +131,32 @@ public class MinigameManager : MonoBehaviour
     public void PreloadMiniGame(Sample playerSample)
     {
 
-        MiniGame game = findMiniGameByName(playerSample.miniGameSceneName);
-        game.SetBeatTimes(playerSample.sampleTrack.randomTrackData.kickBeats);
-        game.Preload(playerSample);
+        //MiniGame game = findMiniGameByName(playerSample.miniGameSceneName);
 
-        //TODO: rewrite activateminigamescene to use something unique to the scene or sample
+        // MiniGame game = findMiniGameByScene()
 
-        ActivateMinigameScene(playerSample.miniGameSceneName);
+        // game.SetBeatTimes(playerSample.sampleTrack.randomTrackData.kickBeats);
+        // game.Preload(playerSample);
+
+        // //TODO: rewrite activateminigamescene to use something unique to the scene or sample
+
+        // ActivateMinigameScene(playerSample.miniGameSceneName);
 
         //so once the scene is active lets fuckin spawn some indicators based on the kick data
         //generally speaking this should probably be handled by the actual minigame itself, so lets make an object for those
     }
 
-    private MiniGame findMiniGameByName(string minigameName)
+    // private MiniGame findMiniGameByName(string minigameName)
+    // {
+    //     return loadedMiniGames.Find(g => g.miniGameSettings.minigameSample.miniGameSceneName == minigameName);
+    // }
+
+    private MiniGame findMiniGameByScene(Scene gameScene)
     {
-        return loadedMiniGames.Find(g => g.miniGameSettings.minigameSample.miniGameSceneName == minigameName);
+        return loadedMiniGames[gameScene];
     }
+
+
 
     public void ReportHit(bool hit)
     {

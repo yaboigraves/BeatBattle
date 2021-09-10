@@ -6,39 +6,42 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/testing scenes/LocomotionTesting.unity
-    guid: 39964dd3d0057b0448ec33d51490cf5c
+    path: Assets/Scenes/night market/prototype scenes/StreetOutside.unity
+    guid: 4362f4373e0794f449df6b19d857cb77
   - enabled: 1
     path: Assets/Scenes/Managers.unity
     guid: e05f86e4a17ac47469581bf36ac5e09f
-  - enabled: 1
+  - enabled: 0
+    path: Assets/Scenes/testing scenes/LocomotionTesting.unity
+    guid: 39964dd3d0057b0448ec33d51490cf5c
+  - enabled: 0
     path: Assets/Scenes/NewBattleSystem/BaseBattleScene.unity
     guid: e19c7eb5f66f4c54c9ad5bc21e3e2f8f
-  - enabled: 1
+  - enabled: 0
     path: Assets/scripts/battle stuff/NewBattleSystem/Minigame1.unity
     guid: 65537b00fd37cf441bdd1464f230cd30
-  - enabled: 1
+  - enabled: 0
     path: Assets/scripts/battle stuff/NewBattleSystem/Minigame2.unity
     guid: ae725f4eafc74bb4ea96b229d58e9cc5
-  - enabled: 1
+  - enabled: 0
     path: Assets/scripts/battle stuff/NewBattleSystem/minigameScenes/healMiniGame.unity
     guid: a47e2b35035f9af4c8da9faab0da3001
-  - enabled: 1
+  - enabled: 0
     path: Assets/scripts/battle stuff/NewBattleSystem/minigameScenes/dmgBuffMiniGame.unity
     guid: 1925d59bf1e6bf74c9add880db708bb4
-  - enabled: 1
+  - enabled: 0
     path: Assets/scripts/battle stuff/NewBattleSystem/minigameScenes/dmgMiniGame.unity
     guid: c66e282f99113e440ab995b7b68ac367
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/night market/Street1.unity
     guid: 6c94b866f5f08ea4cb47a84b8e830591
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/night market/Street2.unity
     guid: 14088d26b4d502044a462364d3b6ea8f
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/night market/BarInterior.unity
     guid: d871b6f5b09174a40b708e2997fca6fe
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/night market/HoneyStreet.unity
     guid: 094830e08bde7994fbbdd29ce12f6f9f
   m_configObjects: {}

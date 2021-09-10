@@ -36,7 +36,6 @@ public class MinigameManager : MonoBehaviour
     public MiniGame activeMiniGame;
 
 
-
     private void Awake()
     {
         current = this;

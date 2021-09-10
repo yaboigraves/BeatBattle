@@ -15,7 +15,8 @@ public class BattleAudioManager : MonoBehaviour
     //ok, so this def needs to be made into some kind of 'track' object that contains bpm info and the audio clip
 
     //we gotta juggle this though
-    AudioSource musicAudioSource1, musicAudioSource2, currentAudioSource;
+    public AudioSource musicAudioSource1, musicAudioSource2, currentAudioSource;
+
 
     public Track audioTrack = default, nextAudioTrack = default;
 
@@ -25,8 +26,8 @@ public class BattleAudioManager : MonoBehaviour
     private void Awake()
     {
         current = this;
-        musicAudioSource1 = transform.GetChild(0).GetComponent<AudioSource>();
-        musicAudioSource2 = transform.GetChild(1).GetComponent<AudioSource>();
+        // musicAudioSource1 = transform.GetChild(0).GetComponent<AudioSource>();
+        // musicAudioSource2 = transform.GetChild(1).GetComponent<AudioSource>();
 
     }
 

@@ -71,7 +71,9 @@ public class MiniGame : MonoBehaviour
         if (MinigameManager.current)
         {
             //so when we register the minigame, register it with the sample that the minigame uses
-            MinigameManager.current.registerMinigame(this);
+
+            //TODO: This might casue problems, hash codes arent unique
+            MinigameManager.current.registerMinigame(this, this.gameObject.scene.GetHashCode());
         }
 
         //later this will be based on more channels

@@ -41,7 +41,6 @@ public class MinigameManager : MonoBehaviour
         current = this;
     }
 
-
     //TODO: this needs to be done in a coroutine otherwise it wont work properly with async operations
     public IEnumerator LoadMinigames()
     {
@@ -66,16 +65,7 @@ public class MinigameManager : MonoBehaviour
         //Debug.Log("done loading");
         //so after the scenes are done loading, now we gotta assign them samples
 
-
-
-
-
-
-
-
         minigamesLoaded = true;
-
-
     }
 
     bool CheckScenesLoaded(AsyncOperation[] ops)
@@ -91,10 +81,17 @@ public class MinigameManager : MonoBehaviour
         return true;
     }
 
-    public void registerMinigame(MiniGame miniGame)
+    //so when we register a minigame lets see what the scene indexes are
+    public void registerMinigame(MiniGame miniGame, int buildIndex)
     {
+
+        //so so we know the hash co
         loadedMiniGames.Add(miniGame);
+        Debug.Log(miniGame.GetHashCode());
+        //so when we register the video game we should also
+        //miniGame.miniGameSettings.minigameSample.miniGameSceneName
         //we maybe need to pass some info to the minigame too
+        Debug.Log(buildIndex);
     }
 
 

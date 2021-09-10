@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-
+using UnityEngine;
 
 public class MinigameReport
 {
@@ -21,6 +21,7 @@ public class MinigameReport
         {
             notesCorrect = value;
             BattleUIManager.current.UpdateReportText(notesCorrect);
+
         }
     }
 

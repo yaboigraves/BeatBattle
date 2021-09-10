@@ -183,7 +183,7 @@ public class BattleAudioManager : MonoBehaviour
         audioTrack = nextAudioTrack;
         nextAudioTrack = BattleManager.current.battle.getNextTrack();
 
-        Debug.Log(audioTrack);
+        // Debug.Log(audioTrack);
         TimeManager.BPMSwitch(audioTrack.oldBPM);
 
         if (nextAudioTrack == null)

@@ -45,6 +45,7 @@ public class MiniGame : MonoBehaviour
 
     //pretty much all minigames are going to have indicators now, so lets make it so we can plug in a channel of floats for these
     //TODO: extend this to work with multiple channels
+    //TODO: we probably want these to be able to have there samples assigned as well
 
     public List<double> beatTimes;
 
@@ -69,6 +70,7 @@ public class MiniGame : MonoBehaviour
 
         if (MinigameManager.current)
         {
+            //so when we register the minigame, register it with the sample that the minigame uses
             MinigameManager.current.registerMinigame(this);
         }
 

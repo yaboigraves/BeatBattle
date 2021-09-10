@@ -103,7 +103,6 @@ public class NIndicator : MonoBehaviour
         transform.position = Vector3.Lerp(initialPosition, endPosition, lerpProgress);
 
 
-
         if (lerpProgress > 1f + toleranceAmount)
         {
             return IndicatorState.Expired;

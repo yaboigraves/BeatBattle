@@ -65,7 +65,17 @@ public class MinigameManager : MonoBehaviour
         }
 
         //Debug.Log("done loading");
+        //so after the scenes are done loading, now we gotta assign them samples
+
+
+
+
+
+
+
+
         minigamesLoaded = true;
+
 
     }
 
@@ -98,6 +108,9 @@ public class MinigameManager : MonoBehaviour
         }
 
         //look through the minigames loaded and set the one we're looking for active
+
+        //ok so this doesnt actually work bc the scene names can be the same,
+        //so we can i guess just use the instance id or something instead?
         MiniGame game = findMiniGameByName(sceneName);
 
         if (game)
@@ -105,6 +118,8 @@ public class MinigameManager : MonoBehaviour
             //activate the canvas
             game.miniGameCanvas.gameObject.SetActive(true);
             //Debug.Log("setting the minigame canvas active");
+
+            // Debug.Log(game.GetInstanceID());
             activeMiniGame = game;
             activeMiniGame.StartMiniGame();
             return;
@@ -120,6 +135,8 @@ public class MinigameManager : MonoBehaviour
         MiniGame game = findMiniGameByName(playerSample.miniGameSceneName);
         game.SetBeatTimes(playerSample.sampleTrack.randomTrackData.kickBeats);
         game.Preload(playerSample);
+
+        //TODO: rewrite activateminigamescene to use something unique to the scene or sample
 
         ActivateMinigameScene(playerSample.miniGameSceneName);
 
@@ -138,11 +155,12 @@ public class MinigameManager : MonoBehaviour
 
         if (hit)
         {
-            if (activeMiniGame.report.NotesCorrect == 0)
+            if (activeMiniGame.report.NotesCorrect == 0 || !BattleUIManager.current.dmgReportText.IsActive())
             {
                 //turn on the text
                 BattleUIManager.current.ToggleReportText(true);
             }
+
             activeMiniGame.report.NotesCorrect++;
         }
         else

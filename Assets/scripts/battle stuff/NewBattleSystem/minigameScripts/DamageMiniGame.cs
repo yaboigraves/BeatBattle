@@ -62,7 +62,7 @@ public class DamageMiniGame : MiniGame
         //just spawn one every 2 beats for now
 
         // Debug.Log("spawning indicators");
-        Debug.Log(beatTimes.Count);
+        // Debug.Log(beatTimes.Count);
 
 
         for (int i = 0; i < beatTimes.Count; i++)
@@ -97,6 +97,8 @@ public class DamageMiniGame : MiniGame
         //so this should know the bpm
 
         SpawnIndicators(sample.sampleTrack.oldBPM);
+
+        //so when does this get preloaded?
 
     }
 
@@ -169,7 +171,7 @@ public class DamageMiniGame : MiniGame
             {
                 //goood hit
                 //delete the indicator and its gameobject
-                Debug.Log("good hit");
+                //Debug.Log("good hit");
 
                 pulsePad.Pulse();
                 //so this should maybe like increase the buff by 1 to the neighbors or something?

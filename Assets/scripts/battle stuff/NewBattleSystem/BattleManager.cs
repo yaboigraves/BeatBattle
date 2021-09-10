@@ -31,7 +31,7 @@ public class BattleManager : MonoBehaviour
 
         set
         {
-            Debug.Log(value);
+            // Debug.Log(value);
 
             if (value <= playerMaxHealth)
             {

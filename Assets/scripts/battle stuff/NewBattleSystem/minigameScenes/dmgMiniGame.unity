@@ -380,11 +380,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   miniGameSettings:
-    bpm: 60
     numBeats: 4
     minigameSample: {fileID: 11400000, guid: 9dac59099511622418d5278c180cb4f7, type: 2}
   miniGameCanvas: {fileID: 1915914711}
   state: 0
+  beatTimes: []
 --- !u!4 &1443645830
 Transform:
   m_ObjectHideFlags: 0
@@ -524,7 +524,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1915914709
 MonoBehaviour:
   m_ObjectHideFlags: 0

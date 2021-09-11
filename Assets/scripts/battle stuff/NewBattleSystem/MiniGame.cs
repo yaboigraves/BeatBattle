@@ -56,6 +56,8 @@ public class MiniGame : MonoBehaviour
 
     public MinigameReport report;
 
+    public Scene minigameScene;
+
     private void Awake()
     {
 
@@ -69,7 +71,8 @@ public class MiniGame : MonoBehaviour
 
     public void LoadStuff()
     {
-        //Debug.Log(miniGameSettings.minigameSample.miniGameSceneName);
+        //Debug.Log(gameObject.scene.GetHashCode());
+        // Debug.Log(miniGameSettings.minigameSample.miniGameSceneName);
         miniGameCanvas.gameObject.SetActive(false);
         state = MiniGameState.Inactive;
         //register this minigame with the minigame manager
@@ -79,11 +82,12 @@ public class MiniGame : MonoBehaviour
             //so when we register the minigame, register it with the sample that the minigame uses
 
             //TODO: This might casue problems, hash codes arent unique
-            // MinigameManager.current.registerMinigame(this);
+            //Debug.Log("registering");
+            MinigameManager.current.registerMiniGame(this);
         }
-
+        minigameScene = gameObject.scene;
         //later this will be based on more channels
-        report = new MinigameReport(miniGameSettings.minigameSample.sampleTrack.randomTrackData.kickBeats.Count);
+        //report = new MinigameReport(miniGameSettings.minigameSample.sampleTrack.randomTrackData.kickBeats.Count);
     }
 
     public virtual void StartMiniGame()

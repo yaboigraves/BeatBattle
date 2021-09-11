@@ -4,16 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-//8/28 rewrite : ok so this is gonna get re-purposed as the general de-facto minigame for testing the new system
-//stuff to do 
-//-feed in kick channel for beat times
-//-make it work with whatever bpm is loaded
-
-//8/31 rewrite 
 /*
-so the issue i think has to do with timing information, the indicators are all getting initialized in the right spots but move at weird speeds
--TODO: so when we initialize an indicator we know what beat it should come down, 
--use the beat timeline to setup a way to just pass the ending time through the time manager
+9/10 minigame notes
+-so we probably want a root little object that chills in the scene and just handles like ui stuff
+-all settings info like the beats and bpm should be passed in via a scriptable object
+
 
 */
 
@@ -28,9 +23,7 @@ public class DamageMiniGame : MiniGame
 
     public float hitToleranceTime = 0.2f;
     float bpm;
-
     public BeatPulse pulsePad;
-
     private void Start()
     {
         base.LoadStuff();
@@ -44,15 +37,6 @@ public class DamageMiniGame : MiniGame
         beatOffset = rectTransform.rect.height / this.miniGameSettings.numBeats;
         // SpawnIndicators();
     }
-
-    //TODO: rewrite this to work a little better, make it more controllable maybe via an array or something
-
-    //8/31 bugs to fix :
-    //-null pointer sometimes when switching tracks
-    //-beats are not getting spawned at proper times/positions, might be due to the fact that the indicators are spawned one beat early
-
-
-    //okie dokie, so really what needs to be done, is the times for each indicator need to be set by the beat timeline, and can be set here
 
 
     void SpawnIndicators(float bpm)
@@ -93,13 +77,14 @@ public class DamageMiniGame : MiniGame
     public override void Preload(Sample sample)
     {
         base.Preload(sample);
-
-        //so this should know the bpm
-
         SpawnIndicators(sample.sampleTrack.oldBPM);
 
-        //so when does this get preloaded?
+        //we also plug in any other info like the bpm and the actual settings
 
+        miniGameSettings.minigameSample = sample;
+        miniGameSettings.numBeats = sample.sampleTrack.randomTrackData.kickBeats.Count;
+        //so we also generate the report here
+        report = new MinigameReport(sample.sampleTrack.randomTrackData.kickBeats.Count);
     }
 
     public override void StartMiniGame()

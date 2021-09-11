@@ -48,7 +48,7 @@ public class Battle
             turn.playerOrEnemy = true;
             turn.sample = s;
             turnQueue.Add(turn);
-            Debug.Log("added player turn");
+            //Debug.Log("added player turn");
 
 
             //TODO: ok gotta rewrite how enemy turns work a little bit, turns out these will need to actually be initialized BEFORE the player
@@ -174,6 +174,9 @@ public class Battle
 
         //turn off the dmg report text and reset it to 0
         BattleUIManager.current.ToggleReportText(false);
+
+        //scroll the turn to the next turn 
+        BattleManager.current.playerTurn++;
     }
 
 

@@ -23,6 +23,7 @@ public class BattleManager : MonoBehaviour
 
     int playerHealth, enemyHealth, playerMaxHealth, enemyMaxHealth;
 
+    public int playerTurn = 0;
 
 
     public int PlayerHealth
@@ -77,7 +78,8 @@ public class BattleManager : MonoBehaviour
     void Start()
     {
         //so first things first, we have to set the state to pre-battle
-        StartCoroutine(MinigameManager.current.LoadMinigames());
+        //so this actually has to get loaded after the battle stuff is initialized, it shouldnt take too long though
+        // StartCoroutine(MinigameManager.current.LoadMinigames());
 
         //EnemyHealth = battle.enemies[0].hp;
 
@@ -105,6 +107,7 @@ public class BattleManager : MonoBehaviour
 
         //testing code for now
         battle.enemies[0] = GameObject.FindObjectOfType<NEnemy>();
+        playerTurn = 0;
     }
 
     public void InitQueue(Sample[] samples)
@@ -112,6 +115,9 @@ public class BattleManager : MonoBehaviour
         //        Debug.Log("Initializing the from the ui");
         playerSet = samples;
         //InitQueue();
+
+        //so now that the player set has been established, we can use THAT to load all the minigame scenes
+        MinigameManager.current.LoadMinigames(playerSet);
 
         battle.InitTurnQueue(samples);
 
@@ -155,11 +161,11 @@ public class BattleManager : MonoBehaviour
         battle.ChangeTurn();
     }
 
-    public void RefreshTurn()
-    {
-        WaitCallback methodToCall = battle.ChangeTurn;
-        StartCoroutine(TimeManager.barWait(methodToCall, battle.getCurrentTrack().numBars));
-    }
+    // public void RefreshTurn()
+    // {
+    //     WaitCallback methodToCall = battle.ChangeTurn;
+    //     StartCoroutine(TimeManager.barWait(methodToCall, battle.getCurrentTrack().numBars));
+    // }
 
     //also works for healing
     public void DmgPlayer(int amount)

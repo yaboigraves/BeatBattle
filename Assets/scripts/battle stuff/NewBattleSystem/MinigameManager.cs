@@ -149,6 +149,13 @@ public class MinigameManager : MonoBehaviour
         minigameSceneCounter++;
     }
 
+    public void DeactivateActiveMinigame()
+    {
+        if (activeMiniGame != null)
+        {
+            activeMiniGame.miniGameCanvas.gameObject.SetActive(false);
+        }
+    }
 
     public void ActivateMinigameScene(string sceneName)
     {
@@ -232,6 +239,19 @@ public class MinigameManager : MonoBehaviour
         {
 
         }
+    }
+
+    public void ResetMinigameScenes()
+    {
+
+        foreach (MiniGame g in miniGames)
+        {
+            SceneManager.UnloadSceneAsync(g.minigameScene);
+        }
+
+        //after these are all done yeet the list
+
+        miniGames = null;
     }
 }
 

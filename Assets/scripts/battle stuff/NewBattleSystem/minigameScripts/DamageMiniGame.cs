@@ -137,7 +137,7 @@ public class DamageMiniGame : MiniGame
             // if (Mathf.Abs((float)(AudioSettings.dspTime - (indicators[0].startTime + indicators[0].endTime))) > hitToleranceTime)
             if ((indicators[0].startTime + indicators[0].endTime + hitToleranceTime) < AudioSettings.dspTime)
             {
-                Debug.Log("bad");
+                //Debug.Log("bad");
                 Destroy(indicators[0].gameObject);
                 indicators.RemoveAt(0);
             }

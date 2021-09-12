@@ -140,8 +140,9 @@ public class BattleManager : MonoBehaviour
 
     void UpdateState()
     {
-        if (battle.currentState == BattleState.Prebattle && Input.GetKeyDown(KeyCode.Space) && MinigameManager.current.minigamesLoaded)
+        if ((battle.currentState == BattleState.Prebattle || battle.currentState == BattleState.RoundOver) && Input.GetKeyDown(KeyCode.Space) && MinigameManager.current.minigamesLoaded)
         {
+            //make it so this doesnt bug out when we restart
             StartBattle();
         }
 
@@ -184,7 +185,32 @@ public class BattleManager : MonoBehaviour
     {
         battle.currentState = BattleState.RoundOver;
         Debug.Log("Battle Round Over!");
+
+        //now we basically just need to restart everything over again
+        //clear the queue, unload the minigame scenes (if needed)
+        RestartBattleRound();
     }
+
+    void RestartBattleRound()
+    {
+        //TODO: left off here
+        playerTurn = 0;
+        battle.turnQueue.Clear();
+        //so first thing we gotta do is re-enable the sample selection panel
+        BattleUIManager.current.InitSetCustomizationPanel();
+        //gotta unload the canvas from the old battle scene too
+        MinigameManager.current.DeactivateActiveMinigame();
+
+        BattleUIManager.current.ToggleReportText(false);
+        //so now we gotta make it so we can restart i guess
+
+        //unload all the old minigamescenes
+        MinigameManager.current.ResetMinigameScenes();
+
+
+
+    }
+
 
     //battle handler stuff
     //so over a minigame we need to track some info, it would be good to create a general

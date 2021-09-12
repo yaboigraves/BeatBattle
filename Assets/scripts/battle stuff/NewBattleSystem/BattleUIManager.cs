@@ -186,6 +186,8 @@ public class BattleUIManager : MonoBehaviour
 
             turnQueueEnemyIconObjects[i].GetComponent<Image>().sprite = testingEnemyAttackIcon;
         }
+
+
     }
 
 

@@ -26,7 +26,7 @@ public class BeatTimeline
 
 
 
-    //TODO: diagnose bug where theres a weird
+
     public void InitializeTimeline(Sample[] samples)
     {
         //figure out the amount of beats
@@ -39,6 +39,7 @@ public class BeatTimeline
         }
         timeline = new BeatNode[numBeats];
 
+        Debug.Log(numBeats);
 
         for (int beat = 0, i = 0; i < samples.Length; i++)
         {

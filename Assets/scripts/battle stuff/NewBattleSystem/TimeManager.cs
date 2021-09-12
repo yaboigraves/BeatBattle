@@ -24,7 +24,7 @@ public static class TimeManager
     public static BeatTimeline beatTimeline = new BeatTimeline();
 
     //so this variable can be used to get the index in the timeline that this minigame started
-    //can be further used for indicator initializiation
+    //can be further used for indicator ializiation
     public static int currentMinigameBeatStart = 0;
 
     public static void CheckForBeat()

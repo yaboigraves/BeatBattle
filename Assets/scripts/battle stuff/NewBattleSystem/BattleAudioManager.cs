@@ -15,7 +15,7 @@ public class BattleAudioManager : MonoBehaviour
     //ok, so this def needs to be made into some kind of 'track' object that contains bpm info and the audio clip
 
     //we gotta juggle this though
-    public AudioSource musicAudioSource1, musicAudioSource2, currentAudioSource;
+    public AudioSource musicAudioSource1, musicAudioSource2, transitionAudioSource, currentAudioSource;
 
 
     public Track audioTrack = default, nextAudioTrack = default;
@@ -57,6 +57,12 @@ public class BattleAudioManager : MonoBehaviour
         nextAudioTrack = BattleManager.current.battle.getNextTrack();
         musicAudioSource1.clip = audioTrack.trackClip;
         musicAudioSource2.clip = nextAudioTrack.trackClip;
+
+
+        //SO THE TRANSITION TRACK JUST NEEDSD TO BLE LOADED WIT HWHATEVER IS ABOUT TO PLAY'S RANDOM TRANSITION
+        transitionAudioSource.clip = audioTrack.trackTransitions[0].trackClip;
+
+
     }
 
 
@@ -64,16 +70,17 @@ public class BattleAudioManager : MonoBehaviour
     //ok so first things first lets just manually schedule the next song to play
     public void StartSong()
     {
-        //this may need to be halted until the audio source can reliably be known to be playing
-        //print("test");
-        // double battleStartTime = AudioSettings.dspTime + 0.5f;
+
         double battleStartTime = AudioSettings.dspTime;
         TimeManager.SetBattleStart(battleStartTime);
         TimeManager.SetCurrentSongInfo(audioTrack.oldBPM);
 
         musicAudioSource1.PlayScheduled(battleStartTime);
-        musicAudioSource1.SetScheduledEndTime(battleStartTime + TimeManager.beatTimeline.timeline[16].time);
-        //musicAudioSource2.PlayScheduled(battleStartTime + (TimeManager.timePerBeat * ((2 + BattleManager.current.battle.getCurrentTrack().numBars) * 4)));
+        musicAudioSource1.SetScheduledEndTime(battleStartTime + TimeManager.beatTimeline.timeline[12].time);
+
+        //PLAY TRANSITION
+        transitionAudioSource.PlayScheduled(battleStartTime + TimeManager.beatTimeline.timeline[12].time);
+
 
         //tODO: rewrite this to be dyhnamic
         //0 1 2 3  4 5 6 7  8 9 10 11  12 13 14 15
@@ -166,9 +173,7 @@ public class BattleAudioManager : MonoBehaviour
     public void AudioUpdate()
     {
 
-        //TODO: ok so this function has all kinds of fucked up bugs, going to need a session to sit down and fix it
 
-        //TODO: so sometimes on recompiled runs, the next audio track is null?
 
         //assuming this works for now
         if (nextAudioTrack == null)
@@ -200,9 +205,15 @@ public class BattleAudioManager : MonoBehaviour
             musicAudioSource1.clip = nextAudioTrack.trackClip;
             //schedule the current source to stop
             musicAudioSource1.PlayScheduled(TimeManager.battleStartTime + TimeManager.beatTimeline.timeline[TimeManager.beatTimeline.currentBeatIndex + 16].time);
-            musicAudioSource2.SetScheduledEndTime(TimeManager.battleStartTime + TimeManager.beatTimeline.timeline[TimeManager.beatTimeline.currentBeatIndex + 16].time);
+            musicAudioSource2.SetScheduledEndTime(TimeManager.battleStartTime + TimeManager.beatTimeline.timeline[TimeManager.beatTimeline.currentBeatIndex + 12].time);
+
+            //SCHEDULE TRANSITION
+
 
             currentAudioSource = musicAudioSource2;
+            transitionAudioSource.clip = audioTrack.trackTransitions[0].trackClip;
+            transitionAudioSource.PlayScheduled(TimeManager.battleStartTime + TimeManager.beatTimeline.timeline[TimeManager.beatTimeline.currentBeatIndex + 12].time);
+
         }
         else
         {
@@ -210,8 +221,15 @@ public class BattleAudioManager : MonoBehaviour
             musicAudioSource2.clip = nextAudioTrack.trackClip;
             //schedule the current source to stop
             musicAudioSource2.PlayScheduled(TimeManager.battleStartTime + TimeManager.beatTimeline.timeline[TimeManager.beatTimeline.currentBeatIndex + 16].time);
-            musicAudioSource1.SetScheduledEndTime(TimeManager.battleStartTime + TimeManager.beatTimeline.timeline[TimeManager.beatTimeline.currentBeatIndex + 16].time);
+            musicAudioSource1.SetScheduledEndTime(TimeManager.battleStartTime + TimeManager.beatTimeline.timeline[TimeManager.beatTimeline.currentBeatIndex + 12].time);
+
+            //SCHEDULE TRANSITION
+
+
             currentAudioSource = musicAudioSource1;
+            transitionAudioSource.clip = audioTrack.trackTransitions[0].trackClip;
+            transitionAudioSource.PlayScheduled(TimeManager.battleStartTime + TimeManager.beatTimeline.timeline[TimeManager.beatTimeline.currentBeatIndex + 12].time);
+
         }
 
 

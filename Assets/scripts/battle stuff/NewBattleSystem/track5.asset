@@ -20,7 +20,14 @@ MonoBehaviour:
   trackName: 
   trackClip: {fileID: 8300000, guid: d7c3b30370d52594dab14f154bdfd376, type: 3}
   tracks: []
-  trackTransitions: []
+  trackTransitions:
+  - trackClip: {fileID: 8300000, guid: 3224fae2181619140a55ed072d61dbb6, type: 3}
+    kickBeats: []
+    snareBeats: []
+    hatBeats: []
+    percBeats: []
+    bpm: 0
+    numBeats: 0
   artist: 
   oldBPM: 96
   numBars: 4

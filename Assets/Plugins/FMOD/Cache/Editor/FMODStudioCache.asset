@@ -428,7 +428,7 @@ MonoBehaviour:
   Path: FMOD/beatBattleFmod/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637665668309328333
+  lastModified: 637671491586638337
   LoadResult: 0
   FileSizes:
   - Name: Desktop
@@ -845,13 +845,13 @@ MonoBehaviour:
   - {fileID: 9150210328211626965}
   EditorEvents:
   - {fileID: -4583148978333179976}
-  - {fileID: 6246160849033841909}
+  - {fileID: 826123961691671587}
   EditorParameters: []
   MasterBanks:
   - {fileID: 7141657133338161675}
   StringsBanks:
   - {fileID: -4616149434453526043}
-  stringsBankWriteTime: 637665668309328333
+  stringsBankWriteTime: 637671491586638337
   cacheVersion: 6
 --- !u!114 &89815951418690271
 MonoBehaviour:
@@ -893,6 +893,29 @@ MonoBehaviour:
     data1: 0
     data2: 0
   Exists: 1
+--- !u!114 &826123961691671587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/rain
+  m_EditorClassIdentifier: 
+  Path: event:/rain
+  guid: 11b17a1e1d359f4295628a7c35bb24d4
+  Banks:
+  - {fileID: 9150210328211626965}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 64000
 --- !u!114 &1042289315791125725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1146,7 +1169,7 @@ MonoBehaviour:
   Path: FMOD/beatBattleFmod/Build/Desktop/background music.bank
   Name: background music
   StudioPath: bank:/background music
-  lastModified: 637665668309288198
+  lastModified: 637671491586598457
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -1451,8 +1474,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: event:/test
   guid: b6477cdc63eb1c4f8c52559799c30fb1
-  Banks:
-  - {fileID: 9150210328211626965}
+  Banks: []
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1541,7 +1563,7 @@ MonoBehaviour:
   Path: FMOD/beatBattleFmod/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 637665668309318115
+  lastModified: 637671491586628360
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -1752,7 +1774,7 @@ MonoBehaviour:
   Path: FMOD/beatBattleFmod/Build/Desktop/Test.bank
   Name: Test
   StudioPath: bank:/Test
-  lastModified: 637665668309358258
+  lastModified: 637671491587967590
   LoadResult: 0
   FileSizes: []
   Exists: 1

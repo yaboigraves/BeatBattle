@@ -46,7 +46,7 @@ public class Track : GameItem
 
         if (trackStats.mixType == TrackStats.MixType.QuickMix)
         {
-            //TODO: check if this works in builds dynamically
+
             AudioClip[] trackClips = TrackLoader.loadAudioClips(trackName, false);
             AudioClip[] transitionClips = TrackLoader.loadAudioClips(trackName, true);
 

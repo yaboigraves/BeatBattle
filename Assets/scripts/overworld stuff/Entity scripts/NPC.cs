@@ -17,7 +17,7 @@ public class NPC : Entity, IInteractable
     Dictionary<string, CinemachineVirtualCamera> cameraPositions = new Dictionary<string, CinemachineVirtualCamera>();
     public string talkToNode = "";
     public YarnProgram scriptToLoad;
-    public TextMeshProUGUI npcTextBox;
+
     [TextArea]
     public string greetingText, goodbyeText;
     //doesnt need to exist, just if entities need to move in this dialogue
@@ -81,7 +81,6 @@ public class NPC : Entity, IInteractable
         return true;
     }
 
-
     private void Awake()
     {
         dialogueRunner = FindObjectOfType<Yarn.Unity.DialogueRunner>();
@@ -103,46 +102,29 @@ public class NPC : Entity, IInteractable
             }
         }
 
-
-
-        //TODO: reimpliment later, this only needs to be registered when a player actually talks to the npc
-        //DialogCameraController.current.setCameraObjects(cameraPositions);
-
-        npcTextBox.transform.parent.gameObject.SetActive(false);
-
         cutsceneDirector = GetComponent<PlayableDirector>();
     }
 
-    //text stuff
     public void NPCGreet()
     {
-        StopCoroutine(npcTextTrigger());
+
         if (greetingText != "")
         {
-            //Debug.Log("Greeting");
-            npcTextBox.text = greetingText;
-            npcTextBox.transform.parent.gameObject.SetActive(true);
-            StartCoroutine(npcTextTrigger());
+            BackgroundDialogManager.current.SpawnDialog(greetingText, transform);
         }
-
     }
+
+
 
     public void NPCGoodbye()
     {
-        StopCoroutine(npcTextTrigger());
         if (goodbyeText != "")
         {
-            npcTextBox.text = goodbyeText;
-            npcTextBox.transform.parent.gameObject.SetActive(true);
-            StartCoroutine(npcTextTrigger());
+            BackgroundDialogManager.current.SpawnDialog(goodbyeText, transform);
         }
     }
 
-    IEnumerator npcTextTrigger()
-    {
-        yield return new WaitForSeconds(2);
-        npcTextBox.transform.parent.gameObject.SetActive(false);
-    }
+
 
     [YarnCommand("triggerBattle")]
     public void triggerBattle(string[] parameters)
@@ -201,6 +183,5 @@ public class NPC : Entity, IInteractable
     {
         //so yarn memory storage is gonna need to check if this npc is swayed\
         UIManager.current.TrySwayNPC(this);
-
     }
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{6e974d83-300d-4f40-9c0d-2f0a939f034e}">
+		<property name="assetPath">
+			<value>[YTHUB.CC] 30 MINUTES Rain Sounds (no music or thunder), Light Rain for Sleep, Relaxing, Meditate, Study, Yoga-256k.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>1809.288</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{5627b2e2-1bc0-4f35-b080-5b3686692db7}</destination>
+		</relationship>
+	</object>
+</objects>

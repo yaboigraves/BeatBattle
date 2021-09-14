@@ -13,7 +13,8 @@ public class NPCTriggerRange : MonoBehaviour
             //check to see if this NPC has some greeting text
 
             //TODO: reimpliment this later
-            //nPC.NPCGreet();
+            nPC.NPCGreet();
+
 
         }
     }

@@ -171,16 +171,16 @@ class MidiParser:
                 UnityEngine.Debug.Log(track[j].type)
                 totTime += track[j].time
                 if(track[j].type == 'note_on'):
-                    if (track[j].note == 72):
+                    if (track[j].note == 84):
                         kickMessages.append(mido.tick2second(
                             totTime, mid.ticks_per_beat, mido.bpm2tempo(bpm)) * (bpm / 60))
-                    if (track[j].note == 74):
+                    if (track[j].note == 86):
                         snareMessages.append(mido.tick2second(
                             totTime, mid.ticks_per_beat, mido.bpm2tempo(bpm)) * (bpm / 60))
-                    if (track[j].note == 76):
+                    if (track[j].note == 88):
                         hatMessages.append(mido.tick2second(
                             totTime, mid.ticks_per_beat, mido.bpm2tempo(bpm)) * (bpm / 60))
-                    if (track[j].note == 41):
+                    if (track[j].note == 90):
                         percMessages.append(mido.tick2second(
                             totTime, mid.ticks_per_beat, mido.bpm2tempo(bpm)) * (bpm / 60))
 
@@ -196,7 +196,7 @@ class MidiParser:
 
 mP = MidiParser()
 UnityEngine.Debug.Log('here I go')
-UnityEngine.Debug.Log(mP.parse('" + Application.dataPath + @"/Dropbox/MFX/audio/Midi/BattleTracks/" + filename + "',0))"
+UnityEngine.Debug.Log(mP.parse('" + Application.dataPath + @"/Dropbox/MFX/audio/Midi/BattleTracks/" + filename + "',87))"
 
 );
 

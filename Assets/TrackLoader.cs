@@ -118,6 +118,11 @@ public static class TrackLoader
     public static Dictionary<string, List<System.Double>> parseMidi(string filename, float bpm, string prePath)
     {
 
+        //lets try spawning a client instead
+        string[] args = new string[0];
+
+        // PythonRunner.SpawnClient(Application.dataPath + @"/Dropbox/MFX/audio/Midi/MidiParser.py", true, args);
+
 
         PythonRunner.RunString(@"
 from mido import MidiFile
@@ -125,6 +130,7 @@ import mido
 #import midi
 import sys
 # from System.Collections.Generic import *
+import io
 
 import UnityEngine
 
@@ -140,7 +146,7 @@ class MidiParser:
         print(filePath)
         # so this is going to need to know when the filesystem needs it to look in the tracks or transitions folder
         mid = MidiFile(filePath)
-        
+
         if mid:
             UnityEngine.Debug.Log('mid exists')
         else:
@@ -168,7 +174,7 @@ class MidiParser:
             totTime -= track[3].time
             # for msg in track:
             for j in range(3, len(track) - 1):
-                UnityEngine.Debug.Log(track[j].type)
+                #UnityEngine.Debug.Log(track[j].type)
                 totTime += track[j].time
                 if(track[j].type == 'note_on'):
                     if (track[j].note == 84):
@@ -186,8 +192,8 @@ class MidiParser:
 
         # note this gives the time of the last note off event, not the actual end of the midi track
         # print(mido.tick2second(totTime, mid.ticks_per_beat, mido.bpm2tempo(bpm)) * 2)
-        UnityEngine.Debug.Log('eeeee')
-        UnityEngine.Debug.Log(len(kickMessages))
+        #UnityEngine.Debug.Log('eeeee')
+        #UnityEngine.Debug.Log(len(kickMessages))
         # print(snareMessages)
 
 
@@ -196,9 +202,12 @@ class MidiParser:
 
 mP = MidiParser()
 UnityEngine.Debug.Log('here I go')
-UnityEngine.Debug.Log(mP.parse('" + Application.dataPath + @"/Dropbox/MFX/audio/Midi/BattleTracks/" + filename + "',87))"
-
-);
+#try and fine the file with the name loaded i guess?
+file = open('" + Application.dataPath + @"/Dropbox/MFX/audio/Midi/BattleTracks/ass.txt', 'w+ ')" +
+"\nfile.write('eeee')" +
+"\nfile.close()" +
+"\nmP.parse('" + Application.dataPath + @"/Dropbox/MFX/audio/Midi/BattleTracks/" + filename
++ "', 87)");
 
         Debug.Log(Application.dataPath + @"/Dropbox/MFX/audio/Midi/BattleTracks/" + filename);
 

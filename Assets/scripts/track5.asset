@@ -21,8 +21,11 @@ MonoBehaviour:
   tracks:
   - trackClip: {fileID: 8300000, guid: d7c3b30370d52594dab14f154bdfd376, type: 3}
     kickBeats:
-    - 1
-    snareBeats: []
+    - 0
+    - 0
+    snareBeats:
+    - 0
+    - 0
     hatBeats: []
     percBeats: []
     numBeats: 0

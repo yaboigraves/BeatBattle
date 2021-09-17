@@ -96,5 +96,5 @@ class MidiParser:
     #     percMessages = []
 
 
-mP = MidiParser()
-mP.parse("", 0)
+# mP = MidiParser()
+# mP.parse("", 0)

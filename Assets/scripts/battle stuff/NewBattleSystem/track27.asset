@@ -25,16 +25,16 @@ MonoBehaviour:
     snareBeats: []
     hatBeats: []
     percBeats: []
-    bpm: 0
     numBeats: 0
+    midiFileName: track27Midi
   trackTransitions:
   - trackClip: {fileID: 8300000, guid: 8812c8d41a7fd664f899fa0863f01da2, type: 3}
     kickBeats: []
     snareBeats: []
     hatBeats: []
     percBeats: []
-    bpm: 0
     numBeats: 0
+    midiFileName: 
   artist: 
   bpm: 81
   numBars: 4

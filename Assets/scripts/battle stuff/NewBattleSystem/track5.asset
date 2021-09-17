@@ -17,7 +17,7 @@ MonoBehaviour:
   description: This is the default item description. Cool.
   unique: 0
   itemIcon: {fileID: 0}
-  trackName: 
+  trackName: track 5
   tracks:
   - trackClip: {fileID: 8300000, guid: d7c3b30370d52594dab14f154bdfd376, type: 3}
     kickBeats:
@@ -25,16 +25,16 @@ MonoBehaviour:
     snareBeats: []
     hatBeats: []
     percBeats: []
-    bpm: 0
     numBeats: 0
+    midiFileName: track5Midi
   trackTransitions:
   - trackClip: {fileID: 8300000, guid: 3224fae2181619140a55ed072d61dbb6, type: 3}
     kickBeats: []
     snareBeats: []
     hatBeats: []
     percBeats: []
-    bpm: 0
     numBeats: 0
+    midiFileName: 
   artist: 
   bpm: 96
   numBars: 4

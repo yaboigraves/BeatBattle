@@ -25,8 +25,6 @@ public class BeatTimeline
     BattleManager.WaitCallback endBattleRoundCallback = BattleManager.current.EndBattleRound;
 
 
-
-
     public void InitializeTimeline(Sample[] samples)
     {
         //figure out the amount of beats

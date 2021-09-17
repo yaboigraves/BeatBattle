@@ -9,7 +9,12 @@ from mido import MidiFile
 import mido
 #import midi
 import sys
-from System.Collections.Generic import *
+# from System.Collections.Generic import *
+
+import UnityEngine
+
+
+UnityEngine.Debug.Log("hello from the python verse")
 
 
 class MidiParser:
@@ -89,3 +94,7 @@ class MidiParser:
     #     hatMessages = []
     #     snareMessages = []
     #     percMessages = []
+
+
+mP = MidiParser()
+mP.parse("", 0)

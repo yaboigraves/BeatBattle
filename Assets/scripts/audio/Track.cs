@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 [CreateAssetMenu(fileName = "New Track", menuName = "Tracks/Track")]
 
 [System.Serializable]
@@ -15,12 +13,20 @@ public class Track : GameItem
     // public AudioClip trackClip;
     public TrackData[] tracks;
     public TrackData[] trackTransitions;
-
-    [Header("")]
     public string artist;
     public float bpm;
     public int numBars;
     public TrackStats trackStats;
+
+
+    //9/16 rewrite notes
+    /*
+        -ok so we gotta get this runnin and loading into the track
+        so each individual track is gonna have some midi data it loads
+        so each track needs a midifilename? i guess?
+        //for now lets just get it loading one track
+    */
+
 
     public void BuildTrack()
     {
@@ -33,65 +39,78 @@ public class Track : GameItem
 
         if (trackStats.mixType == TrackStats.MixType.QuickMix)
         {
+            //9/16 rewrite
+            //go through all the trackdata
 
-            AudioClip[] trackClips = TrackLoader.loadAudioClips(trackName, false);
-            AudioClip[] transitionClips = TrackLoader.loadAudioClips(trackName, true);
-
-            //Debug.Log("transiction clip length" + transitionClips.Length.ToString());
-
-            //so to get all the midi data the trackloader is also going to need a function to calculate that all
-            Dictionary<string, List<System.Double>>[] tracksMidiData = TrackLoader.loadMidis(trackName, false);
-            Dictionary<string, List<System.Double>>[] transitionsMidiData = TrackLoader.loadMidis(trackName, true);
-
-            //go through all the trackclips and create a track data for them
-            TrackData[] tData = new TrackData[trackClips.Length];
-            TrackData[] transData = new TrackData[transitionClips.Length];
-
-            for (int i = 0; i < trackClips.Length; i++)
+            foreach (TrackData track in tracks)
             {
-                tData[i].trackClip = trackClips[i];
-                tData[i].bpm = parseBPM(trackClips[i].name);
-
-                //if we know the length in seconds convert it to a length in minutes 
-                //the number of beats per minute * minutes
-                tData[i].numBeats = Mathf.RoundToInt(tData[i].bpm * (tData[i].trackClip.length / 60));
-            }
-
-            for (int i = 0; i < transitionClips.Length; i++)
-            {
-                transData[i].trackClip = transitionClips[i];
-                transData[i].bpm = parseBPM(transitionClips[i].name);
-                transData[i].numBeats = Mathf.RoundToInt(transData[i].bpm * (transData[i].trackClip.length / 60));
-
-            }
-
-            for (int i = 0; i < tracksMidiData.Length; i++)
-            {
-                tData[i].kickBeats = tracksMidiData[i]["kick"];
-                tData[i].hatBeats = tracksMidiData[i]["hat"];
-                tData[i].snareBeats = tracksMidiData[i]["snare"];
-                tData[i].percBeats = tracksMidiData[i]["perc"];
+                Dictionary<string, List<System.Double>>[] tracksMidiData = TrackLoader.loadMidis(track.midiFileName, false, bpm);
+                //Debug.Log(tracksMidiData);
             }
 
 
-            for (int i = 0; i < transitionsMidiData.Length; i++)
-            {
-                if (i >= transData.Length)
-                {
-                    Debug.LogError("NOT ENOUGH DATA SPOTS FOR NEW MIDI");
-                    break;
-                }
-                transData[i].kickBeats = transitionsMidiData[i]["kick"];
-                transData[i].hatBeats = transitionsMidiData[i]["hat"];
-                transData[i].snareBeats = transitionsMidiData[i]["snare"];
-                transData[i].percBeats = transitionsMidiData[i]["perc"];
-            }
+            // AudioClip[] trackClips = TrackLoader.loadAudioClips(trackName, false);
+            // AudioClip[] transitionClips = TrackLoader.loadAudioClips(trackName, true);
 
-            tracks = tData;
-            trackTransitions = transData;
+            // //Debug.Log("transiction clip length" + transitionClips.Length.ToString());
+
+            // //so to get all the midi data the trackloader is also going to need a function to calculate that all
+            // Dictionary<string, List<System.Double>>[] tracksMidiData = TrackLoader.loadMidis(trackName, false);
+            // Dictionary<string, List<System.Double>>[] transitionsMidiData = TrackLoader.loadMidis(trackName, true);
+
+            // //go through all the trackclips and create a track data for them
+            // TrackData[] tData = new TrackData[trackClips.Length];
+            // TrackData[] transData = new TrackData[transitionClips.Length];
+
+            // for (int i = 0; i < trackClips.Length; i++)
+            // {
+            //     tData[i].trackClip = trackClips[i];
+            //     // tData[i].bpm = parseBPM(trackClips[i].name);
+
+            //     //if we know the length in seconds convert it to a length in minutes 
+            //     //the number of beats per minute * minutes
+            //     tData[i].numBeats = Mathf.RoundToInt(bpm * (tData[i].trackClip.length / 60));
+            // }
+
+            // for (int i = 0; i < transitionClips.Length; i++)
+            // {
+            //     transData[i].trackClip = transitionClips[i];
+            //     //transData[i].bpm = parseBPM(transitionClips[i].name);
+            //     transData[i].numBeats = Mathf.RoundToInt(bpm * (transData[i].trackClip.length / 60));
+
+            // }
+
+            // for (int i = 0; i < tracksMidiData.Length; i++)
+            // {
+            //     tData[i].kickBeats = tracksMidiData[i]["kick"];
+            //     tData[i].hatBeats = tracksMidiData[i]["hat"];
+            //     tData[i].snareBeats = tracksMidiData[i]["snare"];
+            //     tData[i].percBeats = tracksMidiData[i]["perc"];
+            // }
+
+
+            // for (int i = 0; i < transitionsMidiData.Length; i++)
+            // {
+            //     if (i >= transData.Length)
+            //     {
+            //         Debug.LogError("NOT ENOUGH DATA SPOTS FOR NEW MIDI");
+            //         break;
+            //     }
+            //     transData[i].kickBeats = transitionsMidiData[i]["kick"];
+            //     transData[i].hatBeats = transitionsMidiData[i]["hat"];
+            //     transData[i].snareBeats = transitionsMidiData[i]["snare"];
+            //     transData[i].percBeats = transitionsMidiData[i]["perc"];
+            // }
+
+            // tracks = tData;
+            // trackTransitions = transData;
 
             //after we do all this we need to load the transition data as well for the track, basically the same process 
             //but the filepath differs
+
+
+
+
         }
         else if (trackStats.mixType == TrackStats.MixType.LongMix)
         {
@@ -161,6 +180,8 @@ public struct TrackData
     public List<double> kickBeats, snareBeats, hatBeats, percBeats;
 
     //so bpm is now loaded per track not per individual track
-    public float bpm;
+    // public float bpm;
     public int numBeats;
+
+    public string midiFileName;
 }

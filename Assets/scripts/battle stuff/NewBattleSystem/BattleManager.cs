@@ -25,7 +25,6 @@ public class BattleManager : MonoBehaviour
 
     public int playerTurn = 0;
 
-
     public int PlayerHealth
     {
         get => playerHealth;

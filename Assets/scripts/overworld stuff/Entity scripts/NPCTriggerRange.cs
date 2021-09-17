@@ -5,7 +5,6 @@ using UnityEngine;
 public class NPCTriggerRange : MonoBehaviour
 {
     public NPC nPC;
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
@@ -27,5 +26,4 @@ public class NPCTriggerRange : MonoBehaviour
             nPC.NPCGoodbye();
         }
     }
-
 }

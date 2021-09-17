@@ -77,14 +77,15 @@ public class DamageMiniGame : MiniGame
     public override void Preload(Sample sample)
     {
         base.Preload(sample);
-        SpawnIndicators(sample.sampleTrack.oldBPM);
+        SpawnIndicators(sample.sampleTrack.bpm);
 
         //we also plug in any other info like the bpm and the actual settings
 
         miniGameSettings.minigameSample = sample;
-        miniGameSettings.numBeats = sample.sampleTrack.randomTrackData.kickBeats.Count;
+        //TODO: make these traccks select randomly?
+        miniGameSettings.numBeats = sample.sampleTrack.tracks[0].kickBeats.Count;
         //so we also generate the report here
-        report = new MinigameReport(sample.sampleTrack.randomTrackData.kickBeats.Count);
+        report = new MinigameReport(sample.sampleTrack.tracks[0].kickBeats.Count);
     }
 
     public override void StartMiniGame()

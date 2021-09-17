@@ -46,18 +46,18 @@ public class BeatTimeline
             //as we go through each sample we add a new beat node for each beat
             //per song we need to know
             //-seconds per beat
-            double secPerBeat = 60f / samples[i].sampleTrack.oldBPM;
+            double secPerBeat = 60f / samples[i].sampleTrack.bpm;
 
             //ok, so if its the first beat of the next sample, it actually occurs based on the old sec per beat not the new one
             for (int b = 0; b < samples[i].sampleTrack.numBars * 4; b++)
             {
                 if (i > 0 && b == 0)
                 {
-                    secPerBeat = 60f / samples[i - 1].sampleTrack.oldBPM;
+                    secPerBeat = 60f / samples[i - 1].sampleTrack.bpm;
                 }
                 else
                 {
-                    secPerBeat = 60f / samples[i].sampleTrack.oldBPM;
+                    secPerBeat = 60f / samples[i].sampleTrack.bpm;
                 }
 
                 //oh this is calculating wrong, we should

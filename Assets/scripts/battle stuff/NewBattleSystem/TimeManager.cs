@@ -5,17 +5,12 @@ using UnityEngine;
 public static class TimeManager
 {
     //so here we're going to need to get some bpm info sorted before we do anything
-
     public static float currentSongBpm;
-
     public static double battleStartTime;
-
     public static float timePerBeat;
-
 
     public static int currentBeat = 0;
     public static double currentBeatDSPTime = 0;
-
 
     public delegate void BeatCallBackFunction();
 
@@ -38,8 +33,6 @@ public static class TimeManager
             // Debug.Log("doing beat callback");
             TimeManager.BeatCallBack();
 
-
-
             //so the other thing we should do is call any functions that need to get called
             //lets try and get change turn running on these
 
@@ -52,29 +45,11 @@ public static class TimeManager
     {
         currentBeat++;
         currentBeatDSPTime = battleStartTime + (currentBeat * timePerBeat);
-        //Debug.Log("NCE");
-        //BattleUIManager.current.UpdateMetronome();
-
-        //check for any shit that needs to happen on like the 1
-        // Debug.Log(currentBeat);
-        // if ((currentBeat) % 4 == 1)
-        // {
-        //     // //Debug.Log(currentBeat);
-        //     // Debug.Break();
-
-        //     //so this is on the 1
-
-        //     if (bpmSwitchRequested)
-        //     {
-        //         SetCurrentSongInfo(newBPM);
-        //     }
-        // }
 
         if (bpmSwitchRequested)
         {
             currentSongBpm = newBPM;
         }
-
 
         foreach (BeatCallBackFunction b in beatCallbacks)
         {

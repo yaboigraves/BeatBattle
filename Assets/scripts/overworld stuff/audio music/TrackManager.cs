@@ -62,11 +62,11 @@ public class TrackManager : MonoBehaviour
             StopCurrentTrack();
         }
 
-        currAudio.clip = newTrack.trackClip;
+        currAudio.clip = newTrack.tracks[0].trackClip;
 
         currTrack = newTrack;
 
-        currentBpm = newTrack.oldBPM;
+        currentBpm = newTrack.bpm;
 
         UIManager.current.updateCurrentTrack(newTrack);
 

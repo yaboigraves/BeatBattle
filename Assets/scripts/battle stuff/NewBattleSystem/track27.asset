@@ -18,8 +18,15 @@ MonoBehaviour:
   unique: 0
   itemIcon: {fileID: 0}
   trackName: 
-  trackClip: {fileID: 8300000, guid: 3bc092b51400f2f438641aef57523c35, type: 3}
-  tracks: []
+  tracks:
+  - trackClip: {fileID: 8300000, guid: 3bc092b51400f2f438641aef57523c35, type: 3}
+    kickBeats:
+    - 1
+    snareBeats: []
+    hatBeats: []
+    percBeats: []
+    bpm: 0
+    numBeats: 0
   trackTransitions:
   - trackClip: {fileID: 8300000, guid: 8812c8d41a7fd664f899fa0863f01da2, type: 3}
     kickBeats: []
@@ -29,33 +36,9 @@ MonoBehaviour:
     bpm: 0
     numBeats: 0
   artist: 
-  oldBPM: 81
+  bpm: 81
   numBars: 4
-  isBattleTrack: 0
   trackStats:
     trackVibe: 0
     mixType: 0
     vibePerHit: 0
-  randomTrackData:
-    trackClip: {fileID: 8300000, guid: 3bc092b51400f2f438641aef57523c35, type: 3}
-    kickBeats:
-    - 1
-    - 4
-    - 5
-    - 8
-    - 9
-    - 12
-    - 13
-    snareBeats: []
-    hatBeats: []
-    percBeats: []
-    bpm: 0
-    numBeats: 0
-  randomTransitionData:
-    trackClip: {fileID: 0}
-    kickBeats: []
-    snareBeats: []
-    hatBeats: []
-    percBeats: []
-    bpm: 0
-    numBeats: 0

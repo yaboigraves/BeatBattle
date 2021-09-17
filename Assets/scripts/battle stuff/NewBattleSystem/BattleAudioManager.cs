@@ -55,8 +55,8 @@ public class BattleAudioManager : MonoBehaviour
         //so we're gonna grab the track at the front and the track next
         audioTrack = BattleManager.current.battle.getCurrentTrack();
         nextAudioTrack = BattleManager.current.battle.getNextTrack();
-        musicAudioSource1.clip = audioTrack.trackClip;
-        musicAudioSource2.clip = nextAudioTrack.trackClip;
+        musicAudioSource1.clip = audioTrack.tracks[0].trackClip;
+        musicAudioSource2.clip = nextAudioTrack.tracks[0].trackClip;
 
 
         //SO THE TRANSITION TRACK JUST NEEDSD TO BLE LOADED WIT HWHATEVER IS ABOUT TO PLAY'S RANDOM TRANSITION
@@ -73,7 +73,7 @@ public class BattleAudioManager : MonoBehaviour
 
         double battleStartTime = AudioSettings.dspTime;
         TimeManager.SetBattleStart(battleStartTime);
-        TimeManager.SetCurrentSongInfo(audioTrack.oldBPM);
+        TimeManager.SetCurrentSongInfo(audioTrack.bpm);
 
         musicAudioSource1.PlayScheduled(battleStartTime);
         musicAudioSource1.SetScheduledEndTime(battleStartTime + TimeManager.beatTimeline.timeline[12].time);
@@ -109,13 +109,13 @@ public class BattleAudioManager : MonoBehaviour
         if (currentAudioSource == musicAudioSource1)
         {
             //queue up the next song on audio source two
-            musicAudioSource2.clip = nextAudioTrack.trackClip;
+            musicAudioSource2.clip = nextAudioTrack.tracks[0].trackClip;
             //musicAudioSource2.PlayScheduled();
         }
         else
         {
             //queue up the next song on audio source one
-            musicAudioSource1.clip = nextAudioTrack.trackClip;
+            musicAudioSource1.clip = nextAudioTrack.tracks[0].trackClip;
         }
     }
 
@@ -190,7 +190,7 @@ public class BattleAudioManager : MonoBehaviour
         nextAudioTrack = BattleManager.current.battle.getNextTrack();
 
         // Debug.Log(audioTrack);
-        TimeManager.BPMSwitch(audioTrack.oldBPM);
+        TimeManager.BPMSwitch(audioTrack.bpm);
 
         if (nextAudioTrack == null)
         {
@@ -202,7 +202,7 @@ public class BattleAudioManager : MonoBehaviour
         if (currentAudioSource == musicAudioSource1)
         {
             //so the audio source should already be done now
-            musicAudioSource1.clip = nextAudioTrack.trackClip;
+            musicAudioSource1.clip = nextAudioTrack.tracks[0].trackClip;
             //schedule the current source to stop
             musicAudioSource1.PlayScheduled(TimeManager.battleStartTime + TimeManager.beatTimeline.timeline[TimeManager.beatTimeline.currentBeatIndex + 16].time);
             musicAudioSource2.SetScheduledEndTime(TimeManager.battleStartTime + TimeManager.beatTimeline.timeline[TimeManager.beatTimeline.currentBeatIndex + 12].time);
@@ -218,7 +218,7 @@ public class BattleAudioManager : MonoBehaviour
         else
         {
             //so the audio source should already be done now
-            musicAudioSource2.clip = nextAudioTrack.trackClip;
+            musicAudioSource2.clip = nextAudioTrack.tracks[0].trackClip;
             //schedule the current source to stop
             musicAudioSource2.PlayScheduled(TimeManager.battleStartTime + TimeManager.beatTimeline.timeline[TimeManager.beatTimeline.currentBeatIndex + 16].time);
             musicAudioSource1.SetScheduledEndTime(TimeManager.battleStartTime + TimeManager.beatTimeline.timeline[TimeManager.beatTimeline.currentBeatIndex + 12].time);

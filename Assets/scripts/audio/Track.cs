@@ -9,31 +9,18 @@ using UnityEngine;
 [System.Serializable]
 public class Track : GameItem
 {
-
     public string trackName;
 
     [Header("AUDIO FILES")]
-    public AudioClip trackClip;
-
+    // public AudioClip trackClip;
     public TrackData[] tracks;
-
     public TrackData[] trackTransitions;
 
     [Header("")]
     public string artist;
-    public float oldBPM;
-    //need to take in the number of bars the loops take up
+    public float bpm;
     public int numBars;
-    public bool isBattleTrack;
-    //public IndicatorData kickBeats;
-    //public IndicatorData snareBeats;
     public TrackStats trackStats;
-
-    //these are set when a track is queued up
-    public TrackData randomTrackData, randomTransitionData;
-
-    // public List<double> kickBeats, snareBeats, hatBeats, percBeats;
-
 
     public void BuildTrack()
     {
@@ -59,9 +46,6 @@ public class Track : GameItem
             //go through all the trackclips and create a track data for them
             TrackData[] tData = new TrackData[trackClips.Length];
             TrackData[] transData = new TrackData[transitionClips.Length];
-
-
-
 
             for (int i = 0; i < trackClips.Length; i++)
             {
@@ -114,8 +98,6 @@ public class Track : GameItem
 
         }
 
-
-
         //UnityEditor.EditorUtility.SetDirty(this);
     }
     public float parseBPM(string fileName)
@@ -138,7 +120,6 @@ public class Track : GameItem
 
         Debug.Log("PARSING BPM : " + bpm);
         // Debug.Log(fileName);
-
 
         return float.Parse(bpm);
     }
@@ -165,11 +146,8 @@ public struct TrackStats
 
     public VibeType trackVibe;
     public MixType mixType;
-
     public int vibePerHit;
 }
-
-
 
 
 [Serializable]
@@ -181,8 +159,8 @@ public struct TrackData
     //kick beats will be the de-facto testing channel, the idea is we want 4 channels possible for now but not necessarily tied to any drum
 
     public List<double> kickBeats, snareBeats, hatBeats, percBeats;
+
+    //so bpm is now loaded per track not per individual track
     public float bpm;
-
     public int numBeats;
-
 }

@@ -124,7 +124,7 @@ public static class TrackLoader
         // PythonRunner.SpawnClient(Application.dataPath + @"/Dropbox/MFX/audio/Midi/MidiParser.py", true, args);
 
 
-        PythonRunner.RunString(@"
+        PythonRunner.RunString(@$"
 from mido import MidiFile
 import mido
 #import midi
@@ -134,82 +134,95 @@ import io
 
 import UnityEngine
 
+UnityEngine.Debug.Log('{filename}')
 
-class MidiParser:
+filePath = '{Application.dataPath + @"/Dropbox/MFX/audio/Midi/BattleTracks/" + filename}'
 
-    # so in reality all we need to do is just take in some different args
-    def parse(self, filePath, bpmArg):
-        totTime = 0
+mid = MidiFile(filePath)
 
-        # midi file
-        # mid = MidiFile('midis/sonic midi shitfuck.mid')
-        print(filePath)
-        # so this is going to need to know when the filesystem needs it to look in the tracks or transitions folder
-        mid = MidiFile(filePath)
+bpm = {bpm}
 
-        if mid:
-            UnityEngine.Debug.Log('mid exists')
-        else:
-            UnityEngine.Debug.Log('mid does not exists')
+if mid:
+    UnityEngine.Debug.Log('mid exists')
+else:
+    UnityEngine.Debug.Log('mid does not exists')
 
+kickMessages = []
+hatMessages = []
+snareMessages = []
+percMessages = []
 
-        # bpm
-        bpm = float(bpmArg)
-
-        # times of midi events in millis for each track
-        kickMessages = []
-        hatMessages = []
-        snareMessages = []
-        percMessages = []
-
-        # 96 bpm
-        # 4 beats per bar
-        # 24 bars per minute
-        # 60/24 = 2.5 bars
-        # each midi is 2 bars
-
-        # gotta figure out how to calculate this based on bpm
-
-        for i, track in enumerate(mid.tracks):
-            totTime -= track[3].time
-            # for msg in track:
-            for j in range(3, len(track) - 1):
-                #UnityEngine.Debug.Log(track[j].type)
-                totTime += track[j].time
-                if(track[j].type == 'note_on'):
-                    if (track[j].note == 84):
-                        kickMessages.append(mido.tick2second(
-                            totTime, mid.ticks_per_beat, mido.bpm2tempo(bpm)) * (bpm / 60))
-                    if (track[j].note == 86):
-                        snareMessages.append(mido.tick2second(
-                            totTime, mid.ticks_per_beat, mido.bpm2tempo(bpm)) * (bpm / 60))
-                    if (track[j].note == 88):
-                        hatMessages.append(mido.tick2second(
-                            totTime, mid.ticks_per_beat, mido.bpm2tempo(bpm)) * (bpm / 60))
-                    if (track[j].note == 90):
-                        percMessages.append(mido.tick2second(
-                            totTime, mid.ticks_per_beat, mido.bpm2tempo(bpm)) * (bpm / 60))
-
-        # note this gives the time of the last note off event, not the actual end of the midi track
-        # print(mido.tick2second(totTime, mid.ticks_per_beat, mido.bpm2tempo(bpm)) * 2)
-        #UnityEngine.Debug.Log('eeeee')
-        #UnityEngine.Debug.Log(len(kickMessages))
-        # print(snareMessages)
+totTime = 0
 
 
-        #return messagesDictionary
 
 
-mP = MidiParser()
-UnityEngine.Debug.Log('here I go')
-#try and fine the file with the name loaded i guess?
-file = open('" + Application.dataPath + @"/Dropbox/MFX/audio/Midi/BattleTracks/ass.txt', 'w+ ')" +
-"\nfile.write('eeee')" +
-"\nfile.close()" +
-"\nmP.parse('" + Application.dataPath + @"/Dropbox/MFX/audio/Midi/BattleTracks/" + filename
-+ "', 87)");
+for i, track in enumerate(mid.tracks):
+    totTime -= track[3].time
+    # for msg in track:
+    for j in range(3, len(track) - 1):
+        #UnityEngine.Debug.Log(track[j].type)
+        totTime += track[j].time
+        if(track[j].type == 'note_on'):
+            if (track[j].note == 84):
+              
+                kickMessages.append(mido.tick2second(
+                    totTime, mid.ticks_per_beat, mido.bpm2tempo(bpm)) * (bpm / 60))
+            if (track[j].note == 86):
+                snareMessages.append(mido.tick2second(
+                    totTime, mid.ticks_per_beat, mido.bpm2tempo(bpm)) * (bpm / 60))
+            if (track[j].note == 88):
+                hatMessages.append(mido.tick2second(
+                    totTime, mid.ticks_per_beat, mido.bpm2tempo(bpm)) * (bpm / 60))
+            if (track[j].note == 90):
+                percMessages.append(mido.tick2second(
+                    totTime, mid.ticks_per_beat, mido.bpm2tempo(bpm)) * (bpm / 60))
 
-        Debug.Log(Application.dataPath + @"/Dropbox/MFX/audio/Midi/BattleTracks/" + filename);
+# time * beats/second 
+
+UnityEngine.Debug.Log({bpm})
+UnityEngine.Debug.Log(kickMessages[1] * {bpm}/60)
+#write to file in format 
+#k 0 1 2 3 etc
+#s 0 6 4 3 etc
+#h 4 6 8 4 etc
+#p 5 8 9 2 etc
+
+midiDataFile = open('{Application.dataPath + @"/Dropbox/MFX/audio/Midi/BattleTracks/" + filename + ".txt"}','w+')
+#write the kickbeats
+kickStr = 'k '
+for k in kickMessages:
+    kickStr += str(  round((k* {bpm} / 60),3)  ) + ' '
+kickStr += '\n'
+
+snareStr = 's '
+for s in snareMessages:
+    snareStr += str(  round((s* {bpm} / 60),3)  ) + ' '
+snareStr += '\n'
+
+hatStr = 'h '
+for h in hatMessages:
+    hatStr += str(  round((h* {bpm} / 60),3)  ) + ' '
+hatStr += '\n'
+
+percStr = 'p '
+for p in percMessages:
+    percStr += str(  round((p* {bpm} / 60),3)  ) + ' '
+percStr += '\n'
+
+midiDataFile.write(kickStr + snareStr + hatStr + percStr)
+
+midiDataFile.close()
+
+#try and fine the file with the name loaded i guess?");
+
+        // file = open('" + Application.dataPath + @"/Dropbox/MFX/audio/Midi/BattleTracks/ass.txt', 'w+ ')" +
+        // "\nfile.write('eeee')" +
+        // "\nfile.close()" +
+        // "\nmP.parse('" + Application.dataPath + @"/Dropbox/MFX/audio/Midi/BattleTracks/" + filename
+        // + "', 87)");
+
+        Debug.Log(Application.dataPath + @" / Dropbox / MFX / audio / Midi / BattleTracks / " + filename);
 
         // string scriptPath = Application.dataPath + @"\Dropbox\MFX\audio\Midi\MidiParser.py";
         // PythonRunner.RunFile(scriptPath);
@@ -226,7 +239,6 @@ file = open('" + Application.dataPath + @"/Dropbox/MFX/audio/Midi/BattleTracks/a
         // //searchPaths.Add(Application.dataPath + @"\Plugins\Lib\");
         // searchPaths.Add(Application.dataPath + @"/Plugins/Lib/");
         // engine.SetSearchPaths(searchPaths);
-
 
 
         // //dynamic py = engine.ExecuteFile(Application.dataPath + @"\scripts\audio\midis\MidiParser.py");

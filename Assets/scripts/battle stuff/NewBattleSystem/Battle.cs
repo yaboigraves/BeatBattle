@@ -50,14 +50,6 @@ public class Battle
             turnQueue.Add(turn);
             //Debug.Log("added player turn");
 
-
-            //TODO: ok gotta rewrite how enemy turns work a little bit, turns out these will need to actually be initialized BEFORE the player
-
-            // //do an enemy turn for this player turn
-            // EnemyBattleAction enemyTurn = new EnemyBattleAction();
-            // enemyTurn.playerOrEnemy = false;
-            // enemyTurn.dmg = enemies[0].attack;
-
             turnQueue.Add(enemyBattleActions[i]);
 
 
@@ -137,10 +129,7 @@ public class Battle
                 break;
         }
 
-        //so the audio should probably switch here?
 
-        //TODO: so this may end up fucking stuff up because of bpm switches now, need to re-look
-        //manager.RefreshTurn();
     }
 
     //so yea this basically handles damamge and shit
@@ -150,10 +139,6 @@ public class Battle
         // {
         //     //TODO: add block
         // }
-
-        //TODO: this happens all after the minigame runs
-
-        //so these should happen at the end of the phase, not the beggining 
 
         //do the players damage and the enemies damage
         manager.PlayerHealth -= ((EnemyBattleAction)turnQueue[1]).dmg;

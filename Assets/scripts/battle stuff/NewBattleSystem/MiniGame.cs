@@ -52,7 +52,7 @@ public class MiniGame : MonoBehaviour
     //TODO: extend this to work with multiple channels
     //TODO: we probably want these to be able to have there samples assigned as well
 
-    public List<double> beatTimes;
+    public List<float> beatTimes;
 
     public MinigameReport report;
 
@@ -81,8 +81,6 @@ public class MiniGame : MonoBehaviour
         {
             //so when we register the minigame, register it with the sample that the minigame uses
 
-            //TODO: This might casue problems, hash codes arent unique
-            //Debug.Log("registering");
             MinigameManager.current.registerMiniGame(this);
         }
         minigameScene = gameObject.scene;
@@ -97,7 +95,7 @@ public class MiniGame : MonoBehaviour
 
     public virtual void Preload(Sample sample) { }
 
-    public void SetBeatTimes(List<double> times)
+    public void SetBeatTimes(List<float> times)
     {
 
         beatTimes = times;

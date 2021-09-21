@@ -89,7 +89,6 @@ public class BattleUIManager : MonoBehaviour
         }
     }
 
-    //TODO: this needs to take an argument of whatever the actual sample object is, so we can pass it around
     public void SetActionSample(Sample sample)
     {
         //Debug.Log("Setting action sample");
@@ -109,7 +108,6 @@ public class BattleUIManager : MonoBehaviour
 
         currentlySelectedTurnAction.transform.GetComponentInChildren<TextMeshProUGUI>().text = sample.sampleName;
 
-        //TODO: set this actually in the queue
 
         //set the current selection in the event system to whatever we just set
         uiEventSystem.SetSelectedGameObject(currentlySelectedTurnAction);
@@ -178,16 +176,12 @@ public class BattleUIManager : MonoBehaviour
         //then we need to setup the enemy stuff
         for (int i = 0; i < turnQueueEnemyIconObjects.Length; i++)
         {
-            //TODO: later this should be based off of the enemy's established quueue
-            // if (enemyBattleActions[i].dmg > whatever)
-            // {
-            //     turnQueueEnemyIconObjects[i].GetComponent<Image>().sprite = testingEnemyAttackIcon;
-            // }
+
 
             turnQueueEnemyIconObjects[i].GetComponent<Image>().sprite = testingEnemyAttackIcon;
         }
 
-        
+
     }
 
 
@@ -227,12 +221,6 @@ public class BattleUIManager : MonoBehaviour
     public void UpdateTurnQueue()
     {
 
-        //TODO: rewrite this so that it shifts 2 elements over
-        // for (int i = turnOrderQueue.Count - 1; i > 0; i--)
-        // {
-        //     turnOrderQueue[i].transform.position = turnOrderQueue[i - 1].transform.position;
-        //     turnOrderQueue[i + 1].transform.position = turnOrderQueue[i].transform.position;
-        // }
 
         for (int i = turnOrderQueue.Count - 1; i > 1; i -= 1)
         {

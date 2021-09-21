@@ -198,7 +198,7 @@ public class MinigameManager : MonoBehaviour
         //for now we dont even fuckin bother looking at the sample
 
 
-        game.SetBeatTimes(playerSample.sampleTrack.tracks[0].kickBeats);
+        game.SetBeatTimes(playerSample.sampleTrack.tracks[0].ch1);
         game.Preload(playerSample);
 
         //TODO: rewrite activateminigamescene to use something unique to the scene or sample

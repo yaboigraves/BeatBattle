@@ -69,9 +69,6 @@ public static class TimeManager
         double waitStart = AudioSettings.dspTime;
 
 
-        //for now we're just hard coding for 4 seconds
-        //TODO: make this dynamic based on bpm oh duh
-
         float barLength = (60 / currentSongBpm) * 4 * numBars;
 
         //so the bar length is the beat length * 4
@@ -90,7 +87,6 @@ public static class TimeManager
     }
 
 
-    //TODO: make this happen on the 1, not the 4
     public static void SetCurrentSongInfo(float bpm)
     {
         Debug.Log("setting bpm to " + bpm);

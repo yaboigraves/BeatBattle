@@ -22,7 +22,6 @@ public static class SampleEffects
         return sampleEffects[((PlayerBattleAction)turnQueue[index]).sample.functionName](turnQueue, index);
     }
 
-    //TODO: reimpliment this
     public static List<BattleAction> dmgBuff(List<BattleAction> turnQueue, int index)
     {
         //Debug.Log("dmgBuff Effect applying");

@@ -37,89 +37,69 @@ public class Track : GameItem
             FOR THE MOST PART THE TRACKLOADER DOES ALL THE HEAVY LIFTING TO KEEP THIS FILE FROM IMPORTING HELLA LIBS
         */
 
-        if (trackStats.mixType == TrackStats.MixType.QuickMix)
-        {
-            //9/16 rewrite
-            //go through all the trackdata
 
-            foreach (TrackData track in tracks)
+        // if (trackStats.mixType == TrackStats.MixType.QuickMix)
+        // {
+
+        // }
+        // else if (trackStats.mixType == TrackStats.MixType.LongMix)
+        // {
+
+        // }
+
+        //9/16 rewrite
+        //go through all the trackdata
+        foreach (TrackData track in tracks)
+        {
+            TrackLoader.readMidis(track.midiFileName, false, bpm);
+            //then manually call the actual loader
+        }
+
+
+    }
+
+    //so this is the one that will actually return the good stuff 
+    public void LoadTrack()
+    {
+        //TODO: scans a directory for the text files generated from the previous build function and loads them into the scriptable object
+        for (int i = 0; i < tracks.Length; i++)
+        {
+            TrackData track = tracks[i];
+            //9/20 time
+            //so yeah i guess this can just return us back an new version of the track
+
+            Dictionary<string, List<float>> midiData = TrackLoader.readMidiTextFile(track);
+
+            //load it into that track
+
+            if (midiData.ContainsKey("ch1"))
             {
-                Dictionary<string, List<System.Double>>[] tracksMidiData = TrackLoader.loadMidis(track.midiFileName, false, bpm);
-                //Debug.Log(tracksMidiData);
+                //Debug.Log("assigning ch1");
+                //Debug.Log(track.ch1.Count);
+                //Debug.Log(midiData["ch1"].Count);
+                track.ch1 = midiData["ch1"];
+                //Debug.Log(track.ch1.Count);
+            }
+            if (midiData.ContainsKey("ch1"))
+            {
+                //Debug.Log("assigning ch2");
+                track.ch2 = midiData["ch2"];
+            }
+            if (midiData.ContainsKey("ch1"))
+            {
+                //Debug.Log("assigning ch3");
+                track.ch3 = midiData["ch3"];
+            }
+            if (midiData.ContainsKey("ch1"))
+            {
+                //Debug.Log("assigning ch4");
+                track.ch4 = midiData["ch4"];
             }
 
-
-
-
-            // AudioClip[] trackClips = TrackLoader.loadAudioClips(trackName, false);
-            // AudioClip[] transitionClips = TrackLoader.loadAudioClips(trackName, true);
-
-            // //Debug.Log("transiction clip length" + transitionClips.Length.ToString());
-
-            // //so to get all the midi data the trackloader is also going to need a function to calculate that all
-            // Dictionary<string, List<System.Double>>[] tracksMidiData = TrackLoader.loadMidis(trackName, false);
-            // Dictionary<string, List<System.Double>>[] transitionsMidiData = TrackLoader.loadMidis(trackName, true);
-
-            // //go through all the trackclips and create a track data for them
-            // TrackData[] tData = new TrackData[trackClips.Length];
-            // TrackData[] transData = new TrackData[transitionClips.Length];
-
-            // for (int i = 0; i < trackClips.Length; i++)
-            // {
-            //     tData[i].trackClip = trackClips[i];
-            //     // tData[i].bpm = parseBPM(trackClips[i].name);
-
-            //     //if we know the length in seconds convert it to a length in minutes 
-            //     //the number of beats per minute * minutes
-            //     tData[i].numBeats = Mathf.RoundToInt(bpm * (tData[i].trackClip.length / 60));
-            // }
-
-            // for (int i = 0; i < transitionClips.Length; i++)
-            // {
-            //     transData[i].trackClip = transitionClips[i];
-            //     //transData[i].bpm = parseBPM(transitionClips[i].name);
-            //     transData[i].numBeats = Mathf.RoundToInt(bpm * (transData[i].trackClip.length / 60));
-
-            // }
-
-            // for (int i = 0; i < tracksMidiData.Length; i++)
-            // {
-            //     tData[i].kickBeats = tracksMidiData[i]["kick"];
-            //     tData[i].hatBeats = tracksMidiData[i]["hat"];
-            //     tData[i].snareBeats = tracksMidiData[i]["snare"];
-            //     tData[i].percBeats = tracksMidiData[i]["perc"];
-            // }
-
-
-            // for (int i = 0; i < transitionsMidiData.Length; i++)
-            // {
-            //     if (i >= transData.Length)
-            //     {
-            //         Debug.LogError("NOT ENOUGH DATA SPOTS FOR NEW MIDI");
-            //         break;
-            //     }
-            //     transData[i].kickBeats = transitionsMidiData[i]["kick"];
-            //     transData[i].hatBeats = transitionsMidiData[i]["hat"];
-            //     transData[i].snareBeats = transitionsMidiData[i]["snare"];
-            //     transData[i].percBeats = transitionsMidiData[i]["perc"];
-            // }
-
-            // tracks = tData;
-            // trackTransitions = transData;
-
-            //after we do all this we need to load the transition data as well for the track, basically the same process 
-            //but the filepath differs
-
-
-
-
-        }
-        else if (trackStats.mixType == TrackStats.MixType.LongMix)
-        {
+            tracks[i] = track;
 
         }
 
-        //UnityEditor.EditorUtility.SetDirty(this);
     }
     public float parseBPM(string fileName)
     {
@@ -179,7 +159,7 @@ public struct TrackData
     //8/28 rewrite notes: so for now we're just gonna keep this system but im going to manually enter this info
     //kick beats will be the de-facto testing channel, the idea is we want 4 channels possible for now but not necessarily tied to any drum
 
-    public List<double> kickBeats, snareBeats, hatBeats, percBeats;
+    public List<float> ch1, ch2, ch3, ch4;
 
     //so bpm is now loaded per track not per individual track
     // public float bpm;

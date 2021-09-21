@@ -192,7 +192,7 @@ public class BattleManager : MonoBehaviour
 
     void RestartBattleRound()
     {
-        //TODO: left off here
+
         playerTurn = 0;
         battle.turnQueue.Clear();
         //so first thing we gotta do is re-enable the sample selection panel
@@ -239,7 +239,6 @@ public enum BattleState
 //load these around the samples put in the array
 
 
-//TODO: Refactor to be base battleturn, stuff with both enemy and player, 
 public class BattleAction
 {
     public bool playerOrEnemy;

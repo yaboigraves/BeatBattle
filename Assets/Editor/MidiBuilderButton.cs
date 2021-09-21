@@ -16,5 +16,10 @@ public class MidiBuilderButton : Editor
         {
             track.BuildTrack();
         }
+
+        if (GUILayout.Button("Load Track Data"))
+        {
+            track.LoadTrack();
+        }
     }
 }

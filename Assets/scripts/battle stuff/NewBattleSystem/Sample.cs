@@ -24,7 +24,7 @@ public class Sample : ScriptableObject
 
     public SampleType sampleType;
 
-    //TODO: remove this
+
     public string miniGameSceneName;
 
     //so this can be used

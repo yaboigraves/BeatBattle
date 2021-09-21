@@ -83,9 +83,9 @@ public class DamageMiniGame : MiniGame
 
         miniGameSettings.minigameSample = sample;
         //TODO: make these traccks select randomly?
-        miniGameSettings.numBeats = sample.sampleTrack.tracks[0].kickBeats.Count;
+        miniGameSettings.numBeats = sample.sampleTrack.tracks[0].ch1.Count;
         //so we also generate the report here
-        report = new MinigameReport(sample.sampleTrack.tracks[0].kickBeats.Count);
+        report = new MinigameReport(sample.sampleTrack.tracks[0].ch1.Count);
     }
 
     public override void StartMiniGame()

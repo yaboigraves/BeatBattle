@@ -138,20 +138,35 @@ public static class TimeManager
 
     }
 
-    public static double GetIndicatorEndTime(int beatNumber)
+
+    public static double GetIndicatorEndTime(float beatNumber)
     {
-        //note : this assumes that the currentMinigameBeatStart is set properly
-        // Debug.Log("getting info for indicator at " + beatNumber);
-        // Debug.Log("current start beat is " + currentMinigameBeatStart);
-        // Debug.Log("resolving time for " + (currentMinigameBeatStart + beatNumber));
-        //
 
-        //Debug.Log(beatTimeline.timeline[currentMinigameBeatStart + beatNumber].time);
+        Debug.Log(beatNumber);
 
-        //so the ending time was right the start time is fucked up
+        if (beatNumber % 1 == 0)
+        {
+            return beatTimeline.timeline[currentMinigameBeatStart + (int)beatNumber].time - beatTimeline.timeline[currentMinigameBeatStart].time;
+        }
+        else
+        {
 
-        //so i guess the easy fix for this from this end would be to just subtract the time of the minigame beat start
-        return beatTimeline.timeline[currentMinigameBeatStart + beatNumber].time - beatTimeline.timeline[currentMinigameBeatStart].time;
+            //so if its not a whole number, then we're gonna find the upper and lower beat limit
+            double lowerTime = beatTimeline.timeline[currentMinigameBeatStart + Mathf.FloorToInt(beatNumber)].time;
+            double upperTime = beatTimeline.timeline[currentMinigameBeatStart + Mathf.CeilToInt(beatNumber)].time;
+
+
+            double beatRange = upperTime - lowerTime;
+
+            Debug.Log(beatTimeline.timeline[Mathf.FloorToInt(beatNumber)].time);
+            Debug.Log(beatRange);
+            Debug.Log(beatNumber - Mathf.Floor(beatNumber));
+            //so now we just multiply this by the decimal point 
+            double offsetFromFloor = beatRange * (beatNumber - Mathf.Floor(beatNumber));
+
+            return (lowerTime + offsetFromFloor) - beatTimeline.timeline[currentMinigameBeatStart].time;
+        }
+
     }
 
 }

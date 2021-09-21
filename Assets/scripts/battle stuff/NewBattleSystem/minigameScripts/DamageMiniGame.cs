@@ -65,13 +65,22 @@ public class DamageMiniGame : MiniGame
             // Debug.Log(beatOffset);
 
             //TODO: copy this code over to the healing minigame
-            indie.SetIndicatorInfo(Vector3.up * (beatOffset * (float)beatTimes[i]), indicatorContainer.transform.position - (Vector3.up * (rectTransform.rect.height / 2)), (int)beatTimes[i]);
+            indie.SetIndicatorInfo(Vector3.up * (beatOffset * (float)beatTimes[i]), indicatorContainer.transform.position - (Vector3.up * (rectTransform.rect.height / 2)), beatTimes[i]);
             indicators.Add(indie);
 
             //Debug.Log(indicators.Count);
         }
 
-        //Debug.Break();
+
+        //TODO: also go through the transition data
+        for (int i = 0; i < transitionTimes.Count; i++)
+        {
+            //so we need to keep in mind that theres gotta be an offset here
+            //the start of all the transitions is the last bar of the beat times for this game
+            //so if we know the num bars, the starting index is the beattimes + the (numbars-1) *4
+
+        }
+
     }
 
     public override void Preload(Sample sample)

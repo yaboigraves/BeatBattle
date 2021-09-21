@@ -17,7 +17,7 @@ public class NIndicator : MonoBehaviour
     //so we need to track the time that the thingy spawned, and how long it should take to get to the pads position
 
     Vector3 initialPosition, endPosition;
-    int beatOfNote, beatCounter;
+    float beatOfNote, beatCounter;
     public double startTime, endTime;
 
     //THIS IS IN PERCENTAGE 0-1
@@ -38,7 +38,7 @@ public class NIndicator : MonoBehaviour
         Expired
     }
 
-    public void SetIndicatorInfo(Vector3 initialPos, Vector3 endPos, int beatOfNote)
+    public void SetIndicatorInfo(Vector3 initialPos, Vector3 endPos, float beatOfNote)
     {
         initialPosition = transform.position;
         endPosition = endPos;
@@ -52,6 +52,7 @@ public class NIndicator : MonoBehaviour
 
         //so we can use the beat of the note and the time manager to actually calculate when this note should end
 
+        //Debug.Log(beatOfNote);
         this.endTime = TimeManager.GetIndicatorEndTime(beatOfNote);
         //Debug.Log(this.endTime);
     }
@@ -95,12 +96,19 @@ public class NIndicator : MonoBehaviour
         if (lerpProgress < 0)
         {
             Debug.Log("LERP IS FUCKED");
+            Debug.Log(lerpProgress);
+            Debug.Log(startTime);
+            Debug.Log(endTime);
             Debug.Break();
         }
 
 
 
-        transform.position = Vector3.Lerp(initialPosition, endPosition, lerpProgress);
+        if (initialPosition != endPosition)
+        {
+            transform.position = Vector3.Lerp(initialPosition, endPosition, lerpProgress);
+        }
+
 
 
         if (lerpProgress > 1f + toleranceAmount)

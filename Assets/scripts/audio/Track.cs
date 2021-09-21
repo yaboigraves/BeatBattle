@@ -55,52 +55,89 @@ public class Track : GameItem
             //then manually call the actual loader
         }
 
+        //read all the midis for the transitions too
+
+        foreach (TrackData trans in trackTransitions)
+        {
+            Debug.Log("loading transition data");
+            TrackLoader.readMidis(trans.midiFileName, true, bpm);
+        }
+
 
     }
 
     //so this is the one that will actually return the good stuff 
     public void LoadTrack()
     {
-        //TODO: scans a directory for the text files generated from the previous build function and loads them into the scriptable object
         for (int i = 0; i < tracks.Length; i++)
         {
             TrackData track = tracks[i];
-            //9/20 time
-            //so yeah i guess this can just return us back an new version of the track
+            Debug.Log("loading tracks");
 
-            Dictionary<string, List<float>> midiData = TrackLoader.readMidiTextFile(track);
+            Dictionary<string, List<float>> midiData = TrackLoader.readMidiTextFile(track, false);
 
             //load it into that track
 
             if (midiData.ContainsKey("ch1"))
             {
-                //Debug.Log("assigning ch1");
-                //Debug.Log(track.ch1.Count);
-                //Debug.Log(midiData["ch1"].Count);
+
                 track.ch1 = midiData["ch1"];
-                //Debug.Log(track.ch1.Count);
+
             }
             if (midiData.ContainsKey("ch1"))
             {
-                //Debug.Log("assigning ch2");
+
                 track.ch2 = midiData["ch2"];
             }
             if (midiData.ContainsKey("ch1"))
             {
-                //Debug.Log("assigning ch3");
+
                 track.ch3 = midiData["ch3"];
             }
             if (midiData.ContainsKey("ch1"))
             {
-                //Debug.Log("assigning ch4");
+
                 track.ch4 = midiData["ch4"];
             }
 
             tracks[i] = track;
-
         }
 
+        for (int i = 0; i < trackTransitions.Length; i++)
+        {
+            TrackData track = trackTransitions[i];
+            Debug.Log("loading transitions");
+            Dictionary<string, List<float>> midiData = TrackLoader.readMidiTextFile(track, true);
+
+            //load it into that track
+
+            if (midiData.ContainsKey("ch1"))
+            {
+
+                track.ch1 = midiData["ch1"];
+
+            }
+            if (midiData.ContainsKey("ch1"))
+            {
+
+                track.ch2 = midiData["ch2"];
+            }
+            if (midiData.ContainsKey("ch1"))
+            {
+
+                track.ch3 = midiData["ch3"];
+            }
+            if (midiData.ContainsKey("ch1"))
+            {
+
+                track.ch4 = midiData["ch4"];
+            }
+
+            trackTransitions[i] = track;
+        }
     }
+
+
     public float parseBPM(string fileName)
     {
         //format is 

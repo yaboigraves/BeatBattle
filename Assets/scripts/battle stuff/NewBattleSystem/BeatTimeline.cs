@@ -37,7 +37,7 @@ public class BeatTimeline
         }
         timeline = new BeatNode[numBeats];
 
-        Debug.Log(numBeats);
+        // Debug.Log(numBeats);
 
         for (int beat = 0, i = 0; i < samples.Length; i++)
         {

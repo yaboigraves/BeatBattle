@@ -67,12 +67,13 @@ public static class TrackLoader
         string path;
         if (isTransition)
         {
-            path = "/Dropbox/MFX/audio/Midi/BattleTransitions";
+            path = "/Dropbox/MFX/audio/Midi/BattleTransitions/";
         }
         else
         {
-            path = "/Dropbox/MFX/audio/Midi/BattleTracks";
+            path = "/Dropbox/MFX/audio/Midi/BattleTracks/";
         }
+
 
         DirectoryInfo battleTracksInfo = new DirectoryInfo("Assets" + path);
         FileInfo[] info = battleTracksInfo.GetFiles("*.mid");
@@ -82,8 +83,10 @@ public static class TrackLoader
 
         foreach (FileInfo f in info)
         {
+
             if (f.Name.Contains(midiFileName))
             {
+                Debug.Log(f.Name);
 
                 parseMidi(f.Name, bpm, path);
 
@@ -93,15 +96,27 @@ public static class TrackLoader
         return midiData.ToArray();
     }
 
-    public static Dictionary<string, List<float>> readMidiTextFile(TrackData t)
+    //so we need to know what directory to look in for this
+    public static Dictionary<string, List<float>> readMidiTextFile(TrackData t, bool isTransition)
     {
         //actually this needs to load multiple files so keep that in mind, we're going to want to run this once per track
         //TODO: make dis work, also kinda gotta figure outexactly what its going to return
         //so we just gotta find where the path is first
         Dictionary<string, List<float>> midiData = new Dictionary<string, List<float>>();
-        string path = Application.dataPath + @"/Dropbox/MFX/audio/Midi/BattleTracks/" + t.midiFileName + ".mid.txt";
+        string path;
+        if (!isTransition)
+        {
+            path = Application.dataPath + @"/Dropbox/MFX/audio/Midi/BattleTracks/" + t.midiFileName + ".mid.txt";
+
+        }
+        else
+        {
+            path = Application.dataPath + @"/Dropbox/MFX/audio/Midi/BattleTransitions/" + t.midiFileName + ".mid.txt";
+
+        }
 
         //open the file at that location first of all
+        Debug.Log(path);
         string[] lines = System.IO.File.ReadAllLines(path);
         //ok so now we just packacge these up into float arrays
         //package each of these up, depends how many there are
@@ -134,6 +149,7 @@ public static class TrackLoader
 
 
 
+    //TODO: this needs to support transition paths as well
     public static void parseMidi(string filename, float bpm, string prePath)
     {
 
@@ -154,7 +170,7 @@ import UnityEngine
 
 UnityEngine.Debug.Log('{filename}')
 
-filePath = '{Application.dataPath + @"/Dropbox/MFX/audio/Midi/BattleTracks/" + filename}'
+filePath = '{Application.dataPath + @prePath + filename}'
 
 mid = MidiFile(filePath)
 
@@ -206,7 +222,7 @@ UnityEngine.Debug.Log(kickMessages[1] * {bpm}/60)
 #h 4 6 8 4 etc
 #p 5 8 9 2 etc
 
-midiDataFile = open('{Application.dataPath + @"/Dropbox/MFX/audio/Midi/BattleTracks/" + filename + ".txt"}','w+')
+midiDataFile = open('{Application.dataPath + @prePath + filename + ".txt"}','w+')
 #write the kickbeats
 kickStr = 'k '
 for k in kickMessages:

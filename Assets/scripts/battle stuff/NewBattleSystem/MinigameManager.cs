@@ -197,8 +197,8 @@ public class MinigameManager : MonoBehaviour
 
         //for now we dont even fuckin bother looking at the sample
 
-
-        game.SetBeatTimes(playerSample.sampleTrack.tracks[0].ch1);
+        //so i guess for now we can just append the transition stuff to the ned
+        game.SetBeatTimes(playerSample.sampleTrack.tracks[0].ch1, playerSample.sampleTrack.trackTransitions[0].ch1);
         game.Preload(playerSample);
 
         //TODO: rewrite activateminigamescene to use something unique to the scene or sample

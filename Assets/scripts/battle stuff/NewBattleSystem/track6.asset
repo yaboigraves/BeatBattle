@@ -20,21 +20,60 @@ MonoBehaviour:
   trackName: 
   tracks:
   - trackClip: {fileID: 8300000, guid: 816de7973c50db648a942557a5b638a8, type: 3}
-    kickBeats:
+    ch1:
+    - 0
+    - 1.75
+    - 2
+    - 3.75
+    - 4
+    - 5.75
+    - 6
+    - 6.5
+    - 7.75
+    - 8
+    - 9.75
+    - 10
+    - 11.75
+    ch2:
     - 1
-    snareBeats: []
-    hatBeats: []
-    percBeats: []
+    - 3
+    - 5
+    - 7
+    - 9
+    - 11
+    ch3:
+    - 0
+    - 0.25
+    - 0.5
+    - 2
+    - 2.25
+    - 2.5
+    - 4
+    - 4.25
+    - 4.5
+    - 4.75
+    - 5
+    - 5.25
+    - 5.5
+    - 5.75
+    - 6.5
+    - 8
+    - 8.25
+    - 8.5
+    - 10
+    - 10.25
+    - 10.5
+    ch4: []
     numBeats: 0
     midiFileName: track6Midi
   trackTransitions:
   - trackClip: {fileID: 8300000, guid: 1c0b60f9cde2a9947911433900dd4a92, type: 3}
-    kickBeats: []
-    snareBeats: []
-    hatBeats: []
-    percBeats: []
+    ch1: []
+    ch2: []
+    ch3: []
+    ch4: []
     numBeats: 0
-    midiFileName: 
+    midiFileName: track6TransitionMidi
   artist: 
   bpm: 87
   numBars: 4
